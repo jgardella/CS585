@@ -2,6 +2,7 @@
 #define _JTEST_HH_
 
 #include <assert.h>
+#include <iostream>
 
 // Testing framework
 template <class T> 
