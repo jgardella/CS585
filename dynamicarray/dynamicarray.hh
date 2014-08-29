@@ -8,14 +8,14 @@ class DynamicArray<class T>
 		DynamicArray();
 		DynamicArray(unsigned int);
 		~DynamicArray();
-		pushFront(T);
-		pushBack(T);
-		swap(T, unsigned int, unsigned int);
-		insert(T, unsigned int);		
-		get(unsigned int);
-		length();
-		memoryUsage();
-		remove(unsigned int);
+		void pushFront(T);
+		void pushBack(T);
+		void swap(T, unsigned int, unsigned int);
+		void insert(T, unsigned int);		
+		T get(unsigned int);
+		unsigned int length();
+		unsigned int memoryUsage();
+		T remove(unsigned int);
 	private:
 		T* firstElementPointer;
 		unsigned int arrayLength;
