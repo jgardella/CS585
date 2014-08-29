@@ -8,9 +8,9 @@ template <class T>
 class JTest
 {
 	public:
-		static void testEquality(char*, T, T);
-		static void testLessThan(char*, T, T);
-		static void testGreaterThan(char*, T, T);
+		static bool testEquality(char*, T, T);
+		static bool testLessThan(char*, T, T);
+		static bool testGreaterThan(char*, T, T);
 };
 
 #endif
