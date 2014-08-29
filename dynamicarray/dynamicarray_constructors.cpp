@@ -8,6 +8,8 @@ DynamicArray<T>::DynamicArray()
 }
 
 // Constructor which allocates an array of size 'preAllocatedLength'.
+// Parameters:
+// unsigned int preAllocatedLength - the length to initially allocate the array
 DynamicArray<T>::DynamicArray(unsigned int preAllocatedLength)
 {
 	this->firstElementPointer = new T[preAllocatedLength];
