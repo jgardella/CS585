@@ -2,15 +2,16 @@
 #define _JTEST_HH_
 
 #include <assert.h>
+#include <iostream>
 
 // Testing framework
 template <class T> 
 class JTest
 {
 	public:
-		static bool testEquality(char*, T, T);
-		static bool testLessThan(char*, T, T);
-		static bool testGreaterThan(char*, T, T);
+		static void testEquality(char*, T, T);
+		static void testLessThan(char*, T, T);
+		static void testGreaterThan(char*, T, T);
 };
 
 #endif
