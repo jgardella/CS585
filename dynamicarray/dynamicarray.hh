@@ -17,7 +17,8 @@ class DynamicArray<class T>
 		memoryUsage();
 		remove(unsigned int);
 	private:
-
+		T[] array;
+		unsigned int arrayLength;
 }
 
 #endif
