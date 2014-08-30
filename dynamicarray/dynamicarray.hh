@@ -17,8 +17,14 @@ class DynamicArray<class T>
 		unsigned int memoryUsage();
 		T remove(unsigned int);
 	private:
-		T* firstElementPointer;
-		unsigned int arrayLength;
+		T[] array;
+		unsigned int dynamicArrayLength; // length of dynamic array
+		unsigned int internalArrayLength; // length of internal array
+		T* dynamicArrayFront; // pointer to empty position at front of dynamic array
+		T* dynamicArrayBack; // pointer to empty position at back of dynamic array
+		T* internalArrayFront; // pointer to memory location before front of internal array
+	        T* internalArrayBack; // pointer to nemory location after back of internal array	
+		void reallocate();
 }
 
 #endif
