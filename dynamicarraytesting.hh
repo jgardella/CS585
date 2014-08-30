@@ -4,6 +4,7 @@
 #include "dynamicarray.hh"
 #include "jtest.hh"
 
+// Methods for testing dynamicarray.hh
 class DynamicArrayTesting
 {
 	public:

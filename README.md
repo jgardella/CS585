@@ -27,7 +27,7 @@ as for the template to accept all types, all implementation must be in the heade
 
 Header files may contain multiple classes.
 
-For larger classes, it may be necesarry to separate methods into separate `.cpp` files. Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
+Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
 For example, a file which contains getters and setters for a car class, which has the header file `car.hh` should be called `car_gettersandsetters.hh`.
 
 Internally, `.cpp` files should follow this pattern:

@@ -1,3 +1,5 @@
+// Tests for modification methods.
+
 #include "dynamicarraytesting.hh"
 
 // Tests the swap method of dynamicarray by adding two elements, swapping them, and then checking to make sure

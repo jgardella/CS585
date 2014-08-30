@@ -1,3 +1,5 @@
+// Tests for memory reallocation.
+
 #include "dynamicarraytesting.hh"
 
 // Tests if memory is proprely reallocated when the array's capacity is exceeded on either the left or right side.

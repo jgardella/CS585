@@ -1,3 +1,5 @@
+// Tests for constructors.
+
 #include "dynamicarraytesting.hh"
 
 // Tests the default constructor by making sure it correctly instantiates length and capacity.

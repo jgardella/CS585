@@ -1,5 +1,8 @@
+// Tests for push methods.
+
 #include "dynamicarraytesting.hh"
 
+// Tests push front method by pushing several element to the front and checking that they have been properly pushed.
 void DynamicArrayTesting::pushFrontTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
@@ -13,6 +16,7 @@ void DynamicArrayTesting::pushFrontTest()
 	delete array;
 }
 
+// Tests the push back method by pushing several elements to the back and checking that they have been properly pushed.
 void DynamicArrayTesting::pushBackTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
