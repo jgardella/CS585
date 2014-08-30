@@ -15,6 +15,7 @@ Header files will contain *only* variable declarations and method signatures wit
 
 - Header Guard 
 - Includes
+- Macros
 - Namespace
 - Structures and Unions
 - Class Comment Block (described in further detail in comments section)

@@ -5,10 +5,11 @@
 // Reallocates the internal array to the size specified by newSize.
 // Parameters:
 // unsigned int newSize - the new size for the internal array (must be greater than the current length of the dynamic array)
+template <class T>
 void DynamicArray<T>::reallocate(unsigned int newSize)
 {
 	int i;
-	T[] temp;
+	T* temp;
 	if(newSize > dynamicArrayLength)
 	{
 		// allocate new array of specified size
@@ -33,6 +34,7 @@ void DynamicArray<T>::reallocate(unsigned int newSize)
 // Reallocates the internal array such that it can hold the number of elements specified by sizeToReserve.
 // Parameters:
 // unsigned int sizeToReserve - the size to reserve for the internal array (must be greater than the current length of the internal array)
+template <class T>
 void DynamicArray<T>::reserve(unsigned int sizeToReserve)
 {
 	if(sizeToReserve > internalArrayLength)

@@ -5,6 +5,7 @@
 // Adds a new element onto the front end of the array.
 // Parameters:
 // T newElement - the new element to be added to the array
+template <class T>
 void DynamicArray<T>::pushFront(T newElement)
 {
 	// reallocate internal array if front side of array is full
@@ -19,12 +20,13 @@ void DynamicArray<T>::pushFront(T newElement)
 // Adds a new element onto the back end of the array.
 // Parameters:
 // T newElement - the new element to be added to the array
+template <class T>
 void DynamicArray<T>::pushBack(T newElement)
 {
 	// reallocate internal array if back side of array is full
 	if(this->dynamicArrayBack == this->internalArrayBack)
 	{
-		reallocate((unsigned int) std::log(internalArrayLength));
+		reallocate((unsigned int)(internalArrayLength * 1.5));
 	}
 	*dynamicArrayBack++ = newElement;
 	dynamicArrayLength++;

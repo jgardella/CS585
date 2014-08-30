@@ -1,8 +1,11 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
+#define NULL 0
+
 // Dynamically sized array
-class DynamicArray<class T>
+template <class T>
+class DynamicArray
 {
 	public:
 		DynamicArray();
@@ -10,22 +13,22 @@ class DynamicArray<class T>
 		~DynamicArray();
 		void pushFront(T);
 		void pushBack(T);
-		void swap(T, unsigned int, unsigned int);
-		void insert(T, unsigned int);		
+		void swap(unsigned int, unsigned int);
+		T insert(T, unsigned int);		
 		T get(unsigned int);
 		unsigned int length();
 		unsigned int memoryUsage();
 		T remove(unsigned int);
 		void reserve(unsigned int);
 	private:
-		T[] array;
+		T* array;
 		unsigned int dynamicArrayLength; // length of dynamic array
 		unsigned int internalArrayLength; // length of internal array
 		T* dynamicArrayFront; // pointer to empty position at front of dynamic array
 		T* dynamicArrayBack; // pointer to empty position at back of dynamic array
 		T* internalArrayFront; // pointer to memory location before front of internal array
 	        T* internalArrayBack; // pointer to nemory location after back of internal array	
-		void reallocate();
-}
+		void reallocate(unsigned int);
+};
 
 #endif
