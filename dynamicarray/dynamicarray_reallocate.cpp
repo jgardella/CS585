@@ -1,3 +1,5 @@
+// This file contains methods for memory reservation and reallocation.
+
 #include "dynamicarray.hh"
 
 // Reallocates the internal array to the size specified by newSize.

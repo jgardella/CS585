@@ -1,3 +1,5 @@
+// This file contains methods which add elements to the array, specifically push front and push back.
+
 #include "dynamicarray.hh"
 
 // Adds a new element onto the front end of the array.

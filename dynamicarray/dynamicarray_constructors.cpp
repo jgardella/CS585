@@ -1,3 +1,5 @@
+// This file contains constructors and deconstructors.
+
 #include "dynamicarray.hh"
 
 // Default constructor - allocates an internal array of size 10

@@ -1,3 +1,5 @@
+// This file contains methods for modifying the contents of the dynamic array, specifically insert, swap, get, and remove.
+
 #include "dynamicarray.hh"
 
 // Inserts the element newElement at position index in the array.
@@ -70,6 +72,7 @@ T DynamicArray<T>::remove(unsigned int index)
 			}
 			dynamicArrayFront++; // move pointer to new front of array
 		}
+		dynamicArrayLength--;
 	}
 	return NULL;
 }
