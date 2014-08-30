@@ -14,7 +14,7 @@ class JTest
 		// char* testName - the name of the test being performed
 		// T expectedValue - the expected result of the operation
 		// T actualValue - the actual result of the operation
-		static void testEquality(char* testName, T expectedValue, T actualValue)
+		static void testEquality(const char* testName, T expectedValue, T actualValue)
 		{
 			if(expectedValue != actualValue)
 			{
@@ -30,7 +30,7 @@ class JTest
 		// char* testName - the name of the test being performed
 		// T upperBound - the value which the actual value must be under for the test to pass
 		// T actualValue - the result of the operation
-		static void testLessThan(char* testName, T upperBound, T actualValue)
+		static void testLessThan(const char* testName, T upperBound, T actualValue)
 		{
 			if(actualValue >= upperBound)
 			{
@@ -46,7 +46,7 @@ class JTest
 		// char* testName - the name of the test being performed
 		// T lowerBound - the value which the actual value must be over for the test to pass
 		// T actualValue - the result of the operation
-		static void testGreaterThan(char* testName, T lowerBound, T actualValue)
+		static void testGreaterThan(const char* testName, T lowerBound, T actualValue)
 		{
 			if(actualValue <= lowerBound)
 			{

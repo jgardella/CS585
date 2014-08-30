@@ -1,5 +1,5 @@
 NAME = dynamicarray
-SRC = main.cpp
+SRC = main.cpp dynamicarraytesting_simpletest.cpp dynamicarraytesting_constructors.cpp dynamicarraytesting_push.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 
