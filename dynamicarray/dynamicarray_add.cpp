@@ -8,7 +8,7 @@ void DynamicArray<T>::pushFront(T newElement)
 	// reallocate internal array if front side of array is full
 	if(this->dynamicArrayFront == this->internalArrayFront)	
 	{
-		reallocate();
+		reallocate((unsigned int)(internalArrayLength * 1.5));
 	}
 	*dynamicArrayFront-- = newElement;
 	dynamicArrayLength++;
@@ -22,7 +22,7 @@ void DynamicArray<T>::pushBack(T newElement)
 	// reallocate internal array if back side of array is full
 	if(this->dynamicArrayBack == this->internalArrayBack)
 	{
-		reallocate();
+		reallocate((unsigned int) std::log(internalArrayLength));
 	}
 	*dynamicArrayBack++ = newElement;
 	dynamicArrayLength++;
