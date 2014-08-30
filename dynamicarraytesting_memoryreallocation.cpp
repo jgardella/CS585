@@ -1,0 +1,41 @@
+#include "dynamicarraytesting.hh"
+
+// Tests if memory is proprely reallocated when the array's capacity is exceeded on either the left or right side.
+void DynamicArrayTesting::memoryReallocationTest()
+{
+	// Test array overflow on back side.
+	DynamicArray<int> *array = new DynamicArray<int>();
+	array->pushBack(1);
+	array->pushBack(2);
+	array->pushBack(3);
+	array->pushBack(4);
+	array->pushBack(5);
+	array->pushBack(6);
+	JTest<int>::testEquality("Back memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
+	JTest<int>::testEquality("Back memory reallocation test, element which surpassed capacity has been added", 6, array->get(5));
+	delete array;
+	
+	// Test array overflow on front side.
+	array = new DynamicArray<int>();
+	array->pushFront(1);
+	array->pushFront(2);
+	array->pushFront(3);
+	array->pushFront(4);
+	array->pushFront(5);
+	array->pushFront(6);
+	array->pushFront(7);
+	JTest<int>::testEquality("Front memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
+	JTest<int>::testEquality("Front memory reallocation test, element which surpassed capacity has been added", 7, array->get(0));
+	delete array;
+}
+
+// Tests that the reserve method correctly expands the array's capacity.
+void DynamicArrayTesting::reserveTest()
+{
+	DynamicArray<int> *array = new DynamicArray<int>();
+	array->reserve(100);
+	JTest<int>::testEquality("Reserve test, array capacity expanded", 100, array->capacity());
+	array->reserve(50);
+	JTest<int>::testEquality("Reserve test, array capacity not expanded", 100, array->capacity());
+	delete array;
+}
