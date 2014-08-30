@@ -16,6 +16,7 @@ class DynamicArray<class T>
 		unsigned int length();
 		unsigned int memoryUsage();
 		T remove(unsigned int);
+		void reserve(unsigned int);
 	private:
 		T[] array;
 		unsigned int dynamicArrayLength; // length of dynamic array
