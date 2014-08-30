@@ -126,6 +126,7 @@ class DynamicArray
 			int i;
 			if(index < this->dynamicArrayLength)
 			{
+				T removedElement = this->get(index);
 				// if the index being removed is in the right half of the dynamic array, it will be more efficient to
 				// shift the elements on the right
 				if(index > dynamicArrayLength / 2)
@@ -145,6 +146,7 @@ class DynamicArray
 					dynamicArrayFront++; // move pointer to new front of array
 				}
 				dynamicArrayLength--;
+				return removedElement;
 			}
 		}
 
