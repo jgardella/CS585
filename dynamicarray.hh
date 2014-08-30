@@ -1,8 +1,6 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
-#define NULL 0
-
 #include <iostream> // TODO: remove
 
 // Dynamically sized array
@@ -91,7 +89,6 @@ class DynamicArray
 				this->dynamicArrayFront[index + 1] = newElement;
 				return oldElement;
 			}
-			return NULL;
 		}
 		
 		// Swaps two elements in the array.
@@ -118,7 +115,6 @@ class DynamicArray
 			{
 				return this->dynamicArrayFront[index + 1];
 			}
-			return NULL;
 		}
 		
 		// Removes the item at the specified index.
@@ -150,7 +146,6 @@ class DynamicArray
 				}
 				dynamicArrayLength--;
 			}
-			return NULL;
 		}
 
 		
