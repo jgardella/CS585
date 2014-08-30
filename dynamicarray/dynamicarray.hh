@@ -3,6 +3,8 @@
 
 #define NULL 0
 
+#include <iostream> // TODO: remove
+
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -18,9 +20,9 @@ class DynamicArray
 			this->dynamicArrayLength = 0;
 			this->internalArrayLength = 10;
 			this->dynamicArrayFront = &array[internalArrayLength / 2];
-			this->dynamicArrayBack = &array[internalArrayLength / 2] + sizeof(T);
-			this->internalArrayFront = array - sizeof(T);
-			this->internalArrayBack = array + sizeof(T) * internalArrayLength;
+			this->dynamicArrayBack = &array[internalArrayLength / 2] + 1;
+			this->internalArrayFront = array - 1;
+			this->internalArrayBack = array + internalArrayLength;
 		}
 
 		// Constructor which allocates an array of size 'preAllocatedLength'.
@@ -32,9 +34,9 @@ class DynamicArray
 			this->dynamicArrayLength = 0;
 			this->internalArrayLength = preAllocatedLength;
 			this->dynamicArrayFront = &array[this->internalArrayLength / 2];
-			this->dynamicArrayBack = &array[this->internalArrayLength / 2] + sizeof(T);
-			this->internalArrayFront = array - sizeof(T);
-			this->internalArrayBack = array + sizeof(T) * internalArrayLength;
+			this->dynamicArrayBack = &array[this->internalArrayLength / 2] + 1;
+			this->internalArrayFront = array - 1;
+			this->internalArrayBack = array + internalArrayLength;
 		}
 
 		// Deconstructor, simply deletes array.
@@ -205,10 +207,10 @@ class DynamicArray
 					temp[i + (newSize - dynamicArrayLength) / 2] = dynamicArrayFront[i + 1];
 				}
 				// adjust front and back pointers to point to correct location in new array
-				dynamicArrayFront = &temp[(newSize - dynamicArrayLength) / 2] - sizeof(T);
+				dynamicArrayFront = &temp[(newSize - dynamicArrayLength) / 2] - 1;
 				dynamicArrayBack = &temp[(newSize + dynamicArrayLength) / 2];
-				internalArrayFront = temp - sizeof(T);
-				internalArrayBack = temp + sizeof(T) * newSize;
+				internalArrayFront = temp - 1;
+				internalArrayBack = temp + newSize;
 				internalArrayLength = newSize;
 				// delete old array and change pointer to point to new array
 				delete [] array;
