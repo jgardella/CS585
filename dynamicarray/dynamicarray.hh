@@ -16,9 +16,9 @@ class DynamicArray
 		{
 			this->array = new T[10];
 			this->dynamicArrayLength = 0;
-			this->internalArrayLength = 10;	
+			this->internalArrayLength = 10;
 			this->dynamicArrayFront = &array[internalArrayLength / 2];
-			this->dynamicArrayBack = &array[internalArrayLength / 2];
+			this->dynamicArrayBack = &array[internalArrayLength / 2] + sizeof(T);
 			this->internalArrayFront = array - sizeof(T);
 			this->internalArrayBack = array + sizeof(T) * internalArrayLength;
 		}
@@ -32,7 +32,7 @@ class DynamicArray
 			this->dynamicArrayLength = 0;
 			this->internalArrayLength = preAllocatedLength;
 			this->dynamicArrayFront = &array[this->internalArrayLength / 2];
-			this->dynamicArrayBack = &array[this->internalArrayLength / 2];
+			this->dynamicArrayBack = &array[this->internalArrayLength / 2] + sizeof(T);
 			this->internalArrayFront = array - sizeof(T);
 			this->internalArrayBack = array + sizeof(T) * internalArrayLength;
 		}

@@ -2,6 +2,6 @@
 
 int main()
 {
-	JTest::testEquality("Simple arithmetic test.", 2, 1 + 1);
+	JTest<int>::testEquality((char*)"Simple arithmetic test.", 3, 1 + 1);
 	return 0;
 }
