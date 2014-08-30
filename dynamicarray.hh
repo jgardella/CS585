@@ -131,17 +131,17 @@ class DynamicArray
 				// shift the elements on the right
 				if(index > dynamicArrayLength / 2)
 				{
-					for(i = index + 2; i < dynamicArrayLength; i++)
+					for(i = index; i < dynamicArrayLength; i++)
 					{
-						this->dynamicArrayFront[i - 1] = this->dynamicArrayFront[i];
+						this->insert(this->get(i + 1), i);
 					}
 					dynamicArrayBack--; // move pointer to new back of array
 				}
 				else // index is in left half of the dynamic array, so it is more efficient to shift the elements on the left
 				{
-					for(i = index - 2; i >= 0; i--)
+					for(i = index; i > 0; i--)
 					{
-						this->dynamicArrayFront[i + 1] = this->dynamicArrayFront[i];
+						this->insert(this->get(i - 1), i);
 					}
 					dynamicArrayFront++; // move pointer to new front of array
 				}
@@ -160,7 +160,7 @@ class DynamicArray
 		}
 
 		// Returns the length of the internal array.
-		unsigned int memoryUsage()
+		unsigned int capacity()
 		{
 			return internalArrayLength;
 		}

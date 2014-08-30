@@ -35,6 +35,8 @@ void DynamicArrayTesting::getTest()
 }
 
 // Tests the remove methodby inserting 5 elements, removing the middle one, and then checking that the remaining elements are properly shifted and the length is decreased.
+// There are separate tests for removing from the left half and right half of the array because the remove method behaves differently depending on which side of the array the item
+// is removed from.
 void DynamicArrayTesting::removeTest()
 {
 	int i;
@@ -44,12 +46,24 @@ void DynamicArrayTesting::removeTest()
 	array->pushBack(3);
 	array->pushBack(4);
 	array->pushBack(5);
+	// Test remove method when an item is removed from the left half of the array.
 	int removedElement = array->remove(2);
-	JTest<int>::testEquality("Remove test, removed element correctly returned", 3, removedElement);
-	JTest<int>::testEquality("Remove test, element one did not move", 1, array->get(0));
-	JTest<int>::testEquality("Remove test, element two did not move", 2, array->get(1));
-	JTest<int>::testEquality("Remove test, element four is now element three", 4, array->get(2));
-	JTest<int>::testEquality("Remove test, element five is now element four", 5, array->get(3));
-	JTest<int>::testEquality("Remove tset, array length decreased", 4, array->length());
+	JTest<int>::testEquality("Left side remove test, removed element correctly returned", 3, removedElement);
+	JTest<int>::testEquality("Left side remove test, element one did not move", 1, array->get(0));
+	JTest<int>::testEquality("Left side remove test, element two did not move", 2, array->get(1));
+	JTest<int>::testEquality("Left side remove test, element four is now element three", 4, array->get(2));
+	JTest<int>::testEquality("Left side remove test, element five is now element four", 5, array->get(3));
+	JTest<int>::testEquality("Left side remove test, array length decreased", 4, array->length());
+	
+	// Test remove method when an item is removed from the right half of the array.
+	array->pushBack(6);
+	array->pushBack(7);
+	removedElement = array->remove(3);
+	JTest<int>::testEquality("Right side remove test, removed element correctly returned", 5, removedElement);
+	JTest<int>::testEquality("Right side remove test, element one did not move", 1, array->get(0));
+	JTest<int>::testEquality("Right side remove test, element two did not move", 2, array->get(1));
+	JTest<int>::testEquality("Right side remove test, element three did not move", 4, array->get(2));
+	JTest<int>::testEquality("Right side remove test, element five is now element four", 6, array->get(3));
+	JTest<int>::testEquality("Right side remove test, element six is now element five", 7, array->get(4));
 	delete array;
 }

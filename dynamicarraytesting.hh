@@ -18,8 +18,6 @@ class DynamicArrayTesting
 		static void insertTest();
 		static void removeTest();
 		static void swapTest();
-		static void lengthTest();
-		static void capacityTest();
 		static void memoryReallocationTest();
 };
 
