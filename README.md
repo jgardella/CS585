@@ -11,7 +11,8 @@ Structure
 ---------
 A clear, sensible, rigorously followed code structure is paramount to understandable code. A good code structure is one in which everything is where the reader would expect it to be; as such, the reader can navigate the code with ease.
 
-Header files should follow this pattern:
+When possible, header files should *only* contain method and member declarations. All implementation should be placed in separate `.cpp` files. A noteable exception to this is when dealing with templates,
+as for the template to accept all types, all implementation must be in the header file. Header files should follow this pattern:
 
 - Header Guard 
 - Includes
