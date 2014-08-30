@@ -11,7 +11,7 @@ Structure
 ---------
 A clear, sensible, rigorously followed code structure is paramount to understandable code. A good code structure is one in which everything is where the reader would expect it to be; as such, the reader can navigate the code with ease.
 
-Header files will contain *only* variable declarations and method signatures within their classes. A method should *never* have its body implemented in the header file. All methods should be implemented in separate `.cpp` files. Header files should follow this pattern:
+Header files should follow this pattern:
 
 - Header Guard 
 - Includes
@@ -26,7 +26,7 @@ Header files will contain *only* variable declarations and method signatures wit
 
 Header files may contain multiple classes.
 
-All body implementation will be done in separate `.cpp` files. Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
+For larger classes, it may be necesarry to separate methods into separate `.cpp` files. Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
 For example, a file which contains getters and setters for a car class, which has the header file `car.hh` should be called `car_gettersandsetters.hh`.
 
 Internally, `.cpp` files should follow this pattern:

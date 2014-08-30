@@ -1,5 +1,5 @@
 NAME = dynamicarray
-SRC = main.cpp dynamicarray_constructors.cpp dynamicarray_modification.cpp dynamicarray_add.cpp dynamicarray_reallocate.cpp dynamicarray_length.cpp
+SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 
