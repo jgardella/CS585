@@ -7,10 +7,10 @@
 // Returns the element that was in position index before insertion, or NULL if the insertion did not complete because the provided index was out of bounds.
 T DynamicArray<T>::insert(T newElement, unsigned int index)
 {
-	if(index < arrayLength)
+	if(index < dynamicArrayLength)
 	{
-		T oldElement = this->firstElementPointer[index];
-		this->firstElementPointer[index] = newElement;
+		T oldElement = this->dynamicArrayFront[index + 1];
+		this->dynamicArrayFront[index + 1] = newElement;
 		return oldElement;
 	}
 	return NULL;
@@ -22,11 +22,11 @@ T DynamicArray<T>::insert(T newElement, unsigned int index)
 // unsigned int indexTwo - the index of the second item
 void DynamicArray<T>::swap(unsigned int indexOne, unsigned int indexTwo)
 {
-	if(indexOne < this->arrayLength && indexTwo < this->arrayLength)
+	if(indexOne < this->dynamicArrayLength && indexTwo < this->dynamicArrayLength)
 	{
-		T temp = this->firstElementPointer[indexOne];
-		this->firstElementPointer[indexOne] = this->firstElementPointer[indexTwo];
-		this->firstElementPointer[indexTwo] = temp;	
+		T temp = this->dynamicArrayFront[indexOne + 1];
+		this->dynamicArrayFront[indexOne + 1] = this->dynamicArrayFront[indexTwo + 1];
+		this->dynamicArrayFront[indexTwo + 1] = temp;	
 	}
 }
 
@@ -36,9 +36,9 @@ void DynamicArray<T>::swap(unsigned int indexOne, unsigned int indexTwo)
 // Returns the item at position index, or NULL if the provided index is out of bounds.
 T DynamicArray<T>::get(unsigned int index)
 {
-	if(index < this->arrayLength)
+	if(index < this->dynamicArrayLength)
 	{
-		return this->firstElementPointer[index];
+		return this->dynamicArrayFront[index + 1];
 	}
 	return NULL;
 }
@@ -50,24 +50,25 @@ T DynamicArray<T>::get(unsigned int index)
 T DynamicArray<T>::remove(unsigned int index)
 {
 	int i;
-	if(index < this->arrayLength)
+	if(index < this->dynamicArrayLength)
 	{
-		// if the index being removed is in the right half of the array, it will be more efficient to
+		// if the index being removed is in the right half of the dynamic array, it will be more efficient to
 		// shift the elements on the right
-		if(index > arrayLength / 2)
+		if(index > dynamicArrayLength / 2)
 		{
-			for(i = index + 1; i < arrayLength; i++)
+			for(i = index + 2; i < dynamicArrayLength; i++)
 			{
-				this->firstElementPointer[i - 1] = this->firstElementPointer[i];
+				this->dynamicArrayFront[i - 1] = this->dynamicArrayFront[i];
 			}
+			dynamicArrayBack--; // move pointer to new back of array
 		}
-		else // index is in left half ot array, so it is more efficient to shift the elements on the left
+		else // index is in left half of the dynamic array, so it is more efficient to shift the elements on the left
 		{
-			for(i = index - 1; i >= 0; i--)
+			for(i = index - 2; i >= 0; i--)
 			{
-				this->firstElementPointer[i + 1] = this->firstElementPointer[i];
+				this->dynamicArrayFront[i + 1] = this->dynamicArrayFront[i];
 			}
-			firstElementPointer++; // move pointer to new front of array
+			dynamicArrayFront++; // move pointer to new front of array
 		}
 	}
 	return NULL;
