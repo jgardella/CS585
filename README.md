@@ -25,8 +25,10 @@ Header files will contain *only* variable declarations and method signatures wit
 
 Header files may contain multiple classes.
 
-All body implementation will be done in separate `.cpp` files. Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents (e.g. all getters and setters could be grouped together
-in a `.cpp` file called `gettersAndSetters.cpp`). `.cpp` files should follow this pattern:
+All body implementation will be done in separate `.cpp` files. Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
+For example, a file which contains getters and setters for a car class, which has the header file `car.hh` should be called `car_gettersandsetters.hh`.
+
+Internally, `.cpp` files should follow this pattern:
 
 - Comment Block (describing what type of methods are in the file)
 - Includes (the associated header file should be first)
@@ -37,7 +39,8 @@ Method implementations within the `.cpp` files should follow this pattern:
 - Method Comment Block (described in further detail in comments section)
 - Template Signature (if applicable)
 - Method Signature
-- Method Body
+- Local Variables
+- Rest of Method Body
 
 Comments
 --------
