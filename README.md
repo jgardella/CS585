@@ -16,7 +16,7 @@ Header files will contain *only* variable declarations and method signatures wit
 - Header Guard 
 - Includes
 - Namespace
-- Structure and Unions
+- Structures and Unions
 - Class Comment Block (described in further detail in comments section)
 - Class Declaration
 - Public Members and Methods
@@ -56,6 +56,9 @@ This concept also carries over into method comment blocks. Methods which have a 
 Class comment blocks should simply be a short description of the class and its functionality.
 
 Each `.cpp` file should have a comment block at the top with a short description of the methods it contains.
+
+Always air on the side of caution. If you are not sure whether or not to add a comment, just add it. Too few comments inconveniences the reader more than too many comments. This is not to say that every line needs a comment, nor that over-commenting
+is a trivial mistake; over-commenting can disrupt the flow of code and even make it more difficult to understand. In most situations, though, if you are unsure if a certain line requires a comment, just play it safe and add it.
 
 Indentation
 -----------
