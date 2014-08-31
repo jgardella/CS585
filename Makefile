@@ -4,7 +4,7 @@ OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 
 all: $(OBJ)
-	gcc $(OBJ) -o $(NAME) -lstdc++ -Wall -Werror -std=c++11
+	g++ $(OBJ) -o $(NAME)  -Wall -Werror -std=c++11
 
 clean:
 	-$(RM) *~

@@ -53,7 +53,14 @@ class DynamicArray
 			// reallocate internal array if front side of array is full
 			if(this->dynamicArrayFront == this->internalArrayFront)	
 			{
-				reallocate((unsigned int)(internalArrayLength * 1.5));
+				if(this->length() == this->capacity())
+				{
+					reallocate((unsigned int)(internalArrayLength * 1.5));
+				}
+				else
+				{
+					shiftRight();
+				}
 			}
 			*dynamicArrayFront-- = newElement;
 			dynamicArrayLength++;
@@ -67,7 +74,14 @@ class DynamicArray
 			// reallocate internal array if back side of array is full
 			if(this->dynamicArrayBack == this->internalArrayBack)
 			{
-				reallocate((unsigned int)(internalArrayLength * 1.5));
+				if(this->length() == this->capacity())
+				{
+					reallocate((unsigned int)(internalArrayLength * 1.5));
+				}
+				else
+				{
+					shiftLeft();
+				}
 			}
 			*dynamicArrayBack++ = newElement;
 			dynamicArrayLength++;
@@ -213,7 +227,32 @@ class DynamicArray
 				delete [] array;
 				array = temp;
 			}
-		}		
+		}
+
+		// Shifts all elements right within the internal array.
+		void shiftRight()
+		{
+			int i;
+			for(i = dynamicArrayLength - 1; i > 0; i--)
+			{
+				dynamicArrayFront[i] = dynamicArrayFront[i - 1];
+			}
+			this->dynamicArrayFront++;
+			this->dynamicArrayBack++;
+		}	
+
+		// Shifts all elements left within the internal array.
+		void shiftLeft()
+		{
+			int i;
+			for(i = 0; i < dynamicArrayLength; i++)
+			{
+				dynamicArrayFront[i] = dynamicArrayFront[i + 1];
+			}
+			this->dynamicArrayFront--;
+			this->dynamicArrayBack--;
+		}	
+
 };
 
 #endif

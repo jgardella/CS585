@@ -13,8 +13,13 @@ void DynamicArrayTesting::memoryReallocationTest()
 	array->pushBack(4);
 	array->pushBack(5);
 	array->pushBack(6);
+	array->pushBack(7);
+	array->pushBack(8);
+	array->pushBack(9);
+	array->pushBack(10);
+	array->pushBack(11);
 	JTest<int>::testEquality("Back memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
-	JTest<int>::testEquality("Back memory reallocation test, element which surpassed capacity has been added", 6, array->get(5));
+	JTest<int>::testEquality("Back memory reallocation test, element which surpassed capacity has been added", 11, array->get(10));
 	delete array;
 	
 	// Test array overflow on front side.
@@ -26,8 +31,12 @@ void DynamicArrayTesting::memoryReallocationTest()
 	array->pushFront(5);
 	array->pushFront(6);
 	array->pushFront(7);
+	array->pushFront(8);
+	array->pushFront(9);
+	array->pushFront(10);
+	array->pushFront(11);
 	JTest<int>::testEquality("Front memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
-	JTest<int>::testEquality("Front memory reallocation test, element which surpassed capacity has been added", 7, array->get(0));
+	JTest<int>::testEquality("Front memory reallocation test, element which surpassed capacity has been added", 11, array->get(0));
 	delete array;
 }
 
