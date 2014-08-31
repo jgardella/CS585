@@ -1,8 +1,6 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
-#include <iostream> // TODO: remove
-
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -37,7 +35,7 @@ class DynamicArray
 			this->internalArrayBack = array + internalArrayLength;
 		}
 
-		// Deconstructor, simply deletes array.
+		// Deconstructor, simply deletes the internal array.
 		~DynamicArray()
 		{
 			delete [] array;
@@ -50,16 +48,17 @@ class DynamicArray
 		// T newElement - the new element to be added to the array
 		void pushFront(T newElement)
 		{
-			// reallocate internal array if front side of array is full
+			// if the front of the array is full
 			if(this->dynamicArrayFront == this->internalArrayFront)	
 			{
+				// if capacity has been reached (i.e. internal array is full), reallocate larger array
 				if(this->length() == this->capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
 				}
-				else
+				else // there is still space in the internal array, re-center the dynamic array within the internal array
 				{
-					shiftRight();
+					recenter(true);
 				}
 			}
 			*dynamicArrayFront-- = newElement;
@@ -71,16 +70,17 @@ class DynamicArray
 		// T newElement - the new element to be added to the array
 		void pushBack(T newElement)
 		{
-			// reallocate internal array if back side of array is full
+			// if the back of the array is full
 			if(this->dynamicArrayBack == this->internalArrayBack)
 			{
+				// if capacity has been reached (i.e. internal array is full), reallocate larger array
 				if(this->length() == this->capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
 				}
-				else
+				else // there is still space in the internal array, re-center the dynamic array within the internal array
 				{
-					shiftLeft();
+					recenter(false);
 				}
 			}
 			*dynamicArrayBack++ = newElement;
@@ -228,29 +228,38 @@ class DynamicArray
 				array = temp;
 			}
 		}
-
-		// Shifts all elements right within the internal array.
-		void shiftRight()
+		
+		// Re-centers the dynamic array within the internal array. Used after there has been an overflow on either the front or back of the internal array.
+		// Parameters:
+		// bool recenterFront - true if there has been an overflow on the front of the array, false if there has been an overflow on the back of the array
+		void recenter(bool recenterFront)
 		{
 			int i;
-			for(i = dynamicArrayLength - 1; i > 0; i--)
+			int buffer = (internalArrayLength - dynamicArrayLength) / 2; // free space on each side of the internal array
+			if(recenterFront)
 			{
-				dynamicArrayFront[i] = dynamicArrayFront[i - 1];
+				// shift all elements right such that there is equal free space on the front and back of the internal array
+				int i;
+				for(i = dynamicArrayLength; i > 0; i--)
+				{
+					dynamicArrayFront[i + buffer] = dynamicArrayFront[i];
+				}
+				// adjust pointers
+				dynamicArrayFront += buffer;
+				dynamicArrayBack += buffer;
 			}
-			this->dynamicArrayFront++;
-			this->dynamicArrayBack++;
-		}	
-
-		// Shifts all elements left within the internal array.
-		void shiftLeft()
-		{
-			int i;
-			for(i = 0; i < dynamicArrayLength; i++)
+			else
 			{
-				dynamicArrayFront[i] = dynamicArrayFront[i + 1];
+				// shift all elements left such that there is equal free space on the front and back of the internal array
+				int i;
+				for(i = 1; i <= dynamicArrayLength; i++)
+				{
+					dynamicArrayFront[i - buffer] = dynamicArrayFront[i];
+				}
+				// adjust pointers
+				dynamicArrayFront -= buffer;
+				dynamicArrayBack -= buffer;
 			}
-			this->dynamicArrayFront--;
-			this->dynamicArrayBack--;
 		}	
 
 };

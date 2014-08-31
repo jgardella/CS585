@@ -8,6 +8,7 @@ int main()
 	DynamicArrayTesting::preAllocatedConstructorTest();
 	DynamicArrayTesting::pushFrontTest();
 	DynamicArrayTesting::pushBackTest();
+	DynamicArrayTesting::recenterTest();
 	DynamicArrayTesting::getTest();
 	DynamicArrayTesting::insertTest();
 	DynamicArrayTesting::swapTest();

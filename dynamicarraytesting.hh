@@ -14,6 +14,7 @@ class DynamicArrayTesting
 		static void preAllocatedConstructorTest();
 		static void pushFrontTest();
 		static void pushBackTest();
+		static void recenterTest();
 		static void insertionTest();
 		static void getTest();
 		static void insertTest();
