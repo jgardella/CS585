@@ -2,7 +2,7 @@
 #define _DYNAMICARRAYTESTING_HH_
 
 #include "dynamicarray.hh"
-#include "jtest.hh"
+#include "../jtest/jtest.hh"
 
 // Methods for testing dynamicarray.hh
 class DynamicArrayTesting
