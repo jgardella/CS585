@@ -219,12 +219,12 @@ class DynamicArray
 		
 		// Re-centers the dynamic array within the internal array. Used after there has been an overflow on either the front or back of the internal array.
 		// Parameters:
-		// bool recenterFront - true if there has been an overflow on the front of the array, false if there has been an overflow on the back of the array
-		void recenter(bool recenterFront)
+		// bool shouldRecenterFront - true if there has been an overflow on the front of the array, false if there has been an overflow on the back of the array
+		void recenter(bool shouldRecenterFront)
 		{
 			int i;
 			int buffer = ((internalArrayLength - dynamicArrayLength) / 2); // free space on each side of the internal array
-			if(recenterFront)
+			if(shouldRecenterFront)
 			{
 				// shift all elements right such that there is equal free space on the front and back of the internal array
 				int i;

@@ -1,4 +1,4 @@
-NAME = dynamicarray
+NAME = dynamicarraytesting
 SRC = main.cpp dynamicarraytesting_simpletest.cpp dynamicarraytesting_constructors.cpp dynamicarraytesting_push.cpp dynamicarraytesting_modification.cpp dynamicarraytesting_memoryreallocation.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f

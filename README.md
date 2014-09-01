@@ -20,6 +20,7 @@ as for the template to accept all types, all implementation must be in the heade
 - Namespace
 - Structures and Unions
 - Class Comment Block (described in further detail in comments section)
+- Template
 - Class Declaration
 - Public Members and Methods
 - Protected Members and Methods

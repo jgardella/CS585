@@ -33,7 +33,7 @@ void DynamicArrayTesting::pushBackTest()
 // Tests the recenter method by causing an overflow on the front and back of the array.
 void DynamicArrayTesting::recenterTest()
 {
-	bool elementsCorrectlyRepositioned;
+	bool areElementsCorrectlyRepositioned;
 	int i;
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushFront(10);
@@ -43,16 +43,16 @@ void DynamicArrayTesting::recenterTest()
 	array->pushFront(6);
 	array->pushFront(5);
 	
-	elementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && elementsCorrectlyRepositioned; i++)
+	areElementsCorrectlyRepositioned = true;
+	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
 	{
 		if(array->get(i) != i + 5)
 		{
-			elementsCorrectlyRepositioned = false;
+			areElementsCorrectlyRepositioned = false;
 		}
 	}
 
-	JTest<int>::testEquality("Recenter test front, elements correctly repositioned", true, elementsCorrectlyRepositioned);
+	JTest<int>::testEquality("Recenter test front, elements correctly repositioned", true, areElementsCorrectlyRepositioned);
 	JTest<int>::testEquality("Recenter test front, capacity unchanged", 10, array->capacity());
 
 	array->pushFront(4);
@@ -60,16 +60,16 @@ void DynamicArrayTesting::recenterTest()
 	array->pushFront(2);
 	array->pushFront(1);
 
-	elementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && elementsCorrectlyRepositioned; i++)
+	areElementsCorrectlyRepositioned = true;
+	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
 	{
 		if(array->get(i) != i + 1)
 		{
-			elementsCorrectlyRepositioned = false;
+			areElementsCorrectlyRepositioned = false;
 		}
 	}
 
-	JTest<int>::testEquality("Recenter test front, elements correctly repositioned", true, elementsCorrectlyRepositioned);
+	JTest<int>::testEquality("Recenter test front, elements correctly repositioned", true, areElementsCorrectlyRepositioned);
 	JTest<int>::testEquality("Recenter test front, capacity unchanged", 10, array->capacity());
 	
 	delete array;
@@ -82,16 +82,16 @@ void DynamicArrayTesting::recenterTest()
 	array->pushBack(5);
 	array->pushBack(6);
 	
-	elementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && elementsCorrectlyRepositioned; i++)
+	areElementsCorrectlyRepositioned = true;
+	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
 	{
 		if(array->get(i) != i + 1)
 		{
-			elementsCorrectlyRepositioned = false;
+			areElementsCorrectlyRepositioned = false;
 		}
 	}
 
-	JTest<int>::testEquality("Recenter test back, elements correctly repositioned", true, elementsCorrectlyRepositioned);
+	JTest<int>::testEquality("Recenter test back, elements correctly repositioned", true, areElementsCorrectlyRepositioned);
 	JTest<int>::testEquality("Recenter test back, capacity unchanged", 10, array->capacity());
 
 	array->pushBack(7);
@@ -99,16 +99,16 @@ void DynamicArrayTesting::recenterTest()
 	array->pushBack(9);
 	array->pushBack(10);
 
-	elementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && elementsCorrectlyRepositioned; i++)
+	areElementsCorrectlyRepositioned = true;
+	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
 	{
 		if(array->get(i) != i + 1)
 		{
-			elementsCorrectlyRepositioned = false;
+			areElementsCorrectlyRepositioned = false;
 		}
 	}
 
-	JTest<int>::testEquality("Recenter test back, elements correctly repositioned", true, elementsCorrectlyRepositioned);
+	JTest<int>::testEquality("Recenter test back, elements correctly repositioned", true, areElementsCorrectlyRepositioned);
 	JTest<int>::testEquality("Recenter test back, capacity unchanged", 10, array->capacity());
 	delete array;
 }

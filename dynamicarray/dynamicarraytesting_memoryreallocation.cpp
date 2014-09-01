@@ -60,11 +60,11 @@ void DynamicArrayTesting::severalReallocationTest()
 	{
 		array->pushBack(i);
 	}
-	bool properlyExpanded = true;
-	for(i = 0; i < array->length() && properlyExpanded; i++)
+	bool isProperlyExpanded = true;
+	for(i = 0; i < array->length() && isProperlyExpanded; i++)
 	{
 		if(array->get(i) != i + 1)
-			properlyExpanded = false;
+			isProperlyExpanded = false;
 	}
-	JTest<int>::testEquality("Memory reallocation test, elements added and array reallocated several times.", 1, properlyExpanded);
+	JTest<int>::testEquality("Memory reallocation test, elements added and array reallocated several times", 1, isProperlyExpanded);
 }
