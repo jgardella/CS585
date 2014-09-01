@@ -78,6 +78,8 @@ class DynamicArray
 			dynamicArrayLength++;
 			std::cout << "added : " << newElement << std::endl;
 			std::cout << "array: ";
+			std::cout << "front: " << *dynamicArrayFront << std::endl;
+			std::cout << "back: " << *dynamicArrayBack << std::endl;
 			int i;
 			for(i = 0; i < capacity(); i++)
 			{
