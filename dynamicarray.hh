@@ -122,78 +122,66 @@ class DynamicArray
 		
 		//------------------------- MODIFICATION -------------------------//
 
-		// Inserts the element newElement at position index in the array.
+		// Inserts the element newElement at position index in the array. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
 		// Parameters:
 		// T newElement - the new element to insert into the array
-		// unsigned int index - the index at which to insert te new element
+		// unsigned int index - the index at which to insert te new element, should be from 0 to length() - 1
 		// Returns the element that was in position index before insertion, or NULL if the insertion did not complete because the provided index was out of bounds.
 		T insert(T newElement, unsigned int index)
 		{
-			if(index < dynamicArrayLength)
-			{
-				T oldElement = this->dynamicArrayFront[index + 1];
-				this->dynamicArrayFront[index + 1] = newElement;
-				return oldElement;
-			}
+			T oldElement = this->dynamicArrayFront[index + 1];
+			this->dynamicArrayFront[index + 1] = newElement;
+			return oldElement;
 		}
 		
-		// Swaps two elements in the array.
+		// Swaps two elements in the array. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
 		// Parameters:
-		// unsigned int indexOne - the index of the first item
-		// unsigned int indexTwo - the index of the second item
+		// unsigned int indexOne - the index of the first item, should be from 0 to length() - 1
+		// unsigned int indexTwo - the index of the second item, should be from 0 to length() - 1
 		void swap(unsigned int indexOne, unsigned int indexTwo)
 		{
-			if(indexOne < this->dynamicArrayLength && indexTwo < this->dynamicArrayLength)
-			{
-				T temp = this->dynamicArrayFront[indexOne + 1];
-				this->dynamicArrayFront[indexOne + 1] = this->dynamicArrayFront[indexTwo + 1];
-				this->dynamicArrayFront[indexTwo + 1] = temp;	
-			}
+			T temp = this->dynamicArrayFront[indexOne + 1];
+			this->dynamicArrayFront[indexOne + 1] = this->dynamicArrayFront[indexTwo + 1];
+			this->dynamicArrayFront[indexTwo + 1] = temp;	
 		}
 		
-		// Gets the item at the specified index.
+		// Gets the item at the specified index. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
 		// Parameters:
-		// unsigned int index - the index of the item to retrieve
-		// Returns the item at position index, or NULL if the provided index is out of bounds.
+		// unsigned int index - the index of the item to retrieve, should be from 0 to length() - 1
+		// Returns the item at position index.
 		T get(unsigned int index)
 		{
-			if(index < this->dynamicArrayLength)
-			{
-				return this->dynamicArrayFront[index + 1];
-			}
+			return this->dynamicArrayFront[index + 1];
 		}
 		
-		// Removes the item at the specified index.
+		// Removes the item at the specified index. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
 		// Parameters:
-		// unsigned int index - the index of the item to remove
+		// unsigned int index - the index of the item to remove, should be from 0 to length() - 1
 		// Returns the item after removal, or NULL if the item could not be removed because the provided index was out of bounds.
 		T remove(unsigned int index)
 		{
 			int i;
-			if(index < this->dynamicArrayLength)
+			T removedElement = this->get(index);
+			// if the index being removed is in the right half of the dynamic array, it will be more efficient to
+			// shift the elements on the right
+			if(index > dynamicArrayLength / 2)
 			{
-				T removedElement = this->get(index);
-				// if the index being removed is in the right half of the dynamic array, it will be more efficient to
-				// shift the elements on the right
-				if(index > dynamicArrayLength / 2)
+				for(i = index; i < dynamicArrayLength; i++)
 				{
-					for(i = index; i < dynamicArrayLength; i++)
-					{
-						this->insert(this->get(i + 1), i);
-					}
-					dynamicArrayBack--; // move pointer to new back of array
+					this->insert(this->get(i + 1), i);
 				}
-				else // index is in left half of the dynamic array, so it is more efficient to shift the elements on the left
-				{
-					for(i = index; i > 0; i--)
-					{
-						this->insert(this->get(i - 1), i);
-					}
-					dynamicArrayFront++; // move pointer to new front of array
-				}
-				dynamicArrayLength--;
-				return removedElement;
+				dynamicArrayBack--; // move pointer to new back of array
 			}
+			else // index is in left half of the dynamic array, so it is more efficient to shift the elements on the left
+			{
+				for(i = index; i > 0; i--)
+				{
+					this->insert(this->get(i - 1), i);
+				}
+				dynamicArrayFront++; // move pointer to new front of array
+			}
+			dynamicArrayLength--;
+			return removedElement;
 		}
 
 		
