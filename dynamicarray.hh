@@ -1,6 +1,8 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
+#include <iostream>
+
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -15,10 +17,15 @@ class DynamicArray
 			this->array = new T[10];
 			this->dynamicArrayLength = 0;
 			this->internalArrayLength = 10;
-			this->dynamicArrayFront = &array[internalArrayLength / 2];
-			this->dynamicArrayBack = &array[internalArrayLength / 2] + 1;
+			this->dynamicArrayFront = &array[internalArrayLength / 2 - 1];
+			this->dynamicArrayBack = &array[internalArrayLength / 2];
 			this->internalArrayFront = array - 1;
 			this->internalArrayBack = array + internalArrayLength;
+			int i;
+			for(i = 0; i < 10; i++)
+			{
+				array[i] = 0;
+			}
 		}
 
 		// Constructor which allocates an array of size 'preAllocatedLength'.
@@ -29,10 +36,15 @@ class DynamicArray
 			this->array = new T[preAllocatedLength];
 			this->dynamicArrayLength = 0;
 			this->internalArrayLength = preAllocatedLength;
-			this->dynamicArrayFront = &array[this->internalArrayLength / 2];
-			this->dynamicArrayBack = &array[this->internalArrayLength / 2] + 1;
+			this->dynamicArrayFront = &array[this->internalArrayLength / 2 - 1];
+			this->dynamicArrayBack = &array[this->internalArrayLength / 2];
 			this->internalArrayFront = array - 1;
 			this->internalArrayBack = array + internalArrayLength;
+			int i;
+			for(i = 0; i < 10; i++)
+			{
+				array[i] = 0;
+			}
 		}
 
 		// Deconstructor, simply deletes the internal array.
@@ -52,6 +64,7 @@ class DynamicArray
 			if(this->dynamicArrayFront == this->internalArrayFront)	
 			{
 				// if capacity has been reached (i.e. internal array is full), reallocate larger array
+				std::cout << "length: " << length() << " capacity: " << capacity() << std::endl;
 				if(this->length() == this->capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
@@ -63,6 +76,14 @@ class DynamicArray
 			}
 			*dynamicArrayFront-- = newElement;
 			dynamicArrayLength++;
+			std::cout << "added : " << newElement << std::endl;
+			std::cout << "array: ";
+			int i;
+			for(i = 0; i < capacity(); i++)
+			{
+				std::cout << array[i] << " ";
+			}
+			std::cout << std::endl;
 		}
 		
 		// Adds a new element onto the back end of the array.
@@ -74,6 +95,7 @@ class DynamicArray
 			if(this->dynamicArrayBack == this->internalArrayBack)
 			{
 				// if capacity has been reached (i.e. internal array is full), reallocate larger array
+				std::cout << "length: " << length() << " capacity: " << capacity() << std::endl;
 				if(this->length() == this->capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
@@ -85,6 +107,14 @@ class DynamicArray
 			}
 			*dynamicArrayBack++ = newElement;
 			dynamicArrayLength++;
+			std::cout << "added: " << newElement << std::endl;
+			std::cout << "array: ";
+			int i;
+			for(i = 0; i < capacity(); i++)
+			{
+				std::cout << array[i] << " ";
+			}
+			std::cout << std::endl;
 		}
 
 		
@@ -218,7 +248,7 @@ class DynamicArray
 					temp[i + (newSize - dynamicArrayLength) / 2] = dynamicArrayFront[i + 1];
 				}
 				// adjust front and back pointers to point to correct location in new array
-				dynamicArrayFront = &temp[(newSize - dynamicArrayLength) / 2] - 1;
+				dynamicArrayFront = &temp[(newSize - dynamicArrayLength) / 2 - 1];
 				dynamicArrayBack = &temp[(newSize + dynamicArrayLength) / 2];
 				internalArrayFront = temp - 1;
 				internalArrayBack = temp + newSize;
@@ -235,31 +265,44 @@ class DynamicArray
 		void recenter(bool recenterFront)
 		{
 			int i;
-			int buffer = (internalArrayLength - dynamicArrayLength) / 2; // free space on each side of the internal array
+			int buffer = ((internalArrayLength - dynamicArrayLength) / 2); // free space on each side of the internal array
+			if(internalArrayLength - dynamicArrayLength == 1) // this is to handle a special case, namely when there is only one free space left
+			{
+				buffer--;
+			}
+			std::cout << "recenter" << std::endl;
+			std::cout << "buffer:" << buffer << std::endl;
 			if(recenterFront)
 			{
 				// shift all elements right such that there is equal free space on the front and back of the internal array
 				int i;
 				for(i = dynamicArrayLength; i > 0; i--)
 				{
-					dynamicArrayFront[i + buffer] = dynamicArrayFront[i];
+					dynamicArrayFront[i + buffer + 1] = dynamicArrayFront[i];
 				}
-				// adjust pointers
-				dynamicArrayFront += buffer;
-				dynamicArrayBack += buffer;
+				// adjust pointers to new positions
+				dynamicArrayFront += buffer + 1;
+				dynamicArrayBack += buffer + 1;
 			}
 			else
 			{
+				// adjust pointers to new positions
+				dynamicArrayFront -= buffer + 1;
+				dynamicArrayBack -= buffer + 1;
 				// shift all elements left such that there is equal free space on the front and back of the internal array
-				int i;
 				for(i = 1; i <= dynamicArrayLength; i++)
 				{
-					dynamicArrayFront[i - buffer] = dynamicArrayFront[i];
+					dynamicArrayFront[i] = dynamicArrayFront[i + buffer + 1];
 				}
-				// adjust pointers
-				dynamicArrayFront -= buffer;
-				dynamicArrayBack -= buffer;
 			}
+			std::cout << "array: ";
+			for(i = 0; i < capacity(); i++)
+			{
+				std::cout << array[i] << " ";
+			}
+			std::cout << std::endl;
+			std::cout << "Front pointer: " << *dynamicArrayFront << std::endl;
+			std::cout << "Back pointer: " << *dynamicArrayBack << std::endl;
 		}	
 
 };
