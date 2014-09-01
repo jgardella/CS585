@@ -14,6 +14,7 @@ int main()
 	DynamicArrayTesting::swapTest();
 	DynamicArrayTesting::removeTest();
 	DynamicArrayTesting::memoryReallocationTest();
+	DynamicArrayTesting::severalReallocationTest();
 	DynamicArrayTesting::reserveTest();
 	return 0;
 }

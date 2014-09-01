@@ -50,3 +50,21 @@ void DynamicArrayTesting::reserveTest()
 	JTest<int>::testEquality("Reserve test, array capacity not expanded", 100, array->capacity());
 	delete array;
 }
+
+// Adds a lot of elements to the array to check that it is correctly reallocated.
+void DynamicArrayTesting::severalReallocationTest()
+{
+	DynamicArray<int> *array = new DynamicArray<int>();
+	int i;
+	for(i = 1; i <= 100; i++)
+	{
+		array->pushBack(i);
+	}
+	bool properlyExpanded = true;
+	for(i = 0; i < array->length() && properlyExpanded; i++)
+	{
+		if(array->get(i) != i + 1)
+			properlyExpanded = false;
+	}
+	JTest<int>::testEquality("Memory reallocation test, elements added and array reallocated several times.", 1, properlyExpanded);
+}

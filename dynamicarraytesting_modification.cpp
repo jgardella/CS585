@@ -44,12 +44,17 @@ void DynamicArrayTesting::removeTest()
 	int i;
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
+	int removedElement = array->remove(0);
+	JTest<int>::testEquality("Remove test, remove with only one element, element returned", 1, removedElement);
+	JTest<int>::testEquality("Remove test, length decremented", 0, array->length());
+
+	array->pushBack(1);
 	array->pushBack(2);
 	array->pushBack(3);
 	array->pushBack(4);
 	array->pushBack(5);
 	// Test remove method when an item is removed from the left half of the array.
-	int removedElement = array->remove(2);
+	removedElement = array->remove(2);
 	JTest<int>::testEquality("Left side remove test, removed element correctly returned", 3, removedElement);
 	JTest<int>::testEquality("Left side remove test, element one did not move", 1, array->get(0));
 	JTest<int>::testEquality("Left side remove test, element two did not move", 2, array->get(1));

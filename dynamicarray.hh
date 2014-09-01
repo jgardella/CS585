@@ -1,6 +1,8 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
+#include <iostream>
+
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -19,11 +21,6 @@ class DynamicArray
 			this->dynamicArrayBack = &array[internalArrayLength / 2];
 			this->internalArrayFront = array - 1;
 			this->internalArrayBack = array + internalArrayLength;
-			int i;
-			for(i = 0; i < 10; i++)
-			{
-				array[i] = 0;
-			}
 		}
 
 		// Constructor which allocates an array of size 'preAllocatedLength'.
@@ -38,11 +35,6 @@ class DynamicArray
 			this->dynamicArrayBack = &array[this->internalArrayLength / 2];
 			this->internalArrayFront = array - 1;
 			this->internalArrayBack = array + internalArrayLength;
-			int i;
-			for(i = 0; i < 10; i++)
-			{
-				array[i] = 0;
-			}
 		}
 
 		// Deconstructor, simply deletes the internal array.
@@ -234,10 +226,6 @@ class DynamicArray
 		{
 			int i;
 			int buffer = ((internalArrayLength - dynamicArrayLength) / 2); // free space on each side of the internal array
-			if(internalArrayLength - dynamicArrayLength == 1) // this is to handle a special case, namely when there is only one free space left
-			{
-				buffer--;
-			}
 			if(recenterFront)
 			{
 				// shift all elements right such that there is equal free space on the front and back of the internal array

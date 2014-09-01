@@ -22,6 +22,7 @@ class DynamicArrayTesting
 		static void swapTest();
 		static void memoryReallocationTest();
 		static void reserveTest();
+		static void severalReallocationTest();
 };
 
 #endif
