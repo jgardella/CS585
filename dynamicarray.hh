@@ -1,8 +1,6 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
-#include <iostream>
-
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -14,13 +12,13 @@ class DynamicArray
 		// Default constructor - allocates an internal array of size 10
 		DynamicArray()
 		{
-			this->array = new T[10];
-			this->dynamicArrayLength = 0;
-			this->internalArrayLength = 10;
-			this->dynamicArrayFront = &array[internalArrayLength / 2 - 1];
-			this->dynamicArrayBack = &array[internalArrayLength / 2];
-			this->internalArrayFront = array - 1;
-			this->internalArrayBack = array + internalArrayLength;
+			array = new T[10];
+			dynamicArrayLength = 0;
+			internalArrayLength = 10;
+			dynamicArrayFront = &array[internalArrayLength / 2 - 1];
+			dynamicArrayBack = &array[internalArrayLength / 2];
+			internalArrayFront = array - 1;
+			internalArrayBack = array + internalArrayLength;
 		}
 
 		// Constructor which allocates an array of size 'preAllocatedLength'.
@@ -28,13 +26,13 @@ class DynamicArray
 		// unsigned int preAllocatedLength - the length to initially allocate the internal array
 		DynamicArray(unsigned int preAllocatedLength)
 		{
-			this->array = new T[preAllocatedLength];
-			this->dynamicArrayLength = 0;
-			this->internalArrayLength = preAllocatedLength;
-			this->dynamicArrayFront = &array[this->internalArrayLength / 2 - 1];
-			this->dynamicArrayBack = &array[this->internalArrayLength / 2];
-			this->internalArrayFront = array - 1;
-			this->internalArrayBack = array + internalArrayLength;
+			array = new T[preAllocatedLength];
+			dynamicArrayLength = 0;
+			internalArrayLength = preAllocatedLength;
+			dynamicArrayFront = &array[internalArrayLength / 2 - 1];
+			dynamicArrayBack = &array[internalArrayLength / 2];
+			internalArrayFront = array - 1;
+			internalArrayBack = array + internalArrayLength;
 		}
 
 		// Deconstructor, simply deletes the internal array.
@@ -51,10 +49,10 @@ class DynamicArray
 		void pushFront(T newElement)
 		{
 			// if the front of the array is full
-			if(this->dynamicArrayFront == this->internalArrayFront)	
+			if(dynamicArrayFront == internalArrayFront)	
 			{
 				// if capacity has been reached (i.e. internal array is full), reallocate larger array
-				if(this->length() == this->capacity())
+				if(length() == capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
 				}
@@ -73,10 +71,10 @@ class DynamicArray
 		void pushBack(T newElement)
 		{
 			// if the back of the array is full
-			if(this->dynamicArrayBack == this->internalArrayBack)
+			if(dynamicArrayBack == internalArrayBack)
 			{
 				// if capacity has been reached (i.e. internal array is full), reallocate larger array
-				if(this->length() == this->capacity())
+				if(length() == capacity())
 				{
 					reallocate((unsigned int)(internalArrayLength * 1.5));
 				}
@@ -99,8 +97,8 @@ class DynamicArray
 		// Returns the element that was in position index before insertion, or NULL if the insertion did not complete because the provided index was out of bounds.
 		T insert(T newElement, unsigned int index)
 		{
-			T oldElement = this->dynamicArrayFront[index + 1];
-			this->dynamicArrayFront[index + 1] = newElement;
+			T oldElement = dynamicArrayFront[index + 1];
+			dynamicArrayFront[index + 1] = newElement;
 			return oldElement;
 		}
 		
@@ -110,9 +108,9 @@ class DynamicArray
 		// unsigned int indexTwo - the index of the second item, should be from 0 to length() - 1
 		void swap(unsigned int indexOne, unsigned int indexTwo)
 		{
-			T temp = this->dynamicArrayFront[indexOne + 1];
-			this->dynamicArrayFront[indexOne + 1] = this->dynamicArrayFront[indexTwo + 1];
-			this->dynamicArrayFront[indexTwo + 1] = temp;	
+			T temp = dynamicArrayFront[indexOne + 1];
+			dynamicArrayFront[indexOne + 1] = dynamicArrayFront[indexTwo + 1];
+			dynamicArrayFront[indexTwo + 1] = temp;	
 		}
 		
 		// Gets the item at the specified index. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
@@ -121,7 +119,7 @@ class DynamicArray
 		// Returns the item at position index.
 		T get(unsigned int index)
 		{
-			return this->dynamicArrayFront[index + 1];
+			return dynamicArrayFront[index + 1];
 		}
 		
 		// Removes the item at the specified index. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
@@ -131,14 +129,14 @@ class DynamicArray
 		T remove(unsigned int index)
 		{
 			int i;
-			T removedElement = this->get(index);
+			T removedElement = get(index);
 			// if the index being removed is in the right half of the dynamic array, it will be more efficient to
 			// shift the elements on the right
 			if(index > dynamicArrayLength / 2)
 			{
 				for(i = index; i < dynamicArrayLength; i++)
 				{
-					this->insert(this->get(i + 1), i);
+					insert(get(i + 1), i);
 				}
 				dynamicArrayBack--; // move pointer to new back of array
 			}
@@ -146,7 +144,7 @@ class DynamicArray
 			{
 				for(i = index; i > 0; i--)
 				{
-					this->insert(this->get(i - 1), i);
+					insert(get(i - 1), i);
 				}
 				dynamicArrayFront++; // move pointer to new front of array
 			}
