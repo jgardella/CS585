@@ -11,7 +11,8 @@ class Stack
 		// Constructor for an unbounded stack.
 		Stack()
 		{
-
+			dynamicArray = new DynamicArray<T>();
+			isBounded = false;
 		}
 
 		// Constructor for a stack of bounded capacity.
@@ -19,7 +20,8 @@ class Stack
 		// unsigned int capacity - the bounded capacity of the stack
 		Stack(unsigned int capacity)
 		{
-
+			dynamicArray = new DynamicArray<T>(capacity);
+			isBounded = true;
 		}
 
 		// Removes and returns a pointer to the top element of the stack if it is not empty.
@@ -46,9 +48,8 @@ class Stack
 		}
 
 	private:
-		DynamicArray<T> dynamicArray;
-		unsigned int length, capacity;
-
+		DynamicArray<T> *dynamicArray;
+		bool isBounded;
 };
 
 #endif
