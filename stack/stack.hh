@@ -3,6 +3,7 @@
 
 #include "../dyamicarray/dynamicarray.hh"
 
+// Stack data structure (LIFO)
 template <class T>
 class Stack
 {
@@ -28,7 +29,11 @@ class Stack
 		// Returns a pointer to the former top element of the stack, or if the stack is empty returns a null pointer.
 		T* pop()
 		{
-			
+			if(dynamicArray->length() != 0)
+			{
+				return dynamicArray->remove(0);
+			}	
+			return nullptr;		
 		}
 
 		// Pushes an item to the top of the stack.
@@ -37,14 +42,21 @@ class Stack
 		// T item - the item to push to the top of the stack. 
 		void push(T item)
 		{
-
+			if(!isBounded || dynamicArray->length() == dynamicArray->capactiy())
+			{
+				dynamicArray->pushFront(item);
+			}
 		}
 		
 		// Peeks at the top element of the stack.
 		// Returns the top element of the stack if the stack is not empty, or if the stack is empty returns a null pointer.		
 		T* peek()
 		{
-			
+			if(dynamicArray->length() != 0)
+			{
+				return dynamicArray->get(0);
+			}
+			return nullptr;
 		}
 
 	private:
