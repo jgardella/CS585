@@ -3,6 +3,8 @@
 
 #define NULL 0
 
+#include <iostream>
+
 class Debug
 {
 	public:
