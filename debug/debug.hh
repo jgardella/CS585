@@ -1,6 +1,8 @@
 #ifndef _DEBUG_HH_
 #define _DEBUG_HH_
 
+#define NULL 0
+
 class Debug
 {
 	public:
