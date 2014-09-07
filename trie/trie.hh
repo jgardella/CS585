@@ -22,14 +22,14 @@ class Trie
 			addValue(key, value);
 		}
 
-		Value *get(std::string key)
+		Value get(std::string key)
 		{
 			return findValue(key);
 		}
 		
 	private:
 		DynamicArray<Trie*> *children;
-		Value *value;
+		Value value;
 		std::string key; // the letter of the edge which had to be followed to reach this node
 		
 		// Constructs a node with the given value and key.
@@ -44,7 +44,6 @@ class Trie
 		Trie(std::string key)
 		{
 			this->children = new DynamicArray<Trie*>();
-			this->value = NULL;
 			this->key = key;
 		}
 
@@ -53,7 +52,7 @@ class Trie
 		// Parameters:
 		// std::string key - the full key to search for from this node.
 		// Returns a pointer to the value of the given key in the trie, or a pointer to NULL if the key is not in the trie.
-		Value *findValue(std::string key)
+		Value findValue(std::string key)
 		{
 			Debug::log("TRIE", "findValue method entered with key " + key);
 			int i;
@@ -71,9 +70,8 @@ class Trie
 						return node->findValue(key.substr(1, std::string::npos)); // recursive call to follow edge to next node.
 					}
 				}
-				return NULL; // key did not match any of nodes edges, so it is not in trie.
+				// key did not match any of nodes edges, so it is not in trie.
 			}
-			//Debug::log("TRIE", "findValue method returning value " + *value);
 			return value;
 		}
 
@@ -103,8 +101,7 @@ class Trie
 			}
 			else
 			{
-				value = &newValue;
-				std::cout << "Stored value : " << *value << std::endl;
+				value = newValue;
 			}
 		}
 };
