@@ -4,6 +4,7 @@
 #define NULL 0
 
 #include <iostream>
+#include <ctime>
 
 class Debug
 {
@@ -46,7 +47,7 @@ class Debug
 		static bool isErrorMuted;
 
 		// Returns a timestamp representing the current time.
-		char* getTimestamp();
+		static std::string getTimestamp();
 
 		// Checks if a channel is valid.
 		// Parameters:

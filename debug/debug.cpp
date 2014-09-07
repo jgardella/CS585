@@ -24,13 +24,21 @@ void Debug::log(std::string channel, std::string message)
 {
 	if(isValidChannel(channel) && !isMuted(channel))
 	{
-		std::cout << channel << " :: " << message << std::endl;
+		std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
 	}
 }
 
 bool Debug::isValidChannel(std::string channel)
 {
 	return channel.compare(Debug::GAMEPLAY) == 0 || channel.compare(Debug::WARN) == 0 || channel.compare(Debug::ERROR) == 0;
+}
+
+std::string Debug::getTimestamp()
+{
+	time_t rawTime;
+	time(&rawTime); // stores current time in rawTime
+	std::string stringTime = ctime(&rawTime); // converts time to string format
+	return stringTime.substr(0, stringTime.length() - 1); // removes last character before turning, because ctime always appends a new-line to the end of the time
 }
 
 bool Debug::isMuted(std::string channel)
