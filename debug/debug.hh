@@ -5,6 +5,14 @@
 
 #include <iostream>
 #include <ctime>
+#include "../dynamicarray/dynamicarray.hh"
+
+// Struct for custom channels.
+typedef struct s_customChannel
+{
+	std::string channelName;
+	bool isMuted;
+} t_customChannel;
 
 class Debug
 {
@@ -18,6 +26,13 @@ class Debug
 		// string channel - the channel to log the message in
 		// string message - the message to log
 		static void log(std::string channel, std::string message);
+		
+
+		// Adds a new channel.
+		// Parameters:
+		// string newChannel - The name of the new channel. It is reccomended that this name be in all-caps.
+		// Returns the name of the new channel so the user can pass it to log method. User should keep a reference to this name.
+		std::string addChannel(std::string newChannel);
 
 		// Mutes a channel so that any messages logged to it are not displayed.
 		// Parameters:
@@ -45,21 +60,17 @@ class Debug
 		static bool isGameplayMuted;
 		static bool isWarnMuted;
 		static bool isErrorMuted;
+		
+		static DynamicArray<t_customChannel>* addedChannels;
 
 		// Returns a timestamp representing the current time.
 		static std::string getTimestamp();
-
-		// Checks if a channel is valid.
-		// Parameters:
-		// string channel - the channel to check the validity of
-		// Returns true if the channel is valid (i.e. defined as a static const char* in Debug), false if not.
-		static bool isValidChannel(std::string channel);
 
 		// Checks if a channel is muted.
 		// Parameters:
 		// string channel - the channel to check the mute-status of
 		// Returns true if channel is muted, false if not.
-		static bool isMuted(std::string channel);
+		static bool isMutedAndValid(std::string channel);
 };
 
 #endif

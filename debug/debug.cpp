@@ -10,6 +10,8 @@ bool Debug::isErrorMuted = false;
 
 Debug* Debug::instance;
 
+DynamicArray<t_customChannel>* Debug::addedChannels = new DynamicArray<t_customChannel>();
+
 Debug* Debug::getInstance()
 {
 	// instantiate instance if it has not been instantiated
@@ -22,15 +24,19 @@ Debug* Debug::getInstance()
 
 void Debug::log(std::string channel, std::string message)
 {
-	if(isValidChannel(channel) && !isMuted(channel))
+	if(!isMutedAndValid(channel))
 	{
 		std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
 	}
 }
 
-bool Debug::isValidChannel(std::string channel)
+std::string Debug::addChannel(std::string newChannel)
 {
-	return channel.compare(Debug::GAMEPLAY) == 0 || channel.compare(Debug::WARN) == 0 || channel.compare(Debug::ERROR) == 0;
+	t_customChannel customChannel;
+	customChannel.channelName = newChannel;
+	customChannel.isMuted = false;	
+	addedChannels->pushBack(customChannel); // add new channel struct to list of custom channels
+	return newChannel;
 }
 
 std::string Debug::getTimestamp()
@@ -41,8 +47,9 @@ std::string Debug::getTimestamp()
 	return stringTime.substr(0, stringTime.length() - 1); // removes last character before turning, because ctime always appends a new-line to the end of the time
 }
 
-bool Debug::isMuted(std::string channel)
+bool Debug::isMutedAndValid(std::string channel)
 {
+	int i;
 	if(channel.compare(Debug::GAMEPLAY) == 0)
 	{
 		return isGameplayMuted;
@@ -51,7 +58,21 @@ bool Debug::isMuted(std::string channel)
 	{
 		return isWarnMuted;
 	}
-	return isErrorMuted;
+	if(channel.compare(Debug::ERROR) == 0)
+	{
+		return isErrorMuted;
+	}
+	// channel is not any of the default channels, check custom channels
+	for(i = 0; i < addedChannels->length(); i++)
+	{
+		t_customChannel customChannel = addedChannels->get(i);
+		if(channel.compare(customChannel.channelName) == 0)
+		{
+			return customChannel.isMuted;
+		}
+	}
+	// if this point is reached, the given channel name is not valid
+	return false;
 }
 
 void Debug::muteChannel(std::string channel)

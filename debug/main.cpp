@@ -16,5 +16,9 @@ int main()
 
 	Debug::log(Debug::GAMEPLAY, "Gameplay stuff 3.");
 
+	std::string customChannel = debug->addChannel("TEST CHANNEL");
+
+	Debug::log(customChannel, "Testing custom channel.");
+
 	return 0;
 }
