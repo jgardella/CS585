@@ -17,6 +17,13 @@ class Trie
 			Debug::log("TRIE", "Constructing node with no value or key");
 			this->children = new DynamicArray<Trie*>();
 		}
+		
+		// Destructor
+		~Trie()
+		{
+			// no need to manually call destructor of child tries, as the dynamic array's destructor will automatically call them.
+			delete children;
+		}
 
 		// Adds a new value to the trie with the given key.
 		// Parameters:
