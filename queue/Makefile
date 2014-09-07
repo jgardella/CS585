@@ -1,5 +1,5 @@
 NAME = queue
-SRC = main.cpp
+SRC = main.cpp debug.cpp
 OBJ = $(SRC:.cpp=.o)
 RM = rm -f
 

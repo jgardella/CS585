@@ -2,6 +2,7 @@
 #define _STACK_HH_
 
 #include "../dynamicarray/dynamicarray.hh"
+#include "../debug/debug.hh"
 
 #define NULL 0
 
@@ -14,6 +15,7 @@ class Queue
 		// Constructor for an unbounded queue.
 		Queue()
 		{
+			Debug::getInstance()->addChannel("QUEUE");
 			dynamicArray = new DynamicArray<T>();
 			isBounded = false;
 		}
@@ -23,6 +25,7 @@ class Queue
 		// unsigned int capacity - the bounded capacity of the queue
 		Queue(unsigned int capacity)
 		{
+			Debug::getInstance()->addChannel("QUEUE");
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}
@@ -31,11 +34,14 @@ class Queue
 		// Returns a pointer to the former front element of the queue, or if the queue is empty returns a null pointer.
 		T dequeue()
 		{
+			Debug::log("QUEUE", "Dequeue method entered.");
 			if(dynamicArray->length() != 0)
 			{
 				T dequeuedItem = dynamicArray->remove(0);
+				Debug::log("QUEUE", "Item dequeued.");
 				return dequeuedItem;
 			}	
+			Debug::log("QUEUE", "Item not dequeued, queue empty");
 			return NULL;		
 		}
 
@@ -45,9 +51,11 @@ class Queue
 		// T item - the item to push to the back of the queue. 
 		void enqueue(T item)
 		{
-			if(!isBounded || dynamicArray->length() == dynamicArray->capacity())
+			Debug::log("QUEUE", "Enqueue method entered");
+			if(!isBounded || dynamicArray->length() < dynamicArray->capacity())
 			{
 				dynamicArray->pushBack(item);
+				Debug::log("QUEUE", "Item enqueued");
 			}
 		}
 		
@@ -55,9 +63,11 @@ class Queue
 		// Returns the front element of the queue if the queue is not empty, or if the queue is empty returns a null pointer.		
 		T front()
 		{
+			Debug::log("QUEUE", "Front method entered");
 			if(dynamicArray->length() != 0)
 			{
 				T frontItem = dynamicArray->get(0);
+				Debug::log("QUEUE", "Front item returned");
 				return frontItem;
 			}
 			return NULL;
