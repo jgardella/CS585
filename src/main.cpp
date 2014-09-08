@@ -1,5 +1,6 @@
 #include "dynamicarray.hh"
 #include "stack.hh"
+#include "queue.hh"
 #include "jtest.hh"
 
 // -------------------- DYNAMIC ARRAY TESTS -------------------- 
@@ -328,6 +329,7 @@ void stackPeekTest()
 	stack->push(1);
 
 	JTest<int>::testEquality("Peek test, first element peeked", 1, stack->peek());
+	JTest<int>::testEquality("Peek test, first element still in stack", 1, stack->pop());
 
 	delete stack;
 }
@@ -343,9 +345,64 @@ void stackBoundedTest()
 	stack->push(0);
 
 	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, stack->peek());
+
+	delete stack;
 }
 
 // --------------------  END STACK TESTS        --------------------
+
+
+// --------------------    QUEUE TESTS          --------------------
+
+void queueEnqueueAndDequeueTest()
+{
+	Queue<int> *queue = new Queue<int>();
+	queue->enqueue(1);
+	queue->enqueue(2);
+	queue->enqueue(3);
+	queue->enqueue(4);
+	queue->enqueue(5);
+	
+	JTest<int>::testEquality("Enqueue and dequeue, first element dequeued", 1, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, second element dequeued", 2, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, third element dequeued", 3, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fourth element dequeued", 4, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fifth element dequeued", 5, queue->dequeue());
+
+	delete queue;
+}
+
+void queueFrontTest()
+{
+	Queue<int> *queue = new Queue<int>();
+	queue->enqueue(1);
+
+	JTest<int>::testEquality("Front test, front element returned", 1, queue->front());
+	JTest<int>::testEquality("Front test, front element still in queue", 1, queue->dequeue());
+
+	delete queue;
+}
+
+void queueBoundedTest()
+{
+	int i;
+	Queue<int> *queue = new Queue<int>(5);
+	
+	queue->enqueue(1);
+	queue->enqueue(2);
+	queue->enqueue(3);
+	queue->enqueue(4);
+	queue->enqueue(5);
+	queue->enqueue(6);
+	
+	for(i = 0; i < 5; i++)
+	{
+		queue->dequeue();
+	}
+	JTest<int>::testEquality("Bounded queue test, element not added when capacity reached.", 6, queue->dequeue());
+
+	delete queue;
+}
 
 void dynamicArrayTests()
 {
@@ -375,9 +432,17 @@ void stackTests()
 	stackBoundedTest();
 }
 
+void queueTests()
+{
+	queueEnqueueAndDequeueTest();
+	queueFrontTest();
+	queueBoundedTest();
+}
+
 int main()
 {
 	dynamicArrayTests();	
 	stackTests();	
+	queueTests();
 	return 0;
 }
