@@ -1,4 +1,4 @@
-#include "debug.hh"
+#include "../include/debug.hh"
 
 const std::string Debug::GAMEPLAY = "GAMEPLAY";
 const std::string Debug::ERROR = "ERROR";
