@@ -1,19 +1,19 @@
 #include "dynamicarray.hh"
 #include "jtest.hh"
 
-void simpleArithmeticTest()
+void dynamicArraySimpleArithmeticTest()
 {
 	JTest<int>::testEquality("Simple arithmetic test", 2, 1+1);
 }
 
-void assignmentTest()
+void dynamicArrayAssignmentTest()
 {
 	int a = 5;
 	JTest<int>::testEquality("Assignment test", 5, a);
 }
 
 // Tests the default constructor by making sure it correctly instantiates length and capacity.
-void defaultConstructorTest()
+void dynamicArrayDefaultConstructorTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	JTest<int>::testEquality("Default constructor test, length set", 0, array->length());
@@ -22,7 +22,7 @@ void defaultConstructorTest()
 }
 
 // Tests the manual constructor by making sure it correctly instantiates length and capacity.
-void preAllocatedConstructorTest()
+void dynamicArrayPreAllocatedConstructorTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>(20);
 	JTest<int>::testEquality("Manual constructor test, length set", 0, array->length());
@@ -31,7 +31,7 @@ void preAllocatedConstructorTest()
 }
 
 // Tests if memory is proprely reallocated when the array's capacity is exceeded on either the left or right side.
-void memoryReallocationTest()
+void dynamicArrayMemoryReallocationTest()
 {
 	// Test array overflow on back side.
 	DynamicArray<int> *array = new DynamicArray<int>();
@@ -69,7 +69,7 @@ void memoryReallocationTest()
 }
 
 // Tests that the reserve method correctly expands the array's capacity.
-void reserveTest()
+void dynamicArrayReserveTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->reserve(100);
@@ -80,7 +80,7 @@ void reserveTest()
 }
 
 // Adds a lot of elements to the array to check that it is correctly reallocated.
-void severalReallocationTest()
+void dynamicArraySeveralReallocationTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	int i;
@@ -99,7 +99,7 @@ void severalReallocationTest()
 
 // Tests the swap method of dynamicarray by adding two elements, swapping them, and then checking to make sure
 // they were correctly swapped.
-void swapTest()
+void dynamicArraySwapTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushFront(1);
@@ -112,7 +112,7 @@ void swapTest()
 
 // Tests the insert method of dynamic array by adding one element, then inserting a new element in its position, checking if the replaced element is returned and the
 // inserted element is in the correct position.
-void insertTest()
+void dynamicArrayInsertTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
@@ -123,7 +123,7 @@ void insertTest()
 }
 
 // Tests the get method of dynamic array by inserting an element and then getting that element and checking that the corrent element is returned.
-void getTest()
+void dynamicArrayGetTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(0);
@@ -134,7 +134,7 @@ void getTest()
 // Tests the remove methodby inserting 5 elements, removing the middle one, and then checking that the remaining elements are properly shifted and the length is decreased.
 // There are separate tests for removing from the left half and right half of the array because the remove method behaves differently depending on which side of the array the item
 // is removed from.
-void removeTest()
+void dynamicArrayRemoveTest()
 {
 	int i;
 	DynamicArray<int> *array = new DynamicArray<int>();
@@ -171,7 +171,7 @@ void removeTest()
 }
 
 // Tests push front method by pushing several element to the front and checking that they have been properly pushed.
-void pushFrontTest()
+void dynamicArrayPushFrontTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushFront(1);
@@ -185,7 +185,7 @@ void pushFrontTest()
 }
 
 // Tests the push back method by pushing several elements to the back and checking that they have been properly pushed.
-void pushBackTest()
+void dynamicArrayPushBackTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
@@ -199,7 +199,7 @@ void pushBackTest()
 }
 
 // Tests the recenter method by causing an overflow on the front and back of the array.
-void recenterTest()
+void dynamicArrayRecenterTest()
 {
 	bool areElementsCorrectlyRepositioned;
 	int i;
@@ -283,19 +283,23 @@ void recenterTest()
 
 int main()
 {
-	simpleArithmeticTest();
-	assignmentTest();
-	defaultConstructorTest();
-	preAllocatedConstructorTest();
-	memoryReallocationTest();
-	reserveTest();
-	severalReallocationTest();
-	swapTest();
-	insertTest();
-	getTest();
-	removeTest();
-	pushFrontTest();
-	pushBackTest();
-	recenterTest();
+	// -------------------- DYNAMIC ARRAY TESTS -------------------- 
+	dynamicArraySimpleArithmeticTest();
+	dynamicArrayAssignmentTest();
+	dynamicArrayDefaultConstructorTest();
+	dynamicArrayPreAllocatedConstructorTest();
+	dynamicArrayMemoryReallocationTest();
+	dynamicArrayReserveTest();
+	dynamicArraySeveralReallocationTest();
+	dynamicArraySwapTest();
+	dynamicArrayInsertTest();
+	dynamicArrayGetTest();
+	dynamicArrayRemoveTest();
+	dynamicArrayPushFrontTest();
+	dynamicArrayPushBackTest();
+	dynamicArrayRecenterTest();
+	// -------------------- END DYNAMIC ARRAY TESTS -------------------- 
+	
+	
 	return 0;
 }
