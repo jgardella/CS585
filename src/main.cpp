@@ -399,7 +399,7 @@ void queueBoundedTest()
 	{
 		queue->dequeue();
 	}
-	JTest<int>::testEquality("Bounded queue test, element not added when capacity reached.", 6, queue->dequeue());
+	JTest<int>::testInequality("Bounded queue test, element not added when capacity reached.", 6, queue->dequeue());
 
 	delete queue;
 }
