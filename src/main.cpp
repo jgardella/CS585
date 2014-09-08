@@ -121,6 +121,23 @@ void dynamicArraySetTest()
 	delete array;	
 }
 
+// Tests the insert method of dynamic array by adding several elements, then inserting one and checking that the element is correctly inserted and the other elements are correctly shifted.
+void dynamicArrayInsertTest()
+{
+	DynamicArray<int> *array = new DynamicArray<int>(5);
+	array->pushBack(1);
+	array->pushBack(2);
+	array->pushBack(4);
+	array->pushBack(5);
+	array->insert(3, 2);
+	JTest<int>::testEquality("Insert test, element correctly inserted", 3, array->get(2));
+	JTest<int>::testEquality("Insert test, elements correctly shifted for insert", 4, array->get(3));
+	array->insert(2, 1);
+	JTest<int>::testEquality("Insert test, full array reallocated and element inserted", 2, array->get(1));
+	JTest<int>::testEquality("Insert test, full array reallocated and elements shifted for insert", 2, array->get(2));
+	delete array;
+}
+
 // Tests the get method of dynamic array by inserting an element and then getting that element and checking that the corrent element is returned.
 void dynamicArrayGetTest()
 {
@@ -292,6 +309,7 @@ int main()
 	dynamicArraySeveralReallocationTest();
 	dynamicArraySwapTest();
 	dynamicArraySetTest();
+	dynamicArrayInsertTest();
 	dynamicArrayGetTest();
 	dynamicArrayRemoveTest();
 	dynamicArrayPushFrontTest();
