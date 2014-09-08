@@ -110,15 +110,14 @@ void dynamicArraySwapTest()
 	delete array;
 }
 
-// Tests the insert method of dynamic array by adding one element, then inserting a new element in its position, checking if the replaced element is returned and the
-// inserted element is in the correct position.
-void dynamicArrayInsertTest()
+// Tests the set method of dynamic array by adding one element, then setting a new element in its position, checking if the new element is in the correct position.
+void dynamicArraySetTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	int replacedElement = array->insert(2, 0);
-	JTest<int>::testEquality("Insert test, replaced element returned", 1, replacedElement);
-	JTest<int>::testEquality("Insert test, inserted element is in correct position", 2, array->get(0));
+	int replacedElement = array->set(2, 0);
+	JTest<int>::testEquality("Set test, replaced element returned", 1, replacedElement);
+	JTest<int>::testEquality("Set test, inserted element is in correct position", 2, array->get(0));
 	delete array;	
 }
 
@@ -292,7 +291,7 @@ int main()
 	dynamicArrayReserveTest();
 	dynamicArraySeveralReallocationTest();
 	dynamicArraySwapTest();
-	dynamicArrayInsertTest();
+	dynamicArraySetTest();
 	dynamicArrayGetTest();
 	dynamicArrayRemoveTest();
 	dynamicArrayPushFrontTest();

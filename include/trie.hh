@@ -1,7 +1,7 @@
 #ifndef _TRIE_HH_
 #define _TRIE_HH_
 
-#include "../dynamicarray/dynamicarray.hh"
+#include "dynamicarray.hh"
 #include <string>
 #include "debug.hh"
 

@@ -1,8 +1,8 @@
 #ifndef _STACK_HH_
 #define _STACK_HH_
 
-#include "../dynamicarray/dynamicarray.hh"
-#include "../debug/debug.hh"
+#include "dynamicarray.hh"
+#include "debug.hh"
 
 
 #define NULL 0

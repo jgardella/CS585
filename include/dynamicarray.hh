@@ -90,12 +90,42 @@ class DynamicArray
 		
 		//------------------------- MODIFICATION -------------------------//
 
-		// Inserts the element newElement at position index in the array. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
-		// Parameters:
-		// T newElement - the new element to insert into the array
-		// unsigned int index - the index at which to insert te new element, should be from 0 to length() - 1
-		// Returns the element that was in position index before insertion, or NULL if the insertion did not complete because the provided index was out of bounds.
 		T insert(T newElement, unsigned int index)
+		{
+			int i;
+			if(length() == capacity())
+			{
+				reallocate((unsigned int)(internalArrayLength * 1.5));
+			}
+			// if the element is being inserted on the right half of the dynamic array and the right side is not full, it will be more efficient to
+			// shift the elements on the right
+			if(index > dynamicArrayLength / 2 && dynamicArrayBack != internalArrayBack)
+			{
+				for(i = dynamicArrayLength - 1; i >= index; i--)
+				{
+					set(get(i), i + 1);
+				}
+				dynamicArrayBack++; // move pointer to new back of array
+				
+			}
+			else // index is in left half of the dynamic array, or right half of array is full, so it is more efficient to shift the elements on the left
+			{
+				for(i = 0; i <= index; i++)
+				{
+					set(get(i), i - 1);
+				}
+				dynamicArrayFront--; // move pointer to new front of array
+			}
+			set(newElement, index); // add new element	
+			dynamicArrayLength++;
+		}
+
+		// Replaces the element at index with newElement. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
+		// Parameters:
+		// T newElement - the new element
+		// unsigned int index - the index at which to set the new element, should be from 0 to length() - 1
+		// Returns the element that was in position index before setting.
+		T set(T newElement, unsigned int index)
 		{
 			T oldElement = dynamicArrayFront[index + 1];
 			dynamicArrayFront[index + 1] = newElement;
@@ -125,7 +155,7 @@ class DynamicArray
 		// Removes the item at the specified index. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
 		// Parameters:
 		// unsigned int index - the index of the item to remove, should be from 0 to length() - 1
-		// Returns the item after removal, or NULL if the item could not be removed because the provided index was out of bounds.
+		// Returns the item after removal.
 		T remove(unsigned int index)
 		{
 			int i;
@@ -136,7 +166,7 @@ class DynamicArray
 			{
 				for(i = index; i < dynamicArrayLength; i++)
 				{
-					insert(get(i + 1), i);
+					set(get(i + 1), i);
 				}
 				dynamicArrayBack--; // move pointer to new back of array
 			}
@@ -144,7 +174,7 @@ class DynamicArray
 			{
 				for(i = index; i > 0; i--)
 				{
-					insert(get(i - 1), i);
+					set(get(i - 1), i);
 				}
 				dynamicArrayFront++; // move pointer to new front of array
 			}
