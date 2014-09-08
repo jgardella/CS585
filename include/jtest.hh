@@ -25,6 +25,22 @@ class JTest
 			std::cout << "[ Passed ] " << testName << std::endl;
 		}
 
+		// Tests if the actual value of an operation is not equal to a certain value.
+		// Parameters:
+		// char* testName - the name of the test being performed
+		// T unexpectedValue - the value which the actual value should not be
+		// T actualValue - the actual result of the operation
+		static void testInequality(const char* testName, T unexpectedValue, T actualValue)
+		{
+			if(unexpectedValue == actualValue)
+			{
+				std::cout << "[ Failed ] " << testName << ": actual value equal to unexpected value (unexpected: " << unexpectedValue << ", actual: " << actualValue << ")" << std::endl;
+			}
+			assert(unexpectedValue != actualValue);
+			// assert passed, output positive test result
+			std::cout << "[ Passed ] " << testName << std::endl;
+		}
+
 		// Tests if the result of an operation is less than a specified upper bound.
 		// Parameters:
 		// char* testName - the name of the test being performed
