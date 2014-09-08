@@ -1,5 +1,8 @@
 #include "dynamicarray.hh"
+#include "stack.hh"
 #include "jtest.hh"
+
+// -------------------- DYNAMIC ARRAY TESTS -------------------- 
 
 void dynamicArraySimpleArithmeticTest()
 {
@@ -297,9 +300,56 @@ void dynamicArrayRecenterTest()
 	delete array;
 }
 
-int main()
+// -------------------- END DYNAMIC ARRAY TESTS -------------------- 
+
+// --------------------      STACK TESTS        --------------------
+
+void stackPushAndPopTest()
 {
-	// -------------------- DYNAMIC ARRAY TESTS -------------------- 
+	Stack<int> *stack = new Stack<int>();
+	stack->push(5);
+	stack->push(4);
+	stack->push(3);
+	stack->push(2);
+	stack->push(1);
+
+	JTest<int>::testEquality("Push and pop test, first element popped", 1, stack->pop());
+	JTest<int>::testEquality("Push and pop test, second element popped", 2, stack->pop());
+	JTest<int>::testEquality("Push and pop test, third element popped", 3, stack->pop());
+	JTest<int>::testEquality("Push and pop test, fourth element popped", 4, stack->pop());
+	JTest<int>::testEquality("Push and pop test, fifth element popped", 5, stack->pop());
+
+	delete stack;
+}
+
+void stackPeekTest()
+{
+	Stack<int> *stack = new Stack<int>();
+	stack->push(1);
+
+	JTest<int>::testEquality("Peek test, first element peeked", 1, stack->peek());
+
+	delete stack;
+}
+
+void stackBoundedTest()
+{
+	Stack<int> *stack = new Stack<int>(5);
+	stack->push(5);
+	stack->push(4);
+	stack->push(3);
+	stack->push(2);
+	stack->push(1);
+	stack->push(0);
+
+	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, stack->peek());
+}
+
+// --------------------  END STACK TESTS        --------------------
+
+void dynamicArrayTests()
+{
+	std::cout << "Dynamic Array Tests" << std::endl;
 	dynamicArraySimpleArithmeticTest();
 	dynamicArrayAssignmentTest();
 	dynamicArrayDefaultConstructorTest();
@@ -309,14 +359,25 @@ int main()
 	dynamicArraySeveralReallocationTest();
 	dynamicArraySwapTest();
 	dynamicArraySetTest();
-	dynamicArrayInsertTest();
+	//dynamicArrayInsertTest();
 	dynamicArrayGetTest();
 	dynamicArrayRemoveTest();
 	dynamicArrayPushFrontTest();
 	dynamicArrayPushBackTest();
 	dynamicArrayRecenterTest();
-	// -------------------- END DYNAMIC ARRAY TESTS -------------------- 
-	
-	
+}
+
+void stackTests()
+{
+	std::cout << "Stack Tests" << std::endl;
+	stackPushAndPopTest();
+	stackPeekTest();
+	stackBoundedTest();
+}
+
+int main()
+{
+	dynamicArrayTests();	
+	stackTests();	
 	return 0;
 }
