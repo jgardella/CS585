@@ -14,12 +14,14 @@ debug: all
 bin/%.o: src/%.cpp
 	g++ $(CXXFLAGS) -c -o $@ $<
 clean:
-	-$(RM) *~
-	-$(RM) \#*
-	-$(RM) *.o
-	-$(RM) *.core
+	-$(RM) bin/*~
+	-$(RM) bin/\#*
+	-$(RM) bin/*.o
+	-$(RM) bin/*.core
 
 fclean:	clean
 	-$(RM) $(NAME)
 
 re: fclean all
+
+rebug: fclean debug all
