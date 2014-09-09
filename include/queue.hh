@@ -4,8 +4,6 @@
 #include "dynamicarray.hh"
 #include "debug.hh"
 
-#define NULL 0
-
 // Queue data structure (FIFO)
 template <class T>
 class Queue

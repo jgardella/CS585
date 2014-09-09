@@ -4,9 +4,6 @@
 #include "dynamicarray.hh"
 #include "debug.hh"
 
-
-#define NULL 0
-
 // Stack data structure (LIFO)
 template <class T>
 class Stack
