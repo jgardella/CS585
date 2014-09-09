@@ -41,6 +41,11 @@ class Debug
 		// Parameters:
 		// string channel - the channel to unmute
 		void unmuteChannel(std::string channel);
+		
+		// Enables/disables debug, based on the passed bool.
+		// PArameters:
+		// bool status - true to enable debug, false to disable debug
+		void setDebugStatus(bool status);
 
 		// Channels
 		static const std::string GAMEPLAY;
@@ -50,8 +55,8 @@ class Debug
 	private:
 		// Class is singleton, so the constructor, copy constructor, assignment operator, and deconstructor should be inaccessible.
 		Debug(){};
-		Debug(Debug const&){};
-		Debug& operator=(Debug const&){};
+		Debug(Debug const&);
+		Debug& operator=(Debug const&);
 		~Debug();
 		static Debug* instance;
 		
@@ -59,6 +64,8 @@ class Debug
 		static bool isWarnMuted;
 		static bool isErrorMuted;
 		
+		bool enabled;
+
 		static DynamicArray<t_customChannel>* addedChannels;
 
 		// Returns a timestamp representing the current time.

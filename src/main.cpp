@@ -88,16 +88,19 @@ void dynamicArrayReserveTest()
 void dynamicArraySeveralReallocationTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
-	int i;
+	unsigned int i;
+        int j;
 	for(i = 1; i <= 100; i++)
 	{
 		array->pushBack(i);
 	}
 	bool isProperlyExpanded = true;
-	for(i = 0; i < array->length() && isProperlyExpanded; i++)
+	for(i = 0, j = 1; i < array->length() && isProperlyExpanded; i++, j++)
 	{
-		if(array->get(i) != i + 1)
+		if(array->get(i) != j)
+		{
 			isProperlyExpanded = false;
+		}
 	}
 	JTest<int>::testEquality("Memory reallocation test, elements added and array reallocated several times", 1, isProperlyExpanded);
 }
@@ -157,7 +160,6 @@ void dynamicArrayGetTest()
 // is removed from.
 void dynamicArrayRemoveTest()
 {
-	int i;
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
 	int removedElement = array->remove(0);
@@ -223,7 +225,8 @@ void dynamicArrayPushBackTest()
 void dynamicArrayRecenterTest()
 {
 	bool areElementsCorrectlyRepositioned;
-	int i;
+	unsigned int i;
+	int j;
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushFront(10);
 	array->pushFront(9);
@@ -233,9 +236,9 @@ void dynamicArrayRecenterTest()
 	array->pushFront(5);
 	
 	areElementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
+	for(i = 0, j = 0; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != i + 5)
+		if(array->get(i) != j + 5)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -250,9 +253,9 @@ void dynamicArrayRecenterTest()
 	array->pushFront(1);
 
 	areElementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
+	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != i + 1)
+		if(array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -272,9 +275,9 @@ void dynamicArrayRecenterTest()
 	array->pushBack(6);
 	
 	areElementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
+	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != i + 1)
+		if(array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -289,9 +292,9 @@ void dynamicArrayRecenterTest()
 	array->pushBack(10);
 
 	areElementsCorrectlyRepositioned = true;
-	for(i = 0; i < array->length() && areElementsCorrectlyRepositioned; i++)
+	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != i + 1)
+		if(array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -386,7 +389,7 @@ void queueFrontTest()
 
 void queueBoundedTest()
 {
-	int i;
+	unsigned int i;
 	Queue<int> *queue = new Queue<int>(5);
 	
 	queue->enqueue(1);
@@ -466,8 +469,22 @@ void queueTests()
 	queueBoundedTest();
 }
 
+void initializeDebug()
+{	
+	Debug* debug = Debug::getInstance();
+	#ifndef DEBUG
+	debug->setDebugStatus(false);
+	#else
+	debug->setDebugStatus(true);
+	debug->addChannel("STACK");
+	debug->addChannel("QUEUE");
+	debug->addChannel("TRIE");
+	#endif
+}
+
 int main()
 {
+	initializeDebug();
 	dynamicArrayTests();	
 	stackTests();	
 	queueTests();

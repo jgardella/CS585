@@ -30,6 +30,11 @@ void Debug::log(std::string channel, std::string message)
 	}
 }
 
+void Debug::setDebugStatus(bool status)
+{
+	enabled = status;
+}
+
 std::string Debug::addChannel(std::string newChannel)
 {
 	t_customChannel customChannel;
@@ -49,7 +54,7 @@ std::string Debug::getTimestamp()
 
 bool Debug::isUnmutedAndValid(std::string channel)
 {
-	int i;
+	unsigned int i;
 	if(channel.compare(Debug::GAMEPLAY) == 0)
 	{
 		return !isGameplayMuted;

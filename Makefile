@@ -2,13 +2,17 @@ NAME = test
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix bin/,$(notdir $(CPP_FILES:.cpp=.o)))
 RM = rm -f
-CXXFLAGS = -Wall -Werror -std=c++11
+CXXFLAGS = -Iinclude -Wall -Werror
+
+debug: CXXFLAGS += -DDEBUG
 
 all: $(OBJ_FILES)
-	g++ $(CXXFLAGS) $(OBJ_FILES) -o $(NAME)
+	g++ -std=c++11 $(CXXFLAGS) $(OBJ_FILES) -o $(NAME)
+
+debug: all
 
 bin/%.o: src/%.cpp
-	g++ -Iinclude $(CC_FLAGS) -c -o $@ $<
+	g++ $(CXXFLAGS) -c -o $@ $<
 clean:
 	-$(RM) *~
 	-$(RM) \#*

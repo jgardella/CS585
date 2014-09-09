@@ -1,8 +1,6 @@
 #ifndef _DYNAMICARRAY_HH_
 #define _DYNAMICARRAY_HH_
 
-#include <iostream>
-
 // Dynamically sized array
 template <class T>
 class DynamicArray
@@ -92,9 +90,9 @@ class DynamicArray
 		
 		//------------------------- MODIFICATION -------------------------//
 
-		T insert(T newElement, unsigned int index)
+		void insert(T newElement, unsigned int index)
 		{
-			int i;
+			unsigned int i;
 			if(length() == capacity())
 			{
 				reallocate((unsigned int)(internalArrayLength * 1.5));
@@ -103,7 +101,6 @@ class DynamicArray
 			// shift the elements on the right
 			if(index > dynamicArrayLength / 2 && dynamicArrayBack != internalArrayBack)
 			{
-				std::cout << "shifting right" << std::endl;
 				for(i = dynamicArrayLength - 1; i > index; i--)
 				{
 					set(get(i), i + 1);
@@ -113,24 +110,14 @@ class DynamicArray
 			}
 			else // index is in left half of the dynamic array, or right half of array is full, so it is more efficient to shift the elements on the left
 			{
-				std::cout << "shifting left" << std::endl;
 				for(i = 0; i < index; i++)
 				{
-					std::cout << "Replacing: " << get(i - 1) << " with: " << get(i) << std::endl;
 					set(get(i), i - 1);
 				}
 				dynamicArrayFront--; // move pointer to new front of array
 			}
-			std::cout << "test" << std::endl;
 			set(newElement, index); // add new element	
-			std::cout << "Length before: " << dynamicArrayLength << std::endl;
 			dynamicArrayLength++;
-			std::cout << "Length after: " << dynamicArrayLength << std::endl;
-			for(i = 0; i < length(); i++)
-			{
-				std::cout  << "" << get(i) << " ";
-			}
-			std::cout << std::endl;
 		}
 
 		// Replaces the element at index with newElement. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
@@ -171,7 +158,7 @@ class DynamicArray
 		// Returns the item after removal.
 		T remove(unsigned int index)
 		{
-			int i;
+			unsigned int i;
 			T removedElement = get(index);
 			// if the index being removed is in the right half of the dynamic array, it will be more efficient to
 			// shift the elements on the right
@@ -237,10 +224,8 @@ class DynamicArray
 		// unsigned int newSize - the new size for the internal array (must be greater than the current length of the dynamic array)
 		void reallocate(unsigned int newSize)
 		{
-			std::cout << "reallocate method" << std::endl;
-			int i;
+			unsigned int i;
 			T* temp;
-			std::cout << "newSize: " << newSize << std::endl;
 			if(newSize > dynamicArrayLength)
 			{
 				// allocate new array of specified size
@@ -257,9 +242,7 @@ class DynamicArray
 				internalArrayBack = temp + newSize;
 				internalArrayLength = newSize;
 				// delete old array and change pointer to point to new array
-				std::cout << "before delete" << std::endl;
 				delete [] array;
-				std::cout << "after delete" << std::endl;
 				array = temp;
 			}
 		}
@@ -269,12 +252,11 @@ class DynamicArray
 		// bool shouldRecenterFront - true if there has been an overflow on the front of the array, false if there has been an overflow on the back of the array
 		void recenter(bool shouldRecenterFront)
 		{
-			int i;
+			unsigned int i;
 			int buffer = ((internalArrayLength - dynamicArrayLength) / 2); // free space on each side of the internal array
 			if(shouldRecenterFront)
 			{
 				// shift all elements right such that there is equal free space on the front and back of the internal array
-				int i;
 				for(i = dynamicArrayLength; i > 0; i--)
 				{
 					dynamicArrayFront[i + buffer + 1] = dynamicArrayFront[i];

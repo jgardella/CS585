@@ -69,7 +69,7 @@ class Trie
 		Value findValue(std::string key)
 		{
 			Debug::log("TRIE", "findValue method entered with key " + key);
-			int i;
+			unsigned int i;
 			std::string firstLetter;
 			Trie* node;
 			if(key.compare("") != 0) // base case, if key is empty string, final node has been reached. return value.
@@ -98,7 +98,7 @@ class Trie
 		void addValue(std::string key, Value newValue)
 		{
 			Debug::log("TRIE", "addValue method enter with key " + key);
-			int i;
+			unsigned int i;
 			std::string firstLetter;
 			Trie* node;
 			if(key.compare("") != 0) // base case, if key is empty string, final node has been reached. set its value to the given value.
