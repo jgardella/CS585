@@ -476,6 +476,7 @@ void initializeDebug()
 	debug->setDebugStatus(false);
 	#else
 	debug->setDebugStatus(true);
+	debug->setTerminalLogging(true);
 	debug->addChannel("STACK");
 	debug->addChannel("QUEUE");
 	debug->addChannel("TRIE");

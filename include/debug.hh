@@ -47,6 +47,12 @@ class Debug
 		// bool status - true to enable debug, false to disable debug
 		void setDebugStatus(bool status);
 
+		void setTerminalLogging(bool isOn);
+
+		void setFileLogging(bool isOn);
+
+		void setNetworkLogging(bool isOn);
+
 		// Channels
 		static const std::string GAMEPLAY;
 		static const std::string WARN;
@@ -65,6 +71,9 @@ class Debug
 		static bool isErrorMuted;
 		
 		bool enabled;
+		static bool isTerminalLoggingEnabled;
+		static bool isFileLoggingEnabled;
+		static bool isNetworkLoggingEnabled;
 
 		static DynamicArray<t_customChannel>* addedChannels;
 

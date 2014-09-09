@@ -8,6 +8,10 @@ bool Debug::isGameplayMuted = false;
 bool Debug::isWarnMuted = false;
 bool Debug::isErrorMuted = false;
 
+bool Debug::isTerminalLoggingEnabled = false;
+bool Debug::isFileLoggingEnabled = false;
+bool Debug::isNetworkLoggingEnabled = false;
+
 Debug* Debug::instance;
 
 DynamicArray<t_customChannel>* Debug::addedChannels = new DynamicArray<t_customChannel>();
@@ -26,13 +30,39 @@ void Debug::log(std::string channel, std::string message)
 {
 	if(isUnmutedAndValid(channel))
 	{
-		std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
+		if(isTerminalLoggingEnabled)
+		{
+			std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
+		}
+		if(isFileLoggingEnabled)
+		{
+			// file logging implementation
+		}
+		if(isNetworkLoggingEnabled)
+		{
+			// network logging implementation
+		}
 	}
 }
 
 void Debug::setDebugStatus(bool status)
 {
 	enabled = status;
+}
+
+void Debug::setTerminalLogging(bool isOn)
+{
+	isTerminalLoggingEnabled = isOn;
+}
+
+void Debug::setFileLogging(bool isOn)
+{
+	isFileLoggingEnabled = isOn;
+}
+
+void Debug::setNetworkLogging(bool isOn)
+{
+	isNetworkLoggingEnabled = isOn;
 }
 
 std::string Debug::addChannel(std::string newChannel)
