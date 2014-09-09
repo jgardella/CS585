@@ -70,7 +70,7 @@ class Debug
 		static bool isWarnMuted;
 		static bool isErrorMuted;
 		
-		bool enabled;
+		static bool enabled;
 		static bool isTerminalLoggingEnabled;
 		static bool isFileLoggingEnabled;
 		static bool isNetworkLoggingEnabled;

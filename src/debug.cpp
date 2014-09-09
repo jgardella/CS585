@@ -12,6 +12,8 @@ bool Debug::isTerminalLoggingEnabled = false;
 bool Debug::isFileLoggingEnabled = false;
 bool Debug::isNetworkLoggingEnabled = false;
 
+bool Debug::enabled = true;
+
 Debug* Debug::instance;
 
 DynamicArray<t_customChannel>* Debug::addedChannels = new DynamicArray<t_customChannel>();
@@ -28,7 +30,7 @@ Debug* Debug::getInstance()
 
 void Debug::log(std::string channel, std::string message)
 {
-	if(isUnmutedAndValid(channel))
+	if(isUnmutedAndValid(channel) && enabled)
 	{
 		if(isTerminalLoggingEnabled)
 		{
