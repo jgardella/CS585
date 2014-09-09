@@ -413,16 +413,15 @@ void trieAddGetTest()
 {
 	Trie<int>* trie = new Trie<int>();
 
-	trie->add("cct", 5);
-	std::cout << "test" << std::endl;
+	trie->add("cat", 5);
 	trie->add("can", 10);
 	trie->add("banana", 15);
 	trie->add("ball", 20);
 
-	JTest<int>::testEquality("Add and get test, first element added and retrieved", 5, trie->get("cct"));
-	JTest<int>::testEquality("Add and get test, second element added and retrieved", 5, trie->get("can"));
-	JTest<int>::testEquality("Add and get test, third element added and retrieved", 5, trie->get("banana"));
-	JTest<int>::testEquality("Add and get test, fourth element added and retrieved", 5, trie->get("ball"));
+	JTest<int>::testEquality("Add and get test, first element added and retrieved", 5, trie->get("cat"));
+	JTest<int>::testEquality("Add and get test, second element added and retrieved", 10, trie->get("can"));
+	JTest<int>::testEquality("Add and get test, third element added and retrieved", 15, trie->get("banana"));
+	JTest<int>::testEquality("Add and get test, fourth element added and retrieved", 20, trie->get("ball"));
 
 	delete trie;
 }
