@@ -13,7 +13,6 @@ class Queue
 		// Constructor for an unbounded queue.
 		Queue()
 		{
-			Debug::getInstance()->addChannel("QUEUE");
 			dynamicArray = new DynamicArray<T>();
 			isBounded = false;
 		}
@@ -23,7 +22,6 @@ class Queue
 		// unsigned int capacity - the bounded capacity of the queue
 		Queue(unsigned int capacity)
 		{
-			Debug::getInstance()->addChannel("QUEUE");
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}

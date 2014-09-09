@@ -411,6 +411,8 @@ void queueBoundedTest()
 
 void trieAddGetTest()
 {
+	std::cout << "Trie test" << std::endl;
+
 	Trie<int>* trie = new Trie<int>();
 
 	trie->add("cat", 5);
@@ -425,6 +427,8 @@ void trieAddGetTest()
 
 	delete trie;
 }
+
+// -----------------   END TRIE TESTS          --------------------
 
 void dynamicArrayTests()
 {
@@ -456,6 +460,7 @@ void stackTests()
 
 void queueTests()
 {
+	std::cout << "Queue Tests" << std::endl;
 	queueEnqueueAndDequeueTest();
 	queueFrontTest();
 	queueBoundedTest();

@@ -24,7 +24,7 @@ Debug* Debug::getInstance()
 
 void Debug::log(std::string channel, std::string message)
 {
-	if(!isMutedAndValid(channel))
+	if(isUnmutedAndValid(channel))
 	{
 		std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
 	}
@@ -47,20 +47,20 @@ std::string Debug::getTimestamp()
 	return stringTime.substr(0, stringTime.length() - 1); // removes last character before turning, because ctime always appends a new-line to the end of the time
 }
 
-bool Debug::isMutedAndValid(std::string channel)
+bool Debug::isUnmutedAndValid(std::string channel)
 {
 	int i;
 	if(channel.compare(Debug::GAMEPLAY) == 0)
 	{
-		return isGameplayMuted;
+		return !isGameplayMuted;
 	}
 	if(channel.compare(Debug::WARN) == 0)
 	{
-		return isWarnMuted;
+		return !isWarnMuted;
 	}
 	if(channel.compare(Debug::ERROR) == 0)
 	{
-		return isErrorMuted;
+		return !isErrorMuted;
 	}
 	// channel is not any of the default channels, check custom channels
 	for(i = 0; i < addedChannels->length(); i++)
@@ -68,7 +68,7 @@ bool Debug::isMutedAndValid(std::string channel)
 		t_customChannel customChannel = addedChannels->get(i);
 		if(channel.compare(customChannel.channelName) == 0)
 		{
-			return customChannel.isMuted;
+			return !customChannel.isMuted;
 		}
 	}
 	// if this point is reached, the given channel name is not valid

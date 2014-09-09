@@ -68,7 +68,7 @@ class Debug
 		// Parameters:
 		// string channel - the channel to check the mute-status of
 		// Returns true if channel is muted, false if not.
-		static bool isMutedAndValid(std::string channel);
+		static bool isUnmutedAndValid(std::string channel);
 };
 
 #endif

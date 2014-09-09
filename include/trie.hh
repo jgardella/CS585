@@ -13,7 +13,6 @@ class Trie
 		// Constructs a node with no value or key (used for making root).
 		Trie()
 		{
-			Debug::getInstance()->addChannel("TRIE");
 			Debug::log("TRIE", "Constructing node with no value or key");
 			this->children = new DynamicArray<Trie*>();
 		}

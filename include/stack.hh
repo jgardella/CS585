@@ -13,7 +13,6 @@ class Stack
 		// Constructor for an unbounded stack.
 		Stack()
 		{
-			Debug::getInstance()->addChannel("STACK");
 			dynamicArray = new DynamicArray<T>();
 			isBounded = false;
 		}
@@ -23,7 +22,6 @@ class Stack
 		// unsigned int capacity - the bounded capacity of the stack
 		Stack(unsigned int capacity)
 		{
-			Debug::getInstance()->addChannel("STACK");
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}
