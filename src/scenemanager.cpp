@@ -1,9 +1,18 @@
 #include "scenemanager.hh"
-#include <time.h>
+
+SceneManager* SceneManager::getInstance()
+{
+	if(instance == NULL)
+	{
+		instance = new SceneManager();
+	}
+	return instance;
+}
 
 SceneManager::SceneManager(): 
 	tickables(new DynamicArray<ITickable>()),
 	sceneNodes(new DynamicArray<SceneNode>())
+	sceneGraph(new SpacialStructure())
 {}
 
 void SceneManager::tick(float dt)

@@ -2,10 +2,20 @@
 
 class SceneNode
 {
+	friend class ISceneGraph; // ISceneGraph is friend so it can access scene node's info
+
 	public:
-		int getXCoordinate();
-		int getYCoordinate();
+		SceneNode(int xCoord, int yCoord, Collider col, SceneNode *p, SceneNode *n):
+			xCoordinate(xCoord),
+			yCoordinate(yCoord),
+			collider(col),
+			prev(p),
+			next(n)
+		{}
+
 	private:
 		int xCoordinate, yCoordinate;
-		Collider col;
+		Collider collider;
+		SceneNode *prev; // pointer to previous scene node in same position
+		SceneNode *next; // pointer to next scene node in same position
 }
