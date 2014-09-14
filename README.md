@@ -79,3 +79,8 @@ Naming
 - Single letter variables should not be used except as an iterator in a for loop.
 - Variable names should be indicative of what they hold.
 - Boolean variables and methods which return a boolean should ask a true/false question (e.g. `bool isEnabled` or `bool isPositive(int num)`).
+
+Spacing
+-------
+- On both sides of an operator, there should be one space.
+- On the side of parenthetical statements, there should be no space between the contents and the parenthesees.
