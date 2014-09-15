@@ -1,4 +1,5 @@
 #include "testgame.hh"
+#include <iostream>
 
 TestGame::TestGame()
 {
@@ -7,12 +8,12 @@ TestGame::TestGame()
 
 void TestGame::simulate()
 {
-	std::clock_t startTime, finishTime;
+	std::clock_t startTime = clock(), finishTime = startTime;
 	bool isPlaying = true;
 	while(isPlaying)
 	{
 		startTime = clock();
-		isPlaying = update((finishTime - startTime) / CLOCKS_PER_TICK);
-		finishTime = clock();
+		isPlaying = gameObject->update((startTime - finishTime) / CLOCKS_PER_SEC);
+		finishTime = startTime;
 	}
 }

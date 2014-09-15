@@ -1,44 +1,44 @@
-#include "fixedgraph.hh"
+#include "fixedgrid.hh"
 
-void FixedGraph::addSceneNode(SceneNode node)
+void FixedGrid::addSceneNode(SceneNode node)
 {
-	int gridIndex = node.yCoordinate *  yDimension + node.xCoordinate;
+	int gridIndex = node.getY() *  yDimension + node.getX();
 	SceneNode *nodeAtGridIndex;
 	if(nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
 	{
-		nodeGrid[gridIndex] = node;
+		nodeGrid[gridIndex] = &node;
 	}
 	else // if position in grid is not empty, navigate to end of doubly linked list and add at end
 	{
 		nodeAtGridIndex = nodeGrid[gridIndex];
-		while(noteAtGridIndex->next != NULL)
+		while(nodeAtGridIndex->getNext() != NULL)
 		{
-			noteAtGridIndex = noteAtGridIndex->next;
+			nodeAtGridIndex = nodeAtGridIndex->getNext();
 		}
-		noteAtGridIndex->next = node;
+		nodeAtGridIndex->setNext(&node);
 	}
 }
 
-void FixedGraph::removeSceneNode(SceneNode node)
+void FixedGrid::removeSceneNode(SceneNode node)
 {
-	if(node.prev != NULL)
+	if(node.getPrevious() != NULL)
 	{
-		node.prev->next = node.next;
+		node.getPrevious()->setNext(node.getNext());
 	}
 	else
 	{
-		nodeGrid = node.next;
+		nodeGrid[node.getY() * yDimension + node.getX()] = node.getNext();
 	}
-	if(node.next != NULL)
+	if(node.getNext() != NULL)
 	{
-		node.next->prev = node.prev;
+		node.getNext()->setPrevious(node.getPrevious());
 	}
 }
 
-void FixedGraph::updateSceneNode(SceneNode node, int x, int y)
+void FixedGrid::updateSceneNode(SceneNode node, int x, int y)
 {
 	removeSceneNode(node);
-	node.xCoordinate = x;
-	node.yCoordinate = y;
+	node.setX(x);
+	node.setY(y);
 	addSceneNode(node);
 }

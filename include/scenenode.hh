@@ -1,21 +1,35 @@
+#ifndef _SCENENODE_HH_
+#define _SCENENODE_HH_
+
 // scene node should contain information for collision and position
 
 class SceneNode
 {
-	friend class ISceneGraph; // ISceneGraph is friend so it can access scene node's info
-
 	public:
-		SceneNode(int xCoord, int yCoord, Collider col, SceneNode *p, SceneNode *n):
+		SceneNode(){ };
+		SceneNode(int xCoord, int yCoord, int col, SceneNode *p, SceneNode *n):
 			xCoordinate(xCoord),
 			yCoordinate(yCoord),
-			collider(col),
+			collisionLayer(col),
 			prev(p),
 			next(n)
 		{}
+		
+		int getX();
+		int getY();
+		int getCollisionLayer();
+		SceneNode* getPrevious();
+		SceneNode* getNext();
+		void setX(int newX);
+		void setY(int newY);
+		void setCollisionLayer(int newLayer);
+		void setPrevious(SceneNode *newPrev);
+		void setNext(SceneNode *newNext);
 
 	private:
-		int xCoordinate, yCoordinate;
-		Collider collider;
+		int xCoordinate, yCoordinate, collisionLayer;
 		SceneNode *prev; // pointer to previous scene node in same position
 		SceneNode *next; // pointer to next scene node in same position
-}
+};
+
+#endif

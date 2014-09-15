@@ -1,8 +1,16 @@
+#ifndef _ACTORSPAWNER_HH_
+#define _ACTORSPAWNER_HH_
+
 #include "actor.hh"
+#include "itickable.hh"
+#include "scenemanager.hh"
+#include "dynamicarray.hh"
+#include <cstdlib>
 
 class ActorSpawner : public ITickable
 {
 	public:
+		ActorSpawner(int, DynamicArray<Actor*>*, int, int);
 		void tick(float dt);
 	private:
 		SceneManager *sceneManager;
@@ -14,3 +22,5 @@ class ActorSpawner : public ITickable
 		int spawnY;
 		float timeCounter;
 };
+
+#endif

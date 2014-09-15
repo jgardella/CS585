@@ -1,42 +1,41 @@
 #include "scenemanager.hh"
+#include "fixedgrid.hh"
 
-template SceneManager* SceneManager::getInstance();
-template <class SpacialStructure>
+#define NULL 0
+
+SceneManager* SceneManager::instance;
+
 SceneManager* SceneManager::getInstance()
 {
-	if(instance == NULL)
+	if(SceneManager::instance == NULL)
 	{
-		instance = new SceneManager();
+		SceneManager::instance = new SceneManager();
 	}
-	return instance;
+	return SceneManager::instance;
 }
 
-template SceneManager::SceneManager();
-template <class SpacialStructure>
-SceneManager::SceneManager(): 
-	tickables(new DynamicArray<ITickable>()),
-	sceneNodes(new DynamicArray<SceneNode>())
-	sceneGraph(new SpacialStructure())
-{}
+SceneManager::SceneManager()
+{	
+	tickables = new DynamicArray<ITickable*>();
+	sceneNodes = new DynamicArray<SceneNode>();
+	sceneGraph = new FixedGrid();
+}
 
-template <class SpacialStructure>
 void SceneManager::tick(float dt)
 {
-	int i;
-	for(i = 0; i < tickables.length(); i++)
+	unsigned int i;
+	for(i = 0; i < tickables->length(); i++)
 	{
-		tickables.get(i).tick(dt);
+		tickables->get(i)->tick(dt);
 	}
 }
 
-template <class SpacialStructure>
-void SceneManager::addTickable(ITickable tickable)
+void SceneManager::addTickable(ITickable *tickable)
 {
-	tickables.push(tickable);
+	tickables->pushBack(tickable);
 }
 
-template <class SpacialStructure>
 void SceneManager::addSceneNode(SceneNode node)
 {
-	sceneNodes.push(node);
+	sceneNodes->pushBack(node);
 }

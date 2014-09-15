@@ -1,13 +1,13 @@
-#include "iscenegraph.hh"
+#include "fixedgrid.hh"
 
-FixedGraph::FixedGraph()
+FixedGrid::FixedGrid()
 {
 	nodeGrid = new SceneNode[100];
-	this-yDimension = 10;
+	this->yDimension = 10;
 }
 
-FixedGraph::FixedGraph(int xDimension, int yDimension)
+FixedGrid::FixedGrid(int xDimension, int yDimension)
 {
-	nodeGrid = new SceneNode[xDimension * y Dimension];
+	nodeGrid = new SceneNode[xDimension * yDimension];
 	this->yDimension = yDimension;
 }

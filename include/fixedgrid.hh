@@ -1,10 +1,15 @@
+#ifndef _FIXEDGRID_HH_
+#define _FIXEDGRID_HH_
+
 #include "iscenegraph.hh"
+
+#define NULL 0
 
 class FixedGrid : public ISceneGraph
 {
 	public:
-		FixedGraph();
-		FixedGraph(int xDimension, int yDimension);
+		FixedGrid();
+		FixedGrid(int xDimension, int yDimension);
 
 		void addSceneNode(SceneNode node);
 		void removeSceneNode(SceneNode node);
@@ -15,6 +20,8 @@ class FixedGrid : public ISceneGraph
 		DynamicArray<SceneNode> getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2);
 
 	private:
-		SceneNode* nodeGrid[]; // grid of pointers to scene nodes representing scene
+		SceneNode *nodeGrid; // grid of pointers to scene nodes representing scene
 		int yDimension;
 };
+
+#endif
