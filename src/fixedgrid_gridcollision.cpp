@@ -6,13 +6,14 @@ DynamicArray<SceneNode*> FixedGrid::getColliders(SceneNode node)
 	SceneNode *otherNode;
 	if(node.isCollider()) // if node is on non-collision layer, return empty array
 	{
-		otherNode = &nodeGrid[node.getX() + node.getY() * yDimension];
+		otherNode = nodeGrid[node.getX() + node.getY() * yDimension];
 		while(otherNode != NULL)
 		{
 			if(otherNode->isCollider())
 			{
 				colliders->pushBack(otherNode);
 			}
+			otherNode = otherNode->getNext();
 		}
 	}
 	return *colliders;
@@ -21,7 +22,7 @@ DynamicArray<SceneNode*> FixedGrid::getColliders(SceneNode node)
 DynamicArray<SceneNode*> FixedGrid::getColliders(int x, int y)
 {
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
-	SceneNode *node = &nodeGrid[x + y * yDimension];
+	SceneNode *node = nodeGrid[x + y * yDimension];
 	while(node != NULL)
 	{
 		colliders->pushBack(node);
@@ -45,7 +46,7 @@ DynamicArray<SceneNode*> FixedGrid::getColliders(int cornerX1, int cornerY1, int
 	{
 		for(j = cornerY1; j <= cornerY2; j++)
 		{
-			SceneNode *node = &nodeGrid[i + j * yDimension];
+			SceneNode *node = nodeGrid[i + j * yDimension];
 			while(node != NULL)
 			{
 				colliders->pushBack(node);

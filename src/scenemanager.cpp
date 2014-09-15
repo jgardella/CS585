@@ -1,7 +1,6 @@
 #include "scenemanager.hh"
 #include "fixedgrid.hh"
-
-#define NULL 0
+#include <iostream>
 
 SceneManager* SceneManager::instance;
 
@@ -32,6 +31,7 @@ void SceneManager::tick(float dt)
 
 void SceneManager::addTickable(ITickable *tickable)
 {
+	tickable->setGraph(sceneGraph);
 	tickables->pushBack(tickable);
 }
 
@@ -39,3 +39,5 @@ void SceneManager::addSceneNode(SceneNode node)
 {
 	sceneNodes->pushBack(node);
 }
+
+

@@ -25,6 +25,7 @@ ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actor
 	this->spawnY = spawnY;
 	this->secondsBetweenSpawns = secondsBetweenSpawns;
 	this->timeCounter = 0;
+	srand(50);
 }
 
 void ActorSpawner::tick(float dt)
@@ -38,4 +39,9 @@ void ActorSpawner::tick(float dt)
 		timeCounter = 0;
 	}
 
+}
+
+void ActorSpawner::setGraph(ISceneGraph *graph)
+{
+	this->graph = graph;
 }

@@ -13,10 +13,12 @@ class ActorSpawner : public ITickable
 	public:
 		ActorSpawner(int, DynamicArray<Actor*>*, int, int);
 		void tick(float dt);
+		void setGraph(ISceneGraph*);
 	private:
 		SceneManager *sceneManager;
 		DynamicArray<std::string> *names;
 		DynamicArray<Actor*> *actors;
+		ISceneGraph *graph;
 		int secondsBetweenSpawns;
 		int namesLeft;
 		int spawnX;

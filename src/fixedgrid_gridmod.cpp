@@ -1,16 +1,17 @@
 #include "fixedgrid.hh"
+#include <iostream>
 
 void FixedGrid::addSceneNode(SceneNode node)
 {
 	int gridIndex = node.getY() *  yDimension + node.getX();
 	SceneNode *nodeAtGridIndex;
-	if(&nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
+	if(nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
 	{
-		nodeGrid[gridIndex] = node;
+		nodeGrid[gridIndex] = &node;
 	}
 	else // if position in grid is not empty, navigate to end of doubly linked list and add at end
 	{
-		nodeAtGridIndex = &nodeGrid[gridIndex];
+		nodeAtGridIndex = nodeGrid[gridIndex];
 		while(nodeAtGridIndex->getNext() != NULL)
 		{
 			nodeAtGridIndex = nodeAtGridIndex->getNext();
@@ -27,7 +28,7 @@ void FixedGrid::removeSceneNode(SceneNode node)
 	}
 	else
 	{
-		nodeGrid[node.getY() * yDimension + node.getX()] = *node.getNext();
+		nodeGrid[node.getY() * yDimension + node.getX()] = node.getNext();
 	}
 	if(node.getNext() != NULL)
 	{

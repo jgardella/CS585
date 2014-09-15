@@ -1,9 +1,8 @@
 #include "randomwalkcontroller.hh"
 
-RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors, ISceneGraph *graph)
+RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors)
 {
 	this->actors = actors;
-	this->graph = graph;
 }
 
 void RandomWalkController::tick(float dt)
@@ -23,10 +22,14 @@ void RandomWalkController::tick(float dt)
 		{
 			delete actors->get(i)->getSceneNode();
 		}
-		int randXChange = std::rand() % ((int)dt) - (((int)dt) - 1) / 2;
-		int randYChange = std::rand() % ((int)dt) - (((int)dt) - 1) / 2;
+		int randXChange = std::rand() % 5 - 2;
+		int randYChange = std::rand() % 5 - 2;
 		SceneNode *node = actors->get(i)->getSceneNode();
-		node->setX(node->getX() + randXChange);
-		node->setY(node->getY() + randYChange);
+		graph->updateSceneNode(*node, node->getX() + randXChange, node->getY() + randYChange);
 	}
+}
+
+void RandomWalkController::setGraph(ISceneGraph *graph)
+{
+	this->graph = graph;
 }

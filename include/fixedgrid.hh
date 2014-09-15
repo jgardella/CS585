@@ -20,7 +20,7 @@ class FixedGrid : public ISceneGraph
 		DynamicArray<SceneNode*> getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2);
 
 	private:
-		SceneNode *nodeGrid; // grid of pointers to scene nodes representing scene
+		SceneNode** nodeGrid; // grid of pointers to scene nodes representing scene
 		int yDimension;
 };
 

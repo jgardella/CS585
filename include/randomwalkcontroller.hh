@@ -11,8 +11,9 @@
 class RandomWalkController : public ITickable
 {
 	public:
-		RandomWalkController(DynamicArray<Actor*> *actors, ISceneGraph *graph);
+		RandomWalkController(DynamicArray<Actor*> *actors);
 		void tick(float dt);
+		void setGraph(ISceneGraph*);
 	private:
 		DynamicArray<Actor*> *actors;
 		ISceneGraph *graph;
