@@ -1,9 +1,10 @@
 #include "actor.hh"
 
-Actor::Actor(std::string name, int initialX, int initialY, int collisionLayer)
+Actor::Actor(std::string name, int initialX, int initialY, bool col)
 {
 	this->name = name;
-	sceneNode = new SceneNode(initialX, initialY, collisionLayer, NULL, NULL);
+	sceneNode = new SceneNode(initialX, initialY, col, NULL, NULL);
+	SceneManager::getInstance()->addSceneNode(*sceneNode);
 }
 
 std::string Actor::getName()

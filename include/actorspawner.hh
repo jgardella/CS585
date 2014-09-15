@@ -6,6 +6,7 @@
 #include "scenemanager.hh"
 #include "dynamicarray.hh"
 #include <cstdlib>
+#include "debug.hh"
 
 class ActorSpawner : public ITickable
 {
@@ -21,6 +22,7 @@ class ActorSpawner : public ITickable
 		int spawnX;
 		int spawnY;
 		float timeCounter;
+		Debug *debug;
 };
 
 #endif

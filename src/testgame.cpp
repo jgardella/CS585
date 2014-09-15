@@ -5,6 +5,7 @@
 TestGame::TestGame()
 {
 	gameObject = new GameObject();
+	Debug::getInstance()->setTerminalLogging(true);
 }
 
 void TestGame::simulate()

@@ -7,27 +7,28 @@ class SceneNode
 {
 	public:
 		SceneNode(){ };
-		SceneNode(int xCoord, int yCoord, int col, SceneNode *p, SceneNode *n):
+		SceneNode(int xCoord, int yCoord, bool col, SceneNode *p, SceneNode *n):
 			xCoordinate(xCoord),
 			yCoordinate(yCoord),
-			collisionLayer(col),
+			isNodeCollider(col),
 			prev(p),
 			next(n)
 		{}
 		
 		int getX();
 		int getY();
-		int getCollisionLayer();
+		int isCollider();
 		SceneNode* getPrevious();
 		SceneNode* getNext();
 		void setX(int newX);
 		void setY(int newY);
-		void setCollisionLayer(int newLayer);
+		void setCollider(bool newVal);
 		void setPrevious(SceneNode *newPrev);
 		void setNext(SceneNode *newNext);
 
 	private:
-		int xCoordinate, yCoordinate, collisionLayer;
+		int xCoordinate, yCoordinate;
+		bool isNodeCollider;
 		SceneNode *prev; // pointer to previous scene node in same position
 		SceneNode *next; // pointer to next scene node in same position
 };

@@ -30,14 +30,9 @@ void SceneNode::setY(int newY)
 	yCoordinate = newY;
 }
 
-int SceneNode::getCollisionLayer()
+int SceneNode::isCollider()
 {
-	return collisionLayer;
-}
-
-void SceneNode::setCollisionLayer(int newLayer)
-{
-	collisionLayer = newLayer;
+	return isNodeCollider;
 }
 
 void SceneNode::setPrevious(SceneNode *newPrev)
@@ -48,4 +43,9 @@ void SceneNode::setPrevious(SceneNode *newPrev)
 void SceneNode::setNext(SceneNode *newNext)
 {
 	next = newNext;
+}
+
+void SceneNode::setCollider(bool newVal)
+{
+	isNodeCollider = newVal;
 }
