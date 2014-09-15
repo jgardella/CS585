@@ -1,5 +1,6 @@
 #include "testgame.hh"
 #include <iostream>
+#include <iomanip>
 
 TestGame::TestGame()
 {
@@ -13,7 +14,7 @@ void TestGame::simulate()
 	while(isPlaying)
 	{
 		startTime = clock();
-		isPlaying = gameObject->update((startTime - finishTime) / CLOCKS_PER_SEC);
+		isPlaying = gameObject->update((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
 	}
 }

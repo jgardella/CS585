@@ -12,7 +12,7 @@ GameObject::GameObject()
 bool GameObject::update(float dt)
 {
 	timeSinceStart += dt;
-	if(dt >= 30)
+	if(timeSinceStart >= 30)
 	{
 		return false;
 	}
