@@ -3,6 +3,7 @@
 class FixedGrid : public ISceneGraph
 {
 	public:
+		FixedGraph();
 		FixedGraph(int xDimension, int yDimension);
 
 		void addSceneNode(SceneNode node);

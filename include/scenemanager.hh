@@ -1,8 +1,9 @@
 // Singleton class for managing scene.
+template <class T>
 class SceneManager
 {
 	public:
-		SceneManager* getInstance();
+		static SceneManager* getInstance();
 		void tick(float dt);
 		void addTickable(ITickable tickable);
 		void addSceneNode(SceneNode node);
