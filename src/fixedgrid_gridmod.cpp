@@ -1,13 +1,13 @@
 #include "fixedgrid.hh"
 #include <iostream>
 
-void FixedGrid::addSceneNode(SceneNode node)
+void FixedGrid::addSceneNode(SceneNode *node)
 {
-	int gridIndex = node.getY() *  yDimension + node.getX();
+	int gridIndex = node->getY() *  yDimension + node->getX();
 	SceneNode *nodeAtGridIndex;
 	if(nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
 	{
-		nodeGrid[gridIndex] = &node;
+		nodeGrid[gridIndex] = node;
 	}
 	else // if position in grid is not empty, navigate to end of doubly linked list and add at end
 	{
@@ -16,30 +16,33 @@ void FixedGrid::addSceneNode(SceneNode node)
 		{
 			nodeAtGridIndex = nodeAtGridIndex->getNext();
 		}
-		nodeAtGridIndex->setNext(&node);
+		nodeAtGridIndex->setNext(node);
 	}
 }
 
-void FixedGrid::removeSceneNode(SceneNode node)
+void FixedGrid::removeSceneNode(SceneNode *node)
 {
-	if(node.getPrevious() != NULL)
+	if(node->getPrevious() != NULL)
 	{
-		node.getPrevious()->setNext(node.getNext());
+		node->getPrevious()->setNext(node->getNext());
 	}
 	else
 	{
-		nodeGrid[node.getY() * yDimension + node.getX()] = node.getNext();
+		nodeGrid[node->getY() * yDimension + node->getX()] = node->getNext();
 	}
-	if(node.getNext() != NULL)
+	if(node->getNext() != NULL)
 	{
-		node.getNext()->setPrevious(node.getPrevious());
+		node->getNext()->setPrevious(node->getPrevious());
 	}
 }
 
-void FixedGrid::updateSceneNode(SceneNode node, int x, int y)
+void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)
 {
-	removeSceneNode(node);
-	node.setX(x);
-	node.setY(y);
-	addSceneNode(node);
+	if(x < xDimension && x >= 0 && y < yDimension && y <= 0)
+	{
+		removeSceneNode(node);
+		node->setX(x);
+		node->setY(y);
+		addSceneNode(node);
+	}
 }

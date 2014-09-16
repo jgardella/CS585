@@ -19,7 +19,6 @@ bool GameObject::update(float dt)
 	{
 		return false;
 	}
-
 	sceneManager->tick(dt);
 	for(i = 0; i < actors->length(); i++)
 	{

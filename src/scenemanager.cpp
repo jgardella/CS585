@@ -39,5 +39,3 @@ void SceneManager::addSceneNode(SceneNode node)
 {
 	sceneNodes->pushBack(node);
 }
-
-

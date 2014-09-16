@@ -1,11 +1,17 @@
 #include "actor.hh"
+#include "debug.hh"
 #include <iostream>
+
+Actor::~Actor()
+{
+}
 
 Actor::Actor(std::string name, int initialX, int initialY, bool col)
 {
-	std::cout << "creating actor" << std::endl;
+	Debug::log(Debug::GAMEPLAY, "Creating Actor.");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, col, NULL, NULL);
+	Debug::log(Debug::GAMEPLAY, "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(*sceneNode);
 }
 

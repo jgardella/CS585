@@ -9,6 +9,7 @@ class Actor
 {
 	public:
 		Actor(std::string, int, int, bool);
+		~Actor();
 		std::string getName();
 		SceneNode* getSceneNode();
 	private:

@@ -17,6 +17,7 @@ class RandomWalkController : public ITickable
 	private:
 		DynamicArray<Actor*> *actors;
 		ISceneGraph *graph;
+		float timeCounter;
 };
 
 #endif

@@ -1,31 +1,42 @@
 #include "randomwalkcontroller.hh"
+#include <string>
 
 RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors)
 {
 	this->actors = actors;
+	this->timeCounter = 0;
 }
 
 void RandomWalkController::tick(float dt)
 {
 	unsigned int i;
 	unsigned int j;
-	DynamicArray<SceneNode*> colliders;
-	for(i = 0; i < actors->length(); i++)
+	DynamicArray<SceneNode*> *colliders;
+	timeCounter += dt;
+	if(timeCounter >= 2)
 	{
-		colliders = graph->getColliders(*(actors->get(i)->getSceneNode()));
-		for(j = 0; j < colliders.length(); j++)
+		for(i = 0; i < actors->length(); i++)
 		{
-			Debug::log(Debug::GAMEPLAY, "Removing collision");
-			delete colliders.get(j);
+			colliders = graph->getColliders(actors->get(i)->getSceneNode());
+			if(colliders->length() > 1)
+			{
+				for(j = 0; j < colliders->length(); j++)
+				{
+					Debug::log(Debug::GAMEPLAY, "Removing collision");
+					delete colliders->get(j);
+				}
+			}
+			else
+			{
+				SceneNode *node = actors->get(i)->getSceneNode();
+				int newX = node->getX() + std::rand() % 5 - 2;
+				int newY = node->getY() + std::rand() % 5 - 2;
+				graph->updateSceneNode(node, newX, newY);
+				Debug::log(Debug::GAMEPLAY, actors->get(i)->getName() + " moving.");
+				std::cout << " to (" << newX << ", " << newY << ")" << std::endl;
+			}
 		}
-		if(colliders.length() > 0)
-		{
-			delete actors->get(i)->getSceneNode();
-		}
-		int randXChange = std::rand() % 5 - 2;
-		int randYChange = std::rand() % 5 - 2;
-		SceneNode *node = actors->get(i)->getSceneNode();
-		graph->updateSceneNode(*node, node->getX() + randXChange, node->getY() + randYChange);
+		timeCounter = 0;
 	}
 }
 

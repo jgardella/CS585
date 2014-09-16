@@ -2,7 +2,7 @@ NAME = test
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix bin/,$(notdir $(CPP_FILES:.cpp=.o)))
 RM = rm -f
-CXXFLAGS = -Iinclude -Wall -Werror
+CXXFLAGS = -Iinclude -Wall -Werror -g
 
 debug: CXXFLAGS += -DDEBUG
 

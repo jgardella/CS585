@@ -11,17 +11,17 @@ class FixedGrid : public ISceneGraph
 		FixedGrid();
 		FixedGrid(int xDimension, int yDimension);
 
-		void addSceneNode(SceneNode node);
-		void removeSceneNode(SceneNode node);
-		void updateSceneNode(SceneNode node, int x, int y);
-		DynamicArray<SceneNode*> getColliders(SceneNode node);
-		DynamicArray<SceneNode*> getColliders(int x, int y);
-		DynamicArray<SceneNode*> getColliders(int x, int y, int radius);
-		DynamicArray<SceneNode*> getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2);
+		void addSceneNode(SceneNode *node);
+		void removeSceneNode(SceneNode *node);
+		void updateSceneNode(SceneNode *node, int x, int y);
+		DynamicArray<SceneNode*> *getColliders(SceneNode *node);
+		DynamicArray<SceneNode*> *getColliders(int x, int y);
+		DynamicArray<SceneNode*> *getColliders(int x, int y, int radius);
+		DynamicArray<SceneNode*> *getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2);
 
 	private:
 		SceneNode** nodeGrid; // grid of pointers to scene nodes representing scene
-		int yDimension;
+		int yDimension, xDimension;
 };
 
 #endif

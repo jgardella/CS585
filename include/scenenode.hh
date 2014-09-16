@@ -7,6 +7,7 @@ class SceneNode
 {
 	public:
 		SceneNode(){ };
+		~SceneNode();
 		SceneNode(int xCoord, int yCoord, bool col, SceneNode *p, SceneNode *n):
 			xCoordinate(xCoord),
 			yCoordinate(yCoord),

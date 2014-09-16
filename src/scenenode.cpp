@@ -1,5 +1,10 @@
 #include "scenenode.hh"
 
+SceneNode::~SceneNode()
+{
+
+}
+
 int SceneNode::getX()
 {
 	return xCoordinate;
