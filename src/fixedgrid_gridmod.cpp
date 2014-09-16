@@ -1,5 +1,4 @@
 #include "fixedgrid.hh"
-#include <iostream>
 
 void FixedGrid::addSceneNode(SceneNode *node)
 {

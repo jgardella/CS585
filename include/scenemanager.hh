@@ -12,9 +12,13 @@
 class SceneManager
 {
 	public:
+		// Gets instance of manager.
 		static SceneManager* getInstance();
+		// Ticks all tickables.
 		void tick(float dt);
+		// Adds tickable to list of tickables.
 		void addTickable(ITickable *tickable);
+		// Adds scenenode to manager's graph.
 		void addSceneNode(SceneNode node);
 	private:
 		SceneManager();

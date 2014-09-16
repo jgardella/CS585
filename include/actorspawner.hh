@@ -8,10 +8,14 @@
 #include <cstdlib>
 #include "debug.hh"
 
+// Tickable which spawns actors.
 class ActorSpawner : public ITickable
 {
 	public:
+		// Constructs a spawner.
 		ActorSpawner(int, DynamicArray<Actor*>*, int, int);
+		
+		// Ticks the spawner.
 		void tick(float dt);
 		void setGraph(ISceneGraph*);
 	private:

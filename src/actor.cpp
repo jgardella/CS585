@@ -1,6 +1,5 @@
 #include "actor.hh"
 #include "debug.hh"
-#include <iostream>
 
 Actor::~Actor()
 {

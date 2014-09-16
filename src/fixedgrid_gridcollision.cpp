@@ -1,5 +1,4 @@
 #include "fixedgrid.hh"
-#include <iostream>
 
 DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 {

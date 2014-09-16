@@ -1,8 +1,7 @@
 #ifndef _SCENENODE_HH_
 #define _SCENENODE_HH_
 
-// scene node should contain information for collision and position
-
+// Scene node class.
 class SceneNode
 {
 	public:
@@ -26,6 +25,7 @@ class SceneNode
 		void setCollider(bool newVal);
 		void setPrevious(SceneNode *newPrev);
 		void setNext(SceneNode *newNext);
+		// Marks node for deletion.
 		void deleteNode();
 		bool isReadyForDeletion();
 	private:
