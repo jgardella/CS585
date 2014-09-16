@@ -2,6 +2,7 @@
 
 FixedGrid::FixedGrid()
 {
+	Debug::log("FIXEDGRID", "Constructing fixed grid.");
 	int i;
 	nodeGrid = new SceneNode*[100];
 	for(i = 0; i < 100; i++)
@@ -14,6 +15,7 @@ FixedGrid::FixedGrid()
 
 FixedGrid::FixedGrid(int xDimension, int yDimension)
 {
+	Debug::log("FIXEDGRID", "Constructing fixed grid.");
 	int i;
 	nodeGrid = new SceneNode*[xDimension * yDimension];
 	for(i = 0; i < 100; i++)

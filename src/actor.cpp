@@ -4,14 +4,15 @@
 
 Actor::~Actor()
 {
+//	delete sceneNode;
 }
 
 Actor::Actor(std::string name, int initialX, int initialY, bool col)
 {
-	Debug::log(Debug::GAMEPLAY, "Creating Actor.");
+	Debug::log("ACTOR", "Creating Actor.");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, col, NULL, NULL);
-	Debug::log(Debug::GAMEPLAY, "Scene node added to graph.");
+	Debug::log("ACTOR", "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(*sceneNode);
 }
 

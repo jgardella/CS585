@@ -2,6 +2,7 @@
 
 ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actors, int spawnX, int spawnY)
 {
+	Debug::log("SPAWNER", "Constructing ActorSpawner.");
 	sceneManager = SceneManager::getInstance();
 	this->actors = actors;
 	names = new DynamicArray<std::string>();
@@ -32,11 +33,11 @@ void ActorSpawner::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= secondsBetweenSpawns)
 	{
-		Debug::log(Debug::GAMEPLAY, "Actor spawner spawning new actor.");
+		Debug::log("SPAWNER", "Actor spawner spawning new actor.");
 		Actor *newActor = new Actor(names->get(randomName++), spawnX, spawnY, true);
 		Debug::log(Debug::GAMEPLAY, "Spawning " + newActor->getName());
 		actors->pushBack(newActor);
-		Debug::log(Debug::GAMEPLAY, "Actor added to actors array.");
+		Debug::log("SPAWNER", "Actor added to actors array.");
 		timeCounter = 0;
 	}
 

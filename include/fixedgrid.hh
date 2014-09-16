@@ -2,8 +2,7 @@
 #define _FIXEDGRID_HH_
 
 #include "iscenegraph.hh"
-
-#define NULL 0
+#include "debug.hh"
 
 class FixedGrid : public ISceneGraph
 {
