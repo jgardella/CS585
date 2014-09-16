@@ -20,7 +20,7 @@ class ActorSpawner : public ITickable
 		DynamicArray<Actor*> *actors;
 		ISceneGraph *graph;
 		int secondsBetweenSpawns;
-		int namesLeft;
+		int randomName;
 		int spawnX;
 		int spawnY;
 		float timeCounter;

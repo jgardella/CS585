@@ -54,3 +54,13 @@ void SceneNode::setCollider(bool newVal)
 {
 	isNodeCollider = newVal;
 }
+
+void SceneNode::deleteNode()
+{
+	toBeDeleted = true;
+}
+
+bool SceneNode::isReadyForDeletion()
+{
+	return toBeDeleted;
+}

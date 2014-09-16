@@ -38,7 +38,7 @@ void FixedGrid::removeSceneNode(SceneNode *node)
 
 void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)
 {
-	if(x < xDimension && x >= 0 && y < yDimension && y <= 0)
+	if(x < xDimension && x >= 0 && y < yDimension && y >= 0)
 	{
 		removeSceneNode(node);
 		node->setX(x);

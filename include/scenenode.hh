@@ -14,7 +14,7 @@ class SceneNode
 			isNodeCollider(col),
 			prev(p),
 			next(n)
-		{}
+		{toBeDeleted = false;}
 		
 		int getX();
 		int getY();
@@ -26,10 +26,11 @@ class SceneNode
 		void setCollider(bool newVal);
 		void setPrevious(SceneNode *newPrev);
 		void setNext(SceneNode *newNext);
-
+		void deleteNode();
+		bool isReadyForDeletion();
 	private:
 		int xCoordinate, yCoordinate;
-		bool isNodeCollider;
+		bool isNodeCollider, toBeDeleted;
 		SceneNode *prev; // pointer to previous scene node in same position
 		SceneNode *next; // pointer to next scene node in same position
 };

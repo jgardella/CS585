@@ -13,19 +13,11 @@ GameObject::GameObject()
 
 bool GameObject::update(float dt)
 {
-	unsigned int i;
 	timeSinceStart += dt;
 	if(timeSinceStart >= 30)
 	{
 		return false;
 	}
 	sceneManager->tick(dt);
-	for(i = 0; i < actors->length(); i++)
-	{
-		if(actors->get(i)->getSceneNode() == NULL)
-		{
-			delete actors->remove(i--);
-		}
-	}
 	return true;
 }
