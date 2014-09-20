@@ -25,6 +25,11 @@ class Queue
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}
+	
+		~Queue()
+		{
+			delete dynamicArray;
+		}
 
 		// Removes and returns a pointer to the front element of the queue if it is not empty.
 		// Returns a pointer to the former front element of the queue. If the queue is empty, behaviour is undefined.
