@@ -445,7 +445,7 @@ void dynamicArrayTests()
 	dynamicArraySeveralReallocationTest();
 	dynamicArraySwapTest();
 	dynamicArraySetTest();
-	//dynamicArrayInsertTest();
+	dynamicArrayInsertTest();
 	dynamicArrayGetTest();
 	dynamicArrayRemoveTest();
 	dynamicArrayPushFrontTest();

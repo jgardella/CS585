@@ -97,13 +97,13 @@ class DynamicArray
 			{
 				reallocate((unsigned int)(internalArrayLength * 1.5));
 			}
-			// if the element is being inserted on the right half of the dynamic array and the right side is not full, it will be more efficient to
+			// if the element is being inserted on the right half of the dynamic array and the right side is not full, or the left side is full, it will be more efficient to
 			// shift the elements on the right
-			if(index > dynamicArrayLength / 2 && dynamicArrayBack != internalArrayBack)
+			if((index > dynamicArrayLength / 2 && dynamicArrayBack != internalArrayBack) || dynamicArrayFront == internalArrayFront)
 			{
 				for(i = dynamicArrayLength - 1; i > index; i--)
 				{
-					set(get(i), i + 1);
+					*(dynamicArrayFront + i + 1) =  *(dynamicArrayFront + i + 2);
 				}
 				dynamicArrayBack++; // move pointer to new back of array
 				
@@ -112,11 +112,11 @@ class DynamicArray
 			{
 				for(i = 0; i < index; i++)
 				{
-					set(get(i), i - 1);
+					*(dynamicArrayFront + i) = *(dynamicArrayFront + i + 1);
 				}
 				dynamicArrayFront--; // move pointer to new front of array
 			}
-			set(newElement, index); // add new element	
+			*(dynamicArrayFront + index + 1) = newElement; // add new element	
 			dynamicArrayLength++;
 		}
 
