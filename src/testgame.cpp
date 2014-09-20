@@ -17,4 +17,5 @@ void TestGame::simulate()
 		isPlaying = gameObject->update((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
 	}
+	delete gameObject;
 }

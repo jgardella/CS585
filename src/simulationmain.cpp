@@ -23,5 +23,6 @@ int main()
 	debugInit();
 	TestGame *simulation = new TestGame();
 	simulation->simulate();
+	delete simulation;
 	return 0;
 }

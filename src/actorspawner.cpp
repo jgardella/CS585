@@ -28,6 +28,11 @@ ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actor
 	this->timeCounter = 0;
 }
 
+ActorSpawner::~ActorSpawner()
+{
+	delete names;
+}
+
 void ActorSpawner::tick(float dt)
 {
 	timeCounter += dt;

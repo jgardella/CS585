@@ -35,6 +35,7 @@ void RandomWalkController::tick(float dt)
 				}
 				actors->get(i)->getSceneNode()->deleteNode();
 			}
+			delete colliders;
 		}
 		timeCounter = 0;
 		Debug::getInstance()->log("WALKCONTROLLER", "Removing actors with collisions.");

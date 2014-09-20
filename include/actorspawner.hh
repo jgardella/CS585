@@ -15,6 +15,9 @@ class ActorSpawner : public ITickable
 		// Constructs a spawner.
 		ActorSpawner(int, DynamicArray<Actor*>*, int, int);
 		
+		// Destructs the actor spawner.
+		~ActorSpawner();
+
 		// Ticks the spawner.
 		void tick(float dt);
 		void setGraph(ISceneGraph*);
