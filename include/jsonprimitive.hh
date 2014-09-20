@@ -1,5 +1,5 @@
 #ifndef _JSONPRIMITIVE_HH_
-$define _JSONPRIMITIVE_HH_
+#define _JSONPRIMITIVE_HH_
 
 // Wrapper class for JSONPrimitives.
 template <class T>

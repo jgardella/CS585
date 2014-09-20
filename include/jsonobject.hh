@@ -5,10 +5,10 @@ class JSONObject
 {
 	public:
 		// Constructs a JSONObject containing the given trie.
-		JSONObject(Trie<*JSONItem> trie);
-		Trie<*JSONItem> getHashMap();
+		JSONObject(Trie<*JSONItem>* trie);
+		Trie<*JSONItem>* getTrie();
 	private:
-		Trie<*JSONItem> trie;
+		Trie<*JSONItem>* trie;
 };
 
 #endif
