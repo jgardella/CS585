@@ -1,9 +1,8 @@
 #include "jsonarray.hh"
 
-JSONArray::JSONArray(DynamicArray<*JSONItem>* array)
+JSONArray::JSONArray(DynamicArray<JSONItem*>* array) : JSONItem(ARRAY)
 {
 	this->array = array;
-	this->type = ARRAY;
 }
 
 JSONArray::~JSONArray()
@@ -11,7 +10,7 @@ JSONArray::~JSONArray()
 	delete array;
 }
 
-DynamicArray<*JSONItem>* JSONArray::getDynamicArray()
+DynamicArray<JSONItem*>* JSONArray::getDynamicArray()
 {
 	return array;
 }

@@ -8,11 +8,11 @@ class JSONArray : public JSONItem
 {
 	public:
 		// Constructs a JSONArray containing the given dynamic array.
-		JSONArray(DynamicArray<*JSONItem>* array);
+		JSONArray(DynamicArray<JSONItem*>* array);
 		~JSONArray();
-		DynamicArray<*JSONItem>* getDynamicArray();
+		DynamicArray<JSONItem*>* getDynamicArray();
 	private:
-		DynamicArray<*JSONItem>* array;
+		DynamicArray<JSONItem*>* array;
 };
 
 #endif

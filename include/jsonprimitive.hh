@@ -8,10 +8,9 @@ template <class T>
 class JSONPrimitive : public JSONItem
 {
 	public:
-		JSONPrimitive(T primitive)
+		JSONPrimitive(T primitive) : JSONItem(PRIMITIVE)
 		{
 			this->primitive = primitive;
-			this->type = PRIMITIVE;
 		}
 
 		T getPrimitive()

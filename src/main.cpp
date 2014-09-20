@@ -3,6 +3,9 @@
 #include "queue.hh"
 #include "trie.hh"
 #include "jtest.hh"
+#include "jsonprimitive.hh"
+#include "jsonarray.hh"
+#include "jsonobject.hh"
 
 // -------------------- DYNAMIC ARRAY TESTS -------------------- 
 
@@ -438,16 +441,16 @@ void trieAddGetTest()
 
 void jsonPrimitiveTest()
 {
-	JSONPrimitive<int>* primitiveInt = new JSONPrimitive(5);
+	JSONPrimitive<int>* primitiveInt = new JSONPrimitive<int>(5);
 
 	JTest<int>::testEquality("JSONPrimitive test, succesfully created JSONPrimitive and retrieved value.", 5, primitiveInt->getPrimitive());
 	
-	delete JSONPrimitive;
+	delete primitiveInt;
 }
 
 void jsonArrayTest()
 {
-	DynamicArray<*JSONItem>* array = new DynamicArray<*JSONItem>();
+	DynamicArray<JSONItem*>* array = new DynamicArray<JSONItem*>();
 	array->pushBack(new JSONPrimitive<int>(1));
 	array->pushBack(new JSONPrimitive<int>(2));
 	array->pushBack(new JSONPrimitive<int>(3));
@@ -456,16 +459,16 @@ void jsonArrayTest()
 
 	JSONArray* jsonArray = new JSONArray(array);
 
-	JTest<int*>::testEquality("JSONArray test, succesfully created JSONArray and retrieved DynamicArray.", array, jsonArray->getDynamicArray());
+	JTest<DynamicArray<JSONItem*>*>::testEquality("JSONArray test, succesfully created JSONArray and retrieved DynamicArray.", array, jsonArray->getDynamicArray());
 
-	delete JSONArray;
+	delete array;
 }
 
 void jsonObjectTest()
 {
-	Trie<*JSONItem>* trie = new Trie<*JSONItem>();
+	Trie<JSONItem*>* trie = new Trie<JSONItem*>();
 	
-	DynamicArray<*JSONItem>* favoriteColors = new DynamicArray<*JSONItem>();
+	DynamicArray<JSONItem*>* favoriteColors = new DynamicArray<JSONItem*>();
 	favoriteColors->pushBack(new JSONPrimitive<std::string>("red"));
 	favoriteColors->pushBack(new JSONPrimitive<std::string>("two"));
 	favoriteColors->pushBack(new JSONPrimitive<std::string>("three"));
@@ -480,7 +483,7 @@ void jsonObjectTest()
 	
 	JSONObject* jsonObject = new JSONObject(trie);
 	
-	JTest<Trie*>::testEquality("JSONObject test, succesfully created JSONObject and retrieved Trie.", trie, jsonObject->getTrie());
+	JTest<Trie<JSONItem*>*>::testEquality("JSONObject test, succesfully created JSONObject and retrieved Trie.", trie, jsonObject->getTrie());
 
 	delete jsonObject;
 }

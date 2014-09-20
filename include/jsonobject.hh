@@ -8,11 +8,11 @@ class JSONObject : public JSONItem
 {
 	public:
 		// Constructs a JSONObject containing the given trie.
-		JSONObject(Trie<*JSONItem>* trie);
+		JSONObject(Trie<JSONItem*>* trie);
 		~JSONObject();
-		Trie<*JSONItem>* getTrie();
+		Trie<JSONItem*>* getTrie();
 	private:
-		Trie<*JSONItem>* trie;
+		Trie<JSONItem*>* trie;
 };
 
 #endif

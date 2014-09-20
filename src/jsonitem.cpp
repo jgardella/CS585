@@ -1,6 +1,11 @@
 #include "jsonitem.hh"
 
-JSONItem::getType()
+JSONItem::JSONItem(jsonType_t type)
+{
+	this->type = type;
+}
+
+jsonType_t JSONItem::getType()
 {
 	return type;
 }

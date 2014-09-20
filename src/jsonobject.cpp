@@ -1,9 +1,8 @@
 #include "jsonobject.hh"
 
-JSONObject::JSONObject(Trie<*JSONItem>* trie)
+JSONObject::JSONObject(Trie<JSONItem*>* trie) : JSONItem(OBJECT)
 {
 	this->trie = trie;
-	this->type = OBJECT;
 }
 
 JSONObject::~JSONObject()
@@ -11,7 +10,7 @@ JSONObject::~JSONObject()
 	delete trie;
 }
 
-Trie<*JSONItem>* JSONObject::getTrie()
+Trie<JSONItem*>* JSONObject::getTrie()
 {
 	return trie;
 }
