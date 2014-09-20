@@ -434,6 +434,57 @@ void trieAddGetTest()
 
 // -----------------   END TRIE TESTS          --------------------
 
+// -----------------   JSON WRAPPER TESTS      --------------------
+
+void jsonPrimitiveTest()
+{
+	JSONPrimitive<int>* primitiveInt = new JSONPrimitive(5);
+
+	JTest<int>::testEquality("JSONPrimitive test, succesfully created JSONPrimitive and retrieved value.", 5, primitiveInt->getPrimitive());
+	
+	delete JSONPrimitive;
+}
+
+void jsonArrayTest()
+{
+	DynamicArray<*JSONItem>* array = new DynamicArray<*JSONItem>();
+	array->pushBack(new JSONPrimitive<int>(1));
+	array->pushBack(new JSONPrimitive<int>(2));
+	array->pushBack(new JSONPrimitive<int>(3));
+	array->pushBack(new JSONPrimitive<int>(4));
+	array->pushBack(new JSONPrimitive<int>(5));
+
+	JSONArray* jsonArray = new JSONArray(array);
+
+	JTest<int*>::testEquality("JSONArray test, succesfully created JSONArray and retrieved DynamicArray.", array, jsonArray->getDynamicArray());
+
+	delete JSONArray;
+}
+
+void jsonObjectTest()
+{
+	Trie<*JSONItem>* trie = new Trie<*JSONItem>();
+	
+	DynamicArray<*JSONItem>* favoriteColors = new DynamicArray<*JSONItem>();
+	favoriteColors->pushBack(new JSONPrimitive<std::string>("red"));
+	favoriteColors->pushBack(new JSONPrimitive<std::string>("two"));
+	favoriteColors->pushBack(new JSONPrimitive<std::string>("three"));
+	favoriteColors->pushBack(new JSONPrimitive<std::string>("four"));
+	favoriteColors->pushBack(new JSONPrimitive<std::string>("five"));
+
+	trie->add("one", new JSONPrimitive<int>(1));
+	trie->add("two", new JSONPrimitive<int>(1));
+	trie->add("three", new JSONPrimitive<int>(1));
+	trie->add("four", new JSONPrimitive<int>(1));
+	trie->add("five", new JSONPrimitive<int>(1));
+	
+	JSONObject* jsonObject = new JSONObject(trie);
+	
+	JTest<Trie*>::testEquality("JSONObject test, succesfully created JSONObject and retrieved Trie.", trie, jsonObject->getTrie());
+
+	delete jsonObject;
+}
+
 void dynamicArrayTests()
 {
 	std::cout << "Dynamic Array Tests" << std::endl;
@@ -470,6 +521,14 @@ void queueTests()
 	queueBoundedTest();
 }
 
+void JSONWrapperTests()
+{
+	std::cout << "JSON Wrapper Tests" << std::endl;
+	jsonPrimitiveTest();
+	jsonArrayTest();
+	jsonObjectTest();
+}
+
 void initializeDebug()
 {	
 	#ifndef DEBUG
@@ -491,5 +550,6 @@ int main()
 	stackTests();	
 	queueTests();
 	trieAddGetTest();
+	JSONWrapperTests();
 	return 0;
 }

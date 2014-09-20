@@ -6,7 +6,12 @@ JSONObject::JSONObject(Trie<*JSONItem>* trie)
 	this->type = OBJECT;
 }
 
-Trie<*JSONItem>* getTrie()
+JSONObject::~JSONObject()
+{
+	delete trie;
+}
+
+Trie<*JSONItem>* JSONObject::getTrie()
 {
 	return trie;
 }
