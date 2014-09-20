@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <ctime>
-#include "dynamicarray.hh"
 
 // Struct for custom channels.
 typedef struct s_channel

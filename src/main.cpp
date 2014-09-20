@@ -476,6 +476,7 @@ void initializeDebug()
 	#else
 	Debug::getInstance()->setDebugStatus(true);
 	Debug::getInstance()->setTerminalLogging(true);
+	Debug::getInstance()->addChannel("DYNAMICARRAY");
 	Debug::getInstance()->addChannel("STACK");
 	Debug::getInstance()->addChannel("QUEUE");
 	Debug::getInstance()->addChannel("TRIE");
