@@ -120,3 +120,19 @@ void Debug::setChannelMute(std::string channel, bool isChannelMuted)
 		}
 	}
 }
+
+void Debug::muteAllExcept(std::string channel)
+{
+	unsigned int i;
+	for(i = 0; i < Debug::MAX_CHANNELS; i++)
+	{
+		if(channel.compare(channels[i].channelName) != 0)
+		{
+			channels[i].isMuted = true;
+		}
+		else
+		{
+			channels[i].isMuted = false;
+		}
+	}
+}

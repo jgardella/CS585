@@ -38,6 +38,11 @@ class Debug
 		// bool isChannelMuted - the value to set the channel to
 		void setChannelMute(std::string channel, bool isChannelMuted);
 		
+		// Mutes all channels except the one with the specified name. If the specified channel is currently muted, it will be unmuted.
+		// Parameters:
+		// string channel - the name of the channel to keep unmuted
+		void muteAllExcept(std::string channel);
+
 		// Enables/disables debug, based on the passed bool.
 		// PArameters:
 		// bool status - true to enable debug, false to disable debug
