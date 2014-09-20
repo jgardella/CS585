@@ -21,7 +21,7 @@ class Trie
 		~Trie()
 		{
 			// no need to manually call destructor of child tries, as the dynamic array's destructor will automatically call them.
-			delete children;
+			delete [] children;
 		}
 
 		// Adds a new value to the trie with the given key.

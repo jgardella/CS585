@@ -26,6 +26,11 @@ class Stack
 			isBounded = true;
 		}
 
+		~Stack()
+		{
+			delete dynamicArray;
+		}
+
 		// Removes and returns a pointer to the top element of the stack if it is not empty.
 		// Returns a pointer to the former top element of the stack. If the stack is empty, behaviour is undefined.
 		T pop()
