@@ -479,7 +479,6 @@ void initializeDebug()
 	Debug::getInstance()->addChannel("STACK");
 	Debug::getInstance()->addChannel("QUEUE");
 	Debug::getInstance()->addChannel("TRIE");
-	Debug::getInstance()->muteAllExcept("TRIE");
 	#endif
 }
 

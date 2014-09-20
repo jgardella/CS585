@@ -42,6 +42,12 @@ class Debug
 		// Parameters:
 		// string channel - the name of the channel to keep unmuted
 		void muteAllExcept(std::string channel);
+		
+		// Mutes all channels except for the default channels (GAMEPLAY, ERROR, and WARN).
+		void muteAllExceptDefault();
+
+		// Unmutes all channels.
+		void unmuteAll();
 
 		// Enables/disables debug, based on the passed bool.
 		// PArameters:

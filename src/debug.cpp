@@ -8,18 +8,18 @@ Debug::Debug()
 	channels = new t_channel[100];
 	t_channel gameplay;
 	gameplay.channelName = "GAMEPLAY";
-	gameplay.isMuted = true;
+	gameplay.isMuted = false;
 	t_channel error;
 	error.channelName = "ERROR";
-	error.isMuted = true;
+	error.isMuted = false;
 	t_channel warn;
 	warn.channelName = "WARN";
-	warn.isMuted = true;
+	warn.isMuted = false;
 	channels[0] = gameplay;
        	channels[1] = error;
 	channels[2] = warn;	
 	numChannels = 3;
-	isTerminalLoggingEnabled = false;
+	isTerminalLoggingEnabled = true;
 	isFileLoggingEnabled = false;
 	isNetworkLoggingEnabled = false;
 }
@@ -80,7 +80,7 @@ std::string Debug::addChannel(std::string newChannel)
 		t_channel channel;
 		channel.channelName = newChannel;
 		channel.isMuted = false;	
-		channels[numChannels++ - 1] = channel; // add new channel struct to list of custom channels
+		channels[numChannels++] = channel; // add new channel struct to list of custom channels
 	}
 	return newChannel;
 }
@@ -97,7 +97,7 @@ bool Debug::isUnmutedAndValid(std::string channel)
 {
 	unsigned int i;
 	// iterate through channels and find specified channel
-	for(i = 0; i < Debug::MAX_CHANNELS; i++)
+	for(i = 0; i < numChannels; i++)
 	{
 		if(channel.compare(channels[i].channelName) == 0)
 		{
@@ -111,7 +111,7 @@ bool Debug::isUnmutedAndValid(std::string channel)
 void Debug::setChannelMute(std::string channel, bool isChannelMuted)
 {
 	unsigned int i;
-	for(i = 0; i < Debug::MAX_CHANNELS; i++)
+	for(i = 0; i < numChannels; i++)
 	{
 		if(channel.compare(channels[i].channelName) == 0)
 		{
@@ -124,7 +124,7 @@ void Debug::setChannelMute(std::string channel, bool isChannelMuted)
 void Debug::muteAllExcept(std::string channel)
 {
 	unsigned int i;
-	for(i = 0; i < Debug::MAX_CHANNELS; i++)
+	for(i = 0; i < numChannels; i++)
 	{
 		if(channel.compare(channels[i].channelName) != 0)
 		{
@@ -134,5 +134,26 @@ void Debug::muteAllExcept(std::string channel)
 		{
 			channels[i].isMuted = false;
 		}
+	}
+}
+
+void Debug::unmuteAll()
+{
+	unsigned int i;
+	for(i = 0; i < numChannels; i++)
+	{
+		channels[i].isMuted = false;
+	}
+}
+
+void Debug::muteAllExceptDefault()
+{
+	unsigned int i;
+	channels[0].isMuted = false;
+	channels[1].isMuted = false;
+	channels[2].isMuted = false;
+	for(i = 3; i < numChannels; i++)
+	{
+		channels[i].isMuted = true;
 	}
 }
