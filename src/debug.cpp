@@ -1,22 +1,28 @@
 #include "../include/debug.hh"
 
-const std::string Debug::GAMEPLAY = "GAMEPLAY";
-const std::string Debug::ERROR = "ERROR";
-const std::string Debug::WARN = "WARN";
-
-bool Debug::isGameplayMuted = false;
-bool Debug::isWarnMuted = false;
-bool Debug::isErrorMuted = false;
-
-bool Debug::isTerminalLoggingEnabled = false;
-bool Debug::isFileLoggingEnabled = false;
-bool Debug::isNetworkLoggingEnabled = false;
-
-bool Debug::enabled = true;
-
 Debug* Debug::instance;
 
-DynamicArray<t_customChannel>* Debug::addedChannels = new DynamicArray<t_customChannel>();
+Debug::Debug()
+{
+	// construct channels array and add default channels
+	channels = new t_channel[100];
+	t_channel gameplay;
+	gameplay.channelName = "GAMEPLAY";
+	gameplay.isMuted = true;
+	t_channel error;
+	error.channelName = "ERROR";
+	error.isMuted = true;
+	t_channel warn;
+	warn.channelName = "WARN";
+	warn.isMuted = true;
+	channels[0] = gameplay;
+       	channels[1] = error;
+	channels[2] = warn;	
+	numChannels = 3;
+	isTerminalLoggingEnabled = false;
+	isFileLoggingEnabled = false;
+	isNetworkLoggingEnabled = false;
+}
 
 Debug* Debug::getInstance()
 {
@@ -69,10 +75,13 @@ void Debug::setNetworkLogging(bool isOn)
 
 std::string Debug::addChannel(std::string newChannel)
 {
-	t_customChannel customChannel;
-	customChannel.channelName = newChannel;
-	customChannel.isMuted = false;	
-	addedChannels->pushBack(customChannel); // add new channel struct to list of custom channels
+	if(numChannels < Debug::MAX_CHANNELS)
+	{
+		t_channel channel;
+		channel.channelName = newChannel;
+		channel.isMuted = false;	
+		channels[numChannels++ - 1] = channel; // add new channel struct to list of custom channels
+	}
 	return newChannel;
 }
 
@@ -87,59 +96,27 @@ std::string Debug::getTimestamp()
 bool Debug::isUnmutedAndValid(std::string channel)
 {
 	unsigned int i;
-	if(channel.compare(Debug::GAMEPLAY) == 0)
+	// iterate through channels and find specified channel
+	for(i = 0; i < Debug::MAX_CHANNELS; i++)
 	{
-		return !isGameplayMuted;
-	}
-	if(channel.compare(Debug::WARN) == 0)
-	{
-		return !isWarnMuted;
-	}
-	if(channel.compare(Debug::ERROR) == 0)
-	{
-		return !isErrorMuted;
-	}
-	// channel is not any of the default channels, check custom channels
-	for(i = 0; i < addedChannels->length(); i++)
-	{
-		t_customChannel customChannel = addedChannels->get(i);
-		if(channel.compare(customChannel.channelName) == 0)
+		if(channel.compare(channels[i].channelName) == 0)
 		{
-			return !customChannel.isMuted;
+			return !channels[i].isMuted;
 		}
 	}
 	// if this point is reached, the given channel name is not valid
 	return false;
 }
 
-void Debug::muteChannel(std::string channel)
+void Debug::setChannelMute(std::string channel, bool isChannelMuted)
 {
-	if(channel.compare(Debug::GAMEPLAY) == 0)
+	unsigned int i;
+	for(i = 0; i < Debug::MAX_CHANNELS; i++)
 	{
-		isGameplayMuted = true;
-	}
-	else if(channel.compare(Debug::WARN) == 0)
-	{
-		isWarnMuted = true;
-	}
-	else if(channel.compare(Debug::ERROR) == 0)
-	{
-		isErrorMuted = true;
-	}
-}
-
-void Debug::unmuteChannel(std::string channel)
-{
-	if(channel.compare(Debug::GAMEPLAY) == 0)
-	{
-		Debug::isGameplayMuted = false;
-	}
-	else if(channel.compare(Debug::WARN) == 0)
-	{
-		Debug::isWarnMuted = false;
-	}
-	else if(channel.compare(Debug::ERROR) == 0)
-	{
-		Debug::isErrorMuted = false;
+		if(channel.compare(channels[i].channelName) == 0)
+		{
+			channels[i].isMuted = isChannelMuted;
+			return;
+		}
 	}
 }

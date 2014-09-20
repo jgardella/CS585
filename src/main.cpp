@@ -471,15 +471,14 @@ void queueTests()
 
 void initializeDebug()
 {	
-	Debug* debug = Debug::getInstance();
 	#ifndef DEBUG
-	debug->setDebugStatus(false);
+	Debug::getInstance()->setDebugStatus(false);
 	#else
-	debug->setDebugStatus(true);
-	debug->setTerminalLogging(true);
-	debug->addChannel("STACK");
-	debug->addChannel("QUEUE");
-	debug->addChannel("TRIE");
+	Debug::getInstance()->setDebugStatus(true);
+	Debug::getInstance()->setTerminalLogging(true);
+	Debug::getInstance()->addChannel("STACK");
+	Debug::getInstance()->addChannel("QUEUE");
+	Debug::getInstance()->addChannel("TRIE");
 	#endif
 }
 

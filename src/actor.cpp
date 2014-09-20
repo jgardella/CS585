@@ -8,10 +8,10 @@ Actor::~Actor()
 
 Actor::Actor(std::string name, int initialX, int initialY, bool col)
 {
-	Debug::log("ACTOR", "Creating Actor.");
+	Debug::getInstance()->log("ACTOR", "Creating Actor.");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, col, NULL, NULL);
-	Debug::log("ACTOR", "Scene node added to graph.");
+	Debug::getInstance()->log("ACTOR", "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(*sceneNode);
 }
 

@@ -30,9 +30,9 @@ class Stack
 		// Returns a pointer to the former top element of the stack. If the stack is empty, behaviour is undefined.
 		T pop()
 		{
-			Debug::log("STACK", "Pop method entered.");
+			Debug::getInstance()->log("STACK", "Pop method entered.");
 			T poppedItem = dynamicArray->remove(0);
-			Debug::log("STACK", "Item popped.");
+			Debug::getInstance()->log("STACK", "Item popped.");
 			return poppedItem;
 		}
 
@@ -42,11 +42,11 @@ class Stack
 		// T item - the item to push to the top of the stack. 
 		void push(T item)
 		{
-			Debug::log("STACK", "Push method entered.");
+			Debug::getInstance()->log("STACK", "Push method entered.");
 			if(!isBounded || dynamicArray->length() < dynamicArray->capacity())
 			{
 				dynamicArray->pushFront(item);
-				Debug::log("STACK", "Item pushed.");
+				Debug::getInstance()->log("STACK", "Item pushed.");
 			}
 		}
 		
@@ -54,9 +54,9 @@ class Stack
 		// Returns the top element of the stack if the stack is not empty. If the stack is empty, behaviour is undefined.		
 		T peek()
 		{
-			Debug::log("STACK", "Peek method entered");
+			Debug::getInstance()->log("STACK", "Peek method entered");
 			T peekedItem = dynamicArray->get(0);
-			Debug::log("STACK", "Item peeked.");
+			Debug::getInstance()->log("STACK", "Item peeked.");
 			return peekedItem;
 		}
 

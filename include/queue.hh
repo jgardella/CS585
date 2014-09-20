@@ -30,9 +30,9 @@ class Queue
 		// Returns a pointer to the former front element of the queue. If the queue is empty, behaviour is undefined.
 		T dequeue()
 		{
-			Debug::log("QUEUE", "Dequeue method entered.");
+			Debug::getInstance()->log("QUEUE", "Dequeue method entered.");
 			T dequeuedItem = dynamicArray->remove(0);
-			Debug::log("QUEUE", "Item dequeued.");
+			Debug::getInstance()->log("QUEUE", "Item dequeued.");
 			return dequeuedItem;
 		}
 
@@ -42,11 +42,11 @@ class Queue
 		// T item - the item to push to the back of the queue. 
 		void enqueue(T item)
 		{
-			Debug::log("QUEUE", "Enqueue method entered");
+			Debug::getInstance()->log("QUEUE", "Enqueue method entered");
 			if(!isBounded || dynamicArray->length() < dynamicArray->capacity())
 			{
 				dynamicArray->pushBack(item);
-				Debug::log("QUEUE", "Item enqueued");
+				Debug::getInstance()->log("QUEUE", "Item enqueued");
 			}
 		}
 		
@@ -54,9 +54,9 @@ class Queue
 		// Returns the front element of the queue if the queue is not empty. If the queue is empty, behaviour is undefined.		
 		T front()
 		{
-			Debug::log("QUEUE", "Front method entered");
+			Debug::getInstance()->log("QUEUE", "Front method entered");
 			T frontItem = dynamicArray->get(0);
-			Debug::log("QUEUE", "Front item returned");
+			Debug::getInstance()->log("QUEUE", "Front item returned");
 			return frontItem;
 		}
 

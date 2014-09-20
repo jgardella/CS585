@@ -6,11 +6,11 @@
 #include "dynamicarray.hh"
 
 // Struct for custom channels.
-typedef struct s_customChannel
+typedef struct s_channel
 {
 	std::string channelName;
 	bool isMuted;
-} t_customChannel;
+} t_channel;
 
 class Debug
 {
@@ -23,7 +23,7 @@ class Debug
 		// Parameters:
 		// string channel - the channel to log the message in
 		// string message - the message to log
-		static void log(std::string channel, std::string message);
+		void log(std::string channel, std::string message);
 		
 
 		// Adds a new channel.
@@ -32,15 +32,11 @@ class Debug
 		// Returns the name of the new channel so the user can pass it to log method. User should keep a reference to this name.
 		std::string addChannel(std::string newChannel);
 
-		// Mutes a channel so that any messages logged to it are not displayed.
+		// Sets the specified channel's mute value to the specified setting.
 		// Parameters:
-		// string channel - the channel to mute
-		void muteChannel(std::string channel);
-		
-		// Unmutes a channel.
-		// Parameters:
-		// string channel - the channel to unmute
-		void unmuteChannel(std::string channel);
+		// string channel - the channel to set the value of
+		// bool isChannelMuted - the value to set the channel to
+		void setChannelMute(std::string channel, bool isChannelMuted);
 		
 		// Enables/disables debug, based on the passed bool.
 		// PArameters:
@@ -53,38 +49,31 @@ class Debug
 
 		void setNetworkLogging(bool isOn);
 
-		// Channels
-		static const std::string GAMEPLAY;
-		static const std::string WARN;
-		static const std::string ERROR;
-
 	private:
 		// Class is singleton, so the constructor, copy constructor, assignment operator, and deconstructor should be inaccessible.
-		Debug(){};
+		Debug();
 		Debug(Debug const&);
 		Debug& operator=(Debug const&);
 		~Debug();
 		static Debug* instance;
-		
-		static bool isGameplayMuted;
-		static bool isWarnMuted;
-		static bool isErrorMuted;
-		
-		static bool enabled;
-		static bool isTerminalLoggingEnabled;
-		static bool isFileLoggingEnabled;
-		static bool isNetworkLoggingEnabled;
+		static const unsigned int MAX_CHANNELS = 100;
+		unsigned int numChannels;
 
-		static DynamicArray<t_customChannel>* addedChannels;
+		bool enabled;
+		bool isTerminalLoggingEnabled;
+		bool isFileLoggingEnabled;
+		bool isNetworkLoggingEnabled;
+
+		t_channel* channels;
 
 		// Returns a timestamp representing the current time.
-		static std::string getTimestamp();
+		std::string getTimestamp();
 
 		// Checks if a channel is muted.
 		// Parameters:
 		// string channel - the channel to check the mute-status of
 		// Returns true if channel is muted, false if not.
-		static bool isUnmutedAndValid(std::string channel);
+		bool isUnmutedAndValid(std::string channel);
 };
 
 #endif

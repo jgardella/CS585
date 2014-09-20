@@ -3,7 +3,7 @@
 
 RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors)
 {
-	Debug::log("WALKCONTROLLER", "Constructing RandomWalkController.");
+	Debug::getInstance()->log("WALKCONTROLLER", "Constructing RandomWalkController.");
 	this->actors = actors;
 	this->timeCounter = 0;
 }
@@ -16,7 +16,7 @@ void RandomWalkController::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= 2)
 	{
-		Debug::log("WALKCONTROLLER", "Moving actors.");
+		Debug::getInstance()->log("WALKCONTROLLER", "Moving actors.");
 		for(i = 0; i < actors->length(); i++)
 		{
 			// movement
@@ -24,7 +24,7 @@ void RandomWalkController::tick(float dt)
 			int newX = node->getX() + std::rand() % 5 - 2;
 			int newY = node->getY() + std::rand() % 5 - 2;
 			graph->updateSceneNode(node, newX, newY);
-			Debug::log(Debug::GAMEPLAY, actors->get(i)->getName() + " moving.");
+			Debug::getInstance()->log("GAMEPLAY", actors->get(i)->getName() + " moving.");
 			// collision
 			colliders = graph->getColliders(actors->get(i)->getSceneNode());
 			if(colliders->length() > 1)
@@ -37,12 +37,12 @@ void RandomWalkController::tick(float dt)
 			}
 		}
 		timeCounter = 0;
-		Debug::log("WALKCONTROLLER", "Removing actors with collisions.");
+		Debug::getInstance()->log("WALKCONTROLLER", "Removing actors with collisions.");
 		for(i = 0; i < actors->length(); i++)
 		{
 			if(actors->get(i)->getSceneNode()->isReadyForDeletion())
 			{
-				Debug::log(Debug::GAMEPLAY, actors->get(i)->getName() + " had a collision, removing from the scene."); 
+				Debug::getInstance()->log("GAMEPLAY", actors->get(i)->getName() + " had a collision, removing from the scene."); 
 				delete actors->remove(i--);
 			}
 		}
