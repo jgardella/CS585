@@ -1,6 +1,9 @@
 #ifndef _JSONPARSER_HH_
 #define _JSONPARSER_HH_
 
+#include "debug.hh"
+#include <cstdlib>
+
 // Class containing static methods for parsing JSON.
 class JSONParser
 {
