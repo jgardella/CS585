@@ -103,6 +103,7 @@ void dynamicArraySeveralReallocationTest()
 		}
 	}
 	JTest<int>::testEquality("Memory reallocation test, elements added and array reallocated several times", 1, isProperlyExpanded);
+	delete array;
 }
 
 // Tests the swap method of dynamicarray by adding two elements, swapping them, and then checking to make sure

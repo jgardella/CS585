@@ -20,7 +20,15 @@ class Trie
 		// Destructor
 		~Trie()
 		{
-			// no need to manually call destructor of child tries, as the dynamic array's destructor will automatically call them.
+			// delete all Tries in children
+			unsigned int i;
+			for(i = 0; i < 26; i++)
+			{
+				if(children[i] != NULL)
+				{
+					delete children[i];
+				}
+			}
 			delete [] children;
 		}
 
