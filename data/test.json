@@ -1,0 +1,22 @@
+{
+    "glossary": {
+        "title": "example glossary",
+		"glossdiv": {
+            "title": "S",
+			"glosslist": {
+                "glossentry": {
+                    "id": "sgml",
+					"sortas": "sgml",
+					"glossterm": "standard generalized markup language",
+					"acronym": "sgml",
+					"abbrev": "iso",
+					"glossdef": {
+                        "para": "a meta-markup language used to create markup languages such as docbook",
+						"glossseealso": ["gml", "xml"]
+                    },
+					"glosssee": "markup"
+                }
+            }
+        }
+    }
+}

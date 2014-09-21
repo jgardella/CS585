@@ -489,6 +489,16 @@ void jsonObjectTest()
 	delete jsonObject;
 }
 
+// ------------------ END JSON WRAPPER TESTS --------------------
+
+// ------------------ JSON PARSER TESTS -------------------------
+
+void readJSONFile()
+{
+	JSONParser::parseFile("test.json");
+}
+
+
 void dynamicArrayTests()
 {
 	std::cout << "Dynamic Array Tests" << std::endl;
@@ -533,6 +543,12 @@ void JSONWrapperTests()
 	jsonObjectTest();
 }
 
+void JSONParserTests()
+{
+	std::cout << "JSON Parser Tests" << std::endl;
+	readJSONFile();	
+}
+
 void initializeDebug()
 {	
 	#ifndef DEBUG
@@ -544,6 +560,7 @@ void initializeDebug()
 	Debug::getInstance()->addChannel("STACK");
 	Debug::getInstance()->addChannel("QUEUE");
 	Debug::getInstance()->addChannel("TRIE");
+	Debug::getInstance()->addChannel("JSON");
 	#endif
 }
 
@@ -555,5 +572,6 @@ int main()
 	queueTests();
 	trieAddGetTest();
 	JSONWrapperTests();
+	JSONParserTests();
 	return 0;
 }
