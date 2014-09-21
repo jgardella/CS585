@@ -2,8 +2,10 @@
 #define _JSONPARSER_HH_
 
 #include "jsonobject.hh"
+#include "jsonarray.hh"
+#include "jsonprimitive.hh"
 #include "dynamicarray.hh"
-#include "ifstream.hh"
+#include <fstream>
 #include <cstdlib>
 #include <string>
 #include <cmath>
@@ -14,23 +16,22 @@ class JSONParser
 	public:
 		// Parses the JSON file at the path specified by the given string and returns a JSONObject representing its contents.
 		// Parameters:
-		// string - jsonFilePath - the file path of the JSON file
+		// string jsonFilePath - the file path of the JSON file
 		// Returns a JSONObject representing the file's information.
-		static DynamicArray<JSONObject*>* parseFile(std::string jsonFilePath);
-
+		static DynamicArray<JSONItem*>* parseFile(std::string jsonFilePath);
 	private:
 
-		JSONObject* readObject(ifstream* file);
+		static JSONObject* readObject(std::ifstream* file);
 		
-		std::string readString(ifstream* file);
+		static std::string readString(std::ifstream* file);
 		
-		JSONItem* readValue(ifstream* file);
+		static JSONItem* readValue(std::ifstream* file);
 
-		JSONItem* readNumber(ifstream* file, char lastChar);
+		static JSONItem* readNumber(std::ifstream* file, char lastChar);
 
-		JSONArray* readArray(ifstream* file);
+		static JSONArray* readArray(std::ifstream* file);
 
-		JSONPrimitive<bool>* readBool(ifstream* file, char lastChar);		
+		static JSONItem* readBool(std::ifstream* file, char lastChar);		
 
 };
 

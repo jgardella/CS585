@@ -2,10 +2,11 @@
 
 DynamicArray<JSONItem*>* JSONParser::parseFile(std::string jsonFileName)
 {
-	DynamicArray<JSONItem*> topLevelStructures = new DynamicArray<JSONItem*>();
+	DynamicArray<JSONItem*>* topLevelStructures = new DynamicArray<JSONItem*>();
 	char currentChar;
-	ifstream jsonFile ("data/" + jsonFileName);
-	while(jsonFile.get(&currentChar))
+	std::ifstream jsonFile;
+	jsonFile.open(("data/" + jsonFileName).c_str(), std::ifstream::in);
+	while(jsonFile.get(currentChar))
 	{
 		switch(currentChar)
 		{
@@ -28,13 +29,13 @@ DynamicArray<JSONItem*>* JSONParser::parseFile(std::string jsonFileName)
 	return topLevelStructures;
 }
 
-JSONObject* JSONParser::readObject(ifstream* file)
+JSONObject* JSONParser::readObject(std::ifstream* file)
 {
 	Trie<JSONItem*>* trie = new Trie<JSONItem*>();
 	char currentChar;
 	std::string name;
 	bool readName = false;
-	while(file->get(&currentChar))
+	while(file->get(currentChar))
 	{
 		switch(currentChar)
 		{
@@ -50,7 +51,7 @@ JSONObject* JSONParser::readObject(ifstream* file)
 				}
 				else
 				{
-					Debug::getInstance()->log("ERROR" "JSON file improperly formatted: expected value before end of object.");
+					Debug::getInstance()->log("ERROR", "JSON file improperly formatted: expected value before end of object.");
 					std::exit(1);
 				}
 				break;
@@ -61,7 +62,7 @@ JSONObject* JSONParser::readObject(ifstream* file)
 			case ':':
 				if(readName)
 				{
-					trie.add(name, readValue(file));
+					trie->add(name, readValue(file));
 					readName = false;
 				}
 				else
@@ -79,12 +80,12 @@ JSONObject* JSONParser::readObject(ifstream* file)
 	std::exit(1);
 }
 
-std::string JSONParser::readString(ifstream* file)
+std::string JSONParser::readString(std::ifstream* file)
 {
 	std::string str = "";
 	bool readEscapeCharacter = false;
 	char currentChar;
-	while(file->get(&currentChar))
+	while(file->get(currentChar))
 	{
 		switch(currentChar)
 		{
@@ -113,11 +114,11 @@ std::string JSONParser::readString(ifstream* file)
 	std::exit(1);
 }
 
-JSONItem* JSONParser::readValue(ifstream* file)
+JSONItem* JSONParser::readValue(std::ifstream* file)
 {
 	char currentChar;
 	char* followingChars;
-	while(file->get(&currentChar))
+	while(file->get(currentChar))
 	{
 		switch(currentChar)
 		{
@@ -144,7 +145,7 @@ JSONItem* JSONParser::readValue(ifstream* file)
 				return readNumber(file, currentChar);
 			case 't':
 			case 'f':
-				return new readBool(file, currentChar);
+				return readBool(file, currentChar);
 			case 'n':
 				file->get(followingChars, 3);
 				if(std::string(followingChars).compare("ull") == 0)
@@ -167,12 +168,12 @@ JSONItem* JSONParser::readValue(ifstream* file)
 	std::exit(1);
 }
 
-JSONArray* readArray(ifstream* file)
+JSONArray* JSONParser::readArray(std::ifstream* file)
 {
 	char currentChar;
 	bool justReadValue = false;
-	DynamicArray<JItem*>* array = new DynamicArray<JItem*>();
-	while(file->peek(&currentChar))
+	DynamicArray<JSONItem*>* array = new DynamicArray<JSONItem*>();
+	while((currentChar = file->peek()))
 	{
 		switch(currentChar)
 		{
@@ -217,18 +218,20 @@ JSONArray* readArray(ifstream* file)
 					std::exit(1);
 				}
 		}
-	}	       
+	}
+	Debug::getInstance()->log("ERROR", "JSON file improperly formatted: file ended unexpectedly while reading array.");	
+	std::exit(1);
 }
 
-JSONItem* readNumber(ifstream* file, char lastChar)
+JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 {
 	char currentChar;
-	std::string numStr = lastChar;
+	std::string numStr = "" + lastChar;
 	bool readDecimal = false;
 	bool endOfNumberReached = false;
 	bool readExpIndicator = false;
 	std::string expStr = "";
-	while(file->peek(&currentChar) && !endOfNumberReached)
+	while((currentChar = file->peek()) && !endOfNumberReached)
 	{
 		switch(currentChar)
 		{
@@ -237,7 +240,7 @@ JSONItem* readNumber(ifstream* file, char lastChar)
 				{
 					readDecimal = true;
 					file->get();
-					numStr.append(currentChar);
+					numStr.push_back(currentChar);
 					break;
 				}
 				else
@@ -258,12 +261,12 @@ JSONItem* readNumber(ifstream* file, char lastChar)
 				if(!readExpIndicator)
 				{
 					file->get();
-					numStr.append(currentChar);
+					numStr.push_back(currentChar);
 				}
 				else
 				{
 					file->get();
-					expStr.append(currentChar);
+					expStr.push_back(currentChar);
 				}
 				break;
 			case 'e':
@@ -281,15 +284,15 @@ JSONItem* readNumber(ifstream* file, char lastChar)
 				}
 			case '+':
 			case '-':
-				if(numStr.back() == 'e' || numStr.back() == "E")
+				if(numStr.at(numStr.length() - 1) == 'e' || numStr.at(numStr.length() - 1) == 'E')
 				{
 					file->get();
-					expStr.append(currentChar);
+					expStr.push_back(currentChar);
 					break;
 				}
 			case ' ':
 			case ',':
-				if(numStr.back() != '.' && numStr.back() != 'e' && numStr.back() != 'E' && numStr.back() != '+' && numStr.back() != '-')
+				if(numStr.at(numStr.length() - 1) != '.' && numStr.at(numStr.length() - 1) != 'e' && numStr.at(numStr.length() - 1) != 'E' && numStr.at(numStr.length() - 1) != '+' && numStr.at(numStr.length() - 1) != '-')
 				{
 					endOfNumberReached = true;
 					break;
@@ -304,24 +307,24 @@ JSONItem* readNumber(ifstream* file, char lastChar)
 	}
 	if(readDecimal)
 	{
-		float fNum = stof(numStr);
+		float fNum = std::stof(numStr);
 		if(readExpIndicator)
 		{
-			float expNum = stof(expStr);
+			float expNum = std::stof(expStr);
 			fNum *= std::pow(10, expNum);
 		}
 		return new JSONPrimitive<float>(fNum);
 	}
-	int iNum = stoi(numStr);
+	int iNum = std::stoi(numStr);
 	if(readExpIndicator)
 	{
-		int expNum = stoi(expStr);
+		int expNum = std::stoi(expStr);
 		iNum = (int) std::pow(10, expNum);
 	}
 	return new JSONPrimitive<int>(iNum);
 }
 
-JSONPrimitive<bool>* readBool(ifstream* file, char lastChar)
+JSONItem* JSONParser::readBool(std::ifstream* file, char lastChar)
 {
 	char* followingChars;
 	if(lastChar == 't')

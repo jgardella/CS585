@@ -6,6 +6,7 @@
 #include "jsonprimitive.hh"
 #include "jsonarray.hh"
 #include "jsonobject.hh"
+#include "jsonparser.hh"
 
 // -------------------- DYNAMIC ARRAY TESTS -------------------- 
 
