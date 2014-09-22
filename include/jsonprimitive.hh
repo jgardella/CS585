@@ -8,6 +8,9 @@ template <class T>
 class JSONPrimitive : public JSONItem
 {
 	public:
+		// Constructs a JSONPrimitive containing the given primitive type.
+		// Parameters:
+		// T primitve - the primitive to store in the JSONPrimitive
 		JSONPrimitive(T primitive) : JSONItem(PRIMITIVE)
 		{
 			this->primitive = primitive;
