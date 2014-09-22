@@ -493,11 +493,6 @@ void jsonObjectTest()
 
 // ------------------ JSON PARSER TESTS -------------------------
 
-void readJSONFile()
-{
-	JSONParser::parseFile("test.json");
-}
-
 void readJSONArray()
 {
 	unsigned int i;
@@ -565,8 +560,32 @@ void readJSONNull()
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
 	
 	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, jsonArray->get(0));
+	
+	delete topLevelArray;
+	delete jsonArray;
+}
+
+void readJSONObject()
+{
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("objecttest.json");
+	Trie<JSONItem*>* jsonObject = ((JSONObject*)(topLevelArray->get(0)))->getTrie();
+	
+	JTest<std::string>::testEqualityStr("String item in object correctly stored.", "jason", ((JSONPrimitive<std::string>*)(jsonObject->get("name")))->getPrimitive());	
+	JTest<int>::testEquality("Number item in object correctly stored.", 19, ((JSONPrimitive<int>*)(jsonObject->get("age")))->getPrimitive());	
+	JTest<bool>::testEquality("Boolean item in object correctly stored.", true, ((JSONPrimitive<bool>*)(jsonObject->get("issoftwareengineer")))->getPrimitive());
+	
+	DynamicArray<JSONItem*>* nestedArray = ((JSONArray*)jsonObject->get("hobbies"))->getDynamicArray();	
+	JTest<std::string>::testEqualityStr("First item of array item in object correctly stored.", "guitar", ((JSONPrimitive<std::string>*)(nestedArray->get(0)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Second item of array item in object correctly stored.", "piano", ((JSONPrimitive<std::string>*)(nestedArray->get(1)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Third item of array item in object correctly stored.", "gaming", ((JSONPrimitive<std::string>*)(nestedArray->get(2)))->getPrimitive());	
+
+	delete topLevelArray;
+	delete jsonObject;
+	delete nestedArray;
 
 }
+
+// --------------- END JSON PARSER TESTS -------------------------
 
 void dynamicArrayTests()
 {
@@ -615,14 +634,13 @@ void JSONWrapperTests()
 void JSONParserTests()
 {
 	std::cout << "JSON Parser Tests" << std::endl;
-	//readJSONFile();	
 	readJSONArray();
 	readJSONNumbers();
 	readJSONBools();
 	readJSONStrings();
 	readJSONNull();
+	readJSONObject();
 }
-
 
 void initializeDebug()
 {	
