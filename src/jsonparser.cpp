@@ -116,7 +116,7 @@ std::string JSONParser::readString(std::ifstream* file)
 			case '\\':
 				if(readEscapeCharacter)
 				{
-					Debug::getInstance()->log("JSON", "Read slash (\\) after escape character (\\), adding to string.");
+					Debug::getInstance()->log("JSON", "Read backslash (\\) after escape character (\\), adding to string.");
 					str.push_back('\\');
 					readEscapeCharacter = false;
 				}
@@ -137,6 +137,14 @@ std::string JSONParser::readString(std::ifstream* file)
 				{
 					Debug::getInstance()->log("JSON", "Read quote (\") not preceded by escape character (\\), end of string reached, returning string.");
 					return str;
+				}
+			case 'f':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read character 'f' after escape character (\\), adding form feed to string.");
+					str.push_back('\f');
+					readEscapeCharacter = false;
+					break;
 				}
 			case 'n':
 				if(readEscapeCharacter)
