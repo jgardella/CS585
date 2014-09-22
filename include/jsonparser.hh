@@ -27,11 +27,11 @@ class JSONParser
 		
 		static JSONItem* readValue(std::ifstream* file);
 
-		static JSONItem* readNumber(std::ifstream* file, char lastChar);
+		static JSONItem* readNumber(std::ifstream* file);
 
 		static JSONArray* readArray(std::ifstream* file);
 
-		static JSONItem* readBool(std::ifstream* file, char lastChar);		
+		static JSONItem* readBool(std::ifstream* file);		
 
 };
 

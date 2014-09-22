@@ -498,6 +498,60 @@ void readJSONFile()
 	JSONParser::parseFile("test.json");
 }
 
+void readJSONArray()
+{
+	unsigned int i;
+	int j;
+
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("arraytest.json");
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+
+	for(i = 0, j = 0; i < jsonArray->length(); i++, j++)
+	{
+		JTest<int>::testEquality("Item correctly stored in JSON Array.", j, ((JSONPrimitive<int>*)(jsonArray->get(i)))->getPrimitive());
+	}
+	
+	delete topLevelArray;
+	delete jsonArray;
+}
+
+void readJSONNumbers()
+{
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("numbertest.json");
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	
+	JTest<int>::testEquality("Single digit int correctly stored.", 1, ((JSONPrimitive<int>*)(jsonArray->get(0)))->getPrimitive());
+	JTest<int>::testEquality("Multi-digit int correctly stored.", 15, ((JSONPrimitive<int>*)(jsonArray->get(1)))->getPrimitive());
+	JTest<int>::testEquality("Negative int correctly stored.", -7, ((JSONPrimitive<int>*)(jsonArray->get(2)))->getPrimitive());
+	JTest<double>::testEquality("Double correctly stored.", 1.5, ((JSONPrimitive<double>*)(jsonArray->get(3)))->getPrimitive());
+	JTest<double>::testEquality("Negative double correctly stored.", -1.5, ((JSONPrimitive<double>*)(jsonArray->get(4)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation correctly stored.", 150.0, ((JSONPrimitive<double>*)(jsonArray->get(5)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation with positive sign explicitly specified correctly stored.", 150, ((JSONPrimitive<double>*)(jsonArray->get(6)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation with negative sign specified correctly stored.", 0.015, ((JSONPrimitive<double>*)(jsonArray->get(7)))->getPrimitive());
+
+	delete topLevelArray;
+	delete jsonArray;
+}
+
+void readJSONBools()
+{
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	
+	JTest<bool>::testEquality("True boolean correctly stored.", true, ((JSONPrimitive<bool>*)(jsonArray->get(0)))->getPrimitive());
+	JTest<bool>::testEquality("False boolean correctly stored.", false, ((JSONPrimitive<bool>*)(jsonArray->get(1)))->getPrimitive());
+
+	delete topLevelArray;
+	delete jsonArray;
+}
+
+void readJSONStrings()
+{
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	
+	JTest<std::string>::testEquality("String correctly stored.", "
+}
 
 void dynamicArrayTests()
 {
@@ -546,8 +600,12 @@ void JSONWrapperTests()
 void JSONParserTests()
 {
 	std::cout << "JSON Parser Tests" << std::endl;
-	readJSONFile();	
+	//readJSONFile();	
+	readJSONArray();
+	readJSONNumbers();
+	readJSONBools();
 }
+
 
 void initializeDebug()
 {	
@@ -562,6 +620,7 @@ void initializeDebug()
 	Debug::getInstance()->addChannel("TRIE");
 	Debug::getInstance()->addChannel("JSON");
 	Debug::getInstance()->muteAllExcept("JSON");
+	Debug::getInstance()->setChannelMute("ERROR", false);
 	#endif
 }
 

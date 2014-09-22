@@ -146,7 +146,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 	Debug::getInstance()->log("JSON", "Value parsing initiated.");
 	char currentChar;
 	char followingChars[3];
-	while(file->get(currentChar))
+	while((currentChar = file->peek()))
 	{
 		switch(currentChar)
 		{
@@ -154,12 +154,15 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 			case '\t':
 			case '\n':
 			case '\r':
+				file->get();
 				Debug::getInstance()->log("JSON", "Read whitespace while reading value, continuing.");
 				continue;
 			case '{':
+				file->get();
 				Debug::getInstance()->log("JSON", "Read left brace { while reading value, parsing object.");
 				return readObject(file);
 			case '"':
+				file->get();
 				Debug::getInstance()->log("JSON", "Read quote while reading value, parsing string.");
 				return new JSONPrimitive<std::string>(readString(file));
 			case '0':	
@@ -174,14 +177,14 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 			case '9':
 			case '-':
 				Debug::getInstance()->log("JSON", "Read number or - while reading value, parsing number.");
-				return readNumber(file, currentChar);
+				return readNumber(file);
 			case 't':
 			case 'f':
 				Debug::getInstance()->log("JSON", "Read t or f while reading value, parsing boolean.");
-				return readBool(file, currentChar);
+				return readBool(file);
 			case 'n':
-				file->get(followingChars, 3);
-				if(std::string(followingChars).compare("ull") == 0)
+				file->get(followingChars, 4);
+				if(std::string(followingChars).compare("null") == 0)
 				{
 					Debug::getInstance()->log("JSON", "Read null while reading value, returning NULL.");
 					return NULL;
@@ -192,6 +195,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 					std::exit(1);
 				}
 			case '[':
+				file->get();
 				Debug::getInstance()->log("JSON", "Read left bracket [ while reading value, parsing array.");
 				return readArray(file);
 			default:
@@ -207,7 +211,7 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 {
 	Debug::getInstance()->log("JSON", "Array parsing initiated.");
 	char currentChar;
-	bool justReadValue = false;
+	bool justReadComma = false;
 	DynamicArray<JSONItem*>* array = new DynamicArray<JSONItem*>();
 	while((currentChar = file->peek()))
 	{
@@ -221,7 +225,7 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 				file->get();
 				continue;
 			case ']':
-				if(!justReadValue || array->length() == 0)
+				if(!justReadComma)
 				{
 					Debug::getInstance()->log("JSON", "Read right bracket ] while parsing array, wrapping and returning array.");
 					file->get();
@@ -233,12 +237,11 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 					std::exit(1);
 				}
 			case ',':
-				if(justReadValue)
+				if(array->length() != 0)
 				{
-					Debug::getInstance()->log("JSON", "Read comma while parsing array, parsing value.");
-					justReadValue = false;
+					Debug::getInstance()->log("JSON", "Read comma while parsing array.");
+					justReadComma = true;
 					file->get();
-					array->pushBack(readValue(file));
 					break;
 				}
 				else
@@ -247,11 +250,11 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 					std::exit(1);
 				}
 			default:
-				if(!justReadValue)
+				if(justReadComma || array->length() == 0)
 				{
 					Debug::getInstance()->log("JSON", "Read non-special character while parsing array, parsing value.");
+					justReadComma = false;
 					array->pushBack(readValue(file));
-					justReadValue = true;
 				}
 				else
 				{
@@ -264,14 +267,15 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 	std::exit(1);
 }
 
-JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
+JSONItem* JSONParser::readNumber(std::ifstream* file)
 {
 	Debug::getInstance()->log("JSON", "Number parsing initiated.");
 	char currentChar;
-	std::string numStr = "" + lastChar;
+	std::string numStr = "";
 	bool readDecimal = false;
 	bool endOfNumberReached = false;
 	bool readExpIndicator = false;
+	bool justReadExpIndicator = false;
 	std::string expStr = "";
 	while((currentChar = file->peek()) && !endOfNumberReached)
 	{
@@ -312,6 +316,10 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 					Debug::getInstance()->log("JSON", "Read number character after reading exponent indicator while parsing number, pushing to exponent string.");
 					file->get();
 					expStr.push_back(currentChar);
+					if(justReadExpIndicator)
+					{
+						justReadExpIndicator = false;
+					}
 				}
 				break;
 			case 'e':
@@ -321,6 +329,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 					Debug::getInstance()->log("JSON", "Read e or E while parsing number, enabling exponent mode.");
 					file->get();
 					readExpIndicator = true;
+					justReadExpIndicator = true;
 					break;
 				}
 				else
@@ -330,16 +339,27 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 				}
 			case '+':
 			case '-':
-				if(numStr.at(numStr.length() - 1) == 'e' || numStr.at(numStr.length() - 1) == 'E')
+				if(justReadExpIndicator)
 				{
 					Debug::getInstance()->log("JSON", "Read + or - immediately after reading exponent indicator while parsing number, appending to exponent string.");
 					file->get();
 					expStr.push_back(currentChar);
+					justReadExpIndicator = false;
 					break;
 				}
+				else if(numStr.length() == 0)
+				{
+					Debug::getInstance()->log("JSON", "Read + or - at start of number, appending to number string.");
+					file->get();
+					numStr.push_back(currentChar);
+					break;
+				}
+				Debug::getInstance()->log("ERROR", "JSON file improperly formatted: read unexpected + or - while reading number.");
+				std::exit(1);
 			case ' ':
 			case ',':
-				if(numStr.at(numStr.length() - 1) != '.' && numStr.at(numStr.length() - 1) != 'e' && numStr.at(numStr.length() - 1) != 'E' && numStr.at(numStr.length() - 1) != '+' && numStr.at(numStr.length() - 1) != '-')
+			case ']':
+				if(!justReadExpIndicator && (!readExpIndicator || (expStr.length() != 0 && expStr.at(expStr.length() - 1) != '+' && expStr.at(expStr.length() - 1) != '-')))
 				{
 					Debug::getInstance()->log("JSON", "Read whitespace or comma while parsing string, end of number reached.");
 					endOfNumberReached = true;
@@ -359,7 +379,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 		double dNum = std::atof(numStr.c_str());
 		if(readExpIndicator)
 		{
-			double expNum = std::atof(expStr.c_str());
+			int expNum = std::atoi(expStr.c_str());
 			dNum *= std::pow(10, expNum);
 		}
 		Debug::getInstance()->log("JSON", "Wrapping and returning converted decimal.");
@@ -376,34 +396,29 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 	return new JSONPrimitive<int>(iNum);
 }
 
-JSONItem* JSONParser::readBool(std::ifstream* file, char lastChar)
+JSONItem* JSONParser::readBool(std::ifstream* file)
 {
 	Debug::getInstance()->log("JSON", "Initiating boolean parsing.");
 	char followingChars[4];
 	followingChars[3] = '\0';
-	if(lastChar == 't')
+	if(file->get() == 't')
 	{
-		file->get(followingChars, 3);
-		if(std::string(followingChars).compare("rue") == 0)
-		{
-			Debug::getInstance()->log("JSON", "Read true while parsing boolean, wrapping and returning true value.");
-			return new JSONPrimitive<bool>(true);
-		}
-		else
-		{
-			Debug::getInstance()->log("ERROR", "JSON file improperly formatted: invalid character where true value expected.");
-			std::exit(1);
-		}
+		file->get(followingChars, 4);
 	}
-	file->get(followingChars, 4);
-	if(std::string(followingChars).compare("alse") == 0)
+	else
+	{
+		file->get(followingChars, 5);
+	}
+	if(std::string(followingChars).compare("rue") == 0)
+	{
+		Debug::getInstance()->log("JSON", "Read true while parsing boolean, wrapping and returning true value.");
+		return new JSONPrimitive<bool>(true);
+	}
+	else if(std::string(followingChars).compare("alse") == 0)
 	{
 		Debug::getInstance()->log("JSON", "Read false while parsing boolean, wrapping and returning false value.");
 		return new JSONPrimitive<bool>(false);
 	}
-	else
-	{
-		Debug::getInstance()->log("ERROR", "JSON file improperly formatted: invalid character where false value expected.");
-		std::exit(1);
-	}
+	Debug::getInstance()->log("ERROR", "JSON file improperly formatted: invalid character where true or false value expected.");
+	std::exit(1);
 }
