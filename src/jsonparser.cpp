@@ -113,23 +113,62 @@ std::string JSONParser::readString(std::ifstream* file)
 	{
 		switch(currentChar)
 		{
-			case '"':
+			case '\\':
 				if(readEscapeCharacter)
 				{
-					Debug::getInstance()->log("JSON", "Read quote (\") after escape character (\\), adding to string.");
-					str.push_back(currentChar);
+					Debug::getInstance()->log("JSON", "Read slash (\\) after escape character (\\), adding to string.");
+					str.push_back('\\');
 					readEscapeCharacter = false;
 				}
 				else
 				{
-					Debug::getInstance()->log("JSON", "Read quote (\") not preceded by escape character (\\), returning string.");
-					return str;
+					readEscapeCharacter = true;
 				}
 				break;
-			case '\\':
-				Debug::getInstance()->log("JSON", "Read escape character (\\).");
-				readEscapeCharacter = true;
-				break;
+			case '"':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read quote (\") after escape character (\\), adding to string.");
+					str.push_back('\"');
+					readEscapeCharacter = false;
+					break;
+				}
+				else
+				{
+					Debug::getInstance()->log("JSON", "Read quote (\") not preceded by escape character (\\), end of string reached, returning string.");
+					return str;
+				}
+			case 'n':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read character 'n' ater escape character (\\), adding newline to string.");
+					str.push_back('\n');
+					readEscapeCharacter = false;
+					break;
+				}
+			case 't':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read character 't' after escape character (\\), adding tab to string.");
+					str.push_back('\t');
+					readEscapeCharacter = false;
+					break;
+				}
+			case 'r':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read character 'r' after escape character (\\), adding carriage return to string.");
+					str.push_back('\r');
+					readEscapeCharacter = false;
+					break;
+				}
+			case 'b':
+				if(readEscapeCharacter)
+				{
+					Debug::getInstance()->log("JSON", "Read character 'b' after escape character (\\), adding backspace to string.");
+					str.push_back('\b');
+					readEscapeCharacter = false;
+				}
 			default:
 				Debug::getInstance()->log("JSON", "Read non-special character, adding to string.");
 				str.push_back(currentChar);
