@@ -547,9 +547,16 @@ void readJSONBools()
 
 void readJSONStrings()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("stringtest.json");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
-	
+
+	JTest<std::string>::testEqualityStr("String correctly stored.", "abc", ((JSONPrimitive<std::string>*)(jsonArray->get(0)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("String with quotes correctly stored.", "string with \"quotes\"", ((JSONPrimitive<std::string>*)(jsonArray->get(1)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Empty string correctly stored.", "", ((JSONPrimitive<std::string>*)(jsonArray->get(2)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("String with backslashes correctly stored.", "string with \\slashes\\", ((JSONPrimitive<std::string>*)(jsonArray->get(3)))->getPrimitive());	
+
+	delete topLevelArray;
+	delete jsonArray;
 }
 
 void dynamicArrayTests()
@@ -603,6 +610,7 @@ void JSONParserTests()
 	readJSONArray();
 	readJSONNumbers();
 	readJSONBools();
+	readJSONStrings();
 }
 
 

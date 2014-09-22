@@ -30,7 +30,7 @@ class JTest
 		// char* testName - the name of the test being performed
 		// string expectedValue - the expected string result of the operation
 		// string actualValue - the actual string result of the operation	
-		static void testEquality(const char* testName, std::string expectedValue, std::string actualValue)
+		static void testEqualityStr(const char* testName, std::string expectedValue, std::string actualValue)
 		{
 			if(expectedValue.compare(actualValue) != 0)
 			{
