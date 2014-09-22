@@ -24,6 +24,22 @@ class JTest
 			// assert passed, output positive test result
 			std::cout << "[ Passed ] " << testName << std::endl;
 		}
+		
+		// Tests if the actual string value of an operation is equal to the expected string value of an operation.
+		// Parameters:
+		// char* testName - the name of the test being performed
+		// string expectedValue - the expected string result of the operation
+		// string actualValue - the actual string result of the operation	
+		static void testEquality(const char* testName, std::string expectedValue, std::string actualValue)
+		{
+			if(expectedValue.compare(actualValue) != 0)
+			{
+				std::cout << "[ Failed ] " << testName << ": expected value not equal to actual value (expected: " << expectedValue << ", actual: " << actualValue << ")" << std::endl;
+			}
+			assert(expectedValue.compare(actualValue) == 0);
+			// assert passed, output positive test result
+			std::cout << "[ Passed ] " << testName << std::endl;
+		}
 
 		// Tests if the actual value of an operation is not equal to a certain value.
 		// Parameters:
