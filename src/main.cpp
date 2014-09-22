@@ -550,7 +550,6 @@ void readJSONStrings()
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
 	
-	JTest<std::string>::testEquality("String correctly stored.", "
 }
 
 void dynamicArrayTests()
