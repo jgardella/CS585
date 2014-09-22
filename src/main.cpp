@@ -559,6 +559,15 @@ void readJSONStrings()
 	delete jsonArray;
 }
 
+void readJSONNull()
+{
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("nulltest.json");
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	
+	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, jsonArray->get(0));
+
+}
+
 void dynamicArrayTests()
 {
 	std::cout << "Dynamic Array Tests" << std::endl;
@@ -611,6 +620,7 @@ void JSONParserTests()
 	readJSONNumbers();
 	readJSONBools();
 	readJSONStrings();
+	readJSONNull();
 }
 
 

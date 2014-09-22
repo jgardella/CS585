@@ -192,7 +192,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 {
 	Debug::getInstance()->log("JSON", "Value parsing initiated.");
 	char currentChar;
-	char followingChars[3];
+	char followingChars[4];
 	while((currentChar = file->peek()))
 	{
 		switch(currentChar)
@@ -230,7 +230,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 				Debug::getInstance()->log("JSON", "Read t or f while reading value, parsing boolean.");
 				return readBool(file);
 			case 'n':
-				file->get(followingChars, 4);
+				file->get(followingChars, 5);
 				if(std::string(followingChars).compare("null") == 0)
 				{
 					Debug::getInstance()->log("JSON", "Read null while reading value, returning NULL.");
