@@ -127,7 +127,7 @@ std::string JSONParser::readString(std::ifstream* file)
 				}
 				break;
 			case '\\':
-				Debug::getInstance()->log("JSON", "Read escape character (\\).)";
+				Debug::getInstance()->log("JSON", "Read escape character (\\).");
 				readEscapeCharacter = true;
 				break;
 			default:
@@ -154,10 +154,13 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 			case '\t':
 			case '\n':
 			case '\r':
+				Debug::getInstance()->log("JSON", "Read whitespace while reading value, continuing.");
 				continue;
 			case '{':
+				Debug::getInstance()->log("JSON", "Read left brace { while reading value, parsing object.");
 				return readObject(file);
 			case '"':
+				Debug::getInstance()->log("JSON", "Read quote while reading value, parsing string.");
 				return new JSONPrimitive<std::string>(readString(file));
 			case '0':	
 			case '1':
@@ -170,14 +173,17 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 			case '8':
 			case '9':
 			case '-':
+				Debug::getInstance()->log("JSON", "Read number or - while reading value, parsing number.");
 				return readNumber(file, currentChar);
 			case 't':
 			case 'f':
+				Debug::getInstance()->log("JSON", "Read t or f while reading value, parsing boolean.");
 				return readBool(file, currentChar);
 			case 'n':
 				file->get(followingChars, 3);
 				if(std::string(followingChars).compare("ull") == 0)
 				{
+					Debug::getInstance()->log("JSON", "Read null while reading value, returning NULL.");
 					return NULL;
 				}
 				else
@@ -186,6 +192,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 					std::exit(1);
 				}
 			case '[':
+				Debug::getInstance()->log("JSON", "Read left bracket [ while reading value, parsing array.");
 				return readArray(file);
 			default:
 				Debug::getInstance()->log("ERROR", "JSON file improperly formatted: invalid character while reading value.");
@@ -198,6 +205,7 @@ JSONItem* JSONParser::readValue(std::ifstream* file)
 
 JSONArray* JSONParser::readArray(std::ifstream* file)
 {
+	Debug::getInstance()->log("JSON", "Array parsing initiated.");
 	char currentChar;
 	bool justReadValue = false;
 	DynamicArray<JSONItem*>* array = new DynamicArray<JSONItem*>();
@@ -209,11 +217,13 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 			case '\n':
 			case '\t':
 			case '\r':
+				Debug::getInstance()->log("JSON", "Read whitespace while parsing array, continuing.");
 				file->get();
 				continue;
 			case ']':
 				if(!justReadValue || array->length() == 0)
 				{
+					Debug::getInstance()->log("JSON", "Read right bracket ] while parsing array, wrapping and returning array.");
 					file->get();
 					return new JSONArray(array);
 				}
@@ -225,6 +235,7 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 			case ',':
 				if(justReadValue)
 				{
+					Debug::getInstance()->log("JSON", "Read comma while parsing array, parsing value.");
 					justReadValue = false;
 					file->get();
 					array->pushBack(readValue(file));
@@ -238,6 +249,7 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 			default:
 				if(!justReadValue)
 				{
+					Debug::getInstance()->log("JSON", "Read non-special character while parsing array, parsing value.");
 					array->pushBack(readValue(file));
 					justReadValue = true;
 				}
@@ -254,6 +266,7 @@ JSONArray* JSONParser::readArray(std::ifstream* file)
 
 JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 {
+	Debug::getInstance()->log("JSON", "Number parsing initiated.");
 	char currentChar;
 	std::string numStr = "" + lastChar;
 	bool readDecimal = false;
@@ -267,6 +280,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 			case '.':
 				if(!readDecimal)
 				{
+					Debug::getInstance()->log("JSON", "Read decimal point while parsing number, pushing to number string.");
 					readDecimal = true;
 					file->get();
 					numStr.push_back(currentChar);
@@ -289,11 +303,13 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 			case '9':
 				if(!readExpIndicator)
 				{
+					Debug::getInstance()->log("JSON", "Read number character while parsing number, pushing to number string.");
 					file->get();
 					numStr.push_back(currentChar);
 				}
 				else
 				{
+					Debug::getInstance()->log("JSON", "Read number character after reading exponent indicator while parsing number, pushing to exponent string.");
 					file->get();
 					expStr.push_back(currentChar);
 				}
@@ -302,6 +318,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 			case 'E':
 				if(!readExpIndicator)
 				{
+					Debug::getInstance()->log("JSON", "Read e or E while parsing number, enabling exponent mode.");
 					file->get();
 					readExpIndicator = true;
 					break;
@@ -315,6 +332,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 			case '-':
 				if(numStr.at(numStr.length() - 1) == 'e' || numStr.at(numStr.length() - 1) == 'E')
 				{
+					Debug::getInstance()->log("JSON", "Read + or - immediately after reading exponent indicator while parsing number, appending to exponent string.");
 					file->get();
 					expStr.push_back(currentChar);
 					break;
@@ -323,6 +341,7 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 			case ',':
 				if(numStr.at(numStr.length() - 1) != '.' && numStr.at(numStr.length() - 1) != 'e' && numStr.at(numStr.length() - 1) != 'E' && numStr.at(numStr.length() - 1) != '+' && numStr.at(numStr.length() - 1) != '-')
 				{
+					Debug::getInstance()->log("JSON", "Read whitespace or comma while parsing string, end of number reached.");
 					endOfNumberReached = true;
 					break;
 				}
@@ -336,25 +355,30 @@ JSONItem* JSONParser::readNumber(std::ifstream* file, char lastChar)
 	}
 	if(readDecimal)
 	{
+		Debug::getInstance()->log("JSON", "Converting string to decimal after parsing.");
 		double dNum = std::atof(numStr.c_str());
 		if(readExpIndicator)
 		{
 			double expNum = std::atof(expStr.c_str());
 			dNum *= std::pow(10, expNum);
 		}
+		Debug::getInstance()->log("JSON", "Wrapping and returning converted decimal.");
 		return new JSONPrimitive<double>(dNum);
 	}
+	Debug::getInstance()->log("JSON", "Converting string to int after parsing.");
 	int iNum = std::atoi(numStr.c_str());
 	if(readExpIndicator)
 	{
 		int expNum = std::atoi(expStr.c_str());
 		iNum = (int) std::pow(10, expNum);
 	}
+	Debug::getInstance()->log("JSON", "Wrapping and returning converted int.");
 	return new JSONPrimitive<int>(iNum);
 }
 
 JSONItem* JSONParser::readBool(std::ifstream* file, char lastChar)
 {
+	Debug::getInstance()->log("JSON", "Initiating boolean parsing.");
 	char followingChars[4];
 	followingChars[3] = '\0';
 	if(lastChar == 't')
@@ -362,6 +386,7 @@ JSONItem* JSONParser::readBool(std::ifstream* file, char lastChar)
 		file->get(followingChars, 3);
 		if(std::string(followingChars).compare("rue") == 0)
 		{
+			Debug::getInstance()->log("JSON", "Read true while parsing boolean, wrapping and returning true value.");
 			return new JSONPrimitive<bool>(true);
 		}
 		else
@@ -373,6 +398,7 @@ JSONItem* JSONParser::readBool(std::ifstream* file, char lastChar)
 	file->get(followingChars, 4);
 	if(std::string(followingChars).compare("alse") == 0)
 	{
+		Debug::getInstance()->log("JSON", "Read false while parsing boolean, wrapping and returning false value.");
 		return new JSONPrimitive<bool>(false);
 	}
 	else
