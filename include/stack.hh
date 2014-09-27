@@ -33,10 +33,10 @@ class Stack
 
 		// Removes and returns a pointer to the top element of the stack if it is not empty.
 		// Returns a pointer to the former top element of the stack. If the stack is empty, behaviour is undefined.
-		T* pop()
+		T pop()
 		{
 			Debug::getInstance()->log("STACK", "Pop method entered.");
-			T* poppedItem = dynamicArray->remove(0);
+			T poppedItem = dynamicArray->remove(0);
 			Debug::getInstance()->log("STACK", "Item popped.");
 			return poppedItem;
 		}
@@ -57,10 +57,10 @@ class Stack
 		
 		// Peeks at the top element of the stack.
 		// Returns the top element of the stack if the stack is not empty. If the stack is empty, behaviour is undefined.		
-		T* peek()
+		T peek()
 		{
 			Debug::getInstance()->log("STACK", "Peek method entered");
-			T* peekedItem = dynamicArray->get(0);
+			T peekedItem = *dynamicArray->get(0);
 			Debug::getInstance()->log("STACK", "Item peeked.");
 			return peekedItem;
 		}

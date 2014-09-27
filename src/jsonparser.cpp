@@ -31,7 +31,7 @@ DynamicArray<JSONItem*>* JSONParser::parseFile(std::string jsonFileName)
 		}
 	}
 	Debug::getInstance()->log("JSON", "Finished parsing JSON file.");
-	return topLevelStructures;
+return topLevelStructures;
 }
 
 JSONObject* JSONParser::readObject(std::ifstream* file)

@@ -39,7 +39,7 @@ void ActorSpawner::tick(float dt)
 	if(timeCounter >= secondsBetweenSpawns)
 	{
 		Debug::getInstance()->log("SPAWNER", "Actor spawner spawning new actor.");
-		Actor *newActor = new Actor(names->get(randomName++), spawnX, spawnY, true);
+		Actor *newActor = new Actor(*names->get(randomName++), spawnX, spawnY, true);
 		Debug::getInstance()->log("GAMEPLAY", "Spawning " + newActor->getName());
 		actors->pushBack(newActor);
 		Debug::getInstance()->log("SPAWNER", "Actor added to actors array.");

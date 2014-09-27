@@ -27,7 +27,7 @@ void SceneManager::tick(float dt)
 	unsigned int i;
 	for(i = 0; i < tickables->length(); i++)
 	{
-		tickables->get(i)->tick(dt);
+		(*tickables->get(i))->tick(dt);
 	}
 }
 

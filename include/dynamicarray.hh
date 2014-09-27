@@ -147,10 +147,10 @@ class DynamicArray
 		// T newElement - the new element
 		// unsigned int index - the index at which to set the new element, should be from 0 to length() - 1
 		// Returns the element that was in position index before setting.
-		T* set(T newElement, unsigned int index)
+		T set(T newElement, unsigned int index)
 		{
 			Debug::getInstance()->log("DYNAMICARRAY", "Setting element in array.");
-			T* oldElement = &dynamicArrayFront[index + 1];
+			T oldElement = dynamicArrayFront[index + 1];
 			dynamicArrayFront[index + 1] = newElement;
 			return oldElement;
 		}
@@ -181,12 +181,12 @@ class DynamicArray
 		// Parameters:
 		// unsigned int index - the index of the item to remove, should be from 0 to length() - 1
 		// Returns the item after removal.
-		T* remove(unsigned int index)
+		T remove(unsigned int index)
 		{
 			Debug::getInstance()->log("DYNAMICARRAY", "Attempting to remove element from array.");
 			unsigned int i;
 			Debug::getInstance()->log("DYNAMICARRAY", "Storing removed element.");
-			T* removedElement = get(index);
+			T removedElement = *get(index);
 			// if the index being removed is in the right half of the dynamic array, it will be more efficient to
 			// shift the elements on the right
 			if(index > dynamicArrayLength / 2)

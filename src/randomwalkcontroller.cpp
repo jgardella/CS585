@@ -33,7 +33,7 @@ void RandomWalkController::tick(float dt)
 			{
 				for(j = 0; j < colliders->length(); j++)
 				{
-					(*colliders->remove(j))->deleteNode();
+					colliders->remove(j)->deleteNode();
 				}
 				(*actors->get(i))->getSceneNode()->deleteNode();
 			}

@@ -128,7 +128,7 @@ void dynamicArraySetTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	int replacedElement = *array->set(2, 0);
+	int replacedElement = array->set(2, 0);
 	JTest<int>::testEquality("Set test, replaced element returned", 1, replacedElement);
 	JTest<int>::testEquality("Set test, inserted element is in correct position", 2, *array->get(0));
 	delete array;	
@@ -167,7 +167,7 @@ void dynamicArrayRemoveTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	int removedElement = *array->remove(0);
+	int removedElement = array->remove(0);
 	JTest<int>::testEquality("Remove test, remove with only one element, element returned", 1, removedElement);
 	JTest<int>::testEquality("Remove test, length decremented", 0, array->length());
 
@@ -177,7 +177,7 @@ void dynamicArrayRemoveTest()
 	array->pushBack(4);
 	array->pushBack(5);
 	// Test remove method when an item is removed from the left half of the array.
-	removedElement = *array->remove(2);
+	removedElement = array->remove(2);
 	JTest<int>::testEquality("Left side remove test, removed element correctly returned", 3, removedElement);
 	JTest<int>::testEquality("Left side remove test, element one did not move", 1, *array->get(0));
 	JTest<int>::testEquality("Left side remove test, element two did not move", 2, *array->get(1));
@@ -188,7 +188,7 @@ void dynamicArrayRemoveTest()
 	// Test remove method when an item is removed from the right half of the array.
 	array->pushBack(6);
 	array->pushBack(7);
-	removedElement = *array->remove(3);
+	removedElement = array->remove(3);
 	JTest<int>::testEquality("Right side remove test, removed element correctly returned", 5, removedElement);
 	JTest<int>::testEquality("Right side remove test, element one did not move", 1, *array->get(0));
 	JTest<int>::testEquality("Right side remove test, element two did not move", 2, *array->get(1));
@@ -323,11 +323,11 @@ void stackPushAndPopTest()
 	stack->push(2);
 	stack->push(1);
 
-	JTest<int>::testEquality("Push and pop test, first element popped", 1, *stack->pop());
-	JTest<int>::testEquality("Push and pop test, second element popped", 2, *stack->pop());
-	JTest<int>::testEquality("Push and pop test, third element popped", 3, *stack->pop());
-	JTest<int>::testEquality("Push and pop test, fourth element popped", 4, *stack->pop());
-	JTest<int>::testEquality("Push and pop test, fifth element popped", 5, *stack->pop());
+	JTest<int>::testEquality("Push and pop test, first element popped", 1, stack->pop());
+	JTest<int>::testEquality("Push and pop test, second element popped", 2, stack->pop());
+	JTest<int>::testEquality("Push and pop test, third element popped", 3, stack->pop());
+	JTest<int>::testEquality("Push and pop test, fourth element popped", 4, stack->pop());
+	JTest<int>::testEquality("Push and pop test, fifth element popped", 5, stack->pop());
 
 	delete stack;
 }
@@ -337,8 +337,8 @@ void stackPeekTest()
 	Stack<int> *stack = new Stack<int>();
 	stack->push(1);
 
-	JTest<int>::testEquality("Peek test, first element peeked", 1, *stack->peek());
-	JTest<int>::testEquality("Peek test, first element still in stack", 1, *stack->pop());
+	JTest<int>::testEquality("Peek test, first element peeked", 1, stack->peek());
+	JTest<int>::testEquality("Peek test, first element still in stack", 1, stack->pop());
 
 	delete stack;
 }
@@ -353,7 +353,7 @@ void stackBoundedTest()
 	stack->push(1);
 	stack->push(0);
 
-	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, *stack->peek());
+	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, stack->peek());
 
 	delete stack;
 }
@@ -372,11 +372,11 @@ void queueEnqueueAndDequeueTest()
 	queue->enqueue(4);
 	queue->enqueue(5);
 	
-	JTest<int>::testEquality("Enqueue and dequeue, first element dequeued", 1, *queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, second element dequeued", 2, *queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, third element dequeued", 3, *queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, fourth element dequeued", 4, *queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, fifth element dequeued", 5, *queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, first element dequeued", 1, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, second element dequeued", 2, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, third element dequeued", 3, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fourth element dequeued", 4, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fifth element dequeued", 5, queue->dequeue());
 
 	delete queue;
 }
@@ -386,8 +386,8 @@ void queueFrontTest()
 	Queue<int> *queue = new Queue<int>();
 	queue->enqueue(1);
 
-	JTest<int>::testEquality("Front test, front element returned", 1, *queue->front());
-	JTest<int>::testEquality("Front test, front element still in queue", 1, *queue->dequeue());
+	JTest<int>::testEquality("Front test, front element returned", 1, queue->front());
+	JTest<int>::testEquality("Front test, front element still in queue", 1, queue->dequeue());
 
 	delete queue;
 }
@@ -408,7 +408,7 @@ void queueBoundedTest()
 	{
 		queue->dequeue();
 	}
-	JTest<int>::testInequality("Bounded queue test, element not added when capacity reached.", 6, *queue->dequeue());
+	JTest<int>::testInequality("Bounded queue test, element not added when capacity reached.", 6, queue->dequeue());
 
 	delete queue;
 }
@@ -497,13 +497,13 @@ void readJSONArray()
 {
 	unsigned int i;
 	int j;
-
+	
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("arraytest.json");
-	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 
 	for(i = 0, j = 0; i < jsonArray->length(); i++, j++)
 	{
-		JTest<int>::testEquality("Item correctly stored in JSON Array.", j, ((JSONPrimitive<int>*)(jsonArray->get(i)))->getPrimitive());
+		JTest<int>::testEquality("Item correctly stored in JSON Array.", j, ((JSONPrimitive<int>*)(*jsonArray->get(i)))->getPrimitive());
 	}
 	
 	delete topLevelArray;
@@ -513,16 +513,16 @@ void readJSONArray()
 void readJSONNumbers()
 {
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("numbertest.json");
-	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
-	JTest<int>::testEquality("Single digit int correctly stored.", 1, ((JSONPrimitive<int>*)(jsonArray->get(0)))->getPrimitive());
-	JTest<int>::testEquality("Multi-digit int correctly stored.", 15, ((JSONPrimitive<int>*)(jsonArray->get(1)))->getPrimitive());
-	JTest<int>::testEquality("Negative int correctly stored.", -7, ((JSONPrimitive<int>*)(jsonArray->get(2)))->getPrimitive());
-	JTest<double>::testEquality("Double correctly stored.", 1.5, ((JSONPrimitive<double>*)(jsonArray->get(3)))->getPrimitive());
-	JTest<double>::testEquality("Negative double correctly stored.", -1.5, ((JSONPrimitive<double>*)(jsonArray->get(4)))->getPrimitive());
-	JTest<double>::testEquality("Double in scientific notation correctly stored.", 150.0, ((JSONPrimitive<double>*)(jsonArray->get(5)))->getPrimitive());
-	JTest<double>::testEquality("Double in scientific notation with positive sign explicitly specified correctly stored.", 150, ((JSONPrimitive<double>*)(jsonArray->get(6)))->getPrimitive());
-	JTest<double>::testEquality("Double in scientific notation with negative sign specified correctly stored.", 0.015, ((JSONPrimitive<double>*)(jsonArray->get(7)))->getPrimitive());
+	JTest<int>::testEquality("Single digit int correctly stored.", 1, ((JSONPrimitive<int>*)(*jsonArray->get(0)))->getPrimitive());
+	JTest<int>::testEquality("Multi-digit int correctly stored.", 15, ((JSONPrimitive<int>*)(*jsonArray->get(1)))->getPrimitive());
+	JTest<int>::testEquality("Negative int correctly stored.", -7, ((JSONPrimitive<int>*)(*jsonArray->get(2)))->getPrimitive());
+	JTest<double>::testEquality("Double correctly stored.", 1.5, ((JSONPrimitive<double>*)(*jsonArray->get(3)))->getPrimitive());
+	JTest<double>::testEquality("Negative double correctly stored.", -1.5, ((JSONPrimitive<double>*)(*jsonArray->get(4)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation correctly stored.", 150.0, ((JSONPrimitive<double>*)(*jsonArray->get(5)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation with positive sign explicitly specified correctly stored.", 150, ((JSONPrimitive<double>*)(*jsonArray->get(6)))->getPrimitive());
+	JTest<double>::testEquality("Double in scientific notation with negative sign specified correctly stored.", 0.015, ((JSONPrimitive<double>*)(*jsonArray->get(7)))->getPrimitive());
 
 	delete topLevelArray;
 	delete jsonArray;
@@ -531,10 +531,10 @@ void readJSONNumbers()
 void readJSONBools()
 {
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
-	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
-	JTest<bool>::testEquality("True boolean correctly stored.", true, ((JSONPrimitive<bool>*)(jsonArray->get(0)))->getPrimitive());
-	JTest<bool>::testEquality("False boolean correctly stored.", false, ((JSONPrimitive<bool>*)(jsonArray->get(1)))->getPrimitive());
+	JTest<bool>::testEquality("True boolean correctly stored.", true, ((JSONPrimitive<bool>*)(*jsonArray->get(0)))->getPrimitive());
+	JTest<bool>::testEquality("False boolean correctly stored.", false, ((JSONPrimitive<bool>*)(*jsonArray->get(1)))->getPrimitive());
 
 	delete topLevelArray;
 	delete jsonArray;
@@ -543,12 +543,12 @@ void readJSONBools()
 void readJSONStrings()
 {
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("stringtest.json");
-	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 
-	JTest<std::string>::testEqualityStr("String correctly stored.", "abc", ((JSONPrimitive<std::string>*)(jsonArray->get(0)))->getPrimitive());	
-	JTest<std::string>::testEqualityStr("String with quotes correctly stored.", "string with \"quotes\"", ((JSONPrimitive<std::string>*)(jsonArray->get(1)))->getPrimitive());	
-	JTest<std::string>::testEqualityStr("Empty string correctly stored.", "", ((JSONPrimitive<std::string>*)(jsonArray->get(2)))->getPrimitive());	
-	JTest<std::string>::testEqualityStr("String with backslashes correctly stored.", "string with \\slashes\\", ((JSONPrimitive<std::string>*)(jsonArray->get(3)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("String correctly stored.", "abc", ((JSONPrimitive<std::string>*)(*jsonArray->get(0)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("String with quotes correctly stored.", "string with \"quotes\"", ((JSONPrimitive<std::string>*)(*jsonArray->get(1)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Empty string correctly stored.", "", ((JSONPrimitive<std::string>*)(*jsonArray->get(2)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("String with backslashes correctly stored.", "string with \\slashes\\", ((JSONPrimitive<std::string>*)(*jsonArray->get(3)))->getPrimitive());	
 
 	delete topLevelArray;
 	delete jsonArray;
@@ -557,7 +557,7 @@ void readJSONStrings()
 void readJSONNull()
 {
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("nulltest.json");
-	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
+	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
 	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, *jsonArray->get(0));
 	
@@ -568,16 +568,16 @@ void readJSONNull()
 void readJSONObject()
 {
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("objecttest.json");
-	Trie<JSONItem*>* jsonObject = ((JSONObject*)(topLevelArray->get(0)))->getTrie();
+	Trie<JSONItem*>* jsonObject = ((JSONObject*)(*topLevelArray->get(0)))->getTrie();
 	
 	JTest<std::string>::testEqualityStr("String item in object correctly stored.", "jason", ((JSONPrimitive<std::string>*)(jsonObject->get("name")))->getPrimitive());	
 	JTest<int>::testEquality("Number item in object correctly stored.", 19, ((JSONPrimitive<int>*)(jsonObject->get("age")))->getPrimitive());	
 	JTest<bool>::testEquality("Boolean item in object correctly stored.", true, ((JSONPrimitive<bool>*)(jsonObject->get("issoftwareengineer")))->getPrimitive());
 	
 	DynamicArray<JSONItem*>* nestedArray = ((JSONArray*)jsonObject->get("hobbies"))->getDynamicArray();	
-	JTest<std::string>::testEqualityStr("First item of array item in object correctly stored.", "guitar", ((JSONPrimitive<std::string>*)(nestedArray->get(0)))->getPrimitive());	
-	JTest<std::string>::testEqualityStr("Second item of array item in object correctly stored.", "piano", ((JSONPrimitive<std::string>*)(nestedArray->get(1)))->getPrimitive());	
-	JTest<std::string>::testEqualityStr("Third item of array item in object correctly stored.", "gaming", ((JSONPrimitive<std::string>*)(nestedArray->get(2)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("First item of array item in object correctly stored.", "guitar", ((JSONPrimitive<std::string>*)(*nestedArray->get(0)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Second item of array item in object correctly stored.", "piano", ((JSONPrimitive<std::string>*)(*nestedArray->get(1)))->getPrimitive());	
+	JTest<std::string>::testEqualityStr("Third item of array item in object correctly stored.", "gaming", ((JSONPrimitive<std::string>*)(*nestedArray->get(2)))->getPrimitive());	
 
 	delete topLevelArray;
 	delete jsonObject;

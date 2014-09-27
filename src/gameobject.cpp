@@ -21,7 +21,7 @@ bool GameObject::update(float dt)
 		Debug::getInstance()->log("GAMEPLAY", "Simulation finished. Remaining actors:");
 		for(i = 0; i < actors->length(); i++)
 		{
-			Debug::getInstance()->log("GAMEPLAY", actors->get(i)->getName());
+			Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName());
 		}
 		return false;
 	}
