@@ -20,20 +20,22 @@ void RandomWalkController::tick(float dt)
 		for(i = 0; i < actors->length(); i++)
 		{
 			// movement
-			SceneNode *node = actors->get(i)->getSceneNode();
+			SceneNode *node = (*actors->get(i))->getSceneNode();
 			int newX = node->getX() + std::rand() % 5 - 2;
 			int newY = node->getY() + std::rand() % 5 - 2;
 			graph->updateSceneNode(node, newX, newY);
-			Debug::getInstance()->log("GAMEPLAY", actors->get(i)->getName() + " moving.");
+			Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " moving.");
 			// collision
-			colliders = graph->getColliders(actors->get(i)->getSceneNode());
+			colliders = graph->getColliders(
+					
+					(*actors->get(i))->getSceneNode());
 			if(colliders->length() > 1)
 			{
 				for(j = 0; j < colliders->length(); j++)
 				{
-					colliders->remove(j)->deleteNode();
+					(*colliders->remove(j))->deleteNode();
 				}
-				actors->get(i)->getSceneNode()->deleteNode();
+				(*actors->get(i))->getSceneNode()->deleteNode();
 			}
 			delete colliders;
 		}
@@ -41,9 +43,9 @@ void RandomWalkController::tick(float dt)
 		Debug::getInstance()->log("WALKCONTROLLER", "Removing actors with collisions.");
 		for(i = 0; i < actors->length(); i++)
 		{
-			if(actors->get(i)->getSceneNode()->isReadyForDeletion())
+			if((*actors->get(i))->getSceneNode()->isReadyForDeletion())
 			{
-				Debug::getInstance()->log("GAMEPLAY", actors->get(i)->getName() + " had a collision, removing from the scene."); 
+				Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " had a collision, removing from the scene."); 
 				delete actors->remove(i--);
 			}
 		}
