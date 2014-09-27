@@ -33,10 +33,10 @@ class Queue
 
 		// Removes and returns a pointer to the front element of the queue if it is not empty.
 		// Returns a pointer to the former front element of the queue. If the queue is empty, behaviour is undefined.
-		T dequeue()
+		T* dequeue()
 		{
 			Debug::getInstance()->log("QUEUE", "Dequeue method entered.");
-			T dequeuedItem = dynamicArray->remove(0);
+			T* dequeuedItem = dynamicArray->remove(0);
 			Debug::getInstance()->log("QUEUE", "Item dequeued.");
 			return dequeuedItem;
 		}
@@ -57,10 +57,10 @@ class Queue
 		
 		// Peeks at the front element of the queue, without removing it.
 		// Returns the front element of the queue if the queue is not empty. If the queue is empty, behaviour is undefined.		
-		T front()
+		T* front()
 		{
 			Debug::getInstance()->log("QUEUE", "Front method entered");
-			T frontItem = dynamicArray->get(0);
+			T* frontItem = dynamicArray->get(0);
 			Debug::getInstance()->log("QUEUE", "Front item returned");
 			return frontItem;
 		}

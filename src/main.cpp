@@ -56,7 +56,7 @@ void dynamicArrayMemoryReallocationTest()
 	array->pushBack(10);
 	array->pushBack(11);
 	JTest<int>::testEquality("Back memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
-	JTest<int>::testEquality("Back memory reallocation test, element which surpassed capacity has been added", 11, array->get(10));
+	JTest<int>::testEquality("Back memory reallocation test, element which surpassed capacity has been added", 11, *array->get(10));
 	delete array;
 	
 	// Test array overflow on front side.
@@ -73,7 +73,7 @@ void dynamicArrayMemoryReallocationTest()
 	array->pushFront(10);
 	array->pushFront(11);
 	JTest<int>::testEquality("Front memory reallocation test, array capacity expanded to hold more items", 15, array->capacity());
-	JTest<int>::testEquality("Front memory reallocation test, element which surpassed capacity has been added", 11, array->get(0));
+	JTest<int>::testEquality("Front memory reallocation test, element which surpassed capacity has been added", 11, *array->get(0));
 	delete array;
 }
 
@@ -101,7 +101,7 @@ void dynamicArraySeveralReallocationTest()
 	bool isProperlyExpanded = true;
 	for(i = 0, j = 1; i < array->length() && isProperlyExpanded; i++, j++)
 	{
-		if(array->get(i) != j)
+		if(*array->get(i) != j)
 		{
 			isProperlyExpanded = false;
 		}
@@ -118,8 +118,8 @@ void dynamicArraySwapTest()
 	array->pushFront(1);
 	array->pushBack(2);
 	array->swap(0, 1);
-	JTest<int>::testEquality("Swap test, element at indexTwo is in indexOne", 2, array->get(0));
-	JTest<int>::testEquality("Swap test, element at indexOne is in indexTwo", 1, array->get(1));
+	JTest<int>::testEquality("Swap test, element at indexTwo is in indexOne", 2, *array->get(0));
+	JTest<int>::testEquality("Swap test, element at indexOne is in indexTwo", 1, *array->get(1));
 	delete array;
 }
 
@@ -128,9 +128,9 @@ void dynamicArraySetTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	int replacedElement = array->set(2, 0);
+	int replacedElement = *array->set(2, 0);
 	JTest<int>::testEquality("Set test, replaced element returned", 1, replacedElement);
-	JTest<int>::testEquality("Set test, inserted element is in correct position", 2, array->get(0));
+	JTest<int>::testEquality("Set test, inserted element is in correct position", 2, *array->get(0));
 	delete array;	
 }
 
@@ -143,11 +143,11 @@ void dynamicArrayInsertTest()
 	array->pushBack(4);
 	array->pushBack(5);
 	array->insert(3, 2);
-	JTest<int>::testEquality("Insert test, element correctly inserted", 3, array->get(2));
-	JTest<int>::testEquality("Insert test, elements correctly shifted for insert", 4, array->get(3));
+	JTest<int>::testEquality("Insert test, element correctly inserted", 3, *array->get(2));
+	JTest<int>::testEquality("Insert test, elements correctly shifted for insert", 4, *array->get(3));
 	array->insert(2, 1);
-	JTest<int>::testEquality("Insert test, full array reallocated and element inserted", 2, array->get(1));
-	JTest<int>::testEquality("Insert test, full array reallocated and elements shifted for insert", 2, array->get(2));
+	JTest<int>::testEquality("Insert test, full array reallocated and element inserted", 2, *array->get(1));
+	JTest<int>::testEquality("Insert test, full array reallocated and elements shifted for insert", 2, *array->get(2));
 	delete array;
 }
 
@@ -156,7 +156,7 @@ void dynamicArrayGetTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(0);
-	JTest<int>::testEquality("Get test, calling get returns correct element", 0, array->get(0));
+	JTest<int>::testEquality("Get test, calling get returns correct element", 0, *array->get(0));
 	delete array;
 }
 
@@ -167,7 +167,7 @@ void dynamicArrayRemoveTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	int removedElement = array->remove(0);
+	int removedElement = *array->remove(0);
 	JTest<int>::testEquality("Remove test, remove with only one element, element returned", 1, removedElement);
 	JTest<int>::testEquality("Remove test, length decremented", 0, array->length());
 
@@ -177,24 +177,24 @@ void dynamicArrayRemoveTest()
 	array->pushBack(4);
 	array->pushBack(5);
 	// Test remove method when an item is removed from the left half of the array.
-	removedElement = array->remove(2);
+	removedElement = *array->remove(2);
 	JTest<int>::testEquality("Left side remove test, removed element correctly returned", 3, removedElement);
-	JTest<int>::testEquality("Left side remove test, element one did not move", 1, array->get(0));
-	JTest<int>::testEquality("Left side remove test, element two did not move", 2, array->get(1));
-	JTest<int>::testEquality("Left side remove test, element four is now element three", 4, array->get(2));
-	JTest<int>::testEquality("Left side remove test, element five is now element four", 5, array->get(3));
+	JTest<int>::testEquality("Left side remove test, element one did not move", 1, *array->get(0));
+	JTest<int>::testEquality("Left side remove test, element two did not move", 2, *array->get(1));
+	JTest<int>::testEquality("Left side remove test, element four is now element three", 4, *array->get(2));
+	JTest<int>::testEquality("Left side remove test, element five is now element four", 5, *array->get(3));
 	JTest<int>::testEquality("Left side remove test, array length decreased", 4, array->length());
 	
 	// Test remove method when an item is removed from the right half of the array.
 	array->pushBack(6);
 	array->pushBack(7);
-	removedElement = array->remove(3);
+	removedElement = *array->remove(3);
 	JTest<int>::testEquality("Right side remove test, removed element correctly returned", 5, removedElement);
-	JTest<int>::testEquality("Right side remove test, element one did not move", 1, array->get(0));
-	JTest<int>::testEquality("Right side remove test, element two did not move", 2, array->get(1));
-	JTest<int>::testEquality("Right side remove test, element three did not move", 4, array->get(2));
-	JTest<int>::testEquality("Right side remove test, element five is now element four", 6, array->get(3));
-	JTest<int>::testEquality("Right side remove test, element six is now element five", 7, array->get(4));
+	JTest<int>::testEquality("Right side remove test, element one did not move", 1, *array->get(0));
+	JTest<int>::testEquality("Right side remove test, element two did not move", 2, *array->get(1));
+	JTest<int>::testEquality("Right side remove test, element three did not move", 4, *array->get(2));
+	JTest<int>::testEquality("Right side remove test, element five is now element four", 6, *array->get(3));
+	JTest<int>::testEquality("Right side remove test, element six is now element five", 7, *array->get(4));
 	delete array;
 }
 
@@ -203,11 +203,11 @@ void dynamicArrayPushFrontTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushFront(1);
-	JTest<int>::testEquality("Push front test, element one pushed to front", 1, array->get(0));
+	JTest<int>::testEquality("Push front test, element one pushed to front", 1, *array->get(0));
 	JTest<int>::testEquality("Push front test, length incremented", 1, array->length());
 	array->pushFront(2);
-	JTest<int>::testEquality("Push front test, element two pushed to front", 2, array->get(0));
-	JTest<int>::testEquality("Push front test, element one now in position 2", 1, array->get(1));
+	JTest<int>::testEquality("Push front test, element two pushed to front", 2, *array->get(0));
+	JTest<int>::testEquality("Push front test, element one now in position 2", 1, *array->get(1));
 	JTest<int>::testEquality("Push front test, length incremented", 2, array->length());
 	delete array;
 }
@@ -217,11 +217,11 @@ void dynamicArrayPushBackTest()
 {
 	DynamicArray<int> *array = new DynamicArray<int>();
 	array->pushBack(1);
-	JTest<int>::testEquality("Push back test, element one pushed to back", 1, array->get(0));
+	JTest<int>::testEquality("Push back test, element one pushed to back", 1, *array->get(0));
 	JTest<int>::testEquality("Push back test, length incremented", 1, array->length());
 	array->pushBack(2);
-	JTest<int>::testEquality("Push back test, element one still in position one", 1, array->get(0));
-	JTest<int>::testEquality("Push back test, element two in position two", 2, array->get(1));
+	JTest<int>::testEquality("Push back test, element one still in position one", 1, *array->get(0));
+	JTest<int>::testEquality("Push back test, element two in position two", 2, *array->get(1));
 	JTest<int>::testEquality("Push back test, length incremented", 2, array->length());
 	delete array;
 }
@@ -243,7 +243,7 @@ void dynamicArrayRecenterTest()
 	areElementsCorrectlyRepositioned = true;
 	for(i = 0, j = 0; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != j + 5)
+		if(*array->get(i) != j + 5)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -260,7 +260,7 @@ void dynamicArrayRecenterTest()
 	areElementsCorrectlyRepositioned = true;
 	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != j)
+		if(*array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -282,7 +282,7 @@ void dynamicArrayRecenterTest()
 	areElementsCorrectlyRepositioned = true;
 	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != j)
+		if(*array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -299,7 +299,7 @@ void dynamicArrayRecenterTest()
 	areElementsCorrectlyRepositioned = true;
 	for(i = 0, j = 1; i < array->length() && areElementsCorrectlyRepositioned; i++, j++)
 	{
-		if(array->get(i) != j)
+		if(*array->get(i) != j)
 		{
 			areElementsCorrectlyRepositioned = false;
 		}
@@ -323,11 +323,11 @@ void stackPushAndPopTest()
 	stack->push(2);
 	stack->push(1);
 
-	JTest<int>::testEquality("Push and pop test, first element popped", 1, stack->pop());
-	JTest<int>::testEquality("Push and pop test, second element popped", 2, stack->pop());
-	JTest<int>::testEquality("Push and pop test, third element popped", 3, stack->pop());
-	JTest<int>::testEquality("Push and pop test, fourth element popped", 4, stack->pop());
-	JTest<int>::testEquality("Push and pop test, fifth element popped", 5, stack->pop());
+	JTest<int>::testEquality("Push and pop test, first element popped", 1, *stack->pop());
+	JTest<int>::testEquality("Push and pop test, second element popped", 2, *stack->pop());
+	JTest<int>::testEquality("Push and pop test, third element popped", 3, *stack->pop());
+	JTest<int>::testEquality("Push and pop test, fourth element popped", 4, *stack->pop());
+	JTest<int>::testEquality("Push and pop test, fifth element popped", 5, *stack->pop());
 
 	delete stack;
 }
@@ -337,8 +337,8 @@ void stackPeekTest()
 	Stack<int> *stack = new Stack<int>();
 	stack->push(1);
 
-	JTest<int>::testEquality("Peek test, first element peeked", 1, stack->peek());
-	JTest<int>::testEquality("Peek test, first element still in stack", 1, stack->pop());
+	JTest<int>::testEquality("Peek test, first element peeked", 1, *stack->peek());
+	JTest<int>::testEquality("Peek test, first element still in stack", 1, *stack->pop());
 
 	delete stack;
 }
@@ -353,7 +353,7 @@ void stackBoundedTest()
 	stack->push(1);
 	stack->push(0);
 
-	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, stack->peek());
+	JTest<int>::testEquality("Bounded stack test, element not added when capacity reached", 1, *stack->peek());
 
 	delete stack;
 }
@@ -372,11 +372,11 @@ void queueEnqueueAndDequeueTest()
 	queue->enqueue(4);
 	queue->enqueue(5);
 	
-	JTest<int>::testEquality("Enqueue and dequeue, first element dequeued", 1, queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, second element dequeued", 2, queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, third element dequeued", 3, queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, fourth element dequeued", 4, queue->dequeue());
-	JTest<int>::testEquality("Enqueue and dequeue, fifth element dequeued", 5, queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, first element dequeued", 1, *queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, second element dequeued", 2, *queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, third element dequeued", 3, *queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fourth element dequeued", 4, *queue->dequeue());
+	JTest<int>::testEquality("Enqueue and dequeue, fifth element dequeued", 5, *queue->dequeue());
 
 	delete queue;
 }
@@ -386,8 +386,8 @@ void queueFrontTest()
 	Queue<int> *queue = new Queue<int>();
 	queue->enqueue(1);
 
-	JTest<int>::testEquality("Front test, front element returned", 1, queue->front());
-	JTest<int>::testEquality("Front test, front element still in queue", 1, queue->dequeue());
+	JTest<int>::testEquality("Front test, front element returned", 1, *queue->front());
+	JTest<int>::testEquality("Front test, front element still in queue", 1, *queue->dequeue());
 
 	delete queue;
 }
@@ -408,7 +408,7 @@ void queueBoundedTest()
 	{
 		queue->dequeue();
 	}
-	JTest<int>::testInequality("Bounded queue test, element not added when capacity reached.", 6, queue->dequeue());
+	JTest<int>::testInequality("Bounded queue test, element not added when capacity reached.", 6, *queue->dequeue());
 
 	delete queue;
 }
@@ -559,7 +559,7 @@ void readJSONNull()
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("nulltest.json");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(topLevelArray->get(0)))->getDynamicArray();
 	
-	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, jsonArray->get(0));
+	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, *jsonArray->get(0));
 	
 	delete topLevelArray;
 	delete jsonArray;
