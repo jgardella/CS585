@@ -1,5 +1,12 @@
 class IEvent
 {
 	public:
-		virtual std::string getType() = 0;
-}
+
+		IEvent(std::string type);
+
+		std::string getType();
+	
+	private:
+
+		std::string eventType;
+};
