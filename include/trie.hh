@@ -63,7 +63,7 @@ class Trie
 		// Returns the value in the array with the given key.
 		// Parameters:
 		// string key - the key to search for, must be a valid key which was previously added to the array
-		Value get(std::string key)
+		Value* get(std::string key)
 		{
 			Debug::getInstance()->log("TRIE", "get method entered with key " + key);
 			std::string firstLetter;
@@ -71,10 +71,17 @@ class Trie
 			{
 				firstLetter = key.substr(0, 1);
 				Debug::getInstance()->log("TRIE", "First letter of key is " + firstLetter);
-				return children[key.at(0) - 'a']->get(key.substr(1, std::string::npos));
+				if(children[key.at(0) - 'a'] != NULL)
+				{
+					return children[key.at(0) - 'a']->get(key.substr(1, std::string::npos));
+				}
+				else
+				{
+					return NULL;
+				}
 			}
 			Debug::getInstance()->log("TRIE", "Returning value");
-			return value;
+			return &value;
 		}
 		
 	private:

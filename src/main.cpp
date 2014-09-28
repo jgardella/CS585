@@ -428,10 +428,10 @@ void trieAddGetTest()
 	trie->add("banana", 15);
 	trie->add("ball", 20);
 
-	JTest<int>::testEquality("Add and get test, first element added and retrieved", 5, trie->get("cat"));
-	JTest<int>::testEquality("Add and get test, second element added and retrieved", 10, trie->get("can"));
-	JTest<int>::testEquality("Add and get test, third element added and retrieved", 15, trie->get("banana"));
-	JTest<int>::testEquality("Add and get test, fourth element added and retrieved", 20, trie->get("ball"));
+	JTest<int>::testEquality("Add and get test, first element added and retrieved", 5, *trie->get("cat"));
+	JTest<int>::testEquality("Add and get test, second element added and retrieved", 10, *trie->get("can"));
+	JTest<int>::testEquality("Add and get test, third element added and retrieved", 15, *trie->get("banana"));
+	JTest<int>::testEquality("Add and get test, fourth element added and retrieved", 20, *trie->get("ball"));
 
 	delete trie;
 }
@@ -570,11 +570,11 @@ void readJSONObject()
 	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("objecttest.json");
 	Trie<JSONItem*>* jsonObject = ((JSONObject*)(*topLevelArray->get(0)))->getTrie();
 	
-	JTest<std::string>::testEqualityStr("String item in object correctly stored.", "jason", ((JSONPrimitive<std::string>*)(jsonObject->get("name")))->getPrimitive());	
-	JTest<int>::testEquality("Number item in object correctly stored.", 19, ((JSONPrimitive<int>*)(jsonObject->get("age")))->getPrimitive());	
-	JTest<bool>::testEquality("Boolean item in object correctly stored.", true, ((JSONPrimitive<bool>*)(jsonObject->get("issoftwareengineer")))->getPrimitive());
+	JTest<std::string>::testEqualityStr("String item in object correctly stored.", "jason", ((JSONPrimitive<std::string>*)(*jsonObject->get("name")))->getPrimitive());	
+	JTest<int>::testEquality("Number item in object correctly stored.", 19, ((JSONPrimitive<int>*)(*jsonObject->get("age")))->getPrimitive());	
+	JTest<bool>::testEquality("Boolean item in object correctly stored.", true, ((JSONPrimitive<bool>*)(*jsonObject->get("issoftwareengineer")))->getPrimitive());
 	
-	DynamicArray<JSONItem*>* nestedArray = ((JSONArray*)jsonObject->get("hobbies"))->getDynamicArray();	
+	DynamicArray<JSONItem*>* nestedArray = ((JSONArray*)*jsonObject->get("hobbies"))->getDynamicArray();	
 	JTest<std::string>::testEqualityStr("First item of array item in object correctly stored.", "guitar", ((JSONPrimitive<std::string>*)(*nestedArray->get(0)))->getPrimitive());	
 	JTest<std::string>::testEqualityStr("Second item of array item in object correctly stored.", "piano", ((JSONPrimitive<std::string>*)(*nestedArray->get(1)))->getPrimitive());	
 	JTest<std::string>::testEqualityStr("Third item of array item in object correctly stored.", "gaming", ((JSONPrimitive<std::string>*)(*nestedArray->get(2)))->getPrimitive());	
