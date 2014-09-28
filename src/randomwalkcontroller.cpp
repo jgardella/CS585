@@ -26,9 +26,7 @@ void RandomWalkController::tick(float dt)
 			graph->updateSceneNode(node, newX, newY);
 			Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " moving.");
 			// collision
-			colliders = graph->getColliders(
-					
-					(*actors->get(i))->getSceneNode());
+			colliders = graph->getColliders((*actors->get(i))->getSceneNode());
 			if(colliders->length() > 1)
 			{
 				for(j = 0; j < colliders->length(); j++)

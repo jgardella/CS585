@@ -2,7 +2,7 @@
 
 void Dispatcher::addListener(std::string eventType, IListenerCallback* callback)
 {
-	DynamicArray<IListenerCallback*>* callbackArray = callbacks->get(eventType);
+	DynamicArray<IListenerCallback*>* callbackArray = *callbacks->get(eventType);
 	if(callbackArray == NULL)
 	{
 		callbackArray = new DynamicArray<IListenerCallback*>();
@@ -18,7 +18,7 @@ void Dispatcher::addListener(std::string eventType, IListenerCallback* callback)
 void Dispatcher::removeListener(std::string eventType, IListenerCallback* callback)
 {
 	unsigned int i;
-	DynamicArray<IListenerCallback*>* callbackArray = callbacks->get(eventType);
+	DynamicArray<IListenerCallback*>* callbackArray = *callbacks->get(eventType);
 	if(callbackArray != NULL)
 	{
 		for(i = 0; i < callbackArray->length(); i++)
@@ -35,7 +35,7 @@ void Dispatcher::removeListener(std::string eventType, IListenerCallback* callba
 void Dispatcher::dispatch(std::string eventType)
 {
 	unsigned int i;
-	DynamicArray<IListenerCallback*>* callbackArray = callbacks->get(eventType);
+	DynamicArray<IListenerCallback*>* callbackArray = *callbacks->get(eventType);
 	if(callbackArray != NULL)
 	{
 		for(i = 0; i < callbackArray->length(); i++)

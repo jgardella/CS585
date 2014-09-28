@@ -5,7 +5,7 @@ IEvent::IEvent(std::string type)
 	eventType = type;
 }
 
-IEvent::getType()
+std::string IEvent::getType()
 {
 	return eventType;
 }
