@@ -31,11 +31,10 @@ void RandomWalkController::tick(float dt)
 			{
 				for(j = 0; j < colliders->length(); j++)
 				{
-					IActor* iactor = colliders->remove(j--)->getActor();
-					Actor* collidingActor;
+					IActor* iactor = (*colliders->get(j))->getActor();
+					Actor* collidingActor = (Actor*) iactor;
 					if(collidingActor->getClass().compare("actor") == 0)
 					{
-						collidingActor = (Actor*) iactor;
 						collidingActor->markForRemoval();
 						(*actors->get(i))->markForRemoval();	
 						Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " collided with " +  collidingActor->getName() + "!");
