@@ -5,12 +5,12 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 	Debug::getInstance()->log("FIXEDGRID", "Getting colliders based on scene node.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	SceneNode *otherNode;
-	if(node->isCollider()) // if node is on non-collision layer, return empty array
+	if(node->getActor()->isCollidable()) // if node is on non-collision layer, return empty array
 	{
 		otherNode = nodeGrid[node->getX() + node->getY() * yDimension];
 		while(otherNode != NULL)
 		{
-			if(otherNode->isCollider())
+			if(otherNode->getActor()->isCollidable())
 			{
 				colliders->pushBack(otherNode);
 			}

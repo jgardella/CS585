@@ -1,38 +1,34 @@
 #ifndef _SCENENODE_HH_
 #define _SCENENODE_HH_
 
+#include "iactor.hh"
+
 // Scene node class.
 class SceneNode
 {
 	public:
 		SceneNode(){ };
-		~SceneNode();
-		SceneNode(int xCoord, int yCoord, bool col, SceneNode *p, SceneNode *n):
+		SceneNode(int xCoord, int yCoord, SceneNode *p, SceneNode *n):
 			xCoordinate(xCoord),
 			yCoordinate(yCoord),
-			isNodeCollider(col),
 			prev(p),
 			next(n)
-		{toBeDeleted = false;}
+		{}
 		
 		int getX();
 		int getY();
-		int isCollider();
 		SceneNode* getPrevious();
 		SceneNode* getNext();
 		void setX(int newX);
 		void setY(int newY);
-		void setCollider(bool newVal);
-		void setPrevious(SceneNode *newPrev);
-		void setNext(SceneNode *newNext);
-		// Marks node for deletion.
-		void deleteNode();
-		bool isReadyForDeletion();
+		void setPrevious(SceneNode* newPrev);
+		void setNext(SceneNode* newNext);
+		IActor* getActor();
 	private:
 		int xCoordinate, yCoordinate;
-		bool isNodeCollider, toBeDeleted;
-		SceneNode *prev; // pointer to previous scene node in same position
-		SceneNode *next; // pointer to next scene node in same position
+		SceneNode* prev; // pointer to previous scene node in same position
+		SceneNode* next; // pointer to next scene node in same position
+		IActor* actor;
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include <string>
 
 // Actor class for simulation.
-class Actor
+class Actor : public IActor
 {
 	public:
 		// Constructs an actor with name, initial X and Y coordinate, and whether or not it collides.
@@ -16,14 +16,21 @@ class Actor
 		// int y - intial y coordinate of actor
 		// bool collides - whether or not the actor collides with other collidable objects
 		Actor(std::string name, int x, int y, bool collides);
-		// Destructs an actor.
+		
 		~Actor();
+
+		bool isMarkedForRemoval();
+
+		void markForRemoval();	
 		
 		std::string getName();
+		
 		SceneNode* getSceneNode();
+		
 	private:
 		std::string name;
 		SceneNode *sceneNode;
+		bool readyForRemoval;
 };
 
 #endif

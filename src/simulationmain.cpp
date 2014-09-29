@@ -14,7 +14,7 @@ void debugInit()
 	Debug::getInstance()->addChannel("FIXEDGRID");
 	Debug::getInstance()->addChannel("GAMEOBJ");
 	Debug::getInstance()->addChannel("WALKCONTROLLER");
-	Debug::getInstance()->muteAllExceptDefault();
+	//Debug::getInstance()->muteAllExceptDefault();
 	#endif
 }
 

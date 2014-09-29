@@ -1,10 +1,5 @@
 #include "scenenode.hh"
 
-SceneNode::~SceneNode()
-{
-
-}
-
 int SceneNode::getX()
 {
 	return xCoordinate;
@@ -35,11 +30,6 @@ void SceneNode::setY(int newY)
 	yCoordinate = newY;
 }
 
-int SceneNode::isCollider()
-{
-	return isNodeCollider;
-}
-
 void SceneNode::setPrevious(SceneNode *newPrev)
 {
 	prev = newPrev;
@@ -50,17 +40,7 @@ void SceneNode::setNext(SceneNode *newNext)
 	next = newNext;
 }
 
-void SceneNode::setCollider(bool newVal)
+IActor* SceneNode::getActor()
 {
-	isNodeCollider = newVal;
-}
-
-void SceneNode::deleteNode()
-{
-	toBeDeleted = true;
-}
-
-bool SceneNode::isReadyForDeletion()
-{
-	return toBeDeleted;
+	return actor;
 }
