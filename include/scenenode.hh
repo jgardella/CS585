@@ -8,11 +8,12 @@ class SceneNode
 {
 	public:
 		SceneNode(){ };
-		SceneNode(int xCoord, int yCoord, SceneNode *p, SceneNode *n):
+		SceneNode(int xCoord, int yCoord, IActor& iactor, SceneNode *p, SceneNode *n):
 			xCoordinate(xCoord),
 			yCoordinate(yCoord),
 			prev(p),
-			next(n)
+			next(n),
+			actor(&iactor)
 		{}
 		
 		int getX();

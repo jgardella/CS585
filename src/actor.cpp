@@ -5,7 +5,7 @@ Actor::Actor(std::string name, int initialX, int initialY, bool col) : IActor(co
 {
 	Debug::getInstance()->log("ACTOR", "Creating Actor.");
 	this->name = name;
-	sceneNode = new SceneNode(initialX, initialY, NULL, NULL);
+	sceneNode = new SceneNode(initialX, initialY, *this, NULL, NULL);
 	Debug::getInstance()->log("ACTOR", "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(*sceneNode);
 	readyForRemoval = false;
