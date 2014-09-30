@@ -32,11 +32,11 @@ void RandomWalkController::tick(float dt)
 				for(j = 0; j < colliders->length(); j++)
 				{
 					IActor* iactor = (*colliders->get(j))->getActor();
-					Actor* collidingActor = (Actor*) iactor;
-					if(collidingActor->getClass().compare("actor") == 0)
+					if(iactor->getClass().compare("ACTOR") == 0 && iactor != (*actors->get(i)))
 					{
+						Actor* collidingActor = (Actor*) iactor;
 						collidingActor->markForRemoval();
-						(*actors->get(i))->markForRemoval();	
+						(*actors->get(i))->markForRemoval();
 						Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " collided with " +  collidingActor->getName() + "!");
 					}
 				}
@@ -50,6 +50,7 @@ void RandomWalkController::tick(float dt)
 			if((*actors->get(i))->isMarkedForRemoval())
 			{
 				Debug::getInstance()->log("WALKCONTROLLER", (*actors->get(i))->getName() + " had a collision, removing from the scene."); 
+				graph->removeSceneNode((*actors->get(i))->getSceneNode());
 				delete actors->remove(i--);
 			}
 		}

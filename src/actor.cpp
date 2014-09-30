@@ -13,7 +13,7 @@ Actor::Actor(std::string name, int initialX, int initialY, bool col) : IActor(co
 
 Actor::~Actor()
 {
-
+	delete sceneNode;
 }
 
 std::string Actor::getName()
