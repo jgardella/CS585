@@ -41,12 +41,17 @@ int main()
 	Listener* listener = new Listener();
 	Dispatcher* dispatcher = new Dispatcher();
 	Event* event = new Event("alert");
+	Event* nonExistentEvent = new Event("run");
 	// add listener to dispatcher
 	dispatcher->addListener("alert", listener);
 	// dispatch event
 	dispatcher->dispatch(event);	
 	// simulate tick
 	dispatcher->tick(5); // expected: listener runs execute, printing out its debug statement
+	// dispatch event with no associated listeners
+	dispatcher->dispatch(nonExistentEvent);
+	// simulate tick
+	dispatcher->tick(5); // expected: no listener of type run, nothing printed
 	// remove listener
 	dispatcher->removeListener("alert", listener);
 	// dispatch event
