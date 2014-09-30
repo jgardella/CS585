@@ -57,7 +57,7 @@ void RandomWalkController::tick(float dt)
 	}
 }
 
-void RandomWalkController::setGraph(ISceneGraph *graph)
+void RandomWalkController::setGraph(ISceneGraph* graph)
 {
 	this->graph = graph;
 }

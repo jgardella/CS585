@@ -65,6 +65,15 @@ class Queue
 			return frontItem;
 		}
 
+		bool empty()
+		{
+			if(dynamicArray->length() == 0)
+			{
+				return true;
+			}
+			return false;
+		}
+
 	private:
 		DynamicArray<T> *dynamicArray;
 		bool isBounded;

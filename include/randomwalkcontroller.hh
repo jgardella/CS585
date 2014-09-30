@@ -16,10 +16,10 @@ class RandomWalkController : public ITickable
 		RandomWalkController(DynamicArray<Actor*> *actors);
 		// Ticks actors.
 		void tick(float dt);
-		void setGraph(ISceneGraph*);
+		void setGraph(ISceneGraph* graph);
 	private:
 		DynamicArray<Actor*> *actors;
-		ISceneGraph *graph;
+		ISceneGraph* graph;
 		float timeCounter;
 };
 

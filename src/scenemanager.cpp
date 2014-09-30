@@ -34,7 +34,6 @@ void SceneManager::tick(float dt)
 void SceneManager::addTickable(ITickable *tickable)
 {
 	Debug::getInstance()->log("MANAGER", "Adding tickable to scene manager.");
-	tickable->setGraph(sceneGraph);
 	tickables->pushBack(tickable);
 }
 
