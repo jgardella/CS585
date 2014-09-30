@@ -1,25 +1,54 @@
 #include "dispatcher.hh"
 #include "debug.hh"
+#include "jtest.hh"
+
+class SetEvent : public IEvent
+{
+	public:
+		SetEvent(std::string type, int value);		
+		int getValue();
+	private:
+		int value;
+};
+
+SetEvent::SetEvent(std::string type, int value) : IEvent(type)
+{
+	this->value = value;	
+}
+
+int SetEvent::getValue()
+{
+	return value;
+}
 
 class Listener : public IListenerCallback
 {
 	public:
-		void execute(IEvent event);
+		Listener(int value);
+		void execute(IEvent* event);
+		int getValue();
+	private:
+		int value;
 };
 
-void Listener::execute(IEvent event)
+Listener::Listener(int value)
 {
-	Debug::getInstance()->log("LISTENER", "Listener callback executed with event of type " + event.getType() + ".");
+	this->value = value;
 }
 
-class Event : public IEvent
+int Listener::getValue()
 {
-	public:
-		Event(std::string type);		
-};
+	return value;
+}
 
-Event::Event(std::string type) : IEvent(type)
+void Listener::execute(IEvent* event)
 {
+	Debug::getInstance()->log("LISTENER", "Listener callback executed with event of type " + event->getType() + ".");
+	if(event->getType().compare("set") == 0)
+	{
+		Debug::getInstance()->log("LISTENER", "Setting listener's value.");
+		value = ((SetEvent*)event)->getValue();
+	}
 }
 
 void debugInit()
@@ -38,24 +67,27 @@ int main()
 {
 	debugInit();
 	// instantiate listener and dispatcher
-	Listener* listener = new Listener();
+	Listener* listener = new Listener(3);
 	Dispatcher* dispatcher = new Dispatcher();
-	Event* event = new Event("alert");
-	Event* nonExistentEvent = new Event("run");
+	SetEvent* event = new SetEvent("set", 5);
+	SetEvent* nonExistentEvent = new SetEvent("run", 3);
 	// add listener to dispatcher
-	dispatcher->addListener("alert", listener);
+	dispatcher->addListener("set", listener);
 	// dispatch event
 	dispatcher->dispatch(event);	
 	// simulate tick
-	dispatcher->tick(5); // expected: listener runs execute, printing out its debug statement
+	dispatcher->tick(5); 
+	JTest<int>::testEquality("Event succesfully set value in listener", 5, listener->getValue());
 	// dispatch event with no associated listeners
 	dispatcher->dispatch(nonExistentEvent);
 	// simulate tick
-	dispatcher->tick(5); // expected: no listener of type run, nothing printed
+	dispatcher->tick(5);
+	JTest<int>::testEquality("Incorrect type event did not change value of listener", 5, listener->getValue());
 	// remove listener
-	dispatcher->removeListener("alert", listener);
+	dispatcher->removeListener("set", listener);
 	// dispatch event
 	dispatcher->dispatch(event);
 	// simulate tick
-	dispatcher->tick(5); // expected: no listener of type alert, nothing printed
+	dispatcher->tick(5);
+	JTest<int>::testEquality("Value of listener not modified after it is removed from dispatcher.", 5, listener->getValue());
 }

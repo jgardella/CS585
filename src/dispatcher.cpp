@@ -66,7 +66,7 @@ void Dispatcher::tick(float dt)
 			// iterate through callbacks of given event type and execute them with the event
 			for(i = 0; i < callbackArray->length(); i++)
 			{
-				(*callbackArray->get(i))->execute(*event);
+				(*callbackArray->get(i))->execute(event);
 			}
 		}
 	}
