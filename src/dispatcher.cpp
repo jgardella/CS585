@@ -24,41 +24,43 @@ void Dispatcher::removeListener(std::string eventType, IListenerCallback* callba
 {
 	Debug::getInstance()->log("DISPATCHER", "Removing listener of event type " + eventType + ".");
 	unsigned int i;
-	DynamicArray<IListenerCallback*>** callbackArray = callbacks->get(eventType);
-	if(callbackArray != NULL)
+	DynamicArray<IListenerCallback*>* callbackArray;
+	if(callbacks->get(eventType) != NULL)
 	{
+		callbackArray = *callbacks->get(eventType);
 		Debug::getInstance()->log("DISPATCHER", "callbackArray is not null, iterating through until listener is found.");
-		for(i = 0; i < (*callbackArray)->length(); i++)
+		for(i = 0; i < callbackArray->length(); i++)
 		{
-			if(*((*callbackArray)->get(i)) == callback)
+			if(*(callbackArray->get(i)) == callback)
 			{
 				Debug::getInstance()->log("DISPATCHER", "Found listener, removing from array.");
-				(*callbackArray)->remove(i);
+				callbackArray->remove(i);
 				break;
 			}
 		}		
 	}
 }
 
-void Dispatcher::dispatch(std::string eventType)
+void Dispatcher::dispatch(IEvent* event)
 {
-	Debug::getInstance()->log("DISPATCHER", "Dispatching event of type " + eventType + "."); 
-	eventQueue->enqueue(eventType);
+	Debug::getInstance()->log("DISPATCHER", "Dispatching event of type " + event->getType() + "."); 
+	eventQueue->enqueue(event);
 }
 
 void Dispatcher::tick(float dt)
 {
 	unsigned int i;
-	std::string eventType;
+	IEvent* event;
 	while(!eventQueue->empty())
 	{
-		eventType = eventQueue->dequeue();
-		DynamicArray<IListenerCallback*>** callbackArray = callbacks->get(eventType);
-		if(callbackArray != NULL)
+		event = eventQueue->dequeue();
+		DynamicArray<IListenerCallback*>* callbackArray;
+		if(callbacks->get(event->getType()) != NULL)
 		{
-			for(i = 0; i < (*callbackArray)->length(); i++)
+			callbackArray = *callbacks->get(event->getType());
+			for(i = 0; i < callbackArray->length(); i++)
 			{
-				(*(*callbackArray)->get(i))->execute(*(new IEvent(eventType)));
+				(*callbackArray->get(i))->execute(*event);
 			}
 		}
 	}
@@ -66,8 +68,15 @@ void Dispatcher::tick(float dt)
 
 Dispatcher::Dispatcher()
 {
-	eventQueue = new Queue<std::string>();
+	Debug::getInstance()->log("DISPATCHER", "Constructing dispatcher.");
+	eventQueue = new Queue<IEvent*>();
 	callbacks = new Trie<DynamicArray<IListenerCallback*>*>();
+}
+
+Dispatcher::~Dispatcher()
+{
+	delete eventQueue;
+	delete callbacks;
 }
 
 void Dispatcher::setGraph(ISceneGraph* graph)

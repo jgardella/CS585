@@ -1,14 +1,19 @@
+#ifndef _IEVENT_HH_
+#define _IEVENT_HH_
+
 #include <string>
 
+// Interface for events.
 class IEvent
 {
 	public:
+		
 
-		IEvent(std::string type);
-
-		std::string getType();
+		virtual std::string getType();
 	
-	private:
-
+	protected:
+		IEvent(std::string type);
 		std::string eventType;
 };
+
+#endif

@@ -12,7 +12,17 @@ void Listener::execute(IEvent event)
 	Debug::getInstance()->log("LISTENER", "Listener callback executed with event of type " + event.getType() + ".");
 }
 
-int main()
+class Event : public IEvent
+{
+	public:
+		Event(std::string type);		
+};
+
+Event::Event(std::string type) : IEvent(type)
+{
+}
+
+void debugInit()
 {
 	#ifndef DEBUG
 	Debug::getInstance()->setDebugStatus(false);
@@ -20,13 +30,27 @@ int main()
 	Debug::getInstance()->setDebugStatus(true);
 	Debug::getInstance()->addChannel("LISTENER");
 	Debug::getInstance()->addChannel("DISPATCHER");
-	Debug::getInstance()->addChannel("TRIE");
-	Debug::getInstance()->addChannel("DYNAMICARRAY");
 	Debug::getInstance()->unmuteAll();
 	#endif
+}
+
+int main()
+{
+	debugInit();
+	// instantiate listener and dispatcher
 	Listener* listener = new Listener();
 	Dispatcher* dispatcher = new Dispatcher();
+	Event* event = new Event("alert");
+	// add listener to dispatcher
 	dispatcher->addListener("alert", listener);
-	dispatcher->dispatch("alert");	
-	dispatcher->tick(5);
+	// dispatch event
+	dispatcher->dispatch(event);	
+	// simulate tick
+	dispatcher->tick(5); // expected: listener runs execute, printing out its debug statement
+	// remove listener
+	dispatcher->removeListener("alert", listener);
+	// dispatch event
+	dispatcher->dispatch(event);
+	// simulate tick
+	dispatcher->tick(5); // expected: no listener of type alert, nothing printed
 }

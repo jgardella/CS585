@@ -1,3 +1,6 @@
+#ifndef _DISPATCHER_HH_
+#define _DISPATCHER_HH_
+
 #include "itickable.hh"
 #include "ilistenercallback.hh"
 #include "trie.hh"
@@ -9,12 +12,14 @@ class Dispatcher : public ITickable
 	public:
 		
 		Dispatcher();
-			
+		
+		~Dispatcher();
+
 		void addListener(std::string eventType, IListenerCallback* callback);
 
 		void removeListener(std::string eventType, IListenerCallback* callback);
 
-		void dispatch(std::string eventType);
+		void dispatch(IEvent* event);
 		
 		void tick(float dt);
 		
@@ -22,5 +27,7 @@ class Dispatcher : public ITickable
 
 	private:
 		Trie<DynamicArray<IListenerCallback*>*> *callbacks;
-		Queue<std::string>* eventQueue;
+		Queue<IEvent*>* eventQueue;
 };
+
+#endif
