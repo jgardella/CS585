@@ -3,12 +3,10 @@
 
 #include <string>
 
-// Interface for events.
+// Interface for events. All events should extend this interface.
 class IEvent
 {
-	public:
-		
-
+	public:	
 		virtual std::string getType();
 	
 	protected:
