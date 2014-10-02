@@ -1,12 +1,14 @@
 #include "gameobject.hh"
 #include "debug.hh"
+#include "fixedgrid.hh"
 #include "randomwalkcontroller.hh"
+
 
 GameObject::GameObject()
 {
 	Debug::getInstance()->log("GAMEOBJ", "Constructing game object.");
-	sceneManager = SceneManager::getInstance();
 	actors = new DynamicArray<Actor*>();
+	SceneManager::getInstance()->setGraph(new FixedGrid());
 	sceneManager->addTickable(new ActorSpawner(2, actors, 4, 4));
 	sceneManager->addTickable(new RandomWalkController(actors));
 	timeSinceStart = 0;
@@ -25,6 +27,6 @@ bool GameObject::update(float dt)
 		}
 		return false;
 	}
-	sceneManager->tick(dt);
+	SceneManager::getInstance()->tick(dt);
 	return true;
 }

@@ -14,11 +14,22 @@ class SceneManager
 	public:
 		// Gets instance of manager.
 		static SceneManager* getInstance();
-		// Ticks all tickables.
-		void tick(float dt);
-		// Adds tickable to list of tickables.
-		void addTickable(ITickable *tickable);
 		
+		// Ticks all tickables in the scenemanager's tickable list.
+		// Parameters:
+		// float dt - the change in time since the last tick
+		void tick(float dt);
+
+		// Adds the given tickable to the scenemanager's of tickables.
+		// Parameters:
+		// ITickable* tickable - the a pointer to the tickable to be added
+		void addTickable(ITickable* tickable);
+		
+		// Sets the scenemanager's scene graph to the given graph.
+		// Paramters:
+		// ISceneGraph* graph - pointer to a scene graph
+		void setGraph(ISceneGraph* graph);
+	
 		// Wrapper functions for SceneManager's scene graph.	
 		void addSceneNode(SceneNode *node);
 		void removeSceneNode(SceneNode *node);

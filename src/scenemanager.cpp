@@ -18,7 +18,11 @@ SceneManager::SceneManager()
 {	
 	Debug::getInstance()->log("MANAGER", "Constructing scene manager.");
 	tickables = new DynamicArray<ITickable*>();
-	sceneGraph = new FixedGrid();
+}
+
+void SceneManager::setGraph(ISceneGraph* graph)
+{
+	sceneGraph = graph;
 }
 
 void SceneManager::tick(float dt)
