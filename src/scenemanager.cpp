@@ -18,7 +18,6 @@ SceneManager::SceneManager()
 {	
 	Debug::getInstance()->log("MANAGER", "Constructing scene manager.");
 	tickables = new DynamicArray<ITickable*>();
-	sceneNodes = new DynamicArray<SceneNode>();
 	sceneGraph = new FixedGrid();
 }
 
@@ -37,8 +36,40 @@ void SceneManager::addTickable(ITickable *tickable)
 	tickables->pushBack(tickable);
 }
 
-void SceneManager::addSceneNode(SceneNode node)
+// Wrapper function for scene graph
+
+void SceneManager::addSceneNode(SceneNode* node)
 {
 	Debug::getInstance()->log("MANAGER", "Adding scenenode to scene manager.");
-	sceneNodes->pushBack(node);
+	sceneGraph->addSceneNode(node);
+}
+
+void SceneManager::removeSceneNode(SceneNode* node)
+{
+	sceneGraph->removeSceneNode(node);
+}
+
+void SceneManager::updateSceneNode(SceneNode* node, int x, int y)
+{
+	sceneGraph->updateSceneNode(node, x, y);
+}
+
+DynamicArray<SceneNode*>* SceneManager::getColliders(SceneNode* node)
+{
+	return sceneGraph->getColliders(node);
+}
+
+DynamicArray<SceneNode*>* SceneManager::getColliders(int x, int y)
+{
+	return sceneGraph->getColliders(x, y);
+}
+
+DynamicArray<SceneNode*>* SceneManager::getColliders(int x, int y, int radius)
+{
+	return sceneGraph->getColliders(x, y, radius);
+}
+
+DynamicArray<SceneNode*>* SceneManager::getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2)
+{
+	return sceneGraph->getColliders(cornerX1, cornerY1, cornerX2, cornerY2);
 }

@@ -18,8 +18,15 @@ class SceneManager
 		void tick(float dt);
 		// Adds tickable to list of tickables.
 		void addTickable(ITickable *tickable);
-		// Adds scenenode to manager's graph.
-		void addSceneNode(SceneNode node);
+		
+		// Wrapper functions for SceneManager's scene graph.	
+		void addSceneNode(SceneNode *node);
+		void removeSceneNode(SceneNode *node);
+		void updateSceneNode(SceneNode *node, int x, int y);
+		DynamicArray<SceneNode*> *getColliders(SceneNode *node);
+		DynamicArray<SceneNode*> *getColliders(int x, int y);
+		DynamicArray<SceneNode*> *getColliders(int x, int y, int radius);
+		DynamicArray<SceneNode*> *getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2);
 	private:
 		SceneManager();
 		SceneManager(SceneManager const&);
@@ -28,7 +35,6 @@ class SceneManager
 		
 		static SceneManager *instance;
 		DynamicArray<ITickable*> *tickables;
-		DynamicArray<SceneNode> *sceneNodes;
 		ISceneGraph *sceneGraph;
 };
 
