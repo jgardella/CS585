@@ -45,10 +45,4 @@ void ActorSpawner::tick(float dt)
 		Debug::getInstance()->log("SPAWNER", "Actor added to actors array.");
 		timeCounter = 0;
 	}
-
-}
-
-void ActorSpawner::setGraph(ISceneGraph *graph)
-{
-	this->graph = graph;
 }

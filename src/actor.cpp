@@ -21,9 +21,24 @@ std::string Actor::getName()
 	return name;
 }
 
-SceneNode* Actor::getSceneNode()
+void Actor::setX(int x)
 {
-	return sceneNode;
+	sceneNode->setX(x);
+}
+
+void Actor::setY(int y)
+{
+	sceneNode->setY(y);
+}
+
+int Actor::getX()
+{
+	return sceneNode->getX();
+}
+
+int Actor::getY()
+{
+	return sceneNode->getY();
 }
 
 void Actor::markForRemoval()

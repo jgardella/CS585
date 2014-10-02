@@ -13,6 +13,7 @@ void RandomWalkController::tick(float dt)
 	unsigned int i;
 	unsigned int j;
 	DynamicArray<SceneNode*> *colliders;
+	Actor* actor;
 	timeCounter += dt;
 	if(timeCounter >= 2)
 	{
@@ -20,13 +21,14 @@ void RandomWalkController::tick(float dt)
 		for(i = 0; i < actors->length() && !(*actors->get(i))->isMarkedForRemoval(); i++)
 		{
 			// movement
-			SceneNode *node = (*actors->get(i))->getSceneNode();
-			int newX = node->getX() + std::rand() % 5 - 2;
-			int newY = node->getY() + std::rand() % 5 - 2;
-			graph->updateSceneNode(node, newX, newY);
-			Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " moving.");
+			actor = *actors->get(i);
+			int newX = actor->getX() + std::rand() % 5 - 2;
+			int newY = actor->getY() + std::rand() % 5 - 2;
+			actor->setX(newX);
+			actor->setY(newY);
+			Debug::getInstance()->log("GAMEPLAY", actor->getName() + " moving.");
 			// collision
-			colliders = graph->getColliders((*actors->get(i))->getSceneNode());
+			colliders = SceneManager::getInstance()->getColliders(actor->getSceneNode());
 			if(colliders->length() > 1)
 			{
 				for(j = 0; j < colliders->length(); j++)
@@ -36,8 +38,8 @@ void RandomWalkController::tick(float dt)
 					{
 						Actor* collidingActor = (Actor*) iactor;
 						collidingActor->markForRemoval();
-						(*actors->get(i))->markForRemoval();
-						Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName() + " collided with " +  collidingActor->getName() + "!");
+						actor->markForRemoval();
+						Debug::getInstance()->log("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "!");
 					}
 				}
 			}
@@ -49,15 +51,10 @@ void RandomWalkController::tick(float dt)
 		{
 			if((*actors->get(i))->isMarkedForRemoval())
 			{
-				Debug::getInstance()->log("WALKCONTROLLER", (*actors->get(i))->getName() + " had a collision, removing from the scene."); 
-				graph->removeSceneNode((*actors->get(i))->getSceneNode());
+				Debug::getInstance()->log("WALKCONTROLLER", actor->getName() + " had a collision, removing from the scene."); 
+				SceneManager::getInstance()->removeSceneNode(actor->getSceneNode());
 				delete actors->remove(i--);
 			}
 		}
 	}
-}
-
-void RandomWalkController::setGraph(ISceneGraph* graph)
-{
-	this->graph = graph;
 }

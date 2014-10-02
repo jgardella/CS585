@@ -19,6 +19,14 @@ class Actor : public IActor
 		
 		~Actor();
 
+		void setX(int x);
+
+		void setY(int y);
+		
+		int getX();
+
+		int getY();
+
 		bool isMarkedForRemoval();
 
 		void markForRemoval();	
