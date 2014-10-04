@@ -6,8 +6,8 @@
 
 class StateMachine : public ITickable
 {
-
-	class OnSceneTransition : public IListenerCallback
+	// Listener callback for state transitions
+	class OnStateTransition : public IListenerCallback
 	{
 		public:
 			OnStateTransition() { }
