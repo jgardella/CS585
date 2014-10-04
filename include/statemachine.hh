@@ -28,7 +28,7 @@ class StateMachine : public ITickable
 	} sceneTransitionListener(this);
 
 	public:
-		StateMachine(Trie<State>* stateMap, Trie<float>* behavioralConfig);
+		StateMachine(Trie<State>* map, Trie<float>* config) : stateMap(map), behavioralConfig(config), currentState(map->get("idle"));
 
 	private:
 		State currentState;
