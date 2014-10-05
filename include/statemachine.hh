@@ -1,8 +1,12 @@
+#ifndef _STATEMACHINE_HH_
+#define _STATEMACHINE_HH_
+
 #include "dynamicarray.hh"
 #include "trie.hh"
 #include "ievent.hh"
 #include "itickable.hh"
 #include "ilistenercallback.hh"
+#include "istate.hh"
 
 class StateMachine : public ITickable
 {
@@ -21,7 +25,6 @@ class StateMachine : public ITickable
 				}
 			}
 			
-			void tick(float dt);	
 
 		private:
 			const StateMachine* stateMachine;
@@ -29,9 +32,12 @@ class StateMachine : public ITickable
 
 	public:
 		StateMachine(Trie<State>* map, Trie<float>* config) : stateMap(map), behavioralConfig(config), currentState(map->get("idle"));
+		void tick(float dt);	
 
 	private:
-		State currentState;
-		Trie<State>* stateMap;
+		IState* currentState;
+		Trie<IState*>* stateMap;
 		Trie<float>* behavioralConfig;
 };
+
+#endif
