@@ -8,7 +8,6 @@ class ITickable
 {
 	public:
 		virtual void tick(float dt) = 0;
-		virtual void setGraph(ISceneGraph* graph) = 0;
 };
 
 #endif
