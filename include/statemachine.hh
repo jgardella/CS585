@@ -13,26 +13,17 @@ class StateMachine : public ITickable
 {
 
 	public:
-		StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState) : stateMap(map), behavioralConfig(config), currentState(*map->get(startState))
-		{
-			onStateTransition.setInstance(this);
-		}
+		StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState);
 		void tick(float dt);	
 
-		IListenerCallback* getListener()
-		{
-			return &onStateTransition;
-		}
+		IListenerCallback* getListener();
 
 	private:
 		Trie<IState*>* stateMap;
 		Trie<float>* behavioralConfig;
 		IState* currentState;
 		
-		void updateState(std::string stateString)
-		{
-			currentState = *stateMap->get(stateString);
-		}
+		void updateState(std::string stateString);
 
 		// Listener callback for state transitions	
 		class OnStateTransition : public IListenerCallback
