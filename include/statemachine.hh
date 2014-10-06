@@ -19,6 +19,11 @@ class StateMachine : public ITickable
 		}
 		void tick(float dt);	
 
+		IListenerCallback* getListener()
+		{
+			return &onStateTransition;
+		}
+
 	private:
 		Trie<IState*>* stateMap;
 		Trie<float>* behavioralConfig;

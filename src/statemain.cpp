@@ -3,6 +3,7 @@
 #include "iactor.hh"
 #include "trie.hh"
 #include "statemachine.hh"
+#include "dispatcher.hh"
 
 class IdleState : public IState
 {
@@ -35,20 +36,32 @@ class ActiveState : public IState
 class Actor : public IActor
 {
 	public:
-		Actor() : IActor(true, "ACTOR") {}
+		Actor() : IActor(true, "ACTOR") 
+		{
+			events = new Dispatcher();
+		}
+		
+		void simulateEventTrigger()
+		{
+			events->dispatch(new StateEvent("active"));
+			events->tick(5);
+		}
+
+		Dispatcher* events;
 };
 
 class Controller : public ITickable
 {
 	public:
-		Controller()
+		Controller(Actor* actor)
 		{
-			actor = new Actor();
+			this->actor = actor;
 			Trie<float>* behaviors = new Trie<float>();
 			Trie<IState*>* states = new Trie<IState*>();
 			states->add("idle", new IdleState(actor));
 			states->add("active", new ActiveState(actor));
 			stateMachine = new StateMachine(states, behaviors);
+			actor->events->addListener("state", stateMachine->getListener());
 		}
 		
 		void tick(float dt)
@@ -60,7 +73,28 @@ class Controller : public ITickable
 		Actor* actor;
 };
 
+void debugInit()
+{
+	#ifndef DEBUG
+	Debug::getInstance()->setDebugStatus(false);
+	#else
+	Debug::getInstance()->setDebugStatus(true);
+	Debug::getInstance()->addChannel("LISTENER");
+	Debug::getInstance()->addChannel("DISPATCHER");
+	Debug::getInstance()->unmuteAll();
+	#endif
+}
+
 int main()
 {
+	debugInit();
+	Actor* actor = new Actor();
+	Controller* controller = new Controller(actor);
+	controller->tick(5);
+	actor->simulateEventTrigger();
+	controller->tick(5);	
+	controller->tick(5);	
+	controller->tick(5);	
+	controller->tick(5);	
 	return 0;
 }
