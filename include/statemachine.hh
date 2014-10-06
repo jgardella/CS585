@@ -13,7 +13,7 @@ class StateMachine : public ITickable
 {
 
 	public:
-		StateMachine(Trie<IState*>* map, Trie<float>* config) : stateMap(map), behavioralConfig(config), currentState(*map->get("idle"))
+		StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState) : stateMap(map), behavioralConfig(config), currentState(*map->get(startState))
 		{
 			onStateTransition.setInstance(this);
 		}
