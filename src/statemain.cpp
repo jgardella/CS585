@@ -20,10 +20,10 @@ class FleeState : public IState
 		}
 };
 
-class Actor : public IActor
+class TestActor : public IActor
 {
 	public:
-		Actor() : IActor(true, "ACTOR") 
+		TestActor() : IActor(true, "ACTOR") 
 		{
 			health = 100;
 		}
@@ -50,7 +50,7 @@ class IdleState : public IState
 	       	{
 			dispatcher->tick(1);
 			Debug::getInstance()->log("GAMEPLAY", "Actor is in idle state.");
-	       		if(((Actor*)actor)->getHealth() < *behavioralConfig->get("fleeAtHealth"))
+	       		if(((TestActor*)actor)->getHealth() < *behavioralConfig->get("fleeAtHealth"))
 			{
 				dispatcher->dispatch(new StateEvent("flee"));
 			}
@@ -60,7 +60,7 @@ class IdleState : public IState
 class Controller : public ITickable
 {
 	public:
-		Controller(Actor* actor)
+		Controller(TestActor* actor)
 		{
 			this->actor = actor;
 			Trie<float>* behaviors = new Trie<float>();
@@ -81,7 +81,7 @@ class Controller : public ITickable
 		}
 	private:
 		StateMachine* stateMachine;
-		Actor* actor;
+		TestActor* actor;
 };
 
 void debugInit()
@@ -100,7 +100,7 @@ void debugInit()
 int main()
 {
 	debugInit();
-	Actor* actor = new Actor();
+	TestActor* actor = new TestActor();
 	Controller* controller = new Controller(actor);
 	controller->tick(1);
 	actor->simulateAttack(80);

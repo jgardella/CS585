@@ -7,7 +7,7 @@ Actor::Actor(std::string name, int initialX, int initialY, bool col) : IActor(co
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, *this, NULL, NULL);
 	Debug::getInstance()->log("ACTOR", "Scene node added to graph.");
-	SceneManager::getInstance()->addSceneNode(*sceneNode);
+	SceneManager::getInstance()->addSceneNode(sceneNode);
 	readyForRemoval = false;
 }
 
@@ -49,4 +49,9 @@ void Actor::markForRemoval()
 bool Actor::isMarkedForRemoval()
 {
 	return readyForRemoval;
+}
+
+SceneNode* Actor::getSceneNode()
+{
+	return sceneNode;
 }
