@@ -37,9 +37,11 @@ class StateMachine : public ITickable
 				
 				virtual void execute(IEvent* event)
 				{
+					Debug::getInstance()->log("STATEMACHINE", "State transition callback executed.");
 					if(event->getType().compare("state") == 0)
 					{
 						StateEvent* stateEvent = (StateEvent*) event;
+						Debug::getInstance()->log("STATEMACHINE", "State transition callback changing state to " + stateEvent->getState());
 						stateMachine->updateState(stateEvent->getState());
 					}
 				}
