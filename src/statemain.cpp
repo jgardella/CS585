@@ -5,17 +5,11 @@
 #include "statemachine.hh"
 #include "dispatcher.hh"
 
-class IdleState : public IState
-{
-	public:
-		IdleState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) { }
-		void tick(float dt) { }
-};
 
-class ActiveState : public IState
+class FleeState : public IState
 {
 	public:
-		ActiveState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) 
+		FleeState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) 
 		{
 			timeCounter = 0;
 	       	}
@@ -25,7 +19,7 @@ class ActiveState : public IState
 			timeCounter += dt;
 			if(timeCounter >= 5)
 			{
-				Debug::getInstance()->log("GAMEPLAY", "Actor is in ActiveState and printing every 5 seconds.");
+				Debug::getInstance()->log("GAMEPLAY", "Actor is in FleeState and is fleeing.");
 				timeCounter = 0;
 			}
 		}
@@ -38,16 +32,29 @@ class Actor : public IActor
 	public:
 		Actor() : IActor(true, "ACTOR") 
 		{
-			events = new Dispatcher();
-		}
-		
-		void simulateEventTrigger()
-		{
-			events->dispatch(new StateEvent("active"));
-			events->tick(5);
+			health = 100;
 		}
 
-		Dispatcher* events;
+		int getHealth()
+		{
+			return health;
+		}
+
+	private:	
+		int health;
+};
+
+class IdleState : public IState
+{
+	public:
+		IdleState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) { }
+		void tick(float dt)
+	       	{
+	       		if(((Actor*)actor)->getHealth() < *behavioralConfig->get("fleeAtHealth"))
+			{
+
+			}
+		}
 };
 
 class Controller : public ITickable
@@ -59,9 +66,8 @@ class Controller : public ITickable
 			Trie<float>* behaviors = new Trie<float>();
 			Trie<IState*>* states = new Trie<IState*>();
 			states->add("idle", new IdleState(actor, behaviors));
-			states->add("active", new ActiveState(actor, behaviors));
+			states->add("active", new FleeState(actor, behaviors));
 			stateMachine = new StateMachine(states, behaviors, "idle");
-			actor->events->addListener("state", stateMachine->getListener());
 		}
 		
 		void tick(float dt)
@@ -90,11 +96,5 @@ int main()
 	debugInit();
 	Actor* actor = new Actor();
 	Controller* controller = new Controller(actor);
-	controller->tick(5);
-	actor->simulateEventTrigger();
-	controller->tick(5);	
-	controller->tick(5);	
-	controller->tick(5);	
-	controller->tick(5);	
 	return 0;
 }
