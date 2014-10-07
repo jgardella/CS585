@@ -7,6 +7,7 @@
 #include "dispatcher.hh"
 #include "ilistenercallback.hh"
 
+// Interface for a state in a state machine. All states contain a reference to their actor and their behavioral config, as well as a dispatcher to dispatch state changes to the state machine.
 class IState : public ITickable
 {
 	public:

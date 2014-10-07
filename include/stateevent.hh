@@ -4,6 +4,7 @@
 #include <string>
 #include "ievent.hh"
 
+// Event used to switch the state of a state machine.
 class StateEvent : public IEvent
 {
 	public:
