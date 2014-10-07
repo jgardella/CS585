@@ -8,14 +8,14 @@
 class IdleState : public IState
 {
 	public:
-		IdleState(IActor* actor) : IState(actor) { }
+		IdleState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) { }
 		void tick(float dt) { }
 };
 
 class ActiveState : public IState
 {
 	public:
-		ActiveState(IActor* actor) : IState(actor) 
+		ActiveState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) 
 		{
 			timeCounter = 0;
 	       	}
@@ -58,9 +58,9 @@ class Controller : public ITickable
 			this->actor = actor;
 			Trie<float>* behaviors = new Trie<float>();
 			Trie<IState*>* states = new Trie<IState*>();
-			states->add("idle", new IdleState(actor));
-			states->add("active", new ActiveState(actor));
-			stateMachine = new StateMachine(states, behaviors);
+			states->add("idle", new IdleState(actor, behaviors));
+			states->add("active", new ActiveState(actor, behaviors));
+			stateMachine = new StateMachine(states, behaviors, "idle");
 			actor->events->addListener("state", stateMachine->getListener());
 		}
 		

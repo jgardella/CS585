@@ -2,14 +2,15 @@
 #define _ISTATE_HH_
 
 #include "itickable.hh"
+#include "trie.hh"
 #include "iactor.hh"
 
 class IState : public ITickable
 {
 	protected:
-		IState(IActor* act, DynamicArray<float>* config) : actor(act), behavioralConfig(config) {}
+		IState(IActor* act, Trie<float>* config) : actor(act), behavioralConfig(config) {}
 		IActor* actor;
-		DynamicArray<float>* behavioralConfig;
+		Trie<float>* behavioralConfig;
 };
 
 #endif
