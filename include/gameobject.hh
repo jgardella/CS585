@@ -15,7 +15,6 @@ class GameObject
 		// Calls tick on scene manager.
 		bool update(float dt);
 	private:
-		SceneManager *sceneManager;
 		DynamicArray<Actor*> *actors;
 		float timeSinceStart;
 };

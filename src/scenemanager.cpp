@@ -4,20 +4,20 @@
 
 SceneManager* SceneManager::instance;
 
-SceneManager* SceneManager::getInstance()
-{
-	DEBUG_LOG("MANAGER", "Getting instance of scene manager.");
-	if(SceneManager::instance == NULL)
-	{
-		SceneManager::instance = new SceneManager();
-	}
-	return SceneManager::instance;
-}
-
 SceneManager::SceneManager()
 {	
 	DEBUG_LOG("MANAGER", "Constructing scene manager.");
-	tickables = new DynamicArray<ITickable*>();
+	this->tickables = new DynamicArray<ITickable*>();
+}
+
+SceneManager* SceneManager::getInstance()
+{
+	DEBUG_LOG("MANAGER", "Getting instance of scene manager.");
+	if(instance == NULL)
+	{
+		instance = new SceneManager();
+	}
+	return instance;
 }
 
 void SceneManager::setGraph(ISceneGraph* graph)

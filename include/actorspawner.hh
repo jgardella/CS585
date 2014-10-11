@@ -22,7 +22,6 @@ class ActorSpawner : public ITickable
 		void tick(float dt);
 		void setGraph(ISceneGraph*);
 	private:
-		SceneManager *sceneManager;
 		DynamicArray<std::string> *names;
 		DynamicArray<Actor*> *actors;
 		ISceneGraph *graph;

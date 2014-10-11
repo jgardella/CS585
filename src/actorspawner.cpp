@@ -3,7 +3,6 @@
 ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actors, int spawnX, int spawnY)
 {
 	DEBUG_LOG("SPAWNER", "Constructing ActorSpawner.");
-	sceneManager = SceneManager::getInstance();
 	this->actors = actors;
 	names = new DynamicArray<std::string>();
 	names->pushBack("Jason");

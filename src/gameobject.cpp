@@ -9,8 +9,8 @@ GameObject::GameObject()
 	DEBUG_LOG("GAMEOBJ", "Constructing game object.");
 	actors = new DynamicArray<Actor*>();
 	SceneManager::getInstance()->setGraph(new FixedGrid());
-	sceneManager->addTickable(new ActorSpawner(2, actors, 4, 4));
-	sceneManager->addTickable(new RandomWalkController(actors));
+	SceneManager::getInstance()->addTickable(new RandomWalkController(actors));
+	SceneManager::getInstance()->addTickable(new ActorSpawner(2, actors, 4, 4));
 	timeSinceStart = 0;
 }
 

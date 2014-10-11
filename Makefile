@@ -7,12 +7,12 @@ CXXFLAGS = -Iinclude -Wall -Werror
 debug: CXXFLAGS += -DDEBUG
 
 all: $(OBJ_FILES)
-	g++ -std=c++11 $(CXXFLAGS) $(OBJ_FILES) -o $(NAME)
+	g++ -std=c++11 -g  $(CXXFLAGS) $(OBJ_FILES) -o $(NAME)
 
 debug: all
 
 bin/%.o: src/%.cpp
-	g++ $(CXXFLAGS) -c -o $@ $<
+	g++ $(CXXFLAGS) -g -c -o $@ $<
 clean:
 	-$(RM) bin/*~
 	-$(RM) bin/\#*

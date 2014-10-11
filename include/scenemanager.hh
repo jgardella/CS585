@@ -44,9 +44,9 @@ class SceneManager
 		SceneManager& operator=(SceneManager const&);
 		~SceneManager();
 		
-		static SceneManager *instance;
-		DynamicArray<ITickable*> *tickables;
-		ISceneGraph *sceneGraph;
+		static SceneManager* instance;
+		DynamicArray<ITickable*>* tickables;
+		ISceneGraph* sceneGraph;
 };
 
 #endif
