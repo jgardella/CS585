@@ -7,12 +7,12 @@ class IActor
 {
 	public:
 
-		virtual bool isCollidable();
+		virtual unsigned int getCollisionLayer();
 		virtual std::string getClass();		
 	protected:
-		bool isCollider;
+		int collisionLayer;
 		std::string classType;
-		IActor(bool isCollider, std::string classType);
+		IActor(unsigned int collisionLayer, std::string classType);
 		virtual ~IActor();
 };
 

@@ -1,16 +1,20 @@
+// Functions for retrieving colliders in fixed grid.
 #include "fixedgrid.hh"
 
 DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 {
 	DEBUG_LOG("FIXEDGRID", "Getting colliders based on scene node.");
-	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
+	DynamicArray<SceneNode*>* colliders = new DynamicArray<SceneNode*>();
+	IActor* actor = node->getActor();
+	IActor* otherActor;
 	SceneNode *otherNode;
-	if(node->getActor()->isCollidable()) // if node is on non-collision layer, return empty array
+	if(actor->getCollisionLayer() > 0) // if node is on non-collision layer, return empty array
 	{
 		otherNode = nodeGrid[node->getX() + node->getY() * yDimension];
 		while(otherNode != NULL)
 		{
-			if(otherNode->getActor()->isCollidable())
+			otherActor = otherNode->getActor();
+			if(actor->getCollisionLayer() == otherActor->getCollisionLayer()) // if node's actors are on same collision layer, add to array
 			{
 				colliders->pushBack(otherNode);
 			}
@@ -24,10 +28,13 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
 {
 	DEBUG_LOG("FIXEDGRID", "Getting colliders based on position.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
-	SceneNode *node = nodeGrid[x + y * yDimension];
+	SceneNode* node = nodeGrid[x + y * yDimension];
 	while(node != NULL)
 	{
-		colliders->pushBack(node);
+		if(node->getActor()->getCollisionLayer() > 0) // if node is not on non-collision layer, add to array
+		{
+			colliders->pushBack(node);
+		}
 	}
 	return colliders;
 }
@@ -46,14 +53,18 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int cornerX1, int cornerY1, in
 	int i, j;
 	DEBUG_LOG("FIXEDGRID", "Getting colliders based on rectangle.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
+	SceneNode* node;
 	for(i = cornerX1; i <= cornerX2; i++)
 	{
 		for(j = cornerY1; j <= cornerY2; j++)
 		{
-			SceneNode *node = nodeGrid[i + j * yDimension];
+			node = nodeGrid[i + j * yDimension];
 			while(node != NULL)
 			{
-				colliders->pushBack(node);
+				if(node->getActor()->getCollisionLayer() > 0) // if node is not on non-collision layer, add to array
+				{
+					colliders->pushBack(node);
+				}
 			}	
 		}
 	}

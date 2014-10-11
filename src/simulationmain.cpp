@@ -10,11 +10,11 @@ void debugInit()
 	Debug::getInstance()->setTerminalLogging(true);
 	Debug::getInstance()->addChannel("ACTOR");
 	Debug::getInstance()->addChannel("SPAWNER");
-	//Debug::getInstance()->addChannel("MANAGER");
+	Debug::getInstance()->addChannel("MANAGER");
 	Debug::getInstance()->addChannel("FIXEDGRID");
 	Debug::getInstance()->addChannel("GAMEOBJ");
 	Debug::getInstance()->addChannel("WALKCONTROLLER");
-	//Debug::getInstance()->muteAllExceptDefault();
+	Debug::getInstance()->muteAllExceptDefault();
 	#endif
 }
 

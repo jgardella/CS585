@@ -1,8 +1,8 @@
 #include "iactor.hh"
 
-IActor::IActor(bool isCollider, std::string classType)
+IActor::IActor(unsigned int collisionLayer, std::string classType)
 {
-	this->isCollider = isCollider;
+	this->collisionLayer = collisionLayer;
 	this->classType = classType;
 }
 
@@ -11,9 +11,9 @@ IActor::~IActor()
 
 }
 
-bool IActor::isCollidable()
+unsigned int IActor::getCollisionLayer()
 {
-	return isCollider;
+	return collisionLayer;
 }
 
 std::string IActor::getClass()
