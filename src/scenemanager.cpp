@@ -6,7 +6,7 @@ SceneManager* SceneManager::instance;
 
 SceneManager* SceneManager::getInstance()
 {
-	Debug::getInstance()->log("MANAGER", "Getting instance of scene manager.");
+	DEBUG_LOG("MANAGER", "Getting instance of scene manager.");
 	if(SceneManager::instance == NULL)
 	{
 		SceneManager::instance = new SceneManager();
@@ -16,7 +16,7 @@ SceneManager* SceneManager::getInstance()
 
 SceneManager::SceneManager()
 {	
-	Debug::getInstance()->log("MANAGER", "Constructing scene manager.");
+	DEBUG_LOG("MANAGER", "Constructing scene manager.");
 	tickables = new DynamicArray<ITickable*>();
 }
 
@@ -36,7 +36,7 @@ void SceneManager::tick(float dt)
 
 void SceneManager::addTickable(ITickable *tickable)
 {
-	Debug::getInstance()->log("MANAGER", "Adding tickable to scene manager.");
+	DEBUG_LOG("MANAGER", "Adding tickable to scene manager.");
 	tickables->pushBack(tickable);
 }
 
@@ -44,7 +44,7 @@ void SceneManager::addTickable(ITickable *tickable)
 
 void SceneManager::addSceneNode(SceneNode* node)
 {
-	Debug::getInstance()->log("MANAGER", "Adding scenenode to scene manager.");
+	DEBUG_LOG("MANAGER", "Adding scenenode to scene manager.");
 	sceneGraph->addSceneNode(node);
 }
 

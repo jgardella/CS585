@@ -3,10 +3,10 @@
 
 Actor::Actor(std::string name, int initialX, int initialY, bool col) : IActor(col, "ACTOR")
 {
-	Debug::getInstance()->log("ACTOR", "Creating Actor.");
+	DEBUG_LOG("ACTOR", "Creating Actor.");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, *this, NULL, NULL);
-	Debug::getInstance()->log("ACTOR", "Scene node added to graph.");
+	DEBUG_LOG("ACTOR", "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(sceneNode);
 	readyForRemoval = false;
 }

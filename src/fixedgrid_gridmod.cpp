@@ -2,7 +2,7 @@
 
 void FixedGrid::addSceneNode(SceneNode *node)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Adding scene node.");
+	DEBUG_LOG("FIXEDGRID", "Adding scene node.");
 	int gridIndex = node->getY() *  yDimension + node->getX();
 	SceneNode *nodeAtGridIndex;
 	if(nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
@@ -22,7 +22,7 @@ void FixedGrid::addSceneNode(SceneNode *node)
 
 void FixedGrid::removeSceneNode(SceneNode *node)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Removing scene node.");
+	DEBUG_LOG("FIXEDGRID", "Removing scene node.");
 	if(node->getPrevious() != NULL)
 	{
 		node->getPrevious()->setNext(node->getNext());
@@ -39,10 +39,10 @@ void FixedGrid::removeSceneNode(SceneNode *node)
 
 void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Updating scene node.");
+	DEBUG_LOG("FIXEDGRID", "Updating scene node.");
 	if(x < xDimension && x >= 0 && y < yDimension && y >= 0)
 	{
-		Debug::getInstance()->log("FIXEDGRID", "New position for scene node is within bounds of scene.");
+		DEBUG_LOG("FIXEDGRID", "New position for scene node is within bounds of scene.");
 		removeSceneNode(node);
 		node->setX(x);
 		node->setY(y);

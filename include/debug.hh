@@ -1,6 +1,10 @@
 #ifndef _DEBUG_HH_
 #define _DEBUG_HH_
 
+#ifndef DEBUG_LOG
+#define DEBUG_LOG Debug::getInstance()->log
+#endif
+
 #include <iostream>
 #include <ctime>
 

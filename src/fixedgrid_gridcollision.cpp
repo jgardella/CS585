@@ -2,7 +2,7 @@
 
 DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Getting colliders based on scene node.");
+	DEBUG_LOG("FIXEDGRID", "Getting colliders based on scene node.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	SceneNode *otherNode;
 	if(node->getActor()->isCollidable()) // if node is on non-collision layer, return empty array
@@ -22,7 +22,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 
 DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Getting colliders based on position.");
+	DEBUG_LOG("FIXEDGRID", "Getting colliders based on position.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	SceneNode *node = nodeGrid[x + y * yDimension];
 	while(node != NULL)
@@ -34,7 +34,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
 
 DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 {
-	Debug::getInstance()->log("FIXEDGRID", "Getting colliders based on circle.");
+	DEBUG_LOG("FIXEDGRID", "Getting colliders based on circle.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	// TODO: implement circular collider scan
 	return colliders;
@@ -44,7 +44,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 DynamicArray<SceneNode*> *FixedGrid::getColliders(int cornerX1, int cornerY1, int cornerX2, int cornerY2)
 {
 	int i, j;
-	Debug::getInstance()->log("FIXEDGRID", "Getting colliders based on rectangle.");
+	DEBUG_LOG("FIXEDGRID", "Getting colliders based on rectangle.");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	for(i = cornerX1; i <= cornerX2; i++)
 	{

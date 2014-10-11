@@ -13,7 +13,7 @@ class Trie
 		// Constructs a node with no value or key (used for making root).
 		Trie()
 		{
-			Debug::getInstance()->log("TRIE", "Constructing node with no value");
+			DEBUG_LOG("TRIE", "Constructing node with no value");
 			children = new Trie*[26]();
 		}
 		
@@ -38,16 +38,16 @@ class Trie
 		// Value value - the value to store
 		void add(std::string key, Value newValue)
 		{
-			Debug::getInstance()->log("TRIE", "add method enter with key " + key);
+			DEBUG_LOG("TRIE", "add method enter with key " + key);
 			std::string firstLetter;
 			Trie *newTrie;
 			if(key.compare("") != 0) // base case, if key is empty string, final node has been reached. set its value to the given value.
 			{
 				firstLetter = key.at(0);
-				Debug::getInstance()->log("TRIE", "First letter is " + firstLetter);
+				DEBUG_LOG("TRIE", "First letter is " + firstLetter);
 				if(children[key.at(0) - 'a'] == 0)
 				{
-					Debug::getInstance()->log("TRIE", "Creating new node with key " + firstLetter);
+					DEBUG_LOG("TRIE", "Creating new node with key " + firstLetter);
 					newTrie = new Trie();
 					children[key.at(0) - 'a'] = newTrie;
 				}
@@ -55,7 +55,7 @@ class Trie
 			}
 			else
 			{
-				Debug::getInstance()->log("TRIE", "Setting value.");
+				DEBUG_LOG("TRIE", "Setting value.");
 				value = newValue;
 			}
 		}
@@ -65,12 +65,12 @@ class Trie
 		// string key - the key to search for, must be a valid key which was previously added to the array
 		Value* get(std::string key)
 		{
-			Debug::getInstance()->log("TRIE", "get method entered with key " + key);
+			DEBUG_LOG("TRIE", "get method entered with key " + key);
 			std::string firstLetter;
 			if(key.compare("") != 0) // base case, if key is empty string, final node has been reached. return value.
 			{
 				firstLetter = key.substr(0, 1);
-				Debug::getInstance()->log("TRIE", "First letter of key is " + firstLetter);
+				DEBUG_LOG("TRIE", "First letter of key is " + firstLetter);
 				if(children[key.at(0) - 'a'] != NULL)
 				{
 					return children[key.at(0) - 'a']->get(key.substr(1, std::string::npos));
@@ -80,7 +80,7 @@ class Trie
 					return NULL;
 				}
 			}
-			Debug::getInstance()->log("TRIE", "Returning value");
+			DEBUG_LOG("TRIE", "Returning value");
 			return &value;
 		}
 		
@@ -91,7 +91,7 @@ class Trie
 		// Constructs a node with the given value and key.
 		Trie(Value value)
 		{
-			Debug::getInstance()->log("TRIE", "Constructing node with value.");
+			DEBUG_LOG("TRIE", "Constructing node with value.");
 			children = new Trie*[26]();
 			this->value = value;
 		}

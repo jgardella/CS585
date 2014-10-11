@@ -52,11 +52,11 @@ class StateMachine : public ITickable
 				// Updates the machine's state to the state contained in the StateEvent.		
 				virtual void execute(IEvent* event)
 				{
-					Debug::getInstance()->log("STATEMACHINE", "State transition callback executed.");
+					DEBUG_LOG("STATEMACHINE", "State transition callback executed.");
 					if(event->getType().compare("state") == 0)
 					{
 						StateEvent* stateEvent = (StateEvent*) event;
-						Debug::getInstance()->log("STATEMACHINE", "State transition callback changing state to " + stateEvent->getState());
+						DEBUG_LOG("STATEMACHINE", "State transition callback changing state to " + stateEvent->getState());
 						stateMachine->updateState(stateEvent->getState());
 					}
 				}

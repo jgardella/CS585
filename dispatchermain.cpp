@@ -43,10 +43,10 @@ int Listener::getValue()
 
 void Listener::execute(IEvent* event)
 {
-	Debug::getInstance()->log("LISTENER", "Listener callback executed with event of type " + event->getType() + ".");
+	DEBUG_LOG("LISTENER", "Listener callback executed with event of type " + event->getType() + ".");
 	if(event->getType().compare("set") == 0)
 	{
-		Debug::getInstance()->log("LISTENER", "Setting listener's value.");
+		DEBUG_LOG("LISTENER", "Setting listener's value.");
 		value = ((SetEvent*)event)->getValue();
 	}
 }

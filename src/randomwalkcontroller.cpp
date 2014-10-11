@@ -3,7 +3,7 @@
 
 RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors)
 {
-	Debug::getInstance()->log("WALKCONTROLLER", "Constructing RandomWalkController.");
+	DEBUG_LOG("WALKCONTROLLER", "Constructing RandomWalkController.");
 	this->actors = actors;
 	this->timeCounter = 0;
 }
@@ -17,7 +17,7 @@ void RandomWalkController::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= 2)
 	{
-		Debug::getInstance()->log("WALKCONTROLLER", "Moving actors.");
+		DEBUG_LOG("WALKCONTROLLER", "Moving actors.");
 		for(i = 0; i < actors->length() && !(*actors->get(i))->isMarkedForRemoval(); i++)
 		{
 			// movement
@@ -26,7 +26,7 @@ void RandomWalkController::tick(float dt)
 			int newY = actor->getY() + std::rand() % 5 - 2;
 			actor->setX(newX);
 			actor->setY(newY);
-			Debug::getInstance()->log("GAMEPLAY", actor->getName() + " moving.");
+			DEBUG_LOG("GAMEPLAY", actor->getName() + " moving.");
 			// collision
 			colliders = SceneManager::getInstance()->getColliders(actor->getSceneNode());
 			if(colliders->length() > 1)
@@ -39,19 +39,19 @@ void RandomWalkController::tick(float dt)
 						Actor* collidingActor = (Actor*) iactor;
 						collidingActor->markForRemoval();
 						actor->markForRemoval();
-						Debug::getInstance()->log("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "!");
+						DEBUG_LOG("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "!");
 					}
 				}
 			}
 			delete colliders;
 		}
 		timeCounter = 0;
-		Debug::getInstance()->log("WALKCONTROLLER", "Removing actors with collisions.");
+		DEBUG_LOG("WALKCONTROLLER", "Removing actors with collisions.");
 		for(i = 0; i < actors->length(); i++)
 		{
 			if((*actors->get(i))->isMarkedForRemoval())
 			{
-				Debug::getInstance()->log("WALKCONTROLLER", actor->getName() + " had a collision, removing from the scene."); 
+				DEBUG_LOG("WALKCONTROLLER", actor->getName() + " had a collision, removing from the scene."); 
 				SceneManager::getInstance()->removeSceneNode(actor->getSceneNode());
 				delete actors->remove(i--);
 			}

@@ -6,7 +6,7 @@
 
 GameObject::GameObject()
 {
-	Debug::getInstance()->log("GAMEOBJ", "Constructing game object.");
+	DEBUG_LOG("GAMEOBJ", "Constructing game object.");
 	actors = new DynamicArray<Actor*>();
 	SceneManager::getInstance()->setGraph(new FixedGrid());
 	sceneManager->addTickable(new ActorSpawner(2, actors, 4, 4));
@@ -20,10 +20,10 @@ bool GameObject::update(float dt)
 	timeSinceStart += dt;
 	if(timeSinceStart >= 30)
 	{
-		Debug::getInstance()->log("GAMEPLAY", "Simulation finished. Remaining actors:");
+		DEBUG_LOG("GAMEPLAY", "Simulation finished. Remaining actors:");
 		for(i = 0; i < actors->length(); i++)
 		{
-			Debug::getInstance()->log("GAMEPLAY", (*actors->get(i))->getName());
+			DEBUG_LOG("GAMEPLAY", (*actors->get(i))->getName());
 		}
 		return false;
 	}

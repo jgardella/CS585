@@ -2,7 +2,7 @@
 
 Dispatcher::Dispatcher()
 {
-	Debug::getInstance()->log("DISPATCHER", "Constructing dispatcher.");
+	DEBUG_LOG("DISPATCHER", "Constructing dispatcher.");
 	eventQueue = new Queue<IEvent*>();
 	addListenerQueue = new Queue<tListener*>();
 	removeListenerQueue = new Queue<tListener*>();
@@ -29,7 +29,7 @@ void Dispatcher::removeListener(std::string eventType, IListenerCallback* callba
 
 void Dispatcher::dispatch(IEvent* event)
 {
-	Debug::getInstance()->log("DISPATCHER", "Dispatching event of type " + event->getType() + "."); 
+	DEBUG_LOG("DISPATCHER", "Dispatching event of type " + event->getType() + "."); 
 	// add event to event queue, will be dispatched during tick
 	eventQueue->enqueue(event);
 }
@@ -84,41 +84,41 @@ void Dispatcher::dispatchDeferredEvent(IEvent* event)
 
 void Dispatcher::addDeferredListener(std::string eventType, IListenerCallback* callback)
 {
-	Debug::getInstance()->log("DISPATCHER", "Adding listener of event type " + eventType + ".");
+	DEBUG_LOG("DISPATCHER", "Adding listener of event type " + eventType + ".");
 	DynamicArray<IListenerCallback*>* callbackArray;
 	// if specified eventType does not exist in callback trie, create it and add callback
 	if(callbacks->get(eventType) == NULL)
 	{
-		Debug::getInstance()->log("DISPATCHER", "callbackArray is null, creating new array and adding event."); 
+		DEBUG_LOG("DISPATCHER", "callbackArray is null, creating new array and adding event."); 
 		callbackArray = new DynamicArray<IListenerCallback*>();
 		callbackArray->pushBack(callback);
 		callbacks->add(eventType, callbackArray);
 	}
 	else // eventType already exists in callback trie, just add callback to array in trie
 	{
-		Debug::getInstance()->log("DISPATCHER", "callbackArray is not null, adding event."); 
+		DEBUG_LOG("DISPATCHER", "callbackArray is not null, adding event."); 
 		callbackArray = *callbacks->get(eventType);
 		callbackArray->pushBack(callback);
 	}
-	Debug::getInstance()->log("DISPATCHER", "Event added."); 
+	DEBUG_LOG("DISPATCHER", "Event added."); 
 }
 
 void Dispatcher::removeDeferredListener(std::string eventType, IListenerCallback* callback)
 {
-	Debug::getInstance()->log("DISPATCHER", "Removing listener of event type " + eventType + ".");
+	DEBUG_LOG("DISPATCHER", "Removing listener of event type " + eventType + ".");
 	unsigned int i;
 	DynamicArray<IListenerCallback*>* callbackArray;
 	// check that events of the given type have previously been added
 	if(callbacks->get(eventType) != NULL)
 	{
 		callbackArray = *callbacks->get(eventType);
-		Debug::getInstance()->log("DISPATCHER", "callbackArray is not null, iterating through until listener is found.");
+		DEBUG_LOG("DISPATCHER", "callbackArray is not null, iterating through until listener is found.");
 		// iterate through callbacks until correct callback is found
 		for(i = 0; i < callbackArray->length(); i++)
 		{
 			if(*(callbackArray->get(i)) == callback)
 			{
-				Debug::getInstance()->log("DISPATCHER", "Found listener, removing from array.");
+				DEBUG_LOG("DISPATCHER", "Found listener, removing from array.");
 				callbackArray->remove(i);
 				break;
 			}
