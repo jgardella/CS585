@@ -49,7 +49,8 @@ void RandomWalkController::tick(float dt)
 		DEBUG_LOG("WALKCONTROLLER", "Removing actors with collisions.");
 		for(i = 0; i < actors->length(); i++)
 		{
-			if((*actors->get(i))->isMarkedForRemoval())
+			actor = *actors->get(i);	
+			if(actor->isMarkedForRemoval())
 			{
 				DEBUG_LOG("WALKCONTROLLER", actor->getName() + " had a collision, removing from the scene."); 
 				SceneManager::getInstance()->removeSceneNode(actor->getSceneNode());
