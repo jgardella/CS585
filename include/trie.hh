@@ -66,11 +66,8 @@ class Trie
 		Value* get(std::string key)
 		{
 			DEBUG_LOG("TRIE", "get method entered with key " + key);
-			std::string firstLetter;
 			if(key.compare("") != 0) // base case, if key is empty string, final node has been reached. return value.
 			{
-				firstLetter = key.substr(0, 1);
-				DEBUG_LOG("TRIE", "First letter of key is " + firstLetter);
 				if(children[key.at(0) - 'a'] != NULL)
 				{
 					return children[key.at(0) - 'a']->get(key.substr(1, std::string::npos));
