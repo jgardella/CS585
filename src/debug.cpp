@@ -19,6 +19,7 @@ Debug::Debug()
        	channels[1] = error;
 	channels[2] = warn;	
 	numChannels = 3;
+	recalculateMaxWidth();
 	isTerminalLoggingEnabled = true;
 	isFileLoggingEnabled = false;
 	isNetworkLoggingEnabled = false;
@@ -36,11 +37,21 @@ Debug* Debug::getInstance()
 
 void Debug::log(std::string channel, std::string message)
 {
-	if(isUnmutedAndValid(channel) && enabled)
+	unsigned int i;
+	int channelIndex;
+	if((channelIndex = isUnmutedAndValid(channel)) >= 0 && enabled)
 	{
 		if(isTerminalLoggingEnabled)
 		{
-			std::cout << channel << " :: " << getTimestamp() << " :: " << message << std::endl;
+			setColor(channelIndex % 7 + 31);
+			std::cout << channel;
+			for(i = maxWidth; i > channel.length(); i--) // print out extra whitespace after channel
+			{
+				std::cout << " ";
+			}	
+			std::cout << " :: " << getTimestamp() << " :: " << message;
+			setColor(37);
+			std::cout << std::endl;
 		}
 		if(isFileLoggingEnabled)
 		{
@@ -82,6 +93,7 @@ std::string Debug::addChannel(std::string newChannel)
 		channel.isMuted = false;	
 		channels[numChannels++] = channel; // add new channel struct to list of custom channels
 	}
+	recalculateMaxWidth();
 	return newChannel;
 }
 
@@ -93,7 +105,7 @@ std::string Debug::getTimestamp()
 	return stringTime.substr(0, stringTime.length() - 1); // removes last character before turning, because ctime always appends a new-line to the end of the time
 }
 
-bool Debug::isUnmutedAndValid(std::string channel)
+int Debug::isUnmutedAndValid(std::string channel)
 {
 	unsigned int i;
 	// iterate through channels and find specified channel
@@ -101,11 +113,14 @@ bool Debug::isUnmutedAndValid(std::string channel)
 	{
 		if(channel.compare(channels[i].channelName) == 0)
 		{
-			return !channels[i].isMuted;
+			if(!channels[i].isMuted)
+			{
+				return i;
+			}
 		}
 	}
 	// if this point is reached, the given channel name is not valid
-	return false;
+	return -1;
 }
 
 void Debug::setChannelMute(std::string channel, bool isChannelMuted)
@@ -156,4 +171,23 @@ void Debug::muteAllExceptDefault()
 	{
 		channels[i].isMuted = true;
 	}
+}
+
+void Debug::recalculateMaxWidth()
+{
+	unsigned int maxLength = channels[0].channelName.length();
+	unsigned int i;
+	for(i = 0; i < numChannels; i++)
+	{
+		if(channels[i].channelName.length() > maxLength)
+		{
+			maxLength = channels[i].channelName.length();
+		}
+	}
+	maxWidth = maxLength;
+}
+
+void Debug::setColor(int index)
+{
+	std::cout << "\x1b[" << index << "m";
 }

@@ -72,6 +72,7 @@ class Debug
 		static Debug* instance;
 		static const unsigned int MAX_CHANNELS = 100;
 		unsigned int numChannels;
+		unsigned int maxWidth;
 
 		bool enabled;
 		bool isTerminalLoggingEnabled;
@@ -86,8 +87,16 @@ class Debug
 		// Checks if a channel is muted.
 		// Parameters:
 		// string channel - the channel to check the mute-status of
-		// Returns true if channel is muted, false if not.
-		bool isUnmutedAndValid(std::string channel);
+		// Returns the index of the channel in the channel array if the channel is valid and unmuted, -1 otherwise.
+		int isUnmutedAndValid(std::string channel);
+
+		// Calculates the max width of the channels and appends whitespace so that all channel names are the same length.
+		void recalculateMaxWidth();
+
+		// Sets the color of the output based on the given channel index.
+		// Parameters:
+		// int channel - the index to base the color off of
+		void setColor(int index);
 };
 
 #endif
