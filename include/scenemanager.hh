@@ -7,6 +7,8 @@
 #include "scenenode.hh"
 #include "dynamicarray.hh"
 #include "iscenegraph.hh"
+#include "fixedgrid.hh"
+#include "debug.hh"
 
 // Singleton class for managing scene.
 class SceneManager
