@@ -1,38 +1,5 @@
+// Tick function and related functions for processedig deferrments.
 #include "dispatcher.hh"
-
-Dispatcher::Dispatcher()
-{
-	DEBUG_LOG("DISPATCHER", "Constructing dispatcher.");
-	eventQueue = new Queue<IEvent*>();
-	addListenerQueue = new Queue<tListener*>();
-	removeListenerQueue = new Queue<tListener*>();
-	callbacks = new Trie<DynamicArray<IListenerCallback*>*>();
-}
-
-Dispatcher::~Dispatcher()
-{
-	delete eventQueue;
-	delete addListenerQueue;
-	delete removeListenerQueue;
-	delete callbacks;
-}
-
-void Dispatcher::addListener(std::string eventType, IListenerCallback* callback)
-{
-	addListenerQueue->enqueue(new tListener(eventType, callback));
-}
-
-void Dispatcher::removeListener(std::string eventType, IListenerCallback* callback)
-{
-	removeListenerQueue->enqueue(new tListener(eventType, callback));	
-}
-
-void Dispatcher::dispatch(IEvent* event)
-{
-	DEBUG_LOG("DISPATCHER", "Dispatching event of type " + event->getType() + "."); 
-	// add event to event queue, will be dispatched during tick
-	eventQueue->enqueue(event);
-}
 
 void Dispatcher::tick(float dt)
 {
@@ -124,9 +91,4 @@ void Dispatcher::removeDeferredListener(std::string eventType, IListenerCallback
 			}
 		}		
 	}
-}
-
-void Dispatcher::setGraph(ISceneGraph* graph)
-{
-	
 }
