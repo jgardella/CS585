@@ -29,7 +29,7 @@ as for the template to accept all types, all implementation must be in the heade
 Header files may contain multiple classes.
 
 Similar methods should be grouped together in their own `.cpp` file, which should be named to indicate its contents and its associated headerfile.
-For example, a file which contains getters and setters for a car class, which has the header file `car.hh` should be called `car_gettersandsetters.hh`.
+For example, a file which contains getters and setters for a car class, which has the header file `car.hh` should be called `car_gettersandsetters.cpp`.
 
 Internally, `.cpp` files should follow this pattern:
 
@@ -83,4 +83,4 @@ Naming
 Spacing
 -------
 - On both sides of an operator, there should be one space.
-- On the side of parenthetical statements, there should be no space between the contents and the parenthesees.
+- On the inside of parenthetical statements, there should be no space between the contents and the parenthesees.
