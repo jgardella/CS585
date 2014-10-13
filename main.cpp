@@ -7,6 +7,7 @@
 #include "jsonarray.hh"
 #include "jsonobject.hh"
 #include "jsonparser.hh"
+#include <string>
 
 // -------------------- DYNAMIC ARRAY TESTS -------------------- 
 

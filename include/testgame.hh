@@ -7,7 +7,10 @@
 class TestGame
 {
 	public:
+		// Construct a new test game.
 		TestGame();
+		
+		// Start the simulation.
 		void simulate();
 	private:
 		GameObject *gameObject;

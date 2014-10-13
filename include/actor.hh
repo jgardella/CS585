@@ -26,7 +26,7 @@ class Actor : public IActor
 		int getX();
 
 		int getY();
-
+		
 		bool isMarkedForRemoval();
 
 		void markForRemoval();	

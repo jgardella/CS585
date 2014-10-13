@@ -13,13 +13,15 @@ class RandomWalkController : public ITickable
 {
 	public:
 		// Constructs controller with given array of actors.
-		RandomWalkController(DynamicArray<Actor*> *actors);
+		// Parameters:
+		// DynamicArray<Actor*>* actors - array of actors in game
+		RandomWalkController(DynamicArray<Actor*>* actors);
+
 		// Ticks actors.
 		void tick(float dt);
-		void setGraph(ISceneGraph* graph);
+		
 	private:
 		DynamicArray<Actor*> *actors;
-		ISceneGraph* graph;
 		float timeCounter;
 };
 

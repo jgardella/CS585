@@ -8,6 +8,9 @@
 class StateEvent : public IEvent
 {
 	public:
+		// Constructs a state event with the given state string.
+		// Parameters:
+		// std::string state - the name of the state
 		StateEvent(std::string state);
 		std::string getState();
 	private:

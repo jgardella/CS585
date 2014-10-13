@@ -11,16 +11,19 @@
 class IState : public ITickable
 {
 	public:
-		void addListener(std::string type, IListenerCallback* listener)
-		{
-			dispatcher->addListener(type, listener);
-		}
+		// Adds a listener to the state.
+		// Parameters:
+		// std::string type - the type of listener
+		// IListenerCallback* listener - pointer to the listener's callback
+		void addListener(std::string type, IListenerCallback* listener);
 
 	protected:
-		IState(IActor* act, Trie<float>* config) : actor(act), behavioralConfig(config) 
-		{
-			dispatcher = new Dispatcher();
-		}
+
+		// Constructs a state with the given actor and config.
+		// Parameters:
+		// IActor* act - pointer to the statemachine's actor
+		// Trie<float>* config - pointer to the actor's behavioral config
+		IState(IActor* act, Trie<float>* config); 
 		IActor* actor;
 		Trie<float>* behavioralConfig;
 		Dispatcher* dispatcher;

@@ -48,8 +48,6 @@ class Dispatcher : public ITickable
 		// Paramters:
 		// float dt - change in time
 		void tick(float dt);
-		
-		void setGraph(ISceneGraph* graph);
 
 	private:
 		Trie<DynamicArray<IListenerCallback*>*> *callbacks;
