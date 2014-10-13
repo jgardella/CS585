@@ -3,7 +3,7 @@
 void FixedGrid::addSceneNode(SceneNode *node)
 {
 	DEBUG_LOG("FIXEDGRID", "Adding scene node.");
-	int gridIndex = node->getY() *  yDimension + node->getX();
+	int gridIndex = node->getY() * yDimension + node->getX();
 	SceneNode *nodeAtGridIndex;
 	if(nodeGrid[gridIndex] == NULL) // if position in grid is empty, simply add node
 	{
@@ -35,6 +35,8 @@ void FixedGrid::removeSceneNode(SceneNode *node)
 	{
 		node->getNext()->setPrevious(node->getPrevious());
 	}
+	node->setNext(NULL);
+	node->setPrevious(NULL);
 }
 
 void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)

@@ -1,4 +1,5 @@
 #include "actorspawner.hh"
+#include <string>
 
 ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actors, int spawnX, int spawnY)
 {
@@ -39,7 +40,7 @@ void ActorSpawner::tick(float dt)
 	{
 		DEBUG_LOG("SPAWNER", "Actor spawner spawning new actor.");
 		Actor *newActor = new Actor(*names->get(randomName++), spawnX, spawnY, true);
-		DEBUG_LOG("GAMEPLAY", "Spawning " + newActor->getName());
+		DEBUG_LOG("GAMEPLAY", "Spawning " + newActor->getName() + " at (" + std::to_string(spawnX) + ", " + std::to_string(spawnY) + ").");
 		actors->pushBack(newActor);
 		DEBUG_LOG("SPAWNER", "Actor added to actors array.");
 		timeCounter = 0;

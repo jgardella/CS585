@@ -14,6 +14,7 @@ void SceneManager::removeSceneNode(SceneNode* node)
 
 void SceneManager::updateSceneNode(SceneNode* node, int x, int y)
 {
+	DEBUG_LOG("MANAGER", "Updating scene node.");
 	sceneGraph->updateSceneNode(node, x, y);
 }
 

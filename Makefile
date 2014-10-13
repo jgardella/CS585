@@ -12,7 +12,7 @@ all: $(OBJ_FILES)
 debug: all
 
 bin/%.o: src/%.cpp
-	g++ $(CXXFLAGS) -g -c -o $@ $<
+	g++ -std=c++11 $(CXXFLAGS) -g -c -o $@ $<
 clean:
 	-$(RM) bin/*~
 	-$(RM) bin/\#*

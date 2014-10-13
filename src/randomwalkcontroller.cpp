@@ -22,11 +22,10 @@ void RandomWalkController::tick(float dt)
 		{
 			// movement
 			actor = *actors->get(i);
-			int newX = actor->getX() + std::rand() % 5 - 2;
-			int newY = actor->getY() + std::rand() % 5 - 2;
-			actor->setX(newX);
-			actor->setY(newY);
-			DEBUG_LOG("GAMEPLAY", actor->getName() + " moving.");
+			int newX = actor->getX() + std::rand() % 3 - 1;
+			int newY = actor->getY() + std::rand() % 3 - 1;
+			SceneManager::getInstance()->updateSceneNode(actor->getSceneNode(), newX, newY);
+			DEBUG_LOG("GAMEPLAY", actor->getName() + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
 			// collision
 			colliders = SceneManager::getInstance()->getColliders(actor->getSceneNode());
 			if(colliders->length() > 1)
