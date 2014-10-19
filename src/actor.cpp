@@ -1,9 +1,9 @@
 #include "actor.hh"
 #include "debug.hh"
 
-Actor::Actor(std::string name, int initialX, int initialY, bool col) : IActor(col, "ACTOR")
+Actor::Actor(std::string name, int initialX, int initialY, unsigned int col) : IActor(col, "ACTOR")
 {
-	DEBUG_LOG("ACTOR", "Creating Actor.");
+	//DEBUG_LOG("ACTOR", "Creating Actor with (name: " + name + ", initialX: " + std::to_string(initialX) + ", initialY: " + std::to_string(initialY) + ", col: " + std::to_string(col) + ").");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, *this, NULL, NULL);
 	DEBUG_LOG("ACTOR", "Scene node added to graph.");

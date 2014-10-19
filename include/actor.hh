@@ -14,8 +14,8 @@ class Actor : public IActor
 		// std::string name - name of actor
 		// int x - initial x coordinate of actor
 		// int y - intial y coordinate of actor
-		// bool collides - whether or not the actor collides with other collidable objects
-		Actor(std::string name, int x, int y, bool collides);
+		// unsigned int col - collision layer for actor
+		Actor(std::string name, int x, int y, unsigned int col);
 		
 		~Actor();
 
