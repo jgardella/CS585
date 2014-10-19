@@ -29,7 +29,7 @@ class DynamicArray
 		// unsigned int preAllocatedLength - the length to initially allocate the internal array
 		DynamicArray(unsigned int preAllocatedLength)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Creating dynamic array with custom constructor.");
+			DEBUG_LOG("DYNAMICARRAY", "Creating dynamic array with (preAllocatedLength: " + std::to_string(preAllocatedLength) + ").");
 			array = new T[preAllocatedLength];
 			dynamicArrayLength = 0;
 			internalArrayLength = preAllocatedLength;
@@ -71,7 +71,7 @@ class DynamicArray
 			}
 			*dynamicArrayFront-- = newElement;
 			dynamicArrayLength++;
-			DEBUG_LOG("DYNAMICARRAY", "Element pushed to front of array.");
+			DEBUG_LOG("DYNAMICARRAY", "Element pushed to front of array, length is now " + std::to_string(dynamicArrayLength) + ".");
 		}
 		
 		// Adds a new element onto the back end of the array.
@@ -97,7 +97,7 @@ class DynamicArray
 			}
 			*dynamicArrayBack++ = newElement;
 			dynamicArrayLength++;
-			DEBUG_LOG("DYNAMICARRAY", "Element pushed to back of array.");
+			DEBUG_LOG("DYNAMICARRAY", "Element pushed to back of array, length is now " + std::to_string(dynamicArrayLength) + ".");
 		}
 
 		
@@ -109,7 +109,7 @@ class DynamicArray
 		// unsigned int index - the index at which to insert the nwe element, should be from 0 to length() - 1
 		void insert(T newElement, unsigned int index)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Attempting to insert new element into array.");	
+			DEBUG_LOG("DYNAMICARRAY", "Attempting to insert new element into array at index " + std::to_string(index) + ".");	
 			unsigned int i;
 			if(length() == capacity())
 			{
@@ -139,7 +139,7 @@ class DynamicArray
 			}
 			*(dynamicArrayFront + index + 1) = newElement; // add new element	
 			dynamicArrayLength++;
-			DEBUG_LOG("DYNAMICARRAY", "Element inserted.");
+			DEBUG_LOG("DYNAMICARRAY", "Element inserted, length is now " + std::to_string(dynamicArrayLength) + ".");
 		}
 
 		// Replaces the element at index with newElement. Keeping with the C++ spirit, if the provided index is outside the dynamic array the behavior is undefined.
@@ -149,7 +149,7 @@ class DynamicArray
 		// Returns the element that was in position index before setting.
 		T set(T newElement, unsigned int index)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Setting element in array.");
+			DEBUG_LOG("DYNAMICARRAY", "Setting element in array at index " + std::to_string(index) + ".");
 			T oldElement = dynamicArrayFront[index + 1];
 			dynamicArrayFront[index + 1] = newElement;
 			return oldElement;
@@ -161,7 +161,7 @@ class DynamicArray
 		// unsigned int indexTwo - the index of the second item, should be from 0 to length() - 1
 		void swap(unsigned int indexOne, unsigned int indexTwo)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Swapping two elements in array.");
+			DEBUG_LOG("DYNAMICARRAY", "Swapping two elements in array at index " + std::to_string(indexOne) + "and " + std::to_string(indexTwo) + ".");
 			T temp = dynamicArrayFront[indexOne + 1];
 			dynamicArrayFront[indexOne + 1] = dynamicArrayFront[indexTwo + 1];
 			dynamicArrayFront[indexTwo + 1] = temp;	
@@ -173,7 +173,7 @@ class DynamicArray
 		// Returns the item at position index.
 		T* get(unsigned int index)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Getting element from array.");
+			DEBUG_LOG("DYNAMICARRAY", "Getting element from array at index " + std::to_string(index) + ".");
 			return &dynamicArrayFront[index + 1];
 		}
 		
@@ -183,7 +183,7 @@ class DynamicArray
 		// Returns the item after removal.
 		T remove(unsigned int index)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Attempting to remove element from array.");
+			DEBUG_LOG("DYNAMICARRAY", "Attempting to remove element from array at index " + std::to_string(index) + ".");
 			unsigned int i;
 			DEBUG_LOG("DYNAMICARRAY", "Storing removed element.");
 			T removedElement = *get(index);
@@ -218,14 +218,14 @@ class DynamicArray
 		// Returns the number of elements in the dynamic array.
 		unsigned int length()
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Getting length of array.");
+			DEBUG_LOG("DYNAMICARRAY", "Getting length of array: " + std::to_string(dynamicArrayLength) + ".");
 			return dynamicArrayLength;
 		}
 
 		// Returns the length of the internal array.
 		unsigned int capacity()
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Getting capacity of array.");
+			DEBUG_LOG("DYNAMICARRAY", "Getting capacity of array: " + std::to_string(internalArrayLength) + ".");
 			return internalArrayLength;
 		}
 
@@ -236,7 +236,7 @@ class DynamicArray
 		// unsigned int sizeToReserve - the size to reserve for the internal array (must be greater than the current length of the internal array)
 		void reserve(unsigned int sizeToReserve)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Attempting to reserve specified size.");
+			DEBUG_LOG("DYNAMICARRAY", "Attempting to reserve size " + std::to_string(sizeToReserve) + ".");
 			if(sizeToReserve > internalArrayLength)
 			{
 				DEBUG_LOG("DYNAMICARRAY", "Requested reserve size greater than current size, reallocating.");
@@ -259,7 +259,7 @@ class DynamicArray
 		// unsigned int newSize - the new size for the internal array (must be greater than the current length of the dynamic array)
 		void reallocate(unsigned int newSize)
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Attempting to reallocate array.");
+			DEBUG_LOG("DYNAMICARRAY", "Attempting to reallocate array to new size " + std::to_string(newSize) + ".");
 			unsigned int i;
 			T* temp;
 			if(newSize > dynamicArrayLength)
