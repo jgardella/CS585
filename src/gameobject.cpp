@@ -23,7 +23,10 @@ bool GameObject::update(float dt)
 		DEBUG_LOG("GAMEPLAY", "Simulation finished. Remaining actors:");
 		for(i = 0; i < actors->length(); i++)
 		{
-			DEBUG_LOG("GAMEPLAY", (*actors->get(i))->getName());
+			if(!(*actors->get(i))->isRemoved())
+			{	
+				DEBUG_LOG("GAMEPLAY", (*actors->get(i))->getName());
+			}
 		}
 		return false;
 	}

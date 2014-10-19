@@ -18,7 +18,7 @@ void RandomWalkController::tick(float dt)
 	if(timeCounter >= 2)
 	{
 		DEBUG_LOG("WALKCONTROLLER", "Moving actors.");
-		for(i = 0; i < actors->length() && !(*actors->get(i))->isMarkedForRemoval(); i++)
+		for(i = 0; i < actors->length() && !(*actors->get(i))->isRemoved(); i++)
 		{
 			// movement
 			actor = *actors->get(i);
@@ -36,25 +36,14 @@ void RandomWalkController::tick(float dt)
 					if(iactor->getClass().compare("ACTOR") == 0 && iactor != (*actors->get(i)))
 					{
 						Actor* collidingActor = (Actor*) iactor;
-						collidingActor->markForRemoval();
-						actor->markForRemoval();
-						DEBUG_LOG("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "!");
+						collidingActor->remove();
+						actor->remove();
+						DEBUG_LOG("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "! Removing both.");
 					}
 				}
 			}
 			delete colliders;
 		}
 		timeCounter = 0;
-		DEBUG_LOG("WALKCONTROLLER", "Removing actors with collisions.");
-		for(i = 0; i < actors->length(); i++)
-		{
-			actor = *actors->get(i);	
-			if(actor->isMarkedForRemoval())
-			{
-				DEBUG_LOG("WALKCONTROLLER", actor->getName() + " had a collision, removing from the scene."); 
-				SceneManager::getInstance()->removeSceneNode(actor->getSceneNode());
-				delete actors->remove(i--);
-			}
-		}
 	}
 }

@@ -3,12 +3,11 @@
 
 Actor::Actor(std::string name, int initialX, int initialY, unsigned int col) : IActor(col, "ACTOR")
 {
-	//DEBUG_LOG("ACTOR", "Creating Actor with (name: " + name + ", initialX: " + std::to_string(initialX) + ", initialY: " + std::to_string(initialY) + ", col: " + std::to_string(col) + ").");
+	DEBUG_LOG("ACTOR", "Creating Actor with (name: " + name + ", initialX: " + std::to_string(initialX) + ", initialY: " + std::to_string(initialY) + ", col: " + std::to_string(col) + ").");
 	this->name = name;
 	sceneNode = new SceneNode(initialX, initialY, *this, NULL, NULL);
 	DEBUG_LOG("ACTOR", "Scene node added to graph.");
 	SceneManager::getInstance()->addSceneNode(sceneNode);
-	readyForRemoval = false;
 }
 
 Actor::~Actor()
@@ -41,14 +40,15 @@ int Actor::getY()
 	return sceneNode->getY();
 }
 
-void Actor::markForRemoval()
+void Actor::remove()
 {
-	readyForRemoval = true;
+	SceneManager::getInstance()->removeSceneNode(sceneNode);
+	removed = true;
 }
 
-bool Actor::isMarkedForRemoval()
+bool Actor::isRemoved()
 {
-	return readyForRemoval;
+	return removed;
 }
 
 SceneNode* Actor::getSceneNode()
