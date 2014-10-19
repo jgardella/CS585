@@ -1,5 +1,6 @@
 #include "randomwalkcontroller.hh"
 #include <string>
+#include <ctime>
 
 RandomWalkController::RandomWalkController(DynamicArray<Actor*> *actors)
 {
@@ -18,31 +19,35 @@ void RandomWalkController::tick(float dt)
 	if(timeCounter >= 2)
 	{
 		DEBUG_LOG("WALKCONTROLLER", "Moving actors.");
-		for(i = 0; i < actors->length() && !(*actors->get(i))->isRemoved(); i++)
+		for(i = 0; i < actors->length(); i++)
 		{
-			// movement
-			actor = *actors->get(i);
-			int newX = actor->getX() + std::rand() % 3 - 1;
-			int newY = actor->getY() + std::rand() % 3 - 1;
-			SceneManager::getInstance()->updateSceneNode(actor->getSceneNode(), newX, newY);
-			DEBUG_LOG("GAMEPLAY", actor->getName() + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
-			// collision
-			colliders = SceneManager::getInstance()->getColliders(actor->getSceneNode());
-			if(colliders->length() > 1)
+			if(!(*actors->get(i))->isRemoved())
 			{
-				for(j = 0; j < colliders->length(); j++)
+				// movement
+				actor = *actors->get(i);
+				std::srand(time(NULL));
+				int newX = actor->getX() + std::rand() % 3 - 1;
+				int newY = actor->getY() + std::rand() % 3 - 1;
+				SceneManager::getInstance()->updateSceneNode(actor->getSceneNode(), newX, newY);
+				DEBUG_LOG("GAMEPLAY", actor->getName() + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
+				// collision
+				colliders = SceneManager::getInstance()->getColliders(actor->getSceneNode());
+				if(colliders->length() > 1)
 				{
-					IActor* iactor = (*colliders->get(j))->getActor();
-					if(iactor->getClass().compare("ACTOR") == 0 && iactor != (*actors->get(i)))
+					for(j = 0; j < colliders->length(); j++)
 					{
-						Actor* collidingActor = (Actor*) iactor;
-						collidingActor->remove();
-						actor->remove();
-						DEBUG_LOG("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "! Removing both.");
+						IActor* iactor = (*colliders->get(j))->getActor();
+						if(iactor->getClass().compare("ACTOR") == 0 && iactor != (*actors->get(i)))
+						{
+							Actor* collidingActor = (Actor*) iactor;
+							collidingActor->remove();
+							actor->remove();
+							DEBUG_LOG("GAMEPLAY", actor->getName() + " collided with " +  collidingActor->getName() + "! Removing both.");
+						}
 					}
 				}
+				delete colliders;
 			}
-			delete colliders;
 		}
 		timeCounter = 0;
 	}
