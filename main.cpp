@@ -655,7 +655,7 @@ void initializeDebug()
 	Debug::getInstance()->addChannel("QUEUE");
 	Debug::getInstance()->addChannel("TRIE");
 	Debug::getInstance()->addChannel("JSON");
-	Debug::getInstance()->muteAllExcept("JSON");
+	//Debug::getInstance()->muteAllExcept("JSON");
 	Debug::getInstance()->setChannelMute("ERROR", false);
 	#endif
 }

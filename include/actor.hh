@@ -27,10 +27,10 @@ class Actor : public IActor
 
 		int getY();
 		
-		bool isMarkedForRemoval();
+		void remove();
 
-		void markForRemoval();	
-		
+		bool isRemoved();
+
 		std::string getName();
 		
 		SceneNode* getSceneNode();
@@ -38,7 +38,7 @@ class Actor : public IActor
 	private:
 		std::string name;
 		SceneNode *sceneNode;
-		bool readyForRemoval;
+		bool removed;
 };
 
 #endif

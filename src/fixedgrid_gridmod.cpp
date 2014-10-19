@@ -41,7 +41,7 @@ void FixedGrid::removeSceneNode(SceneNode *node)
 
 void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)
 {
-	DEBUG_LOG("FIXEDGRID", "Updating scene node.");
+	DEBUG_LOG("FIXEDGRID", "Updating scene node to position (" + std::to_string(x) + ", " + std::to_string(y) + ").");
 	if(x < xDimension && x >= 0 && y < yDimension && y >= 0)
 	{
 		DEBUG_LOG("FIXEDGRID", "New position for scene node is within bounds of scene.");

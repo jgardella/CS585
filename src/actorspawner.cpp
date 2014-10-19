@@ -3,7 +3,7 @@
 
 ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actors, int spawnX, int spawnY)
 {
-	DEBUG_LOG("SPAWNER", "Constructing ActorSpawner.");
+	DEBUG_LOG("SPAWNER", "Constructing ActorSpawner with (secondsBetweenSpawns: " + std::to_string(secondsBetweenSpawns) + ", spawnX: " + std::to_string(spawnX) + ", spawnY: " + std::to_string(spawnY) + ".");
 	this->actors = actors;
 	names = new DynamicArray<std::string>();
 	names->pushBack("Jason");

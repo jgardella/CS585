@@ -9,6 +9,7 @@ void debugInit()
 	Debug::getInstance()->setDebugStatus(true);
 	Debug::getInstance()->setTerminalLogging(true);
 	Debug::getInstance()->addChannel("ACTOR");
+	Debug::getInstance()->addChannel("IACTOR");
 	Debug::getInstance()->addChannel("SPAWNER");
 	Debug::getInstance()->addChannel("MANAGER");
 	Debug::getInstance()->addChannel("FIXEDGRID");

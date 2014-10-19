@@ -2,7 +2,7 @@
 
 FixedGrid::FixedGrid()
 {
-	DEBUG_LOG("FIXEDGRID", "Constructing fixed grid.");
+	DEBUG_LOG("FIXEDGRID", "Constructing fixed grid with default dimensions 10x10.");
 	int i;
 	nodeGrid = new SceneNode*[100];
 	for(i = 0; i < 100; i++)
@@ -15,7 +15,7 @@ FixedGrid::FixedGrid()
 
 FixedGrid::FixedGrid(int xDimension, int yDimension)
 {
-	DEBUG_LOG("FIXEDGRID", "Constructing fixed grid.");
+	DEBUG_LOG("FIXEDGRID", "Constructing fixed grid with dimension " + std::to_string(xDimension) + "x" + std::to_string(yDimension) + ".");
 	int i;
 	nodeGrid = new SceneNode*[xDimension * yDimension];
 	for(i = 0; i < 100; i++)
