@@ -13,6 +13,7 @@ class Queue
 		// Constructor for an unbounded queue.
 		Queue()
 		{
+			DEBUG_LOG("QUEUE", "Constructing unbounded queue.");
 			dynamicArray = new DynamicArray<T>();
 			isBounded = false;
 		}
@@ -22,12 +23,14 @@ class Queue
 		// unsigned int capacity - the bounded capacity of the queue
 		Queue(unsigned int capacity)
 		{
+			DEBUG_LOG("QUEUE", "Constructing bounded queue with capacity: " + std::to_string(capacity) + ".");
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}
 	
 		~Queue()
 		{
+			DEBUG_LOG("QUEUE", "Deconstructing queue.");
 			delete dynamicArray;
 		}
 
@@ -67,10 +70,13 @@ class Queue
 
 		bool empty()
 		{
+			DEBUG_LOG("QUEUE", "Checking if queue is empty.");
 			if(dynamicArray->length() == 0)
 			{
+				DEBUG_LOG("QUEUE", "Queue is empty.");
 				return true;
 			}
+			DEBUG_LOG("QUEUE", "Queue is not empty.");
 			return false;
 		}
 

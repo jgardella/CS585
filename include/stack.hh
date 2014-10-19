@@ -13,6 +13,7 @@ class Stack
 		// Constructor for an unbounded stack.
 		Stack()
 		{
+			DEBUG_LOG("STACK", "Constructing unbounded stack.");
 			dynamicArray = new DynamicArray<T>();
 			isBounded = false;
 		}
@@ -22,12 +23,14 @@ class Stack
 		// unsigned int capacity - the bounded capacity of the stack
 		Stack(unsigned int capacity)
 		{
+			DEBUG_LOG("STACK", "Constructing bounded stack with capacity: " + std::to_string(capacity) + ".");
 			dynamicArray = new DynamicArray<T>(capacity);
 			isBounded = true;
 		}
 
 		~Stack()
 		{
+			DEBUG_LOG("STACK", "Deconstructing stack.");
 			delete dynamicArray;
 		}
 
