@@ -2,6 +2,7 @@
 
 StateMachine::StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState) : stateMap(map), behavioralConfig(config), currentState(*map->get(startState))
 {
+	DEBUG_LOG("STATEMACHINE", "Constructing StateMachine with start state: " + startState + ".");
 	onStateTransition.setInstance(this);
 }
 
@@ -18,5 +19,6 @@ IListenerCallback* StateMachine::getListener()
 
 void StateMachine::updateState(std::string stateString)
 {
+	DEBUG_LOG("STATEMACHINE", "Updating state to: " + stateString + ".");
 	currentState = *stateMap->get(stateString);
 }

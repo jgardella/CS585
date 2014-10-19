@@ -8,6 +8,7 @@
 #include "itickable.hh"
 #include "ilistenercallback.hh"
 #include "istate.hh"
+#include "debug.hh"
 
 // StateMachine class used as implementation of controller.
 class StateMachine : public ITickable

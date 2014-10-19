@@ -3,6 +3,7 @@
 
 #include <string>
 #include "ievent.hh"
+#include "debug.hh"
 
 // Event used to switch the state of a state machine.
 class StateEvent : public IEvent
