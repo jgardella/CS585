@@ -21,7 +21,7 @@ void RandomWalkController::tick(float dt)
 		DEBUG_LOG("WALKCONTROLLER", "Moving actors.");
 		for(i = 0; i < actors->length(); i++)
 		{
-			if(!(*actors->get(i))->isRemoved())
+			if(!(*actors->get(i))->isRemoved()) // ensure actor has not already been removed
 			{
 				// movement
 				actor = *actors->get(i);

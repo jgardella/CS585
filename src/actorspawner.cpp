@@ -1,27 +1,27 @@
 #include "actorspawner.hh"
 #include <string>
+#include <ctime>
 
 ActorSpawner::ActorSpawner(int secondsBetweenSpawns, DynamicArray<Actor*> *actors, int spawnX, int spawnY)
 {
 	DEBUG_LOG("SPAWNER", "Constructing ActorSpawner with (secondsBetweenSpawns: " + std::to_string(secondsBetweenSpawns) + ", spawnX: " + std::to_string(spawnX) + ", spawnY: " + std::to_string(spawnY) + ".");
 	this->actors = actors;
-	names = new DynamicArray<std::string>();
-	names->pushBack("Jason");
-	names->pushBack("Pat");
-	names->pushBack("Nick");
-	names->pushBack("Pete");
-	names->pushBack("Steve");
-	names->pushBack("Jeff");
-	names->pushBack("John");
-	names->pushBack("Aaron");
-	names->pushBack("Chris");
-	names->pushBack("Bill");
-	names->pushBack("Ben");
-	names->pushBack("Joe");
-	names->pushBack("Jack");
-	names->pushBack("Alex");
-	names->pushBack("Dan");
-	randomName = 0;
+	names = new DynamicArray<std::string*>();
+	names->pushBack(new std::string("Jason"));
+	names->pushBack(new std::string("Pat"));
+	names->pushBack(new std::string("Nick"));
+	names->pushBack(new std::string("Pete"));
+	names->pushBack(new std::string("Steve"));
+	names->pushBack(new std::string("Jeff"));
+	names->pushBack(new std::string("John"));
+	names->pushBack(new std::string("Aaron"));
+	names->pushBack(new std::string("Chris"));
+	names->pushBack(new std::string("Bill"));
+	names->pushBack(new std::string("Ben"));
+	names->pushBack(new std::string("Joe"));
+	names->pushBack(new std::string("Jack"));
+	names->pushBack(new std::string("Alex"));
+	names->pushBack(new std::string("Dan"));
 	this->spawnX = spawnX;
 	this->spawnY = spawnY;
 	this->secondsBetweenSpawns = secondsBetweenSpawns;
@@ -38,8 +38,9 @@ void ActorSpawner::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= secondsBetweenSpawns)
 	{
+		std::srand(time(NULL));
 		DEBUG_LOG("SPAWNER", "Actor spawner spawning new actor.");
-		Actor *newActor = new Actor(*names->get(randomName++), spawnX, spawnY, true);
+		Actor *newActor = new Actor(*names->remove(rand() % names->length()), spawnX, spawnY, true);
 		DEBUG_LOG("GAMEPLAY", "Spawning " + newActor->getName() + " at (" + std::to_string(spawnX) + ", " + std::to_string(spawnY) + ").");
 		actors->pushBack(newActor);
 		DEBUG_LOG("SPAWNER", "Actor added to actors array.");

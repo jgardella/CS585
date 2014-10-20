@@ -21,10 +21,9 @@ class ActorSpawner : public ITickable
 		// Ticks the spawner.
 		void tick(float dt);
 	private:
-		DynamicArray<std::string> *names;
+		DynamicArray<std::string*> *names;
 		DynamicArray<Actor*> *actors;
 		int secondsBetweenSpawns;
-		int randomName;
 		int spawnX;
 		int spawnY;
 		float timeCounter;
