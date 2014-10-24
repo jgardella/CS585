@@ -1,10 +1,12 @@
 #ifndef _RENDERSIM_HH_
 #define _RENDERSIM_HH_
 
+#include "jsonparser.hh"
+#include "jsonobject.hh"
+
 class RenderSim
 {
 	public:
-
 		// Loads the game config at the specified path.
 		// Parameters:
 		// std::string gameConfigPath - path to the game config json file
@@ -12,6 +14,9 @@ class RenderSim
 
 		// Initiates the game.
 		void run();
+
+	private:
+		LevelManager levelManager;
 
 };
 
