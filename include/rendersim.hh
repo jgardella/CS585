@@ -14,6 +14,12 @@ typedef struct sRenderInfo
 	std::string character;
 } tRenderInfo;
 
+typedef struct sPosition
+{
+	int x;
+	int y;
+} tPosition;
+
 class RenderSim
 {
 	public:

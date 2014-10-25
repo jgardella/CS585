@@ -35,21 +35,21 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*> trie)
 	height = trie->get("height")->getPrimitive();
 	defaultTile = trie->get("defaulttile")->getPrimitive();
 	levelInfo = new LevelInfo(width, height, defaultTile);
-	levelInfo->setTrees("tree", jsonArrayToPositionList(trie->get("tree")));
-	levelInfo->setWater("water", jsonArrayToPositionList(trie->get("water")));
-	levelInfo->setMountains("mountain", jsonArrayToPositionList(trie->get("mountain")));
-	levelInfo->setGrass("grass", jsonArrayToPositionList(trie->get("grass")));
+	levelInfo->setPositions("tree", jsonArrayToPositionList(trie->get("tree")));
+	levelInfo->setPositions("water", jsonArrayToPositionList(trie->get("water")));
+	levelInfo->setPositions("mountain", jsonArrayToPositionList(trie->get("mountain")));
+	levelInfo->setPositions("grass", jsonArrayToPositionList(trie->get("grass")));
 	levelManager->loadLevel(*levelInfo);
 }
 
-DynamicArray<Position*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
+DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 {
-	DynamicArray<Postion*>* positions = new DynamicArray<Position*>();
+	DynamicArray<tPostion*>* positions = new DynamicArray<tPosition*>();
 	DynamicArray<JSONItem*>* convertedArray = array->getDynamicArray();
 	unsigned int i;
 	for(i = 0; i < convertedArray->length(); i++)
 	{
-		positions->pushBack(new Position(convertedArray->get(i)->get("x")->getPrimitive(),
+		positions->pushBack(new tPosition(convertedArray->get(i)->get("x")->getPrimitive(),
 					convertedArray->get(i)->get("y")->getPrimitive()));
 	}
 	return positions;
