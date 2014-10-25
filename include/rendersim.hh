@@ -3,6 +3,16 @@
 
 #include "jsonparser.hh"
 #include "jsonobject.hh"
+#include "jsonarray.hh"
+#include "jsonitem.hh"
+#include "trie.hh"
+#include "dynamicarray.hh"
+
+typedef struct sRenderInfo
+{
+	std::string color;
+	std::string character;
+} tRenderInfo;
 
 class RenderSim
 {
@@ -17,6 +27,15 @@ class RenderSim
 
 	private:
 		LevelManager levelManager;
+		Trie<tRenderInfo*>* renderingConfig;
+
+		void parseSubConfig(JSONObject* configObject);
+
+		void parseLevelConfig(Trie<JSONItem*> trie);
+
+		DynamicArray<Position*>* jsonArrayToPositionList(JSONArray* array);
+
+		void parseRenderingConfig(Trie<JSONItem*>* trie);
 
 };
 

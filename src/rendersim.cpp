@@ -42,7 +42,7 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*> trie)
 	levelManager->loadLevel(*levelInfo);
 }
 
-DynamicArray<Position*>* RenderSim::jsonArrayToPositionList(JSONArray array)
+DynamicArray<Position*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 {
 	DynamicArray<Postion*>* positions = new DynamicArray<Position*>();
 	DynamicArray<JSONItem*>* convertedArray = array->getDynamicArray();
@@ -55,7 +55,7 @@ DynamicArray<Position*>* RenderSim::jsonArrayToPositionList(JSONArray array)
 	return positions;
 }
 
-void RenderSim::parseRenderingConfig(Trie<JSONItem*> trie)
+void RenderSim::parseRenderingConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i = 0;
 	DynamicArray<std::string>* keys = trie->getKeys();
