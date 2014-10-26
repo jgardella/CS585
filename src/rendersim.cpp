@@ -27,13 +27,13 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 
 void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 {
-	LevelInfo* levelInfo;
+	tLevelInfo* levelInfo;
 	int width, height;
 	std::string defaultTile;
 	width = ((JSONPrimitive<int>*)*trie->get("width"))->getPrimitive();
 	height = ((JSONPrimitive<int>*)trie->get("height"))->getPrimitive();
 	defaultTile = ((JSONPrimitive<std::string>*)trie->get("defaulttile"))->getPrimitive();
-	levelInfo = new LevelInfo(width, height, defaultTile);
+	levelInfo = new tLevelInfo(width, height, defaultTile);
 	levelInfo->setPositions("tree", jsonArrayToPositionList(((JSONArray*)*trie->get("tree"))));
 	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
 	levelInfo->setPositions("mountain", jsonArrayToPositionList(((JSONArray*)*trie->get("mountain"))));

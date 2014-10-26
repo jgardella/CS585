@@ -1,6 +1,11 @@
 #ifndef _LEVEL_HH_
 #define _LEVEL_HH_
 
+#include "levelinfo.hh"
+#include "fixedgrid.hh"
+#include "scenemanager.hh"
+#include "actorfactory.hh"
+
 class Level
 {
 	public:
@@ -8,13 +13,14 @@ class Level
 		// Parameters:
 		// int width - the width of the world
 		// int height - the height of the world
-		Level(int width, int height);
+		Level(tLevelInfo level);
 
 		int getWorldWidth();
 		int getWorldHeight();
 	private:
 		int width;
 		int height;
+		std::string defaultTile;
 
 };
 

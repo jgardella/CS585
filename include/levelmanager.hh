@@ -10,7 +10,7 @@ class LevelManager
 		// Loads the level specified by the given info object.
 		// Parameters:
 		// LevelInfo info - the info object for the level to load
-		void loadLevel(LevelInfo info);
+		void loadLevel(tLevelInfo info);
 		
 		int getWorldWidth();
 		int getWorldHeight();
