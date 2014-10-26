@@ -3,54 +3,53 @@
 void RenderSim::config(std::string gameConfigPath)
 {
 	unsigned int i;
-	JSONObject obj = JSONParser.parseFile(gameConfigPath).get(0);
+	JSONObject* obj = (JSONObject*)*(JSONParser::parseFile(gameConfigPath)->get(0));
 	Trie<JSONItem*>* trie = obj->getTrie();
-	DynamicArray<JSONtem*>* configs = trie->get("configs")->getDynamicArray();
+	DynamicArray<JSONItem*>* configs = ((JSONArray*)trie->get("configs"))->getDynamicArray();
 	for(i = 0; i < configs->length(); i++)
 	{
-		parseSubConfig(JSONParser.parseFile(configs->get(0)->getPrimitive()));
+		parseSubConfig((JSONObject*)*JSONParser::parseFile(((JSONPrimitive<std::string>*)*configs->get(0))->getPrimitive())->get(0));
 	}
 }
 
 void RenderSim::parseSubConfig(JSONObject* configObject)
 {
-	Trie<JSONItem*>* trie = configObject->getTree();
-	switch(trie->get("key")->getPrimitive)
+	Trie<JSONItem*>* trie = configObject->getTrie();
+	if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("level") == 0)
 	{
-		case "level":
 			parseLevelConfig(trie);
-			break;
-		case "rendering":
+	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("key") == 0)
+	{
 			parseRenderingConfig(trie);
-			break;
 	}
 }
 
-void RenderSim::parseLevelConfig(Trie<JSONItem*> trie)
+void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 {
 	LevelInfo* levelInfo;
 	int width, height;
 	std::string defaultTile;
-	width = trie->get("width")->getPrimitive();
-	height = trie->get("height")->getPrimitive();
-	defaultTile = trie->get("defaulttile")->getPrimitive();
+	width = ((JSONPrimitive<int>*)*trie->get("width"))->getPrimitive();
+	height = ((JSONPrimitive<int>*)trie->get("height"))->getPrimitive();
+	defaultTile = ((JSONPrimitive<std::string>*)trie->get("defaulttile"))->getPrimitive();
 	levelInfo = new LevelInfo(width, height, defaultTile);
-	levelInfo->setPositions("tree", jsonArrayToPositionList(trie->get("tree")));
-	levelInfo->setPositions("water", jsonArrayToPositionList(trie->get("water")));
-	levelInfo->setPositions("mountain", jsonArrayToPositionList(trie->get("mountain")));
-	levelInfo->setPositions("grass", jsonArrayToPositionList(trie->get("grass")));
-	levelManager->loadLevel(*levelInfo);
+	levelInfo->setPositions("tree", jsonArrayToPositionList(((JSONArray*)*trie->get("tree"))));
+	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
+	levelInfo->setPositions("mountain", jsonArrayToPositionList(((JSONArray*)*trie->get("mountain"))));
+	levelInfo->setPositions("grass", jsonArrayToPositionList(((JSONArray*)*trie->get("grass"))));
+	levelManager.loadLevel(*levelInfo);
 }
 
 DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 {
-	DynamicArray<tPostion*>* positions = new DynamicArray<tPosition*>();
+	DynamicArray<tPosition*>* positions = new DynamicArray<tPosition*>();
 	DynamicArray<JSONItem*>* convertedArray = array->getDynamicArray();
 	unsigned int i;
 	for(i = 0; i < convertedArray->length(); i++)
 	{
-		positions->pushBack(new tPosition(convertedArray->get(i)->get("x")->getPrimitive(),
-					convertedArray->get(i)->get("y")->getPrimitive()));
+		positions->pushBack(new tPosition(((JSONPrimitive<int>*)((JSONObject*)*convertedArray->get(i))->getTrie()->get("x"))->getPrimitive(),
+					((JSONPrimitive<int>*)((JSONObject*)*convertedArray->get(i))->getTrie()->get("y"))->getPrimitive()));
 	}
 	return positions;
 }
@@ -61,9 +60,9 @@ void RenderSim::parseRenderingConfig(Trie<JSONItem*>* trie)
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)
 	{
-		sRenderInfo renderInfo;
-		renderInfo.color = trie->get(keys->get(i))->get("color")->getPrimitive();
-		renderInfo.character = trie->get(keys->get(i))->get("character")->getPrimitive();
-		renderingConfig->add(keys->get(i), renderInfo);
+		tRenderInfo renderInfo;
+		renderInfo.color = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("color"))->getPrimitive();
+		renderInfo.character = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("character"))->getPrimitive();
+		renderingConfig->add(*keys->get(i), renderInfo);
 	}
 }

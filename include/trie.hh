@@ -123,6 +123,11 @@ class Trie
 			return root->get(key);
 		}
 
+		DynamicArray<std::string>* getKeys()
+		{
+			return keys;
+		}
+
 	private:
 		Node<T>* root;
 		DynamicArray<std::string>* keys;

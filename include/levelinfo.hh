@@ -23,8 +23,8 @@ class LevelInfo
 
 	private:
 		Trie<DynamicArray<tPosition*>*>* positionTrie;
-		std::string defaultTile;
 		int width, height;
+		std::string defaultTile;
 };
 
 #endif

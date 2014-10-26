@@ -5,9 +5,11 @@
 #include "jsonobject.hh"
 #include "jsonarray.hh"
 #include "jsonitem.hh"
+#include "jsonprimitive.hh"
 #include "trie.hh"
 #include "dynamicarray.hh"
 #include "sposition.hh"
+#include "levelmanager.hh"
 
 typedef struct sRenderInfo
 {
@@ -28,13 +30,13 @@ class RenderSim
 
 	private:
 		LevelManager levelManager;
-		Trie<tRenderInfo*>* renderingConfig;
+		Trie<tRenderInfo>* renderingConfig;
 
 		void parseSubConfig(JSONObject* configObject);
 
-		void parseLevelConfig(Trie<JSONItem*> trie);
+		void parseLevelConfig(Trie<JSONItem*>* trie);
 
-		DynamicArray<Position*>* jsonArrayToPositionList(JSONArray* array);
+		DynamicArray<tPosition*>* jsonArrayToPositionList(JSONArray* array);
 
 		void parseRenderingConfig(Trie<JSONItem*>* trie);
 
