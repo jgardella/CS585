@@ -7,18 +7,13 @@
 #include "jsonitem.hh"
 #include "trie.hh"
 #include "dynamicarray.hh"
+#include "sposition.hh"
 
 typedef struct sRenderInfo
 {
 	std::string color;
 	std::string character;
 } tRenderInfo;
-
-typedef struct sPosition
-{
-	int x;
-	int y;
-} tPosition;
 
 class RenderSim
 {
