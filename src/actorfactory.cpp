@@ -2,12 +2,15 @@
 
 IActor* ActorFactory::get(std::string type, int x, int y)
 {
+	IActor* actor;
 	if(type.compare("orc") == 0)
 	{
-		return OrcFactory::get();
+		actor = OrcFactory::get();
 	}
 	else if(type.compare("dwarf") == 0)
 	{
-		return DwarfFactory::get();
+		actor = DwarfFactory::get();
 	}
+	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
+	return actor;
 }
