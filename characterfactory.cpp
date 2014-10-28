@@ -1,8 +1,8 @@
-#include "actorfactory.hh"
+#include "characterfactory.hh"
 
-IActor* ActorFactory::get(std::string type, int x, int y)
+Character* CharacterFactory::get(std::string type, int x, int y)
 {
-	IActor* actor;
+	Character* actor;
 	ITickable* controller;
 	if(type.compare("orc") == 0)
 	{
