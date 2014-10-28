@@ -4,7 +4,7 @@
 #include "levelinfo.hh"
 #include "fixedgrid.hh"
 #include "scenemanager.hh"
-#include "actorfactory.hh"
+#include "characterfactory.hh"
 
 class Level
 {

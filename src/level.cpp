@@ -19,7 +19,7 @@ Level::Level(tLevelInfo level)
 		for(j = 0; j < keys->length(); j++)
 		{
 			// factory will automatically register actor with grid
-			(void) ActorFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
+			(void) CharacterFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
 		}
 	}		
 }
