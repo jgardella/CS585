@@ -3,14 +3,13 @@
 
 #include "orc.hh"
 #include "orccontroller.hh"
+#include "scenemanager.hh"
 
 class OrcFactory
 {
 	public:
-		// Creates a new orc, registers it with the orc controller, and returns a reference to it.
-		static Orc* get();
-	private:
-		static OrcController* controller;
+		// Creates a new orc and orc controller, registers the controller with the scene manager, and returns a reference to the orc.
+		static Orc* get(int x, int y, unsigned int collisionLayer, unsigned int health);
 };
 
 #endif
