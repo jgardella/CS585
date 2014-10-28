@@ -3,6 +3,9 @@
 
 #include "scenemanager.hh"
 #include "character.hh"
+#include "trie.hh"
+#include "istate.hh"
+#include "statemachine.hh"
 
 class CharacterFactory
 {
@@ -12,8 +15,14 @@ class CharacterFactory
 		// Parameters:
 		// std::string type - the type of the actor
 		// int x - the x coordinate at which to instantiate the actor
-		// int y - the y coordinate at which to instatiate the actor
+		// int y - the y coordinate at which to instantiate the actor
 		static Character* get(std::string type, int x, int y);
+	
+	private:
+		static Trie<Trie<IState*>*>* stateMaps;
+		static Trie<Trie<float>*>* behavioralConfigs;
+		static Trie<std::string>* startStates;
+		static Trie<unsigned int>* characterHealths;
 };
 
 #endif
