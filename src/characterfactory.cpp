@@ -1,5 +1,10 @@
 #include "characterfactory.hh"
 
+Trie<Trie<IState*>*>* CharacterFactory::stateMaps;
+Trie<Trie<float>*>* CharacterFactory::behavioralConfigs;
+Trie<std::string>* CharacterFactory::startStates;
+Trie<unsigned int>* CharacterFactory::characterHealths;
+
 Character* CharacterFactory::get(std::string type, int x, int y)
 {
 	Character* actor = NULL;
