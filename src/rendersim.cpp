@@ -19,7 +19,7 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 			parseLevelConfig(trie);
 	}
-	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("key") == 0)
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("render") == 0)
 	{
 			parseRenderingConfig(trie);
 	}
