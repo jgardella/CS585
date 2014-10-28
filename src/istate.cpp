@@ -12,3 +12,13 @@ void IState::addListener(std::string type, IListenerCallback* listener)
 	DEBUG_LOG("ISTATE", "Adding listener of type " + type + " to IState.");
 	dispatcher->addListener(type, listener);
 }
+
+void IState::setActor(IActor* actor)
+{
+	this->actor = actor;
+}
+
+void IState::setConfig(Trie<float>* config)
+{
+	behavioralConfig = config;
+}

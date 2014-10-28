@@ -16,6 +16,10 @@ class IState : public ITickable
 		// std::string type - the type of listener
 		// IListenerCallback* listener - pointer to the listener's callback
 		void addListener(std::string type, IListenerCallback* listener);
+		
+		void setActor(IActor* actor);
+
+		void setConfig(Trie<float>* config);
 
 	protected:
 

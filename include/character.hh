@@ -32,7 +32,6 @@ class Character : public IActor
 		unsigned int health;
 		const unsigned int MAX_ATTACK = 25;
 		SceneNode *sceneNode;
-		Dispatcher* dispatcher;
 
 };
 

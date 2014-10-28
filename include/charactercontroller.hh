@@ -10,7 +10,7 @@
 class CharacterController : public ITickable
 {
 	public:
-		CharacterController(Character* character, Trie<IState*>* map, Trie<float>* config, std::string startState);
+		CharacterController(Character* character, StateMachine* machine);
 	
 		void tick(float dt);
 
