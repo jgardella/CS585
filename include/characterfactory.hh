@@ -7,6 +7,7 @@
 #include "istate.hh"
 #include "statemachine.hh"
 #include "characterinfo.hh"
+#include "charactercontroller.hh"
 
 class CharacterFactory
 {

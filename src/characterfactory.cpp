@@ -8,7 +8,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	ITickable* controller;
 	tCharacterInfo* info = *characterInfos->get(type);
 	actor = new Character(x, y, 1, info->health);
-	controller = new StateMachine(info->stateMap, info->behavioralConfig, info->startState);
+	controller = new CharacterController(actor, info->stateMap, info->behavioralConfig, info->startState);
 	SceneManager::getInstance()->addTickable(controller);
 	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
 	return actor;

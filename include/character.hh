@@ -2,6 +2,7 @@
 #define _DWARF_HH_
 
 #include "scenenode.hh"
+#include "dispatcher.hh"
 
 class Character : public IActor
 {
@@ -27,11 +28,12 @@ class Character : public IActor
 
 		SceneNode* getSceneNode();
 
-
 	private:
 		unsigned int health;
 		const unsigned int MAX_ATTACK = 25;
 		SceneNode *sceneNode;
+		Dispatcher* dispatcher;
+
 };
 
 #endif
