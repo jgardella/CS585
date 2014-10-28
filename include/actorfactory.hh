@@ -15,7 +15,7 @@ class ActorFactory
 		// std::string type - the type of the actor
 		// int x - the x coordinate at which to instantiate the actor
 		// int y - the y coordinate at which to instatiate the actor
-		IActor* get(std::string type, int x, int y);
+		static IActor* get(std::string type, int x, int y);
 };
 
 #endif
