@@ -6,6 +6,7 @@
 #include "trie.hh"
 #include "istate.hh"
 #include "statemachine.hh"
+#include "characterinfo.hh"
 
 class CharacterFactory
 {
@@ -17,12 +18,11 @@ class CharacterFactory
 		// int x - the x coordinate at which to instantiate the actor
 		// int y - the y coordinate at which to instantiate the actor
 		static Character* get(std::string type, int x, int y);
-	
+		
+		static void addCharacterInfo(std::string name, tCharacterInfo* info);
+
 	private:
-		static Trie<Trie<IState*>*>* stateMaps;
-		static Trie<Trie<float>*>* behavioralConfigs;
-		static Trie<std::string>* startStates;
-		static Trie<unsigned int>* characterHealths;
+		static Trie<tCharacterInfo*>* characterInfos;
 };
 
 #endif

@@ -1,17 +1,20 @@
 #include "characterfactory.hh"
 
-Trie<Trie<IState*>*>* CharacterFactory::stateMaps;
-Trie<Trie<float>*>* CharacterFactory::behavioralConfigs;
-Trie<std::string>* CharacterFactory::startStates;
-Trie<unsigned int>* CharacterFactory::characterHealths;
+Trie<tCharacterInfo*>* CharacterFactory::characterInfos;
 
 Character* CharacterFactory::get(std::string type, int x, int y)
 {
 	Character* actor = NULL;
 	ITickable* controller;
-	actor = new Character(x, y, 1, *characterHealths->get(type));
-	controller = new StateMachine(*stateMaps->get(type), *behavioralConfigs->get(type), *startStates->get(type));
+	tCharacterInfo* info = *characterInfos->get(type);
+	actor = new Character(x, y, 1, info->health);
+	controller = new StateMachine(info->stateMap, info->behavioralConfig, info->startState);
 	SceneManager::getInstance()->addTickable(controller);
 	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
 	return actor;
+}
+
+void CharacterFactory::addCharacterInfo(std::string name, tCharacterInfo* info)
+{
+	characterInfos->add(name, info);
 }
