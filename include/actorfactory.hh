@@ -2,9 +2,8 @@
 #define _ACTORFACTORY_HH_
 
 #include "iactor.hh"
-#include "orcfactory.hh"
-#include "dwarffactory.hh"
 #include "scenemanager.hh"
+#include "character.hh"
 
 class ActorFactory
 {

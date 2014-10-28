@@ -6,13 +6,13 @@ IActor* ActorFactory::get(std::string type, int x, int y)
 	ITickable* controller;
 	if(type.compare("orc") == 0)
 	{
-		actor = new Orc(x, y, collisionLayer, health);
-		controller = new OrcController((Orc*)actor);
+		actor = new Character(x, y, 1, 50);
+		controller = new OrcController(actor);
 	}
 	else if(type.compare("dwarf") == 0)
 	{
-		actor = new Dwarf(x, y, collisionLayer, health);
-		controller = new DwarfController((Dwarf*)actor);
+		actor = new Character(x, y, 1, h);
+		controller = new DwarfController(actor);
 	}
 	SceneManager::getInstance()->addTickable(controller);
 	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
