@@ -1,5 +1,12 @@
 #include "levelmanager.hh"
 
+LevelManager* LevelManager::instance;
+
+LevelManager::LevelManager()
+{
+	
+}
+
 LevelManager* LevelManager::getInstance()
 {
 	if(instance == NULL)

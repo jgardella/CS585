@@ -1,5 +1,10 @@
 #include "level.hh"
 
+Level::Level()
+{
+
+}
+
 Level::Level(tLevelInfo level)
 {
 	unsigned int i, j;

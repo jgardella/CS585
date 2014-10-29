@@ -9,6 +9,8 @@
 class Level
 {
 	public:
+		Level();
+		
 		// Constructs a level with a world of the given width and height.
 		// Parameters:
 		// int width - the width of the world
