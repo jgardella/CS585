@@ -19,9 +19,9 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 			parseLevelConfig(trie);
 	}
-	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("render") == 0)
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("character") == 0)
 	{
-			parseRenderingConfig(trie);
+			parseCharacterConfig(trie);
 	}
 }
 
@@ -38,7 +38,7 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
 	levelInfo->setPositions("mountain", jsonArrayToPositionList(((JSONArray*)*trie->get("mountain"))));
 	levelInfo->setPositions("grass", jsonArrayToPositionList(((JSONArray*)*trie->get("grass"))));
-	levelManager.loadLevel(*levelInfo);
+	LevelManager::getInstance()->loadLevel(*levelInfo);
 }
 
 DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
@@ -54,15 +54,39 @@ DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 	return positions;
 }
 
-void RenderSim::parseRenderingConfig(Trie<JSONItem*>* trie)
+Trie<float>* RenderSim::jsonObjectToBehavioralConfig(JSONObject* object)
 {
-	unsigned int i = 0;
+	unsigned int i;
+	Trie<float>* behavioralConfig = new Trie<float>();
+	Trie<JSONItem*>* trie = object->getTrie();
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)
 	{
-		tRenderInfo renderInfo;
-		renderInfo.color = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("color"))->getPrimitive();
-		renderInfo.character = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("character"))->getPrimitive();
-		renderingConfig->add(*keys->get(i), renderInfo);
+		behavioralConfig->add(*keys->get(i), ((JSONPrimitive<float>*)*trie->get(*keys->get(i)))->getPrimitive());
 	}
+	return behavioralConfig;
+}
+
+Trie<IState*>* RenderSim::getStateMap(std::string type)
+{
+	if(type.compare("orc") == 0)
+	{
+		return orcStateMap;
+	}
+	else if(type.compare("dwarf") == 0)
+	{
+		return dwarfStateMap;
+	}
+	return NULL;
+}
+
+void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
+{
+	tCharacterInfo* charInfo = new tCharacterInfo();
+	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
+	charInfo->stateMap = getStateMap(charInfo->type);
+	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("behavioralconfig"));
+	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("startstate"))->getPrimitive();
+	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();
+	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
 }

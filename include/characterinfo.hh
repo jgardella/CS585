@@ -3,6 +3,7 @@
 
 typedef struct sCharacterInfo
 {
+	std::string type;
 	Trie<IState*>* stateMap;
 	Trie<float>* behavioralConfig;
 	std::string startState;

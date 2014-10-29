@@ -10,6 +10,7 @@
 #include "dynamicarray.hh"
 #include "sposition.hh"
 #include "levelmanager.hh"
+#include "characterinfo.hh"
 
 typedef struct sRenderInfo
 {
@@ -20,6 +21,8 @@ typedef struct sRenderInfo
 class RenderSim
 {
 	public:
+		RenderSim();
+
 		// Loads the game config at the specified path.
 		// Parameters:
 		// std::string gameConfigPath - path to the game config json file
@@ -29,16 +32,20 @@ class RenderSim
 		void run();
 
 	private:
-		LevelManager levelManager;
-		Trie<tRenderInfo>* renderingConfig;
+		Trie<IState*>* dwarfStateMap;
+		Trie<IState*>* orcStateMap;
 
 		void parseSubConfig(JSONObject* configObject);
 
 		void parseLevelConfig(Trie<JSONItem*>* trie);
 
 		DynamicArray<tPosition*>* jsonArrayToPositionList(JSONArray* array);
+		
+		Trie<float>* jsonObjectToBehavioralConfig(JSONObject* object);
 
-		void parseRenderingConfig(Trie<JSONItem*>* trie);
+		Trie<IState*>* getStateMap(std::string type);
+		
+		void parseCharacterConfig(Trie<JSONItem*>* trie);
 
 };
 
