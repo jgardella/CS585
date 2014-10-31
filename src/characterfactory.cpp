@@ -15,7 +15,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	machine = new StateMachine(info->stateMap, info->behavioralConfig, info->startState);
 	
 	// create actor
-	actor = new Character(x, y, 1, info->health);
+	actor = new Character(x, y, 1, info->health, info->type);
 	
 	// register state machine's listener with states in state map
 	keys = info->stateMap->getKeys();
