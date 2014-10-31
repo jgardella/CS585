@@ -21,12 +21,18 @@ Level::Level(tLevelInfo level)
 	{
 		key = *keys->get(i);
 		positions = *level.positionTrie->get(key);
-		for(j = 0; j < keys->length(); j++)
+		for(j = 0; j < positions->length(); j++)
 		{
-			// factory will automatically register actor with grid
-			(void) CharacterFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
+			if(key.compare("orc") == 0 || key.compare("dwarf") == 0)
+			{
+				(void) CharacterFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
+			}
+			else
+			{
+				(void) TileFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
+			}
 		}
-	}		
+	}	
 }
 
 int Level::getWorldWidth()

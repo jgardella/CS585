@@ -1,0 +1,11 @@
+{
+	"type" : "orc",
+	"behavioralconfig" : 
+	{
+		"viewradius" : 5,
+		"maxattack" : 5,
+		"attackchance" : 0.6
+	},
+	"startstate" : "patrol"
+	"health" : 50
+}

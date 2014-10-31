@@ -5,6 +5,7 @@
 #include "fixedgrid.hh"
 #include "scenemanager.hh"
 #include "characterfactory.hh"
+#include "tilefactory.hh"
 
 class Level
 {

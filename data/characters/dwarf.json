@@ -1,0 +1,11 @@
+{
+	"type" : "dwarf",
+	"behavioralconfig" : 
+	{
+		"viewradius" : 3,
+		"maxattack" : 10,
+		"attackchance" : 0.8
+	},
+	"startstate" : "patrol"
+	"health" : 35
+}
