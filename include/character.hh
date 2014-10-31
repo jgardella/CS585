@@ -3,6 +3,7 @@
 
 #include "scenenode.hh"
 #include "dispatcher.hh"
+#include "scenemanager.hh"
 
 class Character : public IActor
 {
@@ -30,11 +31,12 @@ class Character : public IActor
 		SceneNode* getSceneNode();
 
 		std::string getType();
+		
+		void takeDamage(unsigned int damage);
 
 	private:
 		unsigned int health;
 		std::string type;
-		const unsigned int MAX_ATTACK = 25;
 		SceneNode *sceneNode;
 
 };

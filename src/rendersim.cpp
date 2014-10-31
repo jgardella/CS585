@@ -67,25 +67,15 @@ Trie<float>* RenderSim::jsonObjectToBehavioralConfig(JSONObject* object)
 	return behavioralConfig;
 }
 
-Trie<IState*>* RenderSim::getStateMap(std::string type)
-{
-	if(type.compare("orc") == 0)
-	{
-		return orcStateMap;
-	}
-	else if(type.compare("dwarf") == 0)
-	{
-		return dwarfStateMap;
-	}
-	return NULL;
-}
-
 void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 {
 	tCharacterInfo* charInfo = new tCharacterInfo();
+	Trie<IState*>* stateMap = new Trie<IState*>();
+	stateMap->add("attack", new AttackState(NULL, NULL)); // these will be initialized in
+	stateMap->add("patrol", new PatrolState(NULL, NULL)); // the character factory
 	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
-	charInfo->stateMap = getStateMap(charInfo->type);
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("behavioralconfig"));
+	charInfo->stateMap = stateMap;
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("startstate"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);

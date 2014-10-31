@@ -41,3 +41,19 @@ std::string Character::getType()
 {
 	return type;
 }
+
+void Character::takeDamage(unsigned int damage)
+{
+	if(damage >= health)
+	{
+		health = 0;
+	}
+	else
+	{
+		health -= damage;
+	}
+	if(health == 0)
+	{
+		SceneManager::getInstance()->removeSceneNode(sceneNode);
+	}
+}

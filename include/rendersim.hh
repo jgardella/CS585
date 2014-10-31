@@ -11,6 +11,8 @@
 #include "sposition.hh"
 #include "levelmanager.hh"
 #include "characterinfo.hh"
+#include "patrolstate.hh"
+#include "attackstate.hh"
 
 typedef struct sRenderInfo
 {

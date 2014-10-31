@@ -10,7 +10,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	ITickable* controller;
 	StateMachine* machine;
 	tCharacterInfo* info = *characterInfos->get(type);
-
+	
 	// create state machine
 	machine = new StateMachine(info->stateMap, info->behavioralConfig, info->startState);
 	
