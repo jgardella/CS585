@@ -1,5 +1,16 @@
 #include "rendersim.hh"
 
+void RenderSim::run()
+{
+	std::clock_t startTime = clock(), finishTime = startTime;
+	while(true)
+	{
+		startTime = clock();
+		SceneManager::getInstance()->tick((float)(startTime - finishTime));
+		finishTime = startTime;
+	}	
+}
+
 void RenderSim::config(std::string gameConfigPath)
 {
 	unsigned int i;
@@ -23,6 +34,18 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 			parseCharacterConfig(trie);
 	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("tile") == 0)
+	{
+		parseTileConfig(trie);
+	}
+}
+
+void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
+{
+	tTileInfo* tileInfo = new tTileInfo();
+	tileInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
+	tileInfo->collides = ((JSONPrimitive<bool>*)*trie->get("collides"))->getPrimitive();
+	TileFactory::addTileInfo(tileInfo->type, tileInfo);
 }
 
 void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)

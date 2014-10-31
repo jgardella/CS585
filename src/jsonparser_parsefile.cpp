@@ -8,7 +8,7 @@ DynamicArray<JSONItem*>* JSONParser::parseFile(std::string jsonFileName)
 	char currentChar;
 	std::ifstream jsonFile;
 	DEBUG_LOG("JSON", "Opening JSON file \"/data/" + jsonFileName + "\"");
-	jsonFile.open(("data/" + jsonFileName).c_str(), std::ifstream::in);
+	jsonFile.open(("data/" + jsonFileName + ".json").c_str(), std::ifstream::in);
 	while(jsonFile.get(currentChar))
 	{
 		switch(currentChar)

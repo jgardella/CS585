@@ -13,6 +13,7 @@
 #include "characterinfo.hh"
 #include "patrolstate.hh"
 #include "attackstate.hh"
+#include "tileinfo.hh"
 
 typedef struct sRenderInfo
 {
@@ -20,11 +21,9 @@ typedef struct sRenderInfo
 	std::string character;
 } tRenderInfo;
 
-class RenderSim
+class RenderSim 
 {
 	public:
-		RenderSim();
-
 		// Loads the game config at the specified path.
 		// Parameters:
 		// std::string gameConfigPath - path to the game config json file
@@ -34,9 +33,6 @@ class RenderSim
 		void run();
 
 	private:
-		Trie<IState*>* dwarfStateMap;
-		Trie<IState*>* orcStateMap;
-
 		void parseSubConfig(JSONObject* configObject);
 
 		void parseLevelConfig(Trie<JSONItem*>* trie);
@@ -48,7 +44,8 @@ class RenderSim
 		Trie<IState*>* getStateMap(std::string type);
 		
 		void parseCharacterConfig(Trie<JSONItem*>* trie);
-
+		
+		void parseTileConfig(Trie<JSONItem*>* trie);
 };
 
 #endif

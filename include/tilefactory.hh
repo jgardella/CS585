@@ -3,6 +3,8 @@
 
 #include "tile.hh"
 #include "scenemanager.hh"
+#include "tileinfo.hh"
+#include "trie.hh"
 
 class TileFactory
 {
@@ -13,6 +15,11 @@ class TileFactory
 		// int x - the x coordinate at which to instantiate the actor
 		// int y - the y coordinate at which to instantiate the actor
 		static Tile* get(std::string type, int x, int y);
+
+		static void addTileInfo(std::string type, tTileInfo* info);
+	
+	private:
+		static Trie<tTileInfo*>* tileInfos;
 };
 
 #endif
