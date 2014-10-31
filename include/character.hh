@@ -13,7 +13,8 @@ class Character : public IActor
 		// int y - the initial y coordinate of the character
 		// unsigned int collisionLayer - layer on which the character collides
 		// unsigned int health - initial health of the character
-		Character(int x, int y, unsigned int collisionLayer, unsigned int health);
+		// std::string type - the type of the character
+		Character(int x, int y, unsigned int collisionLayer, unsigned int health, std::string type);
 
 		// Deconstructs the character.
 		~Character();
@@ -28,8 +29,11 @@ class Character : public IActor
 
 		SceneNode* getSceneNode();
 
+		std::string getType();
+
 	private:
 		unsigned int health;
+		std::string type;
 		const unsigned int MAX_ATTACK = 25;
 		SceneNode *sceneNode;
 

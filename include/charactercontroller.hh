@@ -17,6 +17,7 @@ class CharacterController : public ITickable
 	private:
 		Character* character;
 		StateMachine* machine;
+		float timeCounter;
 };
 
 #endif

@@ -4,9 +4,15 @@ CharacterController::CharacterController(Character* character, StateMachine* mac
 {
 	this->character = character;
 	this->machine = machine;
+	timeCounter = 0;
 }
 
 void CharacterController::tick(float dt)
 {
-	machine->tick(dt);
+	timeCounter += dt;
+	if(timeCounter >= 1)
+	{	
+		machine->tick(dt);
+		timeCounter = 0;
+	}
 }
