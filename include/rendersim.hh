@@ -14,6 +14,7 @@
 #include "patrolstate.hh"
 #include "attackstate.hh"
 #include "tileinfo.hh"
+#include "randomlocationcharacterspawner.hh"
 
 typedef struct sRenderInfo
 {

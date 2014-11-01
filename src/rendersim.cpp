@@ -17,6 +17,8 @@ void RenderSim::config(std::string gameConfigPath)
 	JSONObject* obj = (JSONObject*)*(JSONParser::parseFile(gameConfigPath)->get(0));
 	Trie<JSONItem*>* trie = obj->getTrie();
 	DynamicArray<JSONItem*>* configs = ((JSONArray*)trie->get("configs"))->getDynamicArray();
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "orc")); 
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "dwarf")); 
 	for(i = 0; i < configs->length(); i++)
 	{
 		parseSubConfig((JSONObject*)*JSONParser::parseFile(((JSONPrimitive<std::string>*)*configs->get(0))->getPrimitive())->get(0));

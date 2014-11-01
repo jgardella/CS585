@@ -1,4 +1,4 @@
-#include "characterspawner.hh"
+#include "randomlocationcharacterspawner.hh"
 
 RandomLocationCharacterSpawner::RandomLocationCharacterSpawner(int maxSpawnTime, std::string type)
 {
