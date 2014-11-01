@@ -91,8 +91,11 @@ JSONItem* JSONParser::readNumber(std::ifstream* file)
 				DEBUG_LOG("ERROR", "JSON file improperly formatted: read unexpected + or - while reading number.");
 				std::exit(1);
 			case ' ':
+			case '\n':
+			case '\t':
 			case ',':
-			case ']': // end of number?
+			case ']':
+			case '}': // end of number?
 				if(!justReadExpIndicator && (!readExpIndicator || (expStr.length() != 0 && expStr.at(expStr.length() - 1) != '+' && expStr.at(expStr.length() - 1) != '-'))) // ensure that the number didn't end on an invalid character (e/E/+/-)
 				{
 					DEBUG_LOG("JSON", "Read whitespace or comma while parsing string, end of number reached.");

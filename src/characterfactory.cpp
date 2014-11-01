@@ -1,6 +1,6 @@
 #include "characterfactory.hh"
 
-Trie<tCharacterInfo*>* CharacterFactory::characterInfos;
+Trie<tCharacterInfo*>* CharacterFactory::characterInfos = new Trie<tCharacterInfo*>();
 
 Character* CharacterFactory::get(std::string type, int x, int y)
 {

@@ -1,12 +1,12 @@
 {
-	"key" : "character"
+	"key" : "character",
 	"type" : "orc",
-	"behavioralconfig" : 
+	"config" : 
 	{
-		"viewradius" : 5,
+		"radius" : 5,
 		"maxattack" : 5,
-		"attackchance" : 0.6
+		"chance" : 0.6
 	},
-	"startstate" : "patrol"
+	"start" : "patrol",
 	"health" : 50
 }

@@ -27,7 +27,7 @@ void AttackState::scanForTarget()
 {
 	unsigned int i;
 	Character* character;
-	int radius = (int) *behavioralConfig->get("viewradius");
+	int radius = (int) *behavioralConfig->get("radius");
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
 	for(i = 0; i < nodes->length(); i++)
 	{
@@ -73,7 +73,7 @@ void AttackState::attackTarget()
 {
 	std::srand(time(NULL));
 	float rand = std::rand() / ((float) RAND_MAX);
-	if(rand < *behavioralConfig->get("attackchance"))
+	if(rand < *behavioralConfig->get("chance"))
 	{
 		target->takeDamage(getAttackDamage());
 	}

@@ -1,6 +1,6 @@
 #include "tilefactory.hh"
 
-Trie<tTileInfo*>* TileFactory::tileInfos;
+Trie<tTileInfo*>* TileFactory::tileInfos = new Trie<tTileInfo*>();
 
 Tile* TileFactory::get(std::string type, int x, int y)
 {

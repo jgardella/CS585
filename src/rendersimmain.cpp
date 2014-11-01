@@ -9,6 +9,9 @@ void debugConfig()
 	Debug::getInstance()->setDebugStatus(true);
 	Debug::getInstance()->setTerminalLogging(true);
 	Debug::getInstance()->addChannel("RENDERSIM");
+	Debug::getInstance()->addChannel("JSON");
+	Debug::getInstance()->addChannel("DYNAMICARRAY");
+	Debug::getInstance()->addChannel("TRIE");
 	#endif
 }
 
@@ -16,6 +19,6 @@ int main()
 {
 	debugConfig();
 	RenderSim* sim = new RenderSim();
-	sim->config("data/gameconfig");
+	sim->config("gameconfig");
 	sim->run();
 }
