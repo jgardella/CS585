@@ -3,6 +3,7 @@
 void RenderSim::run()
 {
 	std::clock_t startTime = clock(), finishTime = startTime;
+	DEBUG_LOG("RENDERSIM", "Starting simulation.");
 	while(true)
 	{
 		startTime = clock();
@@ -13,12 +14,19 @@ void RenderSim::run()
 
 void RenderSim::config(std::string gameConfigPath)
 {
+	DEBUG_LOG("RENDERSIM", "Initiating game config.");
 	unsigned int i;
+	DEBUG_LOG("RENDERSIM", "Parsing game config file.");
 	JSONObject* obj = (JSONObject*)*(JSONParser::parseFile(gameConfigPath)->get(0));
+	DEBUG_LOG("RENDERSIM", "Getting Trie from game config JSON object.");
 	Trie<JSONItem*>* trie = obj->getTrie();
+	DEBUG_LOG("RENDERSIM", "Getting array of config files.");
 	DynamicArray<JSONItem*>* configs = ((JSONArray*)trie->get("configs"))->getDynamicArray();
+	DEBUG_LOG("RENDERSIM", "Creating orc spawner.");
 	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "orc")); 
+	DEBUG_LOG("RENDERSIM", "Creating dwarf spawner.");
 	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "dwarf")); 
+	DEBUG_LOG("RENDERSIM", "Parsing sub configs.");
 	for(i = 0; i < configs->length(); i++)
 	{
 		parseSubConfig((JSONObject*)*JSONParser::parseFile(((JSONPrimitive<std::string>*)*configs->get(0))->getPrimitive())->get(0));
@@ -30,11 +38,11 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	Trie<JSONItem*>* trie = configObject->getTrie();
 	if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("level") == 0)
 	{
-			parseLevelConfig(trie);
+		parseLevelConfig(trie);
 	}
 	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("character") == 0)
 	{
-			parseCharacterConfig(trie);
+		parseCharacterConfig(trie);
 	}
 	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("tile") == 0)
 	{
@@ -44,6 +52,7 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 
 void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
 {
+	DEBUG_LOG("RENDERSIM", "Parsing tile config.");
 	tTileInfo* tileInfo = new tTileInfo();
 	tileInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
 	tileInfo->collides = ((JSONPrimitive<bool>*)*trie->get("collides"))->getPrimitive();
@@ -52,6 +61,7 @@ void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
 
 void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 {
+	DEBUG_LOG("RENDERSIM", "Parsing level config.");
 	tLevelInfo* levelInfo;
 	int width, height;
 	std::string defaultTile;
@@ -94,6 +104,7 @@ Trie<float>* RenderSim::jsonObjectToBehavioralConfig(JSONObject* object)
 
 void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 {
+	DEBUG_LOG("RENDERSIM", "Parsing character config.");
 	tCharacterInfo* charInfo = new tCharacterInfo();
 	Trie<IState*>* stateMap = new Trie<IState*>();
 	stateMap->add("attack", new AttackState(NULL, NULL)); // these will be initialized in
