@@ -7,7 +7,7 @@ void RenderSim::run()
 	while(true)
 	{
 		startTime = clock();
-		SceneManager::getInstance()->tick((float)(startTime - finishTime));
+		SceneManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
 	}	
 }
@@ -24,9 +24,9 @@ void RenderSim::config(std::string gameConfigPath)
 	DEBUG_LOG("RENDERSIM", "Getting array of config files.");
 	DynamicArray<JSONItem*>* configs = ((JSONArray*)*trie->get("configs"))->getDynamicArray();
 	DEBUG_LOG("RENDERSIM", "Creating orc spawner.");
-	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "orc")); 
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "orc")); 
 	DEBUG_LOG("RENDERSIM", "Creating dwarf spawner.");
-	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(10, "dwarf")); 
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "dwarf")); 
 	DEBUG_LOG("RENDERSIM", "Parsing sub configs.");
 	for(i = 0; i < configs->length(); i++)
 	{
@@ -117,9 +117,6 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	stateMap->add("patrol", new PatrolState(NULL, NULL)); // the character factory
 	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
-	std::cout << "chance: " << *charInfo->behavioralConfig->get("chance") << std::endl;
-	std::cout << "maxattack: " << *charInfo->behavioralConfig->get("maxattack") << std::endl;
-	std::cout << "radius: " << *charInfo->behavioralConfig->get("radius") << std::endl;
 	charInfo->stateMap = stateMap;
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();

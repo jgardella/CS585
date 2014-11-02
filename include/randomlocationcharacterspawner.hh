@@ -12,7 +12,7 @@
 class RandomLocationCharacterSpawner : public ITickable
 {
 	public:
-		RandomLocationCharacterSpawner(int maxSpawnTime, std::string type);
+		RandomLocationCharacterSpawner(int minSpawnTime, int maxSpawnTime, std::string type);
 
 		void tick(float dt);
 
@@ -20,6 +20,7 @@ class RandomLocationCharacterSpawner : public ITickable
 		std::string type;
 		float timeChange;
 		float spawnTime;
+		int minSpawnTime;
 		int maxSpawnTime;
 };
 

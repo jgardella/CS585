@@ -1,5 +1,6 @@
 #include "rendersim.hh"
 #include "debug.hh"
+#include <cstdlib>
 
 void debugConfig()
 {
@@ -12,14 +13,12 @@ void debugConfig()
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	Debug::getInstance()->addChannel("PATROLSTATE");
 	Debug::getInstance()->addChannel("ATTACKSTATE");
-	Debug::getInstance()->addChannel("FIXEDGRID");
-	Debug::getInstance()->muteAllExcept("FIXEDGRID");
-	Debug::getInstance()->setChannelMute("ATTACKSTATE", false);
 	#endif
 }
 
 int main()
 {
+	std::srand(time(0));
 	debugConfig();
 	RenderSim* sim = new RenderSim();
 	sim->config("gameconfig");

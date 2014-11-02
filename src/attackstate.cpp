@@ -90,6 +90,5 @@ void AttackState::attackTarget()
 
 unsigned int AttackState::getAttackDamage()
 {
-	std::srand(time(NULL));
 	return std::rand() % (unsigned int)*behavioralConfig->get("maxattack") + 1;
 }

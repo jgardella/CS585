@@ -12,6 +12,7 @@ void FixedGrid::addSceneNode(SceneNode *node)
 	}
 	else // if position in grid is not empty, navigate to end of doubly linked list and add at end
 	{
+		std::cout << "test" << std::endl;
 		nodeAtGridIndex = nodeGrid[gridIndex];
 		while(nodeAtGridIndex->getNext() != NULL)
 		{
@@ -43,7 +44,7 @@ void FixedGrid::removeSceneNode(SceneNode *node)
 void FixedGrid::updateSceneNode(SceneNode *node, int x, int y)
 {
 	DEBUG_LOG("FIXEDGRID", "Updating scene node to position (" + std::to_string(x) + ", " + std::to_string(y) + ").");
-	if(x < xDimension && x >= 0 && y < yDimension && y >= 0)
+	if(x < xDimension && x >= 0 && y < yDimension && y >= 0 && (x != node->getX() || y != node->getY()))
 	{
 		DEBUG_LOG("FIXEDGRID", "New position for scene node is within bounds of scene.");
 		removeSceneNode(node);

@@ -33,10 +33,13 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
 		SceneNode* node = nodeGrid[x + y * yDimension];
 		while(node != NULL)
 		{
+			std::cout << "node: " << node << std::endl;
 			if(node->getActor()->getCollisionLayer() > 0) // if node is not on non-collision layer, add to array
 			{
 				colliders->pushBack(node);
 			}
+			node = node->getNext();
+			std::cout << "next node: " << node << std::endl;
 		}
 	}
 	return colliders;
@@ -54,9 +57,12 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 		{
 			for(j = y - l; j < 2 * l + 1; j++)
 			{
+				std::cout << "j < 2 * l + 1: " << j << " < " << 2 * l + 1 << std::endl;
 				node = nodeGrid[x - radius + 1 + l + j * yDimension];
 				while(node != NULL)
 				{
+					std::cout << "node: " << node << std::endl;
+					std::cout << "next node: " << node->getNext() << std::endl;
 					if(node->getActor()->getCollisionLayer() > 0)
 					{
 						colliders->pushBack(node);
@@ -66,6 +72,8 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 				node = nodeGrid[x + r + j * yDimension];
 				while(node != NULL)
 				{
+					std::cout << "node: " << node << std::endl;
+					std::cout << "next node: " << node->getNext() << std::endl;
 					if(node->getActor()->getCollisionLayer() > 0)
 					{
 						colliders->pushBack(node);
@@ -98,6 +106,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int cornerX1, int cornerY1, in
 					{
 						colliders->pushBack(node);
 					}
+					node = node->getNext();
 				}	
 			}
 		}

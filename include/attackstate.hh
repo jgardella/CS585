@@ -12,7 +12,7 @@
 class AttackState : public IState
 {
 	public:
-		AttackState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { std::srand(time(NULL)); }
+		AttackState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { }
 
 		void tick(float dt);
 
