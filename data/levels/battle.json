@@ -1,6 +1,11 @@
 {
-	"worldwidth" : 5000,
-	"worldheight" : 5000,
-	"deafulttile" : "dirt",
-	
+	"key" : "level",
+	"width" : 5000,
+	"height" : 5000,
+	"defaulttile" : "dirt",
+	"tree" : [ ],
+	"water" : [ ],
+	"dirt" : [ ],
+	"mountain" : [ ],
+	"grass" : [ ]
 }

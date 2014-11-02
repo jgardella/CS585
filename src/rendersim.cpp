@@ -16,6 +16,7 @@ void RenderSim::config(std::string gameConfigPath)
 {
 	DEBUG_LOG("RENDERSIM", "Initiating game config.");
 	unsigned int i;
+	std::string subconfigPath;
 	DEBUG_LOG("RENDERSIM", "Parsing game config file.");
 	JSONObject* obj = (JSONObject*)*(JSONParser::parseFile(gameConfigPath)->get(0));
 	DEBUG_LOG("RENDERSIM", "Getting Trie from game config JSON object.");
@@ -29,12 +30,15 @@ void RenderSim::config(std::string gameConfigPath)
 	DEBUG_LOG("RENDERSIM", "Parsing sub configs.");
 	for(i = 0; i < configs->length(); i++)
 	{
-		parseSubConfig((JSONObject*)*JSONParser::parseFile(((JSONPrimitive<std::string>*)*configs->get(i))->getPrimitive())->get(0));
+		subconfigPath = ((JSONPrimitive<std::string>*)*configs->get(i))->getPrimitive();
+		DEBUG_LOG("RENDERSIM", "Parsing sub config at path: \"" + subconfigPath + "\".");
+		parseSubConfig((JSONObject*)*JSONParser::parseFile(subconfigPath)->get(0));
 	}
 }
 
 void RenderSim::parseSubConfig(JSONObject* configObject)
 {
+	DEBUG_LOG("RENDERSIM", "Parsing sub config.");
 	Trie<JSONItem*>* trie = configObject->getTrie();
 	if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("level") == 0)
 	{
@@ -66,8 +70,8 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 	int width, height;
 	std::string defaultTile;
 	width = ((JSONPrimitive<int>*)*trie->get("width"))->getPrimitive();
-	height = ((JSONPrimitive<int>*)trie->get("height"))->getPrimitive();
-	defaultTile = ((JSONPrimitive<std::string>*)trie->get("defaulttile"))->getPrimitive();
+	height = ((JSONPrimitive<int>*)*trie->get("height"))->getPrimitive();
+	defaultTile = ((JSONPrimitive<std::string>*)*trie->get("defaulttile"))->getPrimitive();
 	levelInfo = new tLevelInfo(width, height, defaultTile);
 	levelInfo->setPositions("tree", jsonArrayToPositionList(((JSONArray*)*trie->get("tree"))));
 	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
@@ -78,6 +82,7 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 
 DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 {
+	DEBUG_LOG("RENDERSIM", "Converting JSON Array to Dynamic Array of positions.");
 	DynamicArray<tPosition*>* positions = new DynamicArray<tPosition*>();
 	DynamicArray<JSONItem*>* convertedArray = array->getDynamicArray();
 	unsigned int i;
@@ -110,6 +115,7 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	stateMap->add("attack", new AttackState(NULL, NULL)); // these will be initialized in
 	stateMap->add("patrol", new PatrolState(NULL, NULL)); // the character factory
 	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
+	std::cout << charInfo->type << std::endl;
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
 	charInfo->stateMap = stateMap;
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();

@@ -1,6 +1,7 @@
 #ifndef _RANDOMLOCATIONCHARACTERSPAWNER_HH_
 #define _RANDOMLOCATIONCHARACTERSPAWNER_HH_
 
+#include "debug.hh"
 #include "characterfactory.hh"
 #include "itickable.hh"
 #include "scenemanager.hh"

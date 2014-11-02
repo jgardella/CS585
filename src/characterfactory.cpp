@@ -6,11 +6,12 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 {
 	unsigned int i;
 	DynamicArray<std::string>* keys;
-	Character* actor = NULL;
+	Character* actor;
 	ITickable* controller;
 	StateMachine* machine;
+	IState* state;
 	tCharacterInfo* info = *characterInfos->get(type);
-	
+
 	// create state machine
 	machine = new StateMachine(info->stateMap, info->behavioralConfig, info->startState);
 	
@@ -21,17 +22,18 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	keys = info->stateMap->getKeys();
 	for(i = 0; i < keys->length(); i++)
 	{
-		(*info->stateMap->get(*keys->get(i)))->addListener("state", machine->getListener());
-		(*info->stateMap->get(*keys->get(i)))->setConfig(info->behavioralConfig);
-		(*info->stateMap->get(*keys->get(i)))->setActor(actor);
+		state = *info->stateMap->get(*keys->get(i));
+		state->addListener("state", machine->getListener());
+		state->setConfig(info->behavioralConfig);
+		state->setActor(actor);
 	}
 	
 	// create controller
 	controller = new CharacterController(actor, machine);
 	
 	// register actor's scenenode and controller with scene manager
-	SceneManager::getInstance()->addTickable(controller);
 	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
+	SceneManager::getInstance()->addTickable(controller);
 	return actor;
 }
 

@@ -32,7 +32,8 @@ Level::Level(tLevelInfo level)
 				(void) TileFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
 			}
 		}
-	}	
+	}
+
 }
 
 int Level::getWorldWidth()

@@ -12,6 +12,7 @@ void debugConfig()
 	Debug::getInstance()->addChannel("JSON");
 	Debug::getInstance()->addChannel("DYNAMICARRAY");
 	Debug::getInstance()->addChannel("TRIE");
+	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	#endif
 }
 

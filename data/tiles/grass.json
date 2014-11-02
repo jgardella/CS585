@@ -1,4 +1,5 @@
 {
 	"key" : "tile",
-	"type" : "grass"
+	"type" : "grass",
+	"collides" : false
 }

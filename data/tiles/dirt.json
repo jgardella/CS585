@@ -1,5 +1,5 @@
 {
 	"key" : "tile",
 	"type" : "dirt",
-	"collides", false
+	"collides" : false
 }
