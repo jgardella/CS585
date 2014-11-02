@@ -45,3 +45,8 @@ int Level::getWorldHeight()
 {
 	return height;
 }
+
+std::string Level::getDefaultTile()
+{
+	return defaultTile;
+}

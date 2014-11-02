@@ -20,6 +20,7 @@ class Level
 
 		int getWorldWidth();
 		int getWorldHeight();
+		std::string getDefaultTile();
 	private:
 		int width;
 		int height;

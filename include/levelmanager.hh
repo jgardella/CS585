@@ -16,6 +16,7 @@ class LevelManager
 
 		int getWorldWidth();
 		int getWorldHeight();
+		std::string getDefaultTile();
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);

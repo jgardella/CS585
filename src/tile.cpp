@@ -26,6 +26,11 @@ int Tile::getY()
 	return sceneNode->getY();
 }
 
+std::string Tile::getType()
+{
+	return type;
+}
+
 SceneNode* Tile::getSceneNode()
 {
 	return sceneNode;

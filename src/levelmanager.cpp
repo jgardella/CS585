@@ -30,3 +30,8 @@ int LevelManager::getWorldHeight()
 {
 	return level.getWorldHeight();
 }
+
+std::string LevelManager::getDefaultTile()
+{
+	return level.getDefaultTile();
+}

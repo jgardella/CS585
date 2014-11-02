@@ -15,6 +15,8 @@ class Tile : public IActor
 		int getX();
 		
 		int getY();
+		
+		std::string getType();
 
 		SceneNode* getSceneNode();
 	private:

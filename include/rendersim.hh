@@ -16,12 +16,8 @@
 #include "tileinfo.hh"
 #include "randomlocationcharacterspawner.hh"
 #include "debug.hh"
-
-typedef struct sRenderInfo
-{
-	std::string color;
-	std::string character;
-} tRenderInfo;
+#include "renderinfo.hh"
+#include "asciirenderer.hh"
 
 class RenderSim 
 {
@@ -48,6 +44,8 @@ class RenderSim
 		void parseCharacterConfig(Trie<JSONItem*>* trie);
 		
 		void parseTileConfig(Trie<JSONItem*>* trie);
+
+		void parseRenderConfig(Trie<JSONItem*>* trie);
 };
 
 #endif

@@ -52,6 +52,10 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 		parseTileConfig(trie);
 	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("render") == 0)
+	{
+		parseRenderConfig(trie);
+	}
 }
 
 void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
@@ -121,4 +125,17 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
+}
+
+void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
+{
+	unsigned int i;
+	ASCIIRenderer* renderer = new ASCIIRenderer(LevelManager::getInstance()->getWorldWidth() / 2, LevelManager::getInstance()->getWorldHeight() / 2, 60);
+	tRenderInfo* renderInfo = new tRenderInfo();
+	DynamicArray<std::string>* keys = trie->getKeys();
+	for(i = 0; i < keys->length(); i++)
+	{
+		renderInfo->character = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("character"))->getPrimitive();
+	}
+	SceneManager::getInstance()->addTickable(renderer);
 }
