@@ -13,6 +13,7 @@ void debugConfig()
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	Debug::getInstance()->addChannel("PATROLSTATE");
 	Debug::getInstance()->addChannel("ATTACKSTATE");
+	Debug::getInstance()->muteAllExcept("ATTACKSTATE");
 	#endif
 }
 

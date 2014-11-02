@@ -12,7 +12,6 @@ void FixedGrid::addSceneNode(SceneNode *node)
 	}
 	else // if position in grid is not empty, navigate to end of doubly linked list and add at end
 	{
-		std::cout << "test" << std::endl;
 		nodeAtGridIndex = nodeGrid[gridIndex];
 		while(nodeAtGridIndex->getNext() != NULL)
 		{

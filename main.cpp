@@ -499,7 +499,7 @@ void readJSONArray()
 	unsigned int i;
 	int j;
 	
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("arraytest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("arraytest");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 
 	for(i = 0, j = 0; i < jsonArray->length(); i++, j++)
@@ -513,7 +513,7 @@ void readJSONArray()
 
 void readJSONNumbers()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("numbertest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("numbertest");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
 	JTest<int>::testEquality("Single digit int correctly stored.", 1, ((JSONPrimitive<int>*)(*jsonArray->get(0)))->getPrimitive());
@@ -531,7 +531,7 @@ void readJSONNumbers()
 
 void readJSONBools()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("booltest");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
 	JTest<bool>::testEquality("True boolean correctly stored.", true, ((JSONPrimitive<bool>*)(*jsonArray->get(0)))->getPrimitive());
@@ -543,7 +543,7 @@ void readJSONBools()
 
 void readJSONStrings()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("stringtest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("stringtest");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 
 	JTest<std::string>::testEqualityStr("String correctly stored.", "abc", ((JSONPrimitive<std::string>*)(*jsonArray->get(0)))->getPrimitive());	
@@ -557,7 +557,7 @@ void readJSONStrings()
 
 void readJSONNull()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("nulltest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("nulltest");
 	DynamicArray<JSONItem*>* jsonArray = ((JSONArray*)(*topLevelArray->get(0)))->getDynamicArray();
 	
 	JTest<JSONItem*>::testEquality("Null correctly stored.", NULL, *jsonArray->get(0));
@@ -568,7 +568,7 @@ void readJSONNull()
 
 void readJSONObject()
 {
-	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("objecttest.json");
+	DynamicArray<JSONItem*>* topLevelArray = JSONParser::parseFile("objecttest");
 	Trie<JSONItem*>* jsonObject = ((JSONObject*)(*topLevelArray->get(0)))->getTrie();
 	
 	JTest<std::string>::testEqualityStr("String item in object correctly stored.", "jason", ((JSONPrimitive<std::string>*)(*jsonObject->get("name")))->getPrimitive());	
@@ -635,8 +635,8 @@ void JSONWrapperTests()
 void JSONParserTests()
 {
 	std::cout << "JSON Parser Tests" << std::endl;
-	readJSONArray();
 	readJSONNumbers();
+	readJSONArray();
 	readJSONBools();
 	readJSONStrings();
 	readJSONNull();
