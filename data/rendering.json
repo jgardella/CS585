@@ -1,0 +1,10 @@
+{
+	"key": "render",
+	"dirt" : { "character" : "-" },
+	"grass" : { "character" : "`" },
+	"mountain" : { "character" : "^" },
+	"water" : { "character" : "~" },
+	"tree" : { "character" : "T" },
+	"orc" : { "character" : "O" },
+	"dwarf" : { "character" : "D" }
+}

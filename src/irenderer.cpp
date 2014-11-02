@@ -6,7 +6,6 @@ IRenderer::IRenderer(int x, int y, int fps) : renderX(x), renderY(y)
 	timeChange = 0;
 }
 
-
 void IRenderer::tick(float dt)
 {
 	timeChange += dt;

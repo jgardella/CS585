@@ -4,7 +4,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 {
 	initscr();
 	noecho();
-	curs_set(false);
+	curs_set(FALSE);
 	renderInfos = new Trie<tRenderInfo*>();
 }
 
@@ -28,7 +28,8 @@ void ASCIIRenderer::render()
 			}
 			else
 			{
-				for(k = 0; k < nodes->length(); k++)
+				actor = (*nodes->get(0))->getActor();
+				for(k = 1; k < nodes->length(); k++)
 				{
 					if((*nodes->get(k))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
 					{
@@ -44,7 +45,7 @@ void ASCIIRenderer::render()
 					renderInfo = *renderInfos->get(((Tile*)actor)->getType());
 				}
 			}
-			mvprintw(i, j, renderInfo->character.c_str());
+			mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
 		}
 	}
 	refresh();

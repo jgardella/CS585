@@ -6,8 +6,8 @@
 class IRenderer : public ITickable
 {
 	public:
-		virtual void render();
-		void tick(float dt);
+		virtual void render() = 0;
+		virtual void tick(float dt);
 	protected:
 		IRenderer(int x, int y, int fps);
 		int renderX, renderY;

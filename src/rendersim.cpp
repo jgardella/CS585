@@ -130,12 +130,19 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i;
-	ASCIIRenderer* renderer = new ASCIIRenderer(LevelManager::getInstance()->getWorldWidth() / 2, LevelManager::getInstance()->getWorldHeight() / 2, 60);
-	tRenderInfo* renderInfo = new tRenderInfo();
+	Trie<JSONItem*>* renderInfoTrie;
+	ASCIIRenderer* renderer = new ASCIIRenderer(0, 0, 60);
+	tRenderInfo* renderInfo;
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)
 	{
-		renderInfo->character = ((JSONPrimitive<std::string>*)*((JSONObject*)*trie->get(*keys->get(i)))->getTrie()->get("character"))->getPrimitive();
+		renderInfo = new tRenderInfo();
+		if(keys->get(i)->compare("key") != 0)
+		{
+			renderInfoTrie = ((JSONObject*)*trie->get(*keys->get(i)))->getTrie();
+			renderInfo->character = ((JSONPrimitive<std::string>*)*renderInfoTrie->get("character"))->getPrimitive();
+			renderer->addRenderInfo(*keys->get(i), renderInfo);
+		}
 	}
 	SceneManager::getInstance()->addTickable(renderer);
 }

@@ -7,7 +7,7 @@ CXXFLAGS = -Iinclude -Wall -Werror
 debug: CXXFLAGS += -DDEBUG
 
 all: $(OBJ_FILES)
-	g++ -std=c++11 -g  $(CXXFLAGS) $(OBJ_FILES) -o $(NAME)
+	g++ -std=c++11 -g  $(CXXFLAGS) $(OBJ_FILES) -lncurses -o $(NAME)
 
 debug: all
 
