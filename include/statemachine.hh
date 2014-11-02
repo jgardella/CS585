@@ -20,7 +20,7 @@ class StateMachine : public ITickable
 		// Trie<IState*>* map - a state map representing the mapping from string name to state implementation
 		// Trie<float>* config - mapping from string to float representing behavioral values of the state machine
 		// std::string startState - the name of the state to start the machine in
-		StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState);
+		StateMachine(Trie<IState*>* map, Trie<double>* config, std::string startState);
 		
 		// Ticks the state machine, executing the current state.
 		// Parameters:
@@ -32,7 +32,7 @@ class StateMachine : public ITickable
 
 	private:
 		Trie<IState*>* stateMap;
-		Trie<float>* behavioralConfig;
+		Trie<double>* behavioralConfig;
 		IState* currentState;
 		
 		// Updates the current state to the state given by the state map for the specified state name.

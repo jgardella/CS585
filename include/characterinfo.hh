@@ -5,7 +5,7 @@ typedef struct sCharacterInfo
 {
 	std::string type;
 	Trie<IState*>* stateMap;
-	Trie<float>* behavioralConfig;
+	Trie<double>* behavioralConfig;
 	std::string startState;
 	unsigned int health;
 } tCharacterInfo;

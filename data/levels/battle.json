@@ -1,7 +1,7 @@
 {
 	"key" : "level",
-	"width" : 5000,
-	"height" : 5000,
+	"width" : 500,
+	"height" : 500,
 	"defaulttile" : "dirt",
 	"tree" : [ ],
 	"water" : [ ],

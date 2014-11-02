@@ -3,8 +3,8 @@
 	"type" : "dwarf",
 	"config" : 
 	{
-		"radius" : 3,
-		"maxattack" : 10,
+		"radius" : 3.0,
+		"maxattack" : 10.0,
 		"chance" : 0.8
 	},
 	"start" : "patrol",

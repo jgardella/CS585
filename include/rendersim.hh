@@ -41,7 +41,7 @@ class RenderSim
 
 		DynamicArray<tPosition*>* jsonArrayToPositionList(JSONArray* array);
 		
-		Trie<float>* jsonObjectToBehavioralConfig(JSONObject* object);
+		Trie<double>* jsonObjectToBehavioralConfig(JSONObject* object);
 
 		Trie<IState*>* getStateMap(std::string type);
 		

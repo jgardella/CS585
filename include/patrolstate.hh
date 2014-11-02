@@ -12,8 +12,7 @@
 class PatrolState : public IState
 {
 	public:
-		PatrolState(IActor* actor, Trie<float>* behavior) : IState(actor, behavior) { }
-
+		PatrolState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { std::srand(time(NULL)); }
 		void tick(float dt);
 
 };

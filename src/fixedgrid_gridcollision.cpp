@@ -61,6 +61,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 					{
 						colliders->pushBack(node);
 					}
+					node = node->getNext();
 				}	
 				node = nodeGrid[x + r + j * yDimension];
 				while(node != NULL)
@@ -69,6 +70,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 					{
 						colliders->pushBack(node);
 					}
+					node = node->getNext();
 				}		
 			}
 		}

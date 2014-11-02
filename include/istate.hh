@@ -19,7 +19,7 @@ class IState : public ITickable
 		
 		void setActor(IActor* actor);
 
-		void setConfig(Trie<float>* config);
+		void setConfig(Trie<double>* config);
 
 	protected:
 
@@ -27,9 +27,9 @@ class IState : public ITickable
 		// Parameters:
 		// IActor* act - pointer to the statemachine's actor
 		// Trie<float>* config - pointer to the actor's behavioral config
-		IState(IActor* act, Trie<float>* config); 
+		IState(IActor* act, Trie<double>* config); 
 		IActor* actor;
-		Trie<float>* behavioralConfig;
+		Trie<double>* behavioralConfig;
 		Dispatcher* dispatcher;
 };
 

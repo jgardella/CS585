@@ -1,6 +1,6 @@
 #include "statemachine.hh"
 
-StateMachine::StateMachine(Trie<IState*>* map, Trie<float>* config, std::string startState) : stateMap(map), behavioralConfig(config), currentState(*map->get(startState))
+StateMachine::StateMachine(Trie<IState*>* map, Trie<double>* config, std::string startState) : stateMap(map), behavioralConfig(config), currentState(*map->get(startState))
 {
 	DEBUG_LOG("STATEMACHINE", "Constructing StateMachine with start state: " + startState + ".");
 	onStateTransition.setInstance(this);

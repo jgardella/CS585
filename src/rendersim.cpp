@@ -94,15 +94,16 @@ DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 	return positions;
 }
 
-Trie<float>* RenderSim::jsonObjectToBehavioralConfig(JSONObject* object)
+Trie<double>* RenderSim::jsonObjectToBehavioralConfig(JSONObject* object)
 {
+	DEBUG_LOG("RENDERSIM", "Converting JSON Object to behavioral configuration.");
 	unsigned int i;
-	Trie<float>* behavioralConfig = new Trie<float>();
+	Trie<double>* behavioralConfig = new Trie<double>();
 	Trie<JSONItem*>* trie = object->getTrie();
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)
 	{
-		behavioralConfig->add(*keys->get(i), ((JSONPrimitive<float>*)*trie->get(*keys->get(i)))->getPrimitive());
+		behavioralConfig->add(*keys->get(i), ((JSONPrimitive<double>*)*trie->get(*keys->get(i)))->getPrimitive());
 	}
 	return behavioralConfig;
 }
@@ -115,8 +116,10 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	stateMap->add("attack", new AttackState(NULL, NULL)); // these will be initialized in
 	stateMap->add("patrol", new PatrolState(NULL, NULL)); // the character factory
 	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
-	std::cout << charInfo->type << std::endl;
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
+	std::cout << "chance: " << *charInfo->behavioralConfig->get("chance") << std::endl;
+	std::cout << "maxattack: " << *charInfo->behavioralConfig->get("maxattack") << std::endl;
+	std::cout << "radius: " << *charInfo->behavioralConfig->get("radius") << std::endl;
 	charInfo->stateMap = stateMap;
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();

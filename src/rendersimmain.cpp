@@ -9,10 +9,12 @@ void debugConfig()
 	Debug::getInstance()->setDebugStatus(true);
 	Debug::getInstance()->setTerminalLogging(true);
 	Debug::getInstance()->addChannel("RENDERSIM");
-	Debug::getInstance()->addChannel("JSON");
-	Debug::getInstance()->addChannel("DYNAMICARRAY");
-	Debug::getInstance()->addChannel("TRIE");
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
+	Debug::getInstance()->addChannel("PATROLSTATE");
+	Debug::getInstance()->addChannel("ATTACKSTATE");
+	Debug::getInstance()->addChannel("FIXEDGRID");
+	Debug::getInstance()->muteAllExcept("FIXEDGRID");
+	Debug::getInstance()->setChannelMute("ATTACKSTATE", false);
 	#endif
 }
 

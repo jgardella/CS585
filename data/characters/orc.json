@@ -3,8 +3,8 @@
 	"type" : "orc",
 	"config" : 
 	{
-		"radius" : 5,
-		"maxattack" : 5,
+		"radius" : 5.0,
+		"maxattack" : 5.0,
 		"chance" : 0.6
 	},
 	"start" : "patrol",
