@@ -29,7 +29,9 @@ class Character : public IActor
 		int getY();
 
 		int getID();
-		
+	
+		int getHealth();
+
 		SceneNode* getSceneNode();
 
 		std::string getType();

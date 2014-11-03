@@ -49,11 +49,11 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 	DEBUG_LOG("FIXEDGRID", "Getting colliders within circle of center (" + std::to_string(x) + ", " + std::to_string(y) + ") and of radius " + std::to_string(radius) + ".");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
 	SceneNode* node;
-	if(x - radius >= 0 && y - radius >= 0 && x + radius < xDimension && y + radius < yDimension)
+	for(l = 0, r = radius - 1; l < radius; l++, r--)
 	{
-		for(l = 0, r = radius - 1; l < radius; l++, r--)
+		for(j = y - l; j < 2 * l + 1; j++)
 		{
-			for(j = y - l; j < 2 * l + 1; j++)
+			if(x - radius + 1 + l + j * yDimension >= 0 && x - radius + 1 + l + j * yDimension < xDimension * yDimension)
 			{
 				node = nodeGrid[x - radius + 1 + l + j * yDimension];
 				while(node != NULL)
@@ -64,6 +64,9 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 					}
 					node = node->getNext();
 				}	
+			}
+			if(x + r + j * yDimension >= 0 && x + r + j * yDimension < xDimension * yDimension)
+			{
 				node = nodeGrid[x + r + j * yDimension];
 				while(node != NULL)
 				{
@@ -72,8 +75,8 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, int radius)
 						colliders->pushBack(node);
 					}
 					node = node->getNext();
-				}		
-			}
+				}
+			}		
 		}
 	}
 	return colliders;

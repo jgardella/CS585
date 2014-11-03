@@ -38,6 +38,11 @@ int Character::getID()
 	return id;
 }
 
+int Character::getHealth()
+{
+	return health;
+}
+
 SceneNode* Character::getSceneNode()
 {
 	return sceneNode;
