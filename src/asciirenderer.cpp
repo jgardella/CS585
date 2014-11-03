@@ -3,6 +3,7 @@
 ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 {
 	initscr();
+	start_color();
 	noecho();
 	curs_set(FALSE);
 	renderInfos = new Trie<tRenderInfo*>();
@@ -47,6 +48,7 @@ void ASCIIRenderer::render()
 						renderInfo = *renderInfos->get(((Tile*)actor)->getType());
 					}
 				}
+				attron(COLOR_PAIR(renderInfo->colorPair));
 				mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
 			}
 		}

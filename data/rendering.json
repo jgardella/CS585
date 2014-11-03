@@ -1,10 +1,10 @@
 {
 	"key": "render",
-	"dirt" : { "character" : "-" },
-	"grass" : { "character" : "`" },
-	"mountain" : { "character" : "^" },
-	"water" : { "character" : "~" },
-	"tree" : { "character" : "T" },
-	"orc" : { "character" : "O" },
-	"dwarf" : { "character" : "D" }
+	"dirt" : { "character" : "-", "r" : 150, "g" : 150, "b" : 0},
+	"grass" : { "character" : "`", "r" : 0, "g" : 175, "b" : 0},
+	"mountain" : { "character" : "^", "r" : 0, "g" : 25, "b": 10},
+	"water" : { "character" : "~", "r" : 0, "g": 0, "b" : 75},
+	"tree" : { "character" : "T", "r" : 0, "g": 75, "b" : 0},
+	"orc" : { "character" : "O", "r" : 0, "g": 200, "b": 0},
+	"dwarf" : { "character" : "D", "r": 200, "g" : 0, "b" : 0}
 }

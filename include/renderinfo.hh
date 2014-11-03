@@ -4,8 +4,7 @@
 typedef struct sRenderInfo
 {
 	std::string character;
-	std::string color;
-
+	int colorPair;
 } tRenderInfo;
 
 #endif

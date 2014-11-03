@@ -126,6 +126,8 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i;
+	int colorPair = 1, colorVal = 1;
+	int r, g, b;
 	Trie<JSONItem*>* renderInfoTrie;
 	ASCIIRenderer* renderer = new ASCIIRenderer(0, 0, 1);
 	tRenderInfo* renderInfo;
@@ -137,6 +139,12 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 		{
 			renderInfoTrie = ((JSONObject*)*trie->get(*keys->get(i)))->getTrie();
 			renderInfo->character = ((JSONPrimitive<std::string>*)*renderInfoTrie->get("character"))->getPrimitive();
+			r = ((JSONPrimitive<int>*)*renderInfoTrie->get("r"))->getPrimitive();
+			g = ((JSONPrimitive<int>*)*renderInfoTrie->get("g"))->getPrimitive();
+			b = ((JSONPrimitive<int>*)*renderInfoTrie->get("b"))->getPrimitive();
+			init_color(colorVal, r, g, b);
+			init_pair(colorPair, colorVal++, COLOR_BLACK);
+			renderInfo->colorPair = colorPair++;
 			renderer->addRenderInfo(*keys->get(i), renderInfo);
 		}
 	}
