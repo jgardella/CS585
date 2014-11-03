@@ -12,16 +12,20 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	StateMachine* machine;
 	IState* state;
 	tCharacterInfo* info = *characterInfos->get(type);
+	// create actor
+	actor = new Character(x, y, 1, id++, info->health, info->type);
+	PatrolState* patrolState = new PatrolState(actor, info->behavioralConfig);
+	AttackState* attackState = new AttackState(actor, info->behavioralConfig);
+
+	
 	Trie<IState*>* stateMap = new Trie<IState*>();
-	stateMap->add("patrol", new PatrolState(NULL, NULL));
-	stateMap->add("attack", new AttackState(NULL, NULL));
+	stateMap->add("patrol", patrolState);
+	stateMap->add("attack", attackState);
 
 
 	// create state machine
 	machine = new StateMachine(stateMap, info->behavioralConfig, info->startState);
 	
-	// create actor
-	actor = new Character(x, y, 1, id++, info->health, info->type);
 	
 	// register state machine's listener with states in state map
 	keys = stateMap->getKeys();
@@ -29,8 +33,6 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	{
 		state = *stateMap->get(*keys->get(i));
 		state->addListener("state", machine->getListener());
-		state->setConfig(info->behavioralConfig);
-		state->setActor(actor);
 	}
 	
 	// create controller

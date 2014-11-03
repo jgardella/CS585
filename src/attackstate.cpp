@@ -22,6 +22,7 @@ void AttackState::tick(float dt)
 			moveTowardTarget();
 		}
 	}
+	dispatcher->tick(dt);
 }
 
 void AttackState::scanForTarget()

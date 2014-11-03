@@ -21,31 +21,34 @@ void ASCIIRenderer::render()
 	{
 		for(j = renderY; j < renderY + maxY; j++)
 		{
-			nodes = SceneManager::getInstance()->getColliders(i, j);
-			if(nodes->length() == 0)
+			if(i < (unsigned int)LevelManager::getInstance()->getWorldWidth() && j < (unsigned int)LevelManager::getInstance()->getWorldHeight())
 			{
-				renderInfo = *renderInfos->get(LevelManager::getInstance()->getDefaultTile());
-			}
-			else
-			{
-				actor = (*nodes->get(0))->getActor();
-				for(k = 1; k < nodes->length(); k++)
+				nodes = SceneManager::getInstance()->getColliders(i, j);
+				if(nodes->length() == 0)
 				{
-					if((*nodes->get(k))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
+					renderInfo = *renderInfos->get(LevelManager::getInstance()->getDefaultTile());
+				}
+				else
+				{
+					actor = (*nodes->get(0))->getActor();
+					for(k = 1; k < nodes->length(); k++)
 					{
-						actor = (*nodes->get(k))->getActor();
+						if((*nodes->get(k))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
+						{
+							actor = (*nodes->get(k))->getActor();
+						}
+					}
+					if(actor->getClass().compare("CHARACTER") == 0)
+					{
+						renderInfo = *renderInfos->get(((Character*)actor)->getType());
+					}
+					else if(actor->getClass().compare("TILE") == 0)
+					{
+						renderInfo = *renderInfos->get(((Tile*)actor)->getType());
 					}
 				}
-				if(actor->getClass().compare("CHARACTER") == 0)
-				{
-					renderInfo = *renderInfos->get(((Character*)actor)->getType());
-				}
-				else if(actor->getClass().compare("TILE") == 0)
-				{
-					renderInfo = *renderInfos->get(((Tile*)actor)->getType());
-				}
+				mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
 			}
-			mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
 		}
 	}
 	refresh();

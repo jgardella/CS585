@@ -14,6 +14,8 @@ void debugConfig()
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	Debug::getInstance()->addChannel("PATROLSTATE");
 	Debug::getInstance()->addChannel("ATTACKSTATE");
+	Debug::getInstance()->addChannel("STATEMACHINE");
+	Debug::getInstance()->addChannel("DISPATCHER");
 	#endif
 }
 

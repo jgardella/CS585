@@ -21,4 +21,5 @@ void PatrolState::tick(float dt)
 	int newY = ((Character*)actor)->getY() + std::rand() % 3 - 1;
 	DEBUG_LOG("GAMEPLAY", "Character # " + std::to_string(((Character*)actor)->getID()) + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+	dispatcher->tick(dt);
 }
