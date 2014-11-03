@@ -15,7 +15,7 @@ class Character : public IActor
 		// unsigned int collisionLayer - layer on which the character collides
 		// unsigned int health - initial health of the character
 		// std::string type - the type of the character
-		Character(int x, int y, unsigned int collisionLayer, unsigned int health, std::string type);
+		Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, std::string type);
 
 		// Deconstructs the character.
 		~Character();
@@ -28,6 +28,8 @@ class Character : public IActor
 		
 		int getY();
 
+		int getID();
+		
 		SceneNode* getSceneNode();
 
 		std::string getType();
@@ -38,7 +40,7 @@ class Character : public IActor
 		unsigned int health;
 		std::string type;
 		SceneNode *sceneNode;
-
+		unsigned int id;
 };
 
 #endif

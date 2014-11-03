@@ -1,10 +1,11 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int health, std::string type) : IActor(collisionLayer, "CHARACTER")
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, std::string type) : IActor(collisionLayer, "CHARACTER")
 {
 	this->health = health;
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
 	this->type = type;
+	this->id = id;
 }
 
 Character::~Character()
@@ -30,6 +31,11 @@ int Character::getX()
 int Character::getY()
 {
 	return sceneNode->getY();
+}
+
+int Character::getID()
+{
+	return id;
 }
 
 SceneNode* Character::getSceneNode()

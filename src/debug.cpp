@@ -1,4 +1,4 @@
-#include "../include/debug.hh"
+#include "debug.hh"
 
 Debug* Debug::instance;
 
@@ -55,7 +55,12 @@ void Debug::log(std::string channel, std::string message)
 		}
 		if(isFileLoggingEnabled)
 		{
-			// file logging implementation
+			debugfile << channel;
+			for(i = maxWidth; i > channel.length(); i--) // print out extra whitespace after channel
+			{
+				debugfile << " ";
+			}	
+			debugfile << " :: " << getTimestamp() << " :: " << message << std::endl;
 		}
 		if(isNetworkLoggingEnabled)
 		{
@@ -77,6 +82,7 @@ void Debug::setTerminalLogging(bool isOn)
 void Debug::setFileLogging(bool isOn)
 {
 	isFileLoggingEnabled = isOn;
+	debugfile.open("debugout");
 }
 
 void Debug::setNetworkLogging(bool isOn)

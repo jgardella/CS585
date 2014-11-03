@@ -8,6 +8,8 @@
 #include "statemachine.hh"
 #include "characterinfo.hh"
 #include "charactercontroller.hh"
+#include "patrolstate.hh"
+#include "attackstate.hh"
 
 class CharacterFactory
 {
@@ -24,6 +26,7 @@ class CharacterFactory
 
 	private:
 		static Trie<tCharacterInfo*>* characterInfos;
+		static unsigned int id;
 };
 
 #endif

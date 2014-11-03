@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <ctime>
+#include <fstream>
 
 // Struct for custom channels.
 typedef struct s_channel
@@ -73,6 +74,7 @@ class Debug
 		static const unsigned int MAX_CHANNELS = 100;
 		unsigned int numChannels;
 		unsigned int maxWidth;
+		std::ofstream debugfile;
 
 		bool enabled;
 		bool isTerminalLoggingEnabled;

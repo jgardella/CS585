@@ -8,7 +8,8 @@ void debugConfig()
 	Debug::getInstance()->setDebugStatus(false);
 	#else
 	Debug::getInstance()->setDebugStatus(true);
-	Debug::getInstance()->setTerminalLogging(true);
+	Debug::getInstance()->setTerminalLogging(false);
+	Debug::getInstance()->setFileLogging(true);
 	Debug::getInstance()->addChannel("RENDERSIM");
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	Debug::getInstance()->addChannel("PATROLSTATE");

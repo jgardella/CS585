@@ -116,12 +116,8 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 {
 	DEBUG_LOG("RENDERSIM", "Parsing character config.");
 	tCharacterInfo* charInfo = new tCharacterInfo();
-	Trie<IState*>* stateMap = new Trie<IState*>();
-	stateMap->add("attack", new AttackState(NULL, NULL)); // these will be initialized in
-	stateMap->add("patrol", new PatrolState(NULL, NULL)); // the character factory
 	charInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
-	charInfo->stateMap = stateMap;
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
@@ -131,7 +127,7 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i;
 	Trie<JSONItem*>* renderInfoTrie;
-	ASCIIRenderer* renderer = new ASCIIRenderer(0, 0, 60);
+	ASCIIRenderer* renderer = new ASCIIRenderer(0, 0, 1);
 	tRenderInfo* renderInfo;
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)

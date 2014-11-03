@@ -2,7 +2,6 @@
 
 void AttackState::tick(float dt)
 {
-	DEBUG_LOG("ATTACKSTATE", "In attack state.");
 	if(target == NULL) // scan for target
 	{
 		scanForTarget();
