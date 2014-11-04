@@ -23,6 +23,7 @@ class InputManager
 		
 		static InputManager* instance;
 		Dispatcher* dispatcher;
+		float timeChange;
 };
 
 #endif

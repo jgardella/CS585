@@ -14,6 +14,7 @@ InputManager* InputManager::getInstance()
 InputManager::InputManager()
 {
 	dispatcher = new Dispatcher();
+	timeChange = 0;
 }
 
 void InputManager::addListener(IListenerCallback* callback)
@@ -23,12 +24,16 @@ void InputManager::addListener(IListenerCallback* callback)
 
 void InputManager::tick(float dt)
 {
-	static int ch;
-	ch = getch();
-	if(ch != ERR)
+	timeChange += dt;
+	if(timeChange >= 1)
 	{
-		DEBUG_LOG("INPUTMANAGER", "Input manager read character " + std::to_string(ch) + ".");
-		dispatcher->dispatch(new InputEvent(ch));
+		static int ch;
+		ch = getch();
+		if(ch != ERR)
+		{
+			DEBUG_LOG("INPUTMANAGER", "Input manager read character " + std::to_string(ch) + ".");
+			dispatcher->dispatch(new InputEvent(ch));
+		}
+		dispatcher->tick(dt);
 	}
-	dispatcher->tick(dt);
 }
