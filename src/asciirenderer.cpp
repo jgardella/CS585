@@ -64,24 +64,18 @@ void ASCIIRenderer::addRenderInfo(std::string type, tRenderInfo* info)
 
 void ASCIIRenderer::moveX(int dx)
 {
-	if(dx < 0 && renderX > 0)
+	if(renderX + dx >= 0 && renderX + dx < (int)(LevelManager::getInstance()->getWorldWidth() - maxX))
 	{
 		renderX += dx;
 	}
-	else if((unsigned int)renderX < LevelManager::getInstance()->getWorldWidth() - maxX)
-	{
-		renderX += dx;
-	}
+	DEBUG_LOG("ASCIIRENDERER", "Camera moved to x value " + std::to_string(renderX) + ".");
 }
 
 void ASCIIRenderer::moveY(int dy)
 {
-	if(dy < 0 && renderY > 0)
+	if(renderY + dy >= 0 && renderY + dy < (int)(LevelManager::getInstance()->getWorldHeight() - maxY))
 	{
 		renderY += dy;
 	}
-	else if((unsigned int)renderY < LevelManager::getInstance()->getWorldHeight() - maxY)
-	{
-		renderY += dy;
-	}
+	DEBUG_LOG("ASCIIRENDERER", "Camera moved to y value " + std::to_string(renderY) + ".");
 }
