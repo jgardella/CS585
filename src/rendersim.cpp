@@ -9,6 +9,8 @@ void RenderSim::run()
 		startTime = clock();
 		SceneManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		LevelManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
+		InputManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
+		worldController->tick((float)(startTime - finishTime)/(float)CLOCKS_PER_SEC);
 		renderer->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
 	}	
@@ -150,4 +152,5 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 			renderer->addRenderInfo(*keys->get(i), renderInfo);
 		}
 	}
+	worldController = new WorldController(renderer);
 }

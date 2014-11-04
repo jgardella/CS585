@@ -29,7 +29,11 @@ class SceneManager
 		// Paramters:
 		// ISceneGraph* graph - pointer to a scene graph
 		void setGraph(ISceneGraph* graph);
-	
+		
+		void pause();
+
+		void unpause();
+
 		// Wrapper functions for SceneManager's scene graph.	
 		void addSceneNode(SceneNode *node);
 		void removeSceneNode(SceneNode *node);
@@ -47,6 +51,7 @@ class SceneManager
 		static SceneManager* instance;
 		DynamicArray<ITickable*>* tickables;
 		ISceneGraph* sceneGraph;
+		bool paused; // is scene paused?
 };
 
 #endif

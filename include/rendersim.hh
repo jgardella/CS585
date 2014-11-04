@@ -18,6 +18,7 @@
 #include "debug.hh"
 #include "renderinfo.hh"
 #include "asciirenderer.hh"
+#include "worldcontroller.hh"
 
 class RenderSim 
 {
@@ -32,7 +33,8 @@ class RenderSim
 
 	private:
 		ASCIIRenderer* renderer;
-		
+		WorldController* worldController;
+
 		void parseSubConfig(JSONObject* configObject);
 
 		void parseLevelConfig(Trie<JSONItem*>* trie);

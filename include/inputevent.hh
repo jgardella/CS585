@@ -6,10 +6,10 @@
 class InputEvent : public IEvent
 {
 	public:
-		InputEvent(char inputChar);
-		char getInput();
+		InputEvent(int inputChar);
+		int getInput();
 	private:
-		char inputChar;
+		int inputChar;
 };
 
 #endif

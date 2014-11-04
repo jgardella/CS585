@@ -6,6 +6,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	start_color();
 	noecho();
 	cbreak();
+	keypad(stdscr, TRUE);
 	curs_set(FALSE);
 	renderInfos = new Trie<tRenderInfo*>();
 }
@@ -16,7 +17,6 @@ void ASCIIRenderer::render()
 	DynamicArray<SceneNode*>* nodes;
 	IActor* actor;
 	tRenderInfo* renderInfo;
-	unsigned int maxX = 0, maxY = 0;
 	getmaxyx(stdscr, maxY, maxX);
 	clear();
 	for(i = renderX; i < renderX + maxX; i++)
@@ -60,4 +60,28 @@ void ASCIIRenderer::render()
 void ASCIIRenderer::addRenderInfo(std::string type, tRenderInfo* info)
 {
 	renderInfos->add(type, info);
+}
+
+void ASCIIRenderer::moveX(int dx)
+{
+	if(dx < 0 && renderX > 0)
+	{
+		renderX += dx;
+	}
+	else if((unsigned int)renderX < LevelManager::getInstance()->getWorldWidth() - maxX)
+	{
+		renderX += dx;
+	}
+}
+
+void ASCIIRenderer::moveY(int dy)
+{
+	if(dy < 0 && renderY > 0)
+	{
+		renderY += dy;
+	}
+	else if((unsigned int)renderY < LevelManager::getInstance()->getWorldHeight() - maxY)
+	{
+		renderY += dy;
+	}
 }

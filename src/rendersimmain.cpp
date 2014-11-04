@@ -14,6 +14,10 @@ void debugConfig()
 	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
 	Debug::getInstance()->addChannel("PATROLSTATE");
 	Debug::getInstance()->addChannel("ATTACKSTATE");
+	Debug::getInstance()->addChannel("CAMERASTATE");
+	Debug::getInstance()->addChannel("WORLDSTATE");
+	Debug::getInstance()->addChannel("INPUTMANAGER");
+	Debug::getInstance()->addChannel("WORLDCONTROLLER");
 	#endif
 }
 

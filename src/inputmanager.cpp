@@ -23,6 +23,12 @@ void InputManager::addListener(IListenerCallback* callback)
 
 void InputManager::tick(float dt)
 {
-	dispatcher->dispatch(new InputEvent(getch()));
+	static int ch;
+	ch = getch();
+	if(ch != ERR)
+	{
+		DEBUG_LOG("INPUTMANAGER", "Input manager read character " + std::to_string(ch) + ".");
+		dispatcher->dispatch(new InputEvent(ch));
+	}
 	dispatcher->tick(dt);
 }

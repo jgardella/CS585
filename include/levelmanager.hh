@@ -3,6 +3,7 @@
 
 #include "levelinfo.hh"
 #include "level.hh"
+#include "irenderer.hh"
 
 class LevelManager
 {
@@ -14,8 +15,10 @@ class LevelManager
 		
 		void tick(float dt);
 
+		void setRenderer(IRenderer* renderer);
+		
 		static LevelManager* getInstance();
-
+		
 		int getWorldWidth();
 		int getWorldHeight();
 		std::string getDefaultTile();

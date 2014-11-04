@@ -6,6 +6,7 @@
 #include "scenemanager.hh"
 #include "characterfactory.hh"
 #include "tilefactory.hh"
+#include "statemachine.hh"
 
 class Level : public ITickable
 {
@@ -19,7 +20,7 @@ class Level : public ITickable
 		Level(tLevelInfo level);
 		
 		void tick(float dt);
-
+		
 		int getWorldWidth();
 		int getWorldHeight();
 		std::string getDefaultTile();
@@ -27,7 +28,6 @@ class Level : public ITickable
 		int width;
 		int height;
 		std::string defaultTile;
-
 };
 
 #endif

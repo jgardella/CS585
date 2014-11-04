@@ -1,11 +1,11 @@
 #include "inputevent.hh"
 
-InputEvent::InputEvent(char inputChar) : IEvent("input")
+InputEvent::InputEvent(int inputChar) : IEvent("input")
 {
 	this->inputChar = inputChar;
 }
 
-char InputEvent::getInput()
+int InputEvent::getInput()
 {
 	return inputChar;
 }

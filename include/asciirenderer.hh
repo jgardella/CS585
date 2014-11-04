@@ -14,10 +14,15 @@ class ASCIIRenderer : public IRenderer
 	public:
 		ASCIIRenderer(int x, int y, int fps);
 		
+		void moveX(int x);
+
+		void moveY(int y);
+		
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);
 	private:
 		Trie<tRenderInfo*>* renderInfos;
+		unsigned int maxX, maxY;
 };
 
 #endif

@@ -7,6 +7,7 @@ SceneManager::SceneManager()
 {	
 	DEBUG_LOG("MANAGER", "Constructing scene manager.");
 	this->tickables = new DynamicArray<ITickable*>();
+	paused = false;
 }
 
 SceneManager* SceneManager::getInstance()
