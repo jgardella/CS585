@@ -1,5 +1,7 @@
 #include "inputmanager.hh"
 
+InputManager* InputManager::instance;
+
 InputManager* InputManager::getInstance()
 {
 	if(instance == NULL)
@@ -21,6 +23,6 @@ void InputManager::addListener(IListenerCallback* callback)
 
 void InputManager::tick(float dt)
 {
-	
+	dispatcher->dispatch(new InputEvent(getch()));
 	dispatcher->tick(dt);
 }

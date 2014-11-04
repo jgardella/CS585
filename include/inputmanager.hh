@@ -3,6 +3,7 @@
 
 #include "dispatcher.hh"
 #include "ilistenercallback.hh"
+#include "inputevent.hh"
 #include <ncurses.h>
 
 class InputManager

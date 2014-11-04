@@ -13,7 +13,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 void ASCIIRenderer::render()
 {
 	unsigned int i, j, k;
-	DynamicArray<SceneNode** nodes;
+	DynamicArray<SceneNode*>* nodes;
 	IActor* actor;
 	tRenderInfo* renderInfo;
 	unsigned int maxX = 0, maxY = 0;
