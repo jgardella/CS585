@@ -7,7 +7,7 @@
 #include "characterfactory.hh"
 #include "tilefactory.hh"
 
-class Level
+class Level : public ITickable
 {
 	public:
 		Level();
@@ -17,6 +17,8 @@ class Level
 		// int width - the width of the world
 		// int height - the height of the world
 		Level(tLevelInfo level);
+		
+		void tick(float dt);
 
 		int getWorldWidth();
 		int getWorldHeight();

@@ -36,6 +36,11 @@ Level::Level(tLevelInfo level)
 
 }
 
+void Level::tick(float dt)
+{
+
+}
+
 int Level::getWorldWidth()
 {
 	return width;

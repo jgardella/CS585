@@ -31,6 +31,8 @@ class RenderSim
 		void run();
 
 	private:
+		ASCIIRenderer* renderer;
+		
 		void parseSubConfig(JSONObject* configObject);
 
 		void parseLevelConfig(Trie<JSONItem*>* trie);

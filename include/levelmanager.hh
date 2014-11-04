@@ -12,6 +12,8 @@ class LevelManager
 		// LevelInfo info - the info object for the level to load
 		void loadLevel(tLevelInfo info);
 		
+		void tick(float dt);
+
 		static LevelManager* getInstance();
 
 		int getWorldWidth();

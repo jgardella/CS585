@@ -8,6 +8,8 @@ void RenderSim::run()
 	{
 		startTime = clock();
 		SceneManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
+		LevelManager::getInstance()->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
+		renderer->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
 	}	
 }
@@ -129,7 +131,7 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 	int colorPair = 1, colorVal = 1;
 	int r, g, b;
 	Trie<JSONItem*>* renderInfoTrie;
-	ASCIIRenderer* renderer = new ASCIIRenderer(0, 0, 1);
+	renderer = new ASCIIRenderer(0, 0, 60);
 	tRenderInfo* renderInfo;
 	DynamicArray<std::string>* keys = trie->getKeys();
 	for(i = 0; i < keys->length(); i++)
@@ -148,5 +150,4 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 			renderer->addRenderInfo(*keys->get(i), renderInfo);
 		}
 	}
-	SceneManager::getInstance()->addTickable(renderer);
 }

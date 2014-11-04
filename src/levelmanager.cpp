@@ -21,6 +21,11 @@ void LevelManager::loadLevel(tLevelInfo info)
 	level = Level(info);
 }
 
+void LevelManager::tick(float dt)
+{
+	level.tick(dt);
+}
+
 int LevelManager::getWorldWidth()
 {
 	return level.getWorldWidth();
