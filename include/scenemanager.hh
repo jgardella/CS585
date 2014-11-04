@@ -1,8 +1,6 @@
 #ifndef _SCENEMANAGER_HH_
 #define _SCENEMANAGER_HH_
 
-#define NuLL 0
-
 #include "itickable.hh"
 #include "scenenode.hh"
 #include "dynamicarray.hh"
