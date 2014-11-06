@@ -12,5 +12,6 @@ void IRenderer::tick(float dt)
 	if(timeChange >= secPerFrame)
 	{
 		render();
+		timeChange = 0;
 	}
 }

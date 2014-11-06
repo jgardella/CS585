@@ -35,5 +35,6 @@ void InputManager::tick(float dt)
 			dispatcher->dispatch(new InputEvent(ch));
 		}
 		dispatcher->tick(dt);
+		timeChange = 0;
 	}
 }
