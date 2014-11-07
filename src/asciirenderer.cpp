@@ -6,6 +6,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	start_color();
 	noecho();
 	cbreak();
+	nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
 	curs_set(FALSE);
 	renderInfos = new Trie<tRenderInfo*>();
