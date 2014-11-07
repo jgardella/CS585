@@ -80,7 +80,7 @@ bool AttackState::targetInRange()
 void AttackState::attackTarget()
 {
 	DEBUG_LOG("ATTACKSTATE", "Attempting to attack target.");
-	int damage;
+	/*int damage; // reimplement later
 	float rand = std::rand() / ((float) RAND_MAX);
 	if(rand < *behavioralConfig->get("chance"))
 	{
@@ -92,6 +92,16 @@ void AttackState::attackTarget()
 		{
 			target = NULL;
 		}
+	}*/
+	int rand = std::rand() % 2;
+	if(rand == 1)
+	{
+		((Character*)actor)->takeDamage(((Character*)actor)->getHealth());
+	}
+	else
+	{
+		target->takeDamage(target->getHealth());
+		target = NULL;
 	}
 }
 
