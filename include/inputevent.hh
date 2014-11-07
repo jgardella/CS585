@@ -6,10 +6,12 @@
 class InputEvent : public IEvent
 {
 	public:
-		InputEvent(int inputChar);
+		InputEvent(int inputChar, bool down);
 		int getInput();
+		bool getKeyDown();
 	private:
 		int inputChar;
+		bool keyDown;
 };
 
 #endif
