@@ -12,7 +12,7 @@ class CameraState : public WorldState
 
 		virtual void tick(float dt);
 
-		virtual void parseInput(int c);
+		virtual void parseInput(int c, bool keyDown);
 };
 
 #endif

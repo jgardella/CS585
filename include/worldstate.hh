@@ -12,7 +12,7 @@ class WorldState : public IState
 {
 	public:
 		virtual void tick(float dt) = 0;
-		virtual void parseInput(int key) = 0;
+		virtual void parseInput(int key, bool keyDown) = 0;
 	protected:
 		WorldState(ASCIIRenderer* renderer);
 		ASCIIRenderer* renderer;
@@ -36,7 +36,7 @@ class WorldState : public IState
 					if(event->getType().compare("input") == 0)
 					{
 						InputEvent* inputEvent = (InputEvent*)event;
-						controller->parseInput(inputEvent->getInput());
+						controller->parseInput(inputEvent->getInput(), inputEvent->getKeyDown());
 					}
 				}
 
