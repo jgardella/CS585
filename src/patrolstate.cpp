@@ -12,7 +12,6 @@ void PatrolState::tick(float dt)
 		DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " can attack Character #" + std::to_string(character->getID()) + ".");
 		if(((Character*)actor)->getType().compare(character->getType()) != 0)
 		{
-			DEBUG_LOG("GAMEPLAY", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
 			DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
 			dispatcher->dispatch(new StateEvent("attack"));
 			return;

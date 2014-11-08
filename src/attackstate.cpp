@@ -27,7 +27,7 @@ void AttackState::tick(float dt)
 
 void AttackState::scanForTarget()
 {
-	DEBUG_LOG("ATTACKSTATE", "Scanning for ((Character*)actor)->getTarget().");
+	DEBUG_LOG("ATTACKSTATE", "Scanning for target.");
 	unsigned int i;
 	Character* character;
 	int radius = (int) *behavioralConfig->get("radius");
@@ -37,15 +37,16 @@ void AttackState::scanForTarget()
 		character = (Character*)(*nodes->get(i))->getActor();
 		if(((Character*)actor)->getType().compare(character->getType()) != 0)
 		{
-			DEBUG_LOG("ATTACKSTATE", "Found ((Character*)actor)->getTarget().");
+			DEBUG_LOG("ATTACKSTATE", "Found target."); 
 			((Character*)actor)->setTarget(character);
+			return;
 		}
 	}
 }
 
 void AttackState::moveTowardTarget()
 {
-	DEBUG_LOG("ATTACKSTATE", "Moving toward ((Character*)actor)->getTarget().");
+	DEBUG_LOG("ATTACKSTATE", "Moving toward target."); 
 	int xDist = ((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX();
 	int yDist = ((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY();
 	int newX = ((Character*)actor)->getX();
@@ -72,7 +73,7 @@ void AttackState::moveTowardTarget()
 
 bool AttackState::targetInRange()
 {
-	bool inRange = std::abs(((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX()) == 1 && std::abs(((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY()) == 1;
+	bool inRange = std::abs(((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX()) <= 1 && std::abs(((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY()) <= 1;
 	DEBUG_LOG("ATTACKSTATE", "Character #" + std::to_string(((Character*)actor)->getTarget()->getID()) + " is in range of Character #" + std::to_string(((Character*)actor)->getID()) + ": " + std::to_string(inRange) + ".");
 	return inRange;
 }

@@ -56,6 +56,7 @@ std::string Character::getType()
 
 void Character::takeDamage(unsigned int damage)
 {
+	DEBUG_LOG("CHARACTER", "Character #" + std::to_string(id) + " taking " + std::to_string(damage) + " damage.");
 	if(damage >= health)
 	{
 		health = 0;
