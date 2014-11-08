@@ -4,6 +4,7 @@
 #include "asciirenderer.hh"
 #include "camerastate.hh"
 #include "selectstate.hh"
+#include "inspectstate.hh"
 
 class WorldController
 {
