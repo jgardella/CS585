@@ -18,11 +18,16 @@ class ASCIIRenderer : public IRenderer
 
 		void moveY(int y);
 		
+		void moveCursorX(int x);
+
+		void moveCursorY(int y);
+		
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);
 	private:
 		Trie<tRenderInfo*>* renderInfos;
 		unsigned int maxX, maxY;
+		unsigned int cursorX, cursorY;
 };
 
 #endif

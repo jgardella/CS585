@@ -34,7 +34,7 @@ void InputManager::tick(float dt)
 	}
 	else
 	{
-		if(keyDown != ch) // key up
+		if(keyDown != 0 && keyDown != ch) // key up
 		{
 			dispatcher->dispatch(new InputEvent(ch, false));
 			keyDown = 0;

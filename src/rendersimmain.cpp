@@ -11,11 +11,13 @@ void debugConfig()
 	Debug::getInstance()->setTerminalLogging(false);
 	Debug::getInstance()->setFileLogging(true);
 	Debug::getInstance()->addChannel("RENDERSIM");
-	Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
-	Debug::getInstance()->addChannel("PATROLSTATE");
-	Debug::getInstance()->addChannel("ATTACKSTATE");
+	//Debug::getInstance()->addChannel("RANDLOCCHARSPAWN");
+	//Debug::getInstance()->addChannel("PATROLSTATE");
+	//Debug::getInstance()->addChannel("ATTACKSTATE");
 	//Debug::getInstance()->addChannel("CAMERASTATE");
-	Debug::getInstance()->addChannel("WORLDSTATE");
+	//Debug::getInstance()->addChannel("WORLDSTATE");
+	//Debug::getInstance()->addChannel("SELECTSTATE");
+	//Debug::getInstance()->addChannel("STATEMACHINE");
 	Debug::getInstance()->addChannel("ASCIIRENDERER");
 	//Debug::getInstance()->addChannel("INPUTMANAGER");
 	//Debug::getInstance()->addChannel("WORLDCONTROLLER");

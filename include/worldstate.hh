@@ -29,19 +29,19 @@ class WorldState : public IState
 				{
 					this->controller = controller;
 				}
-
+				
 				virtual void execute(IEvent* event)
 				{
 					DEBUG_LOG("WORLDSTATE", "User controller received input event.");
-					if(event->getType().compare("input") == 0)
+					if(listen && event->getType().compare("input") == 0)
 					{
 						InputEvent* inputEvent = (InputEvent*)event;
 						controller->parseInput(inputEvent->getInput(), inputEvent->getKeyDown());
 					}
 				}
 
-			private:
 				WorldState* controller;
+				bool listen;
 		} inputListener;
 };
 

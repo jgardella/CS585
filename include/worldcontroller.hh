@@ -3,6 +3,7 @@
 
 #include "asciirenderer.hh"
 #include "camerastate.hh"
+#include "selectstate.hh"
 
 class WorldController
 {

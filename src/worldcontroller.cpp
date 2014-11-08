@@ -4,9 +4,14 @@ WorldController::WorldController(ASCIIRenderer* renderer)
 {
 	DEBUG_LOG("WORLDCONTROLLER", "Constructing new world controller.");
 	this->renderer = renderer;
+	CameraState* cameraState = new CameraState(renderer);
+	SelectState* selectState = new SelectState(renderer);
 	Trie<IState*>* stateMap = new Trie<IState*>();
-	stateMap->add("camera", new CameraState(renderer));
+	stateMap->add("camera", cameraState);
+	stateMap->add("select", selectState);
 	machine = new StateMachine(stateMap, NULL, "camera");
+	cameraState->addListener("state", machine->getListener());
+	selectState->addListener("state", machine->getListener());
 }
 
 void WorldController::tick(float dt)

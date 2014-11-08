@@ -10,6 +10,9 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	keypad(stdscr, TRUE);
 	curs_set(FALSE);
 	renderInfos = new Trie<tRenderInfo*>();
+	cursorY = 0;
+	cursorX = 0;
+	move(cursorY, cursorX);
 }
 
 void ASCIIRenderer::render()
@@ -55,6 +58,7 @@ void ASCIIRenderer::render()
 			}
 		}
 	}
+	move(cursorY, cursorX);
 	refresh();
 }
 
@@ -79,4 +83,22 @@ void ASCIIRenderer::moveY(int dy)
 		renderY += dy;
 	}
 	DEBUG_LOG("ASCIIRENDERER", "Camera moved to y value " + std::to_string(renderY) + ".");
+}
+
+void ASCIIRenderer::moveCursorX(int dx)
+{
+	if(cursorX + dx >= 0 && cursorX + dx < maxX)
+	{
+		cursorX += dx;
+	}
+	DEBUG_LOG("ASCIIRENDERER", "Cursor moved to x value " + std::to_string(cursorX) + ".");
+}
+
+void ASCIIRenderer::moveCursorY(int dy)
+{
+	if(cursorY + dy >= 0 && cursorY + dy < maxY)
+	{
+		cursorY += dy;
+	}
+	DEBUG_LOG("ASCIIRENDERER", "Cursor moved to y value " + std::to_string(cursorY) + ".");
 }
