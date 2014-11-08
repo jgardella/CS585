@@ -24,10 +24,6 @@ void InspectState::parseInput(int c, bool keyDown)
 				renderer->setInspectOutput(false);
 				dispatcher->dispatch(new StateEvent("camera"));
 				break;
-			case 'i':
-				DEBUG_LOG("INSPECTSTATE", "Toggling inspect output.");
-				renderer->setInspectOutput(true);
-				break;
 			case KEY_LEFT:
 				break;
 			case KEY_RIGHT:

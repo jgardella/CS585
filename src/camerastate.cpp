@@ -20,6 +20,7 @@ void CameraState::parseInput(int c, bool keyDown)
 			case 32: // space
 				DEBUG_LOG("CAMERASTATE", "Pausing and switching to selection mode.");
 				SceneManager::getInstance()->pause();
+				renderer->setInspectOutput(true);
 				active = false;
 				curs_set(TRUE);
 				dispatcher->dispatch(new StateEvent("select"));

@@ -1,6 +1,6 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, std::string type, Trie<double>* behavioralConfig) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, unsigned int hydration, unsigned int energy, std::string type, Trie<double>* behavioralConfig) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
 	this->gold = gold;
@@ -8,6 +8,8 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->type = type;
 	this->id = id;
 	this->target = NULL;
+	this->hydration = hydration;
+	this->energy = energy;
 }
 
 Character::~Character()
@@ -74,7 +76,7 @@ void Character::takeDamage(unsigned int damage)
 
 std::string Character::inspect()
 {
-	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold);
+	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold) + " | Hydration: " + std::to_string(hydration) + " | Energy: " + std::to_string(energy);
 	if(target != NULL)
 	{
 		str.append(" | Target: " + target->getType() + " #" + std::to_string(target->getID()));

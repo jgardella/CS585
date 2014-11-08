@@ -5,10 +5,14 @@
 	{
 		"radius" : 3.0,
 		"maxattack" : 10.0,
-		"chance" : 0.8
+		"chance" : 0.8,
+		"maxhydration" : 10.0,
+		"maxenegry" : 10.0,
 	},
 	"start" : "patrol",
 	"health" : 35,
 	"mingold" : 0,
-	"maxgold" : 0
+	"maxgold" : 0,
+	"hydration" : 10,
+	"energy" : 10
 }
