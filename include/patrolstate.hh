@@ -12,7 +12,7 @@
 class PatrolState : public IState
 {
 	public:
-		PatrolState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { }
+		PatrolState(IActor* actor) : IState(actor) { }
 		void tick(float dt);
 
 };

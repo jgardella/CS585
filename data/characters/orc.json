@@ -8,5 +8,7 @@
 		"chance" : 0.6
 	},
 	"start" : "patrol",
-	"health" : 50
+	"health" : 50,
+	"mingold" : 2,
+	"maxgold" : 8
 }

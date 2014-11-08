@@ -1,8 +1,9 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, std::string type) : IActor(collisionLayer, "CHARACTER")
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, std::string type, Trie<double>* behavioralConfig) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
+	this->gold = gold;
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
 	this->type = type;
 	this->id = id;
@@ -73,7 +74,7 @@ void Character::takeDamage(unsigned int damage)
 
 std::string Character::inspect()
 {
-	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id);
+	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold);
 	if(target != NULL)
 	{
 		str.append(" | Target: " + target->getType() + " #" + std::to_string(target->getID()));
@@ -93,4 +94,14 @@ void Character::setTarget(Character* target)
 Character* Character::getTarget()
 {
 	return target;
+}
+
+void Character::setGold(unsigned int newValue)
+{
+	gold = newValue;
+}
+
+unsigned int Character::getGold()
+{
+	return gold;
 }

@@ -30,7 +30,7 @@ void AttackState::scanForTarget()
 	DEBUG_LOG("ATTACKSTATE", "Scanning for target.");
 	unsigned int i;
 	Character* character;
-	int radius = (int) *behavioralConfig->get("radius");
+	int radius = (int) *actor->getBehavioralConfig()->get("radius");
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
 	for(i = 0; i < nodes->length(); i++)
 	{
@@ -83,7 +83,7 @@ void AttackState::attackTarget()
 	DEBUG_LOG("ATTACKSTATE", "Attempting to attack ((Character*)actor)->getTarget().");
 	/*int damage; // reimplement later
 	float rand = std::rand() / ((float) RAND_MAX);
-	if(rand < *behavioralConfig->get("chance"))
+	if(rand < *actor->getBehavioralConfig()->get("chance"))
 	{
 		damage = getAttackDamage();
 		DEBUG_LOG("ATTACKSTATE", "Attacking ((Character*)actor)->getTarget() with damage " + std::to_string(damage) + ".");
@@ -108,5 +108,5 @@ void AttackState::attackTarget()
 
 unsigned int AttackState::getAttackDamage()
 {
-	return std::rand() % (unsigned int)*behavioralConfig->get("maxattack") + 1;
+	return std::rand() % (unsigned int)*actor->getBehavioralConfig()->get("maxattack") + 1;
 }

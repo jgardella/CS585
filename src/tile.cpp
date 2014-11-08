@@ -1,6 +1,6 @@
 #include "tile.hh"
 
-Tile::Tile(int x, int y, unsigned int collisionLayer, std::string type) : IActor(collisionLayer, type)
+Tile::Tile(int x, int y, unsigned int collisionLayer, std::string type) : IActor(collisionLayer, type, NULL)
 {
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
 	this->type = type;

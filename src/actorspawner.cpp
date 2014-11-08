@@ -40,7 +40,7 @@ void ActorSpawner::tick(float dt)
 	{
 		std::srand(time(NULL));
 		DEBUG_LOG("SPAWNER", "Actor spawner spawning new actor.");
-		Actor *newActor = new Actor(*names->remove(rand() % names->length()), spawnX, spawnY, true);
+		Actor *newActor = new Actor(*names->remove(rand() % names->length()), spawnX, spawnY, true, NULL);
 		DEBUG_LOG("GAMEPLAY", "Spawning " + newActor->getName() + " at (" + std::to_string(spawnX) + ", " + std::to_string(spawnY) + ").");
 		actors->pushBack(newActor);
 		DEBUG_LOG("SPAWNER", "Actor added to actors array.");

@@ -2,6 +2,7 @@
 #define _IACTOR_HH_
 
 #include <string>
+#include "trie.hh"
 
 class IActor
 {
@@ -14,16 +15,19 @@ class IActor
 		virtual std::string getClass();		
 	
 		virtual std::string inspect();
+		
+		Trie<double>* getBehavioralConfig();
 
 	protected:
 		int collisionLayer;
 		std::string classType;
+		Trie<double>* behavioralConfig;
 
 		// Constructs an IActor with the given collision layer and class.
 		// Parameters:
 		// unsigned int collisionLayer - the layer on which the actor collides
 		// std::string classType - a string representing the derivative class of the actor.
-		IActor(unsigned int collisionLayer, std::string classType);
+		IActor(unsigned int collisionLayer, std::string classType, Trie<double>* behavioralConfig);
 		virtual ~IActor();
 };
 

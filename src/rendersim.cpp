@@ -124,6 +124,8 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	charInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
 	charInfo->startState = ((JSONPrimitive<std::string>*)*trie->get("start"))->getPrimitive();
 	charInfo->health = ((JSONPrimitive<unsigned int>*)*trie->get("health"))->getPrimitive();
+	charInfo->minGold = ((JSONPrimitive<unsigned int>*)*trie->get("mingold"))->getPrimitive();
+	charInfo->maxGold = ((JSONPrimitive<unsigned int>*)*trie->get("maxgold"))->getPrimitive();
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
 }
 

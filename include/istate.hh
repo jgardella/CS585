@@ -19,8 +19,6 @@ class IState : public ITickable
 		
 		void setActor(IActor* actor);
 
-		void setConfig(Trie<double>* config);
-		
 		// Congifures the state every time it is transitioned to.
 		void preStateStart();
 
@@ -30,9 +28,8 @@ class IState : public ITickable
 		// Parameters:
 		// IActor* act - pointer to the statemachine's actor
 		// Trie<float>* config - pointer to the actor's behavioral config
-		IState(IActor* act, Trie<double>* config); 
+		IState(IActor* act); 
 		IActor* actor;
-		Trie<double>* behavioralConfig;
 		Dispatcher* dispatcher;
 		bool active;
 };

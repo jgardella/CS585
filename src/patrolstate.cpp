@@ -4,7 +4,7 @@ void PatrolState::tick(float dt)
 {
 	unsigned int i;
 	Character* character;
-	int radius = (int) *behavioralConfig->get("radius");
+	int radius = (int) *actor->getBehavioralConfig()->get("radius");
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
 	for(i = 0; i < nodes->length(); i++)
 	{

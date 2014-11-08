@@ -12,7 +12,7 @@
 class AttackState : public IState
 {
 	public:
-		AttackState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { }
+		AttackState(IActor* actor) : IState(actor) { }
 
 		void tick(float dt);
 

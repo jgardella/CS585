@@ -12,10 +12,22 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	StateMachine* machine;
 	IState* state;
 	tCharacterInfo* info = *characterInfos->get(type);
+	
+
+	unsigned int gold;
+	if(info->maxGold != info->minGold)
+	{	
+		gold = std::rand() % (info->maxGold - info->minGold) + info->minGold;
+	}
+	else
+	{
+		gold = info->maxGold;
+	}
+
 	// create actor
-	actor = new Character(x, y, 1, id++, info->health, info->type);
-	PatrolState* patrolState = new PatrolState(actor, info->behavioralConfig);
-	AttackState* attackState = new AttackState(actor, info->behavioralConfig);
+	actor = new Character(x, y, 1, id++, info->health, gold, info->type, info->behavioralConfig);
+	PatrolState* patrolState = new PatrolState(actor);
+	AttackState* attackState = new AttackState(actor);
 
 	
 	Trie<IState*>* stateMap = new Trie<IState*>();

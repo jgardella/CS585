@@ -3,6 +3,7 @@
 
 #include "scenemanager.hh"
 #include "scenenode.hh"
+#include "trie.hh"
 #include <string>
 
 // Actor class for simulation.
@@ -15,7 +16,7 @@ class Actor : public IActor
 		// int x - initial x coordinate of actor
 		// int y - intial y coordinate of actor
 		// unsigned int col - collision layer for actor
-		Actor(std::string name, int x, int y, unsigned int col);
+		Actor(std::string name, int x, int y, unsigned int col, Trie<double>* behavioralConfig);
 		
 		~Actor();
 

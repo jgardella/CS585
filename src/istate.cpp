@@ -1,7 +1,7 @@
 // Functions for state interface.
 #include "istate.hh"
 
-IState::IState(IActor* act, Trie<double>* config) : actor(act), behavioralConfig(config) 
+IState::IState(IActor* act) : actor(act)
 {
 	DEBUG_LOG("ISTATE", "Constructing IState.");
 	dispatcher = new Dispatcher();
@@ -17,11 +17,6 @@ void IState::addListener(std::string type, IListenerCallback* listener)
 void IState::setActor(IActor* actor)
 {
 	this->actor = actor;
-}
-
-void IState::setConfig(Trie<double>* config)
-{
-	behavioralConfig = config;
 }
 
 void IState::preStateStart()
