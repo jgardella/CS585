@@ -22,3 +22,8 @@ std::string IActor::getClass()
 {
 	return classType;
 }
+
+std::string IActor::inspect()
+{
+	return classType;
+}

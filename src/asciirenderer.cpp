@@ -13,13 +13,15 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	cursorY = 0;
 	cursorX = 0;
 	move(cursorY, cursorX);
+	showInspectInfo = false;
 }
 
 void ASCIIRenderer::render()
 {
 	unsigned int i, j, k;
 	DynamicArray<SceneNode*>* nodes;
-	IActor* actor;
+	IActor* actor = NULL;
+	IActor* actorUnderCursor = NULL;
 	tRenderInfo* renderInfo;
 	getmaxyx(stdscr, maxY, maxX);
 	clear();
@@ -52,6 +54,11 @@ void ASCIIRenderer::render()
 					{
 						renderInfo = *renderInfos->get(((Tile*)actor)->getType());
 					}
+					if(i == renderX + cursorX && j == renderY + cursorY)
+					{
+						DEBUG_LOG("ASCIIRENDERER", "Setting actor under cursor.");
+						actorUnderCursor = actor;
+					}
 				}
 				attron(COLOR_PAIR(renderInfo->colorPair));
 				mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
@@ -59,6 +66,11 @@ void ASCIIRenderer::render()
 		}
 	}
 	move(cursorY, cursorX);
+	if(showInspectInfo && actorUnderCursor != NULL)
+	{
+		DEBUG_LOG("ASCIIRENDERER", "Printing inspect info: " + actorUnderCursor->inspect());
+		mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, actorUnderCursor->inspect().c_str());
+	}
 	refresh();
 }
 
@@ -101,4 +113,9 @@ void ASCIIRenderer::moveCursorY(int dy)
 		cursorY += dy;
 	}
 	DEBUG_LOG("ASCIIRENDERER", "Cursor moved to y value " + std::to_string(cursorY) + ".");
+}
+
+void ASCIIRenderer::setInspectOutput(bool newValue)
+{
+	showInspectInfo = newValue;
 }

@@ -37,6 +37,8 @@ class Character : public IActor
 		std::string getType();
 		
 		void takeDamage(unsigned int damage);
+		
+		virtual std::string inspect();
 
 	private:
 		unsigned int health;

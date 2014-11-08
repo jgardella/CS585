@@ -68,3 +68,8 @@ void Character::takeDamage(unsigned int damage)
 		SceneManager::getInstance()->removeSceneNode(sceneNode);
 	}
 }
+
+std::string Character::inspect()
+{
+	return "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id);
+}

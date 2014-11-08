@@ -35,3 +35,8 @@ SceneNode* Tile::getSceneNode()
 {
 	return sceneNode;
 }
+
+std::string Tile::inspect()
+{
+	return "Tile Type: " + type + "\n";
+}

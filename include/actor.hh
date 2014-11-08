@@ -35,6 +35,8 @@ class Actor : public IActor
 		
 		SceneNode* getSceneNode();
 		
+		virtual std::string inspect();
+
 	private:
 		std::string name;
 		SceneNode *sceneNode;

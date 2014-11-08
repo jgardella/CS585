@@ -12,6 +12,9 @@ class IActor
 		
 		// Returns a string representing the class of the derivative actor.
 		virtual std::string getClass();		
+	
+		virtual std::string inspect();
+
 	protected:
 		int collisionLayer;
 		std::string classType;

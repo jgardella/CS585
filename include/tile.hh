@@ -19,6 +19,9 @@ class Tile : public IActor
 		std::string getType();
 
 		SceneNode* getSceneNode();
+	
+		virtual std::string inspect();
+
 	private:
 		SceneNode* sceneNode;
 		std::string type;

@@ -22,12 +22,15 @@ class ASCIIRenderer : public IRenderer
 
 		void moveCursorY(int y);
 		
+		void setInspectOutput(bool newValue);
+
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);
 	private:
 		Trie<tRenderInfo*>* renderInfos;
 		unsigned int maxX, maxY;
 		unsigned int cursorX, cursorY;
+		bool showInspectInfo;
 };
 
 #endif

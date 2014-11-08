@@ -55,3 +55,8 @@ SceneNode* Actor::getSceneNode()
 {
 	return sceneNode;
 }
+
+std::string Actor::inspect()
+{
+	return "Name: " + name + "\n";
+}
