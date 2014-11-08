@@ -2,11 +2,11 @@
 
 void AttackState::tick(float dt)
 {
-	if(target == NULL) // scan for target
+	if(((Character*)actor)->getTarget() == NULL) // scan for ((Character*)actor)->getTarget()
 	{
 		scanForTarget();
 	}
-	if(target == NULL) // target not found, return to patrol
+	if(((Character*)actor)->getTarget() == NULL) // ((Character*)actor)->getTarget() not found, return to patrol
 	{
 		DEBUG_LOG("ATTACKSTATE", "Target not found, transitioning to patrol state.");
 		dispatcher->dispatch(new StateEvent("patrol"));
@@ -27,7 +27,7 @@ void AttackState::tick(float dt)
 
 void AttackState::scanForTarget()
 {
-	DEBUG_LOG("ATTACKSTATE", "Scanning for target.");
+	DEBUG_LOG("ATTACKSTATE", "Scanning for ((Character*)actor)->getTarget().");
 	unsigned int i;
 	Character* character;
 	int radius = (int) *behavioralConfig->get("radius");
@@ -37,17 +37,17 @@ void AttackState::scanForTarget()
 		character = (Character*)(*nodes->get(i))->getActor();
 		if(((Character*)actor)->getType().compare(character->getType()) != 0)
 		{
-			DEBUG_LOG("ATTACKSTATE", "Found target.");
-			target = character;
+			DEBUG_LOG("ATTACKSTATE", "Found ((Character*)actor)->getTarget().");
+			((Character*)actor)->setTarget(character);
 		}
 	}
 }
 
 void AttackState::moveTowardTarget()
 {
-	DEBUG_LOG("ATTACKSTATE", "Moving toward target.");
-	int xDist = ((Character*)actor)->getX() - target->getX();
-	int yDist = ((Character*)actor)->getY() - target->getY();
+	DEBUG_LOG("ATTACKSTATE", "Moving toward ((Character*)actor)->getTarget().");
+	int xDist = ((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX();
+	int yDist = ((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY();
 	int newX = ((Character*)actor)->getX();
 	int newY = ((Character*)actor)->getY();
 	if(yDist < 0)
@@ -72,25 +72,25 @@ void AttackState::moveTowardTarget()
 
 bool AttackState::targetInRange()
 {
-	bool inRange = std::abs(((Character*)actor)->getX() - target->getX()) == 1 && std::abs(((Character*)actor)->getY() - target->getY()) == 1;
-	DEBUG_LOG("ATTACKSTATE", "Character #" + std::to_string(target->getID()) + " is in range of Character #" + std::to_string(((Character*)actor)->getID()) + ": " + std::to_string(inRange) + ".");
+	bool inRange = std::abs(((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX()) == 1 && std::abs(((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY()) == 1;
+	DEBUG_LOG("ATTACKSTATE", "Character #" + std::to_string(((Character*)actor)->getTarget()->getID()) + " is in range of Character #" + std::to_string(((Character*)actor)->getID()) + ": " + std::to_string(inRange) + ".");
 	return inRange;
 }
 
 void AttackState::attackTarget()
 {
-	DEBUG_LOG("ATTACKSTATE", "Attempting to attack target.");
+	DEBUG_LOG("ATTACKSTATE", "Attempting to attack ((Character*)actor)->getTarget().");
 	/*int damage; // reimplement later
 	float rand = std::rand() / ((float) RAND_MAX);
 	if(rand < *behavioralConfig->get("chance"))
 	{
 		damage = getAttackDamage();
-		DEBUG_LOG("ATTACKSTATE", "Attacking target with damage " + std::to_string(damage) + ".");
-		DEBUG_LOG("GAMEPLAY", "Attacking target with damage " + std::to_string(damage) + ".");	
-		target->takeDamage(getAttackDamage());
-		if(target->getHealth() == 0)
+		DEBUG_LOG("ATTACKSTATE", "Attacking ((Character*)actor)->getTarget() with damage " + std::to_string(damage) + ".");
+		DEBUG_LOG("GAMEPLAY", "Attacking ((Character*)actor)->getTarget() with damage " + std::to_string(damage) + ".");	
+		((Character*)actor)->getTarget()->takeDamage(getAttackDamage());
+		if(((Character*)actor)->getTarget()->getHealth() == 0)
 		{
-			target = NULL;
+			((Character*)actor)->getTarget() = NULL;
 		}
 	}*/
 	int rand = std::rand() % 2;
@@ -100,8 +100,8 @@ void AttackState::attackTarget()
 	}
 	else
 	{
-		target->takeDamage(target->getHealth());
-		target = NULL;
+		((Character*)actor)->getTarget()->takeDamage(((Character*)actor)->getTarget()->getHealth());
+		((Character*)actor)->setTarget(NULL);
 	}
 }
 

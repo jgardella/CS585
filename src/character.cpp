@@ -6,6 +6,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
 	this->type = type;
 	this->id = id;
+	this->target = NULL;
 }
 
 Character::~Character()
@@ -71,5 +72,24 @@ void Character::takeDamage(unsigned int damage)
 
 std::string Character::inspect()
 {
-	return "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id);
+	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id);
+	if(target != NULL)
+	{
+		str.append(" | Target: " + target->getType() + " #" + std::to_string(target->getID()));
+	}
+	else
+	{
+		str.append(" | Target: NO TARGET");
+	}
+	return str;
+}
+
+void Character::setTarget(Character* target)
+{
+	this->target = target;
+}
+
+Character* Character::getTarget()
+{
+	return target;
 }

@@ -12,12 +12,11 @@
 class AttackState : public IState
 {
 	public:
-		AttackState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { target = NULL; }
+		AttackState(IActor* actor, Trie<double>* behavior) : IState(actor, behavior) { }
 
 		void tick(float dt);
 
 	private:
-		Character* target;
 		void scanForTarget();
 		void moveTowardTarget();
 		void attackTarget();

@@ -38,13 +38,18 @@ class Character : public IActor
 		
 		void takeDamage(unsigned int damage);
 		
-		virtual std::string inspect();
+		void setTarget(Character* target);
 
+		Character* getTarget();
+
+		virtual std::string inspect();
+		
 	private:
 		unsigned int health;
 		std::string type;
 		SceneNode *sceneNode;
 		unsigned int id;
+		Character* target;
 };
 
 #endif
