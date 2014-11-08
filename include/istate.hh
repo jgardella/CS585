@@ -20,6 +20,9 @@ class IState : public ITickable
 		void setActor(IActor* actor);
 
 		void setConfig(Trie<double>* config);
+		
+		// Congifures the state every time it is transitioned to.
+		void preStateStart();
 
 	protected:
 
@@ -31,6 +34,7 @@ class IState : public ITickable
 		IActor* actor;
 		Trie<double>* behavioralConfig;
 		Dispatcher* dispatcher;
+		bool active;
 };
 
 #endif

@@ -5,6 +5,7 @@ IState::IState(IActor* act, Trie<double>* config) : actor(act), behavioralConfig
 {
 	DEBUG_LOG("ISTATE", "Constructing IState.");
 	dispatcher = new Dispatcher();
+	active = false;
 }
 
 void IState::addListener(std::string type, IListenerCallback* listener)
@@ -21,4 +22,9 @@ void IState::setActor(IActor* actor)
 void IState::setConfig(Trie<double>* config)
 {
 	behavioralConfig = config;
+}
+
+void IState::preStateStart()
+{
+	active = true;
 }

@@ -13,6 +13,7 @@ class WorldState : public IState
 	public:
 		virtual void tick(float dt) = 0;
 		virtual void parseInput(int key, bool keyDown) = 0;
+	
 	protected:
 		WorldState(ASCIIRenderer* renderer);
 		ASCIIRenderer* renderer;
@@ -33,7 +34,7 @@ class WorldState : public IState
 				virtual void execute(IEvent* event)
 				{
 					DEBUG_LOG("WORLDSTATE", "User controller received input event.");
-					if(listen && event->getType().compare("input") == 0)
+					if(controller->active && event->getType().compare("input") == 0)
 					{
 						InputEvent* inputEvent = (InputEvent*)event;
 						controller->parseInput(inputEvent->getInput(), inputEvent->getKeyDown());
@@ -41,8 +42,8 @@ class WorldState : public IState
 				}
 
 				WorldState* controller;
-				bool listen;
 		} inputListener;
+
 };
 
 #endif

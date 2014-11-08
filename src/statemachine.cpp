@@ -4,13 +4,13 @@ StateMachine::StateMachine(Trie<IState*>* map, Trie<double>* config, std::string
 {
 	DEBUG_LOG("STATEMACHINE", "Constructing StateMachine with start state: " + startState + ".");
 	onStateTransition.setInstance(this);
+	currentState->preStateStart();
 }
 
 void StateMachine::tick(float dt)
 {
 	currentState->tick(dt);
 }
-
 
 IListenerCallback* StateMachine::getListener()
 {
@@ -21,4 +21,5 @@ void StateMachine::updateState(std::string stateString)
 {
 	DEBUG_LOG("STATEMACHINE", "Updating state to: " + stateString + ".");
 	currentState = *stateMap->get(stateString);
+	currentState->preStateStart();
 }

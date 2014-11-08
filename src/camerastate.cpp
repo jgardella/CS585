@@ -7,24 +7,20 @@ CameraState::CameraState(ASCIIRenderer* renderer) : WorldState(renderer)
 
 void CameraState::tick(float dt)
 {
-	if(!inputListener.listen)
-	{
-		inputListener.listen = true;
-	}
 	dispatcher->tick(dt);
 }
 
 void CameraState::parseInput(int c, bool keyDown)
 {
 	DEBUG_LOG("CAMERASTATE", "Parsing input character: " + std::to_string(c) + ".");
-	if(keyDown)
+	if(active && keyDown)
 	{
 		switch(c)
 		{
 			case 32: // space
 				DEBUG_LOG("CAMERASTATE", "Pausing and switching to selection mode.");
 				SceneManager::getInstance()->pause();
-				inputListener.listen = false;
+				active = false;
 				curs_set(TRUE);
 				dispatcher->dispatch(new StateEvent("select"));
 				break;

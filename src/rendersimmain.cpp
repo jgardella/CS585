@@ -15,10 +15,10 @@ void debugConfig()
 	//Debug::getInstance()->addChannel("PATROLSTATE");
 	//Debug::getInstance()->addChannel("ATTACKSTATE");
 	//Debug::getInstance()->addChannel("CAMERASTATE");
-	//Debug::getInstance()->addChannel("WORLDSTATE");
+	Debug::getInstance()->addChannel("WORLDSTATE");
 	//Debug::getInstance()->addChannel("SELECTSTATE");
-	//Debug::getInstance()->addChannel("STATEMACHINE");
-	Debug::getInstance()->addChannel("ASCIIRENDERER");
+	Debug::getInstance()->addChannel("STATEMACHINE");
+	//Debug::getInstance()->addChannel("ASCIIRENDERER");
 	//Debug::getInstance()->addChannel("INPUTMANAGER");
 	//Debug::getInstance()->addChannel("WORLDCONTROLLER");
 	#endif
