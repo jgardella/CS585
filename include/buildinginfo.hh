@@ -3,6 +3,7 @@
 
 typedef struct sBuildingInfo
 {	
+	std::string type;
 	unsigned int corner1X;
 	unsigned int corner1Y;	
 	unsigned int corner2X;

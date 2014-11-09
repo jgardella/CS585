@@ -60,6 +60,10 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 		parseRenderConfig(trie);
 	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("building") == 0)
+	{
+		parseBuildingConfig(trie);
+	}
 }
 
 void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
@@ -157,4 +161,19 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 		}
 	}
 	worldController = new WorldController(renderer);
+}
+
+void RenderSim::parseBuildingConfig(Trie<JSONItem*>* trie)
+{
+	DEBUG_LOG("RENDERSIM", "Parsing building config.");
+	tBuildingInfo* buildingInfo = new tBuildingInfo();
+	buildingInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
+	buildingInfo->corner1X = ((JSONPrimitive<unsigned int>*)*trie->get("corneronex"))->getPrimitive();
+	buildingInfo->corner1Y = ((JSONPrimitive<unsigned int>*)*trie->get("corneroney"))->getPrimitive();
+	buildingInfo->corner2X = ((JSONPrimitive<unsigned int>*)*trie->get("cornertwox"))->getPrimitive();
+	buildingInfo->corner2Y = ((JSONPrimitive<unsigned int>*)*trie->get("cornertwoy"))->getPrimitive();
+	buildingInfo->corner2Y = ((JSONPrimitive<unsigned int>*)*trie->get("teamnum"))->getPrimitive();
+	buildingInfo->entranceX = ((JSONPrimitive<unsigned int>*)*trie->get("entrancex"))->getPrimitive();
+	buildingInfo->entranceY = ((JSONPrimitive<unsigned int>*)*trie->get("entrancey"))->getPrimitive();
+	BuildingFactory::addBuildingInfo(buildingInfo->type, buildingInfo);
 }

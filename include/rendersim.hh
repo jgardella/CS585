@@ -19,6 +19,8 @@
 #include "renderinfo.hh"
 #include "asciirenderer.hh"
 #include "worldcontroller.hh"
+#include "buildingfactory.hh"
+#include "buildinginfo.hh"
 
 class RenderSim 
 {
@@ -50,6 +52,8 @@ class RenderSim
 		void parseTileConfig(Trie<JSONItem*>* trie);
 
 		void parseRenderConfig(Trie<JSONItem*>* trie);
+		
+		void parseBuildingConfig(Trie<JSONItem*>* trie);
 };
 
 #endif
