@@ -24,7 +24,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(SceneNode *node)
 	return colliders;
 }
 
-DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
+DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y, bool ignoreNonCollisionLayer)
 {
 	DEBUG_LOG("FIXEDGRID", "Getting colliders at position (" + std::to_string(x) + ", " + std::to_string(y) + ").");
 	DynamicArray<SceneNode*> *colliders = new DynamicArray<SceneNode*>();
@@ -33,7 +33,7 @@ DynamicArray<SceneNode*> *FixedGrid::getColliders(int x, int y)
 		SceneNode* node = nodeGrid[x + y * yDimension];
 		while(node != NULL)
 		{
-			if(node->getActor()->getCollisionLayer() > 0) // if node is not on non-collision layer, add to array
+			if(!ignoreNonCollisionLayer || node->getActor()->getCollisionLayer() > 0)
 			{
 				colliders->pushBack(node);
 			}

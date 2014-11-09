@@ -23,10 +23,10 @@ DynamicArray<SceneNode*>* SceneManager::getColliders(SceneNode* node)
 	return sceneGraph->getColliders(node);
 }
 
-DynamicArray<SceneNode*>* SceneManager::getColliders(int x, int y)
+DynamicArray<SceneNode*>* SceneManager::getColliders(int x, int y, bool ignoreNonCollisionLayer)
 {
 	DEBUG_LOG("MANAGER", "Getting colliders at position (" + std::to_string(x) + ", " + std::to_string(y) + ").");
-	return sceneGraph->getColliders(x, y);
+	return sceneGraph->getColliders(x, y, ignoreNonCollisionLayer);
 }
 
 DynamicArray<SceneNode*>* SceneManager::getColliders(int x, int y, int radius)

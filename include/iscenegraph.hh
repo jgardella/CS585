@@ -34,7 +34,8 @@ class ISceneGraph
 		// Parameters:
 		// int x - x coordinate
 		// int y - y coordinate
-		virtual DynamicArray<SceneNode*> *getColliders(int x, int y) = 0;
+		// bool ignoreNonCollisionLayer - whether or not to ignore the non-collision layer (0)
+		virtual DynamicArray<SceneNode*> *getColliders(int x, int y, bool ignoreNonCollisionLayer) = 0;
 
 		// Finds all collidable scene nodes within the given circle.
 		// Parameters:

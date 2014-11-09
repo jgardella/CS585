@@ -13,7 +13,7 @@ void RenderSim::run()
 		worldController->tick((float)(startTime - finishTime)/(float)CLOCKS_PER_SEC);
 		renderer->tick((float)(startTime - finishTime) / (float)CLOCKS_PER_SEC);
 		finishTime = startTime;
-	}	
+	}
 }
 
 void RenderSim::config(std::string gameConfigPath)
@@ -28,9 +28,9 @@ void RenderSim::config(std::string gameConfigPath)
 	DEBUG_LOG("RENDERSIM", "Getting array of config files.");
 	DynamicArray<JSONItem*>* configs = ((JSONArray*)*trie->get("configs"))->getDynamicArray();
 	DEBUG_LOG("RENDERSIM", "Creating orc spawner.");
-	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "orc")); 
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "orc"));
 	DEBUG_LOG("RENDERSIM", "Creating dwarf spawner.");
-	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "dwarf")); 
+	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "dwarf"));
 	DEBUG_LOG("RENDERSIM", "Parsing sub configs.");
 	for(i = 0; i < configs->length(); i++)
 	{
@@ -102,7 +102,7 @@ DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 	{
 		tPosition* pos = new tPosition();
 		pos->x = ((JSONPrimitive<int>*)*((JSONObject*)*convertedArray->get(i))->getTrie()->get("x"))->getPrimitive();
-	       	pos->y = ((JSONPrimitive<int>*)*((JSONObject*)*convertedArray->get(i))->getTrie()->get("y"))->getPrimitive();
+		pos->y = ((JSONPrimitive<int>*)*((JSONObject*)*convertedArray->get(i))->getTrie()->get("y"))->getPrimitive();
 		DEBUG_LOG("RENDERSIM", "Position is (" + std::to_string(pos->x) + ", " + std::to_string(pos->y) + ").");
 		positions->pushBack(pos);
 	}

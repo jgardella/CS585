@@ -21,7 +21,7 @@ void debugConfig()
 	//Debug::getInstance()->addChannel("INSPECTSTATE");
 	Debug::getInstance()->addChannel("TILEFACTORY");
 	Debug::getInstance()->addChannel("LEVEL");
-	//Debug::getInstance()->addChannel("ASCIIRENDERER");
+	Debug::getInstance()->addChannel("ASCIIRENDERER");
 	//Debug::getInstance()->addChannel("INPUTMANAGER");
 	//Debug::getInstance()->addChannel("WORLDCONTROLLER");
 	#endif

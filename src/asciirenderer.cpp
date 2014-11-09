@@ -31,13 +31,14 @@ void ASCIIRenderer::render()
 		{
 			if(i < (unsigned int)LevelManager::getInstance()->getWorldWidth() && j < (unsigned int)LevelManager::getInstance()->getWorldHeight())
 			{
-				nodes = SceneManager::getInstance()->getColliders(i, j);
+				nodes = SceneManager::getInstance()->getColliders(i, j, false);
 				if(nodes->length() == 0)
 				{
 					renderInfo = *renderInfos->get(LevelManager::getInstance()->getDefaultTile());
 				}
 				else
 				{
+					DEBUG_LOG("ASCIIRENDERER", "Rendering non-default tile.");
 					actor = (*nodes->get(0))->getActor();
 					for(k = 1; k < nodes->length(); k++)
 					{

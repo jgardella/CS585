@@ -43,7 +43,8 @@ class FixedGrid : public ISceneGraph
 		// Parameters:
 		// int x - x coordinate
 		// int y - y coordinate
-		DynamicArray<SceneNode*> *getColliders(int x, int y);
+		// bool ignoreNonCollisionLayer - whether or not to ignore layer 0 when getting colliders
+		DynamicArray<SceneNode*> *getColliders(int x, int y, bool ignoreNonCollisionLayer);
 		
 		// Finds all collidable scene nodes within the given circle.
 		// Parameters:
