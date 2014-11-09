@@ -3,7 +3,7 @@
 	"type" : "grandhall",
 	"config" :
 	{
-		"width" : 5,
-		"height" : 5
+		"width" : 5.0,
+		"height" : 5.0
 	}
 }

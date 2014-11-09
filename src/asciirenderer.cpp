@@ -55,6 +55,10 @@ void ASCIIRenderer::render()
 					{
 						renderInfo = *renderInfos->get(((Tile*)actor)->getType());
 					}
+					else if(actor->getClass().compare("BUILDING") == 0)
+					{
+						renderInfo = *renderInfos->get(((Building*)actor)->getType());
+					}
 					if(i == renderX + cursorX && j == renderY + cursorY)
 					{
 						DEBUG_LOG("ASCIIRENDERER", "Setting actor under cursor.");

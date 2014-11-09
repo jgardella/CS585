@@ -8,6 +8,7 @@
 #include "tilefactory.hh"
 #include "statemachine.hh"
 #include "building.hh"
+#include "buildingfactory.hh"
 
 class Level : public ITickable
 {

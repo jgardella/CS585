@@ -6,8 +6,8 @@ unsigned int BuildingFactory::id = 0;
 Building* BuildingFactory::get(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum)
 {
 	unsigned int i;
-	tBuildingInfo* info = *buildingInfos->get("type");
-	Building* building = new Building(corner1X, corner1Y, teamNum, info->behavioralConfig);
+	tBuildingInfo* info = *buildingInfos->get(type);
+	Building* building = new Building(type, corner1X, corner1Y, teamNum, info->behavioralConfig);
 	DynamicArray<SceneNode*>* nodes = building->getSceneNodes();
 	for(i = 0; i < nodes->length(); i++)
 	{

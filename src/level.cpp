@@ -27,6 +27,10 @@ Level::Level(tLevelInfo level)
 			{
 				(void) CharacterFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
 			}
+			else if(key.compare("grandhall") == 0)
+			{
+				(void) BuildingFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y, 0);
+			}
 			else
 			{
 				DEBUG_LOG("LEVEL", "Getting tile at position (" + std::to_string((*positions->get(j))->x) + ", " + std::to_string((*positions->get(j))->y) + ").");

@@ -7,5 +7,5 @@
 	"tree" : { "character" : "T", "r" : 0, "g": 75, "b" : 0},
 	"orc" : { "character" : "O", "r" : 0, "g": 200, "b": 0},
 	"dwarf" : { "character" : "D", "r": 200, "g" : 0, "b" : 0},
-	"grandhall" : { "character" : "B", "r": 200, "g" : 0, "b" : 0}
+	"grandhall" : { "character" : "B", "r": 150, "g" : 0, "b" : 0}
 }
