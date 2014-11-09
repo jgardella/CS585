@@ -3,10 +3,11 @@
 Trie<tBuildingInfo*>* BuildingFactory::buildingInfos = new Trie<tBuildingInfo*>();
 unsigned int BuildingFactory::id = 0;
 
-Building* BuildingFactory::get(unsigned int corner1X, unsigned int corner1Y, unsigned int corner2X, unsigned int corner2Y, unsigned int teamNum, unsigned int entranceX, unsigned int entranceY)
+Building* BuildingFactory::get(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum)
 {
 	unsigned int i;
-	Building* building = new Building(corner1X, corner1Y, corner2X, corner2Y, teamNum, entranceX, entranceY);
+	tBuildingInfo* info = *buildingInfos->get("type");
+	Building* building = new Building(corner1X, corner1Y, teamNum, info->behavioralConfig);
 	DynamicArray<SceneNode*>* nodes = building->getSceneNodes();
 	for(i = 0; i < nodes->length(); i++)
 	{

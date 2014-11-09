@@ -1,16 +1,12 @@
 #ifndef _BUILDINGINFO_HH_
 #define _BUILDINGINFO_HH_
 
+#include "trie.hh"
+
 typedef struct sBuildingInfo
 {	
 	std::string type;
-	unsigned int corner1X;
-	unsigned int corner1Y;	
-	unsigned int corner2X;
-	unsigned int corner2Y;
-	unsigned int teamNum;
-	unsigned int entranceX;
-	unsigned int entranceY;
+	Trie<double>* behavioralConfig;
 } tBuildingInfo;
 
 #endif

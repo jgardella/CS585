@@ -1,22 +1,22 @@
 #include "building.hh"
 
-Building::Building(unsigned int corner1X, unsigned int corner1Y, unsigned int corner2X, unsigned int corner2Y, unsigned int teamNum, unsigned int entranceX, unsigned int entranceY) : IActor(1, "building", NULL)
+Building::Building(unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig) : IActor(1, "building", behavioralConfig)
 {
 	unsigned int i;
+	unsigned int width = *behavioralConfig->get("width");
+	unsigned int height = *behavioralConfig->get("height");
 	this->teamNum = teamNum;
-	this->entranceX = entranceX;
-	this->entranceY = entranceY;
 	this->sceneNodes = new DynamicArray<SceneNode*>();
-	for(i = corner1X; i <= corner2X; i++)
+	for(i = corner1X; i <= width + corner1X; i++)
 	{
 		sceneNodes->pushBack(new SceneNode(i, corner1Y, *this, NULL, NULL));
-		sceneNodes->pushBack(new SceneNode(i, corner2Y, *this, NULL, NULL));
+		sceneNodes->pushBack(new SceneNode(i, corner1Y + width, *this, NULL, NULL));
 	}
 
-	for(i = corner1Y + 1; i < corner2Y; i++)
+	for(i = corner1Y + 1; i < height + corner1Y; i++)
 	{
 		sceneNodes->pushBack(new SceneNode(corner1X, i, *this, NULL, NULL));
-		sceneNodes->pushBack(new SceneNode(corner2X, i, *this, NULL, NULL));
+		sceneNodes->pushBack(new SceneNode(corner1X + height, i, *this, NULL, NULL));
 	}
 }
 

@@ -11,7 +11,7 @@
 class BuildingFactory
 {
 	public:
-		static Building* get(unsigned int corner1X, unsigned int corner1Y, unsigned int corner2X, unsigned int corner2Y, unsigned int teamNum, unsigned int entranceX, unsigned int entranceY);
+		static Building* get(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum);
 	
 		static void addBuildingInfo(std::string name, tBuildingInfo* info);
 

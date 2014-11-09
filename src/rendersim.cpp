@@ -168,12 +168,6 @@ void RenderSim::parseBuildingConfig(Trie<JSONItem*>* trie)
 	DEBUG_LOG("RENDERSIM", "Parsing building config.");
 	tBuildingInfo* buildingInfo = new tBuildingInfo();
 	buildingInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
-	buildingInfo->corner1X = ((JSONPrimitive<unsigned int>*)*trie->get("corneronex"))->getPrimitive();
-	buildingInfo->corner1Y = ((JSONPrimitive<unsigned int>*)*trie->get("corneroney"))->getPrimitive();
-	buildingInfo->corner2X = ((JSONPrimitive<unsigned int>*)*trie->get("cornertwox"))->getPrimitive();
-	buildingInfo->corner2Y = ((JSONPrimitive<unsigned int>*)*trie->get("cornertwoy"))->getPrimitive();
-	buildingInfo->corner2Y = ((JSONPrimitive<unsigned int>*)*trie->get("teamnum"))->getPrimitive();
-	buildingInfo->entranceX = ((JSONPrimitive<unsigned int>*)*trie->get("entrancex"))->getPrimitive();
-	buildingInfo->entranceY = ((JSONPrimitive<unsigned int>*)*trie->get("entrancey"))->getPrimitive();
+	buildingInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
 	BuildingFactory::addBuildingInfo(buildingInfo->type, buildingInfo);
 }

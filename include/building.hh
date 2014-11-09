@@ -8,7 +8,7 @@
 class Building : public IActor
 {
 	public:
-		Building(unsigned int corner1X, unsigned int corner1Y, unsigned int corner2X, unsigned int corner2Y, unsigned int teamNum, unsigned int entranceX, unsigned int entranceY);
+		Building(unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig);
 	
 		unsigned int getTeamNumber();
 		void getEntrance(int& x, int& y);
