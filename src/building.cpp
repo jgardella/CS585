@@ -30,3 +30,8 @@ void Building::getEntrance(int& x, int& y)
 	x = entranceX;
 	y = entranceY;
 }
+
+DynamicArray<SceneNode*>* Building::getSceneNodes()
+{
+	return sceneNodes;
+}

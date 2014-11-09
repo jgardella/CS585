@@ -40,3 +40,8 @@ std::string LevelManager::getDefaultTile()
 {
 	return level.getDefaultTile();
 }
+
+Building* LevelManager::getHome(unsigned int teamNum)
+{
+	return level.getHome(teamNum);
+}

@@ -4,6 +4,7 @@
 #include "levelinfo.hh"
 #include "level.hh"
 #include "irenderer.hh"
+#include "building.hh"
 
 class LevelManager
 {
@@ -22,6 +23,7 @@ class LevelManager
 		int getWorldWidth();
 		int getWorldHeight();
 		std::string getDefaultTile();
+		Building* getHome(unsigned int teamNum);
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);

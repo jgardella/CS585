@@ -12,7 +12,7 @@ class Building : public IActor
 	
 		unsigned int getTeamNumber();
 		void getEntrance(int& x, int& y);
-		
+		DynamicArray<SceneNode*>* getSceneNodes();		
 	private:
 		unsigned int teamNum;
 		unsigned int entranceX, entranceY;

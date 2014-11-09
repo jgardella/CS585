@@ -54,3 +54,8 @@ std::string Level::getDefaultTile()
 {
 	return defaultTile;
 }
+
+Building* Level::getHome(unsigned int teamNum)
+{
+	return *teamHomes->get(teamNum);
+}
