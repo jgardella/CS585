@@ -7,5 +7,5 @@
 	"water" : [ ],
 	"dirt" : [ ],
 	"mountain" : [ ],
-	"grass" : [ ]
+	"grass" : [ { "x" : 50, "y" : 50 } ]
 }

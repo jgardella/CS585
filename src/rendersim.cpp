@@ -100,8 +100,11 @@ DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)
 	unsigned int i;
 	for(i = 0; i < convertedArray->length(); i++)
 	{
-		positions->pushBack(new tPosition(((JSONPrimitive<int>*)((JSONObject*)*convertedArray->get(i))->getTrie()->get("x"))->getPrimitive(),
-					((JSONPrimitive<int>*)((JSONObject*)*convertedArray->get(i))->getTrie()->get("y"))->getPrimitive()));
+		tPosition* pos = new tPosition();
+		pos->x = ((JSONPrimitive<int>*)*((JSONObject*)*convertedArray->get(i))->getTrie()->get("x"))->getPrimitive();
+	       	pos->y = ((JSONPrimitive<int>*)*((JSONObject*)*convertedArray->get(i))->getTrie()->get("y"))->getPrimitive();
+		DEBUG_LOG("RENDERSIM", "Position is (" + std::to_string(pos->x) + ", " + std::to_string(pos->y) + ").");
+		positions->pushBack(pos);
 	}
 	return positions;
 }

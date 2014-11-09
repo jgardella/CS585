@@ -29,6 +29,7 @@ Level::Level(tLevelInfo level)
 			}
 			else
 			{
+				DEBUG_LOG("LEVEL", "Getting tile at position (" + std::to_string((*positions->get(j))->x) + ", " + std::to_string((*positions->get(j))->y) + ").");
 				(void) TileFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
 			}
 		}
