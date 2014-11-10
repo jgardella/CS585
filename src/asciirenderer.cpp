@@ -14,6 +14,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	cursorX = 0;
 	move(cursorY, cursorX);
 	showInspectInfo = false;
+	inspectActor = NULL;
 }
 
 void ASCIIRenderer::render()
@@ -71,10 +72,18 @@ void ASCIIRenderer::render()
 		}
 	}
 	move(cursorY, cursorX);
-	if(showInspectInfo && actorUnderCursor != NULL)
+	if(showInspectInfo)
 	{
-		DEBUG_LOG("ASCIIRENDERER", "Printing inspect info: " + actorUnderCursor->inspect());
-		mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, actorUnderCursor->inspect().c_str());
+		if(inspectActor != NULL)
+		{
+			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for locked actor: " + inspectActor->inspect());
+			mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, inspectActor->inspect().c_str());
+		}
+		else if(actorUnderCursor != NULL)
+		{
+			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for actor under cursor: " + actorUnderCursor->inspect());
+			mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, actorUnderCursor->inspect().c_str());
+		}
 	}
 	refresh();
 }
@@ -123,4 +132,39 @@ void ASCIIRenderer::moveCursorY(int dy)
 void ASCIIRenderer::setInspectOutput(bool newValue)
 {
 	showInspectInfo = newValue;
+}
+
+void ASCIIRenderer::lockInspectOutput()
+{
+	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(renderX = cursorX, renderY + cursorY, false);
+	IActor* actor = (*nodes->get(0))->getActor();
+	unsigned int i;
+	for(i = 1; i < nodes->length(); i++)
+	{
+		if((*nodes->get(i))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
+		{
+			actor = (*nodes->get(i))->getActor();
+		}
+	}
+	inspectActor = actor;
+}
+
+void ASCIIRenderer::unlockInspectOutput()
+{
+	inspectActor = NULL;
+}
+
+IActor* ASCIIRenderer::getLockedActor()
+{
+	return inspectActor;
+}
+
+int ASCIIRenderer::getCursorWorldX()
+{
+	return renderX + cursorX;
+}
+
+int ASCIIRenderer::getCursorWorldY()
+{
+	return renderY + cursorY;
 }

@@ -23,6 +23,16 @@ class ASCIIRenderer : public IRenderer
 		void moveCursorY(int y);
 		
 		void setInspectOutput(bool newValue);
+		
+		void lockInspectOutput();
+
+		void unlockInspectOutput();
+		
+		IActor* getLockedActor();
+		
+		int getCursorWorldX();
+
+		int getCursorWorldY();
 
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);
@@ -31,6 +41,7 @@ class ASCIIRenderer : public IRenderer
 		unsigned int maxX, maxY;
 		unsigned int cursorX, cursorY;
 		bool showInspectInfo;
+		IActor* inspectActor;
 };
 
 #endif

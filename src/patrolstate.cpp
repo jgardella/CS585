@@ -2,6 +2,7 @@
 
 void PatrolState::tick(float dt)
 {
+	int newX, newY;
 	unsigned int i;
 	Character* character;
 	int radius = (int) *actor->getBehavioralConfig()->get("radius");
@@ -17,8 +18,12 @@ void PatrolState::tick(float dt)
 			return;
 		}
 	}
-	int newX = ((Character*)actor)->getX() + std::rand() % 3 - 1;
-	int newY = ((Character*)actor)->getY() + std::rand() % 3 - 1;
+	do
+	{
+		newX = ((Character*)actor)->getX() + std::rand() % 3 - 1;
+		newY = ((Character*)actor)->getY() + std::rand() % 3 - 1;
+	}
+	while(SceneManager::getInstance()->getColliders(newX, newY, true)->length() != 0); // randomize position until it is unoccupied
 	DEBUG_LOG("GAMEPLAY", "Character # " + std::to_string(((Character*)actor)->getID()) + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
 	dispatcher->tick(dt);

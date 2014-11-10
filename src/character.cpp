@@ -1,6 +1,6 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, unsigned int hydration, unsigned int energy, std::string type, Trie<double>* behavioralConfig) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, unsigned int hydration, unsigned int energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
 	this->gold = gold;
@@ -10,6 +10,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->target = NULL;
 	this->hydration = hydration;
 	this->energy = energy;
+	this->teamNum = teamNum;
 }
 
 Character::~Character()
@@ -106,4 +107,9 @@ void Character::setGold(unsigned int newValue)
 unsigned int Character::getGold()
 {
 	return gold;
+}
+
+unsigned int Character::getTeam()
+{
+	return teamNum;
 }

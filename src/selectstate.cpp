@@ -19,6 +19,7 @@ void SelectState::parseInput(int c, bool keyDown)
 			case 32: // space
 				DEBUG_LOG("SELECTSTATE", "Unpausing and switching to inspection mode.");
 				active = false;
+				renderer->setInspectOutput(false);
 				dispatcher->dispatch(new StateEvent("inspect"));
 				break;
 			case KEY_LEFT:

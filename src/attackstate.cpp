@@ -35,7 +35,7 @@ void AttackState::scanForTarget()
 	for(i = 0; i < nodes->length(); i++)
 	{
 		character = (Character*)(*nodes->get(i))->getActor();
-		if(((Character*)actor)->getType().compare(character->getType()) != 0)
+		if(((Character*)actor)->getTeam() != (character->getTeam()))
 		{
 			DEBUG_LOG("ATTACKSTATE", "Found target."); 
 			((Character*)actor)->setTarget(character);

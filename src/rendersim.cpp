@@ -136,6 +136,7 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	charInfo->maxGold = ((JSONPrimitive<unsigned int>*)*trie->get("maxgold"))->getPrimitive();
 	charInfo->hydration = ((JSONPrimitive<unsigned int>*)*trie->get("hydration"))->getPrimitive();
 	charInfo->energy = ((JSONPrimitive<unsigned int>*)*trie->get("energy"))->getPrimitive();
+	charInfo->teamNum = ((JSONPrimitive<unsigned int>*)*trie->get("team"))->getPrimitive();
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
 }
 

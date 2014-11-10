@@ -12,5 +12,6 @@
 	"mingold" : 2,
 	"maxgold" : 8,
 	"hydration" : 10,
-	"energy" : 10
+	"energy" : 10,
+	"team" : 1
 }
