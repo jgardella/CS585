@@ -45,3 +45,13 @@ Building* LevelManager::getHome(unsigned int teamNum)
 {
 	return level.getHome(teamNum);
 }
+
+CharacterController* LevelManager::getControllerForCharacter(unsigned int id)
+{
+	return level.getControllerForCharacter(id);
+}
+
+void LevelManager::addControllerForCharacter(unsigned int id, CharacterController* controller)
+{
+	level.addControllerForCharacter(id, controller);
+}

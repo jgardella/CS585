@@ -30,7 +30,7 @@ void InspectState::parseInput(int c, bool keyDown)
 				actorUnderCursor = renderer->getLockedActor();
 				if(((Character*)actorUnderCursor)->getType().compare("dwarf") == 0)
 				{
-					actorUnderCursor->issueMoveCommand(renderer->getCursorWorldX(), renderer->getCursorWorldY());
+					LevelManager::getInstance()->getControllerForCharacter(((Character*)actorUnderCursor)->getID())->issueMoveCommand(renderer->getCursorWorldX(), renderer->getCursorWorldY());
 				}
 				break;
 			case KEY_LEFT:

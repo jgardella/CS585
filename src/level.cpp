@@ -64,3 +64,13 @@ Building* Level::getHome(unsigned int teamNum)
 {
 	return *teamHomes->get(teamNum);
 }
+
+void Level::addControllerForCharacter(unsigned int id, CharacterController* controller)
+{
+	characterControllers->add(std::to_string(id), controller);
+}
+
+CharacterController* Level::getControllerForCharacter(unsigned int id)
+{
+	return *characterControllers->get(std::to_string(id));
+}

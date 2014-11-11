@@ -16,3 +16,8 @@ void CharacterController::tick(float dt)
 		timeCounter = 0;
 	}
 }
+
+void CharacterController::issueMoveCommand(unsigned int x, unsigned int y)
+{
+	character->setMoveLocation(x, y);
+}

@@ -13,6 +13,8 @@ class CharacterController : public ITickable
 		CharacterController(Character* character, StateMachine* machine);
 	
 		void tick(float dt);
+		
+		void issueMoveCommand(unsigned int x, unsigned int y);
 
 	private:
 		Character* character;

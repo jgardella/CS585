@@ -5,6 +5,7 @@
 #include "level.hh"
 #include "irenderer.hh"
 #include "building.hh"
+#include "charactercontroller.hh"
 
 class LevelManager
 {
@@ -24,6 +25,8 @@ class LevelManager
 		int getWorldHeight();
 		std::string getDefaultTile();
 		Building* getHome(unsigned int teamNum);
+		CharacterController* getControllerForCharacter(unsigned int id);
+		void addControllerForCharacter(unsigned int id, CharacterController* controller);
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);

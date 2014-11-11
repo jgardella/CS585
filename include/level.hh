@@ -9,6 +9,7 @@
 #include "statemachine.hh"
 #include "building.hh"
 #include "buildingfactory.hh"
+#include "charactercontroller.hh"
 
 class Level : public ITickable
 {
@@ -27,11 +28,14 @@ class Level : public ITickable
 		int getWorldHeight();
 		Building* getHome(unsigned int teamNum);
 		std::string getDefaultTile();
+		CharacterController* getControllerForCharacter(unsigned int id);
+		void addControllerForCharacter(unsigned int id, CharacterController* controller);
 	private:
 		int width;
 		int height;
 		std::string defaultTile;
 		DynamicArray<Building*>* teamHomes;
+		Trie<CharacterController*>* characterControllers;
 };
 
 #endif

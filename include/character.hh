@@ -4,6 +4,7 @@
 #include "scenenode.hh"
 #include "dispatcher.hh"
 #include "scenemanager.hh"
+#include "sposition.hh"
 
 class Character : public IActor
 {
@@ -48,6 +49,8 @@ class Character : public IActor
 		
 		unsigned int getTeam();
 
+		void setMoveLocation(int x, int y);
+		
 		virtual std::string inspect();
 		
 	private:
@@ -60,6 +63,7 @@ class Character : public IActor
 		std::string type;
 		SceneNode *sceneNode;
 		Character* target;
+		tPosition* moveLocation;
 };
 
 #endif

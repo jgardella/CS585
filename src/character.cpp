@@ -8,6 +8,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->type = type;
 	this->id = id;
 	this->target = NULL;
+	this->moveLocation = NULL;
 	this->hydration = hydration;
 	this->energy = energy;
 	this->teamNum = teamNum;
@@ -112,4 +113,13 @@ unsigned int Character::getGold()
 unsigned int Character::getTeam()
 {
 	return teamNum;
+}
+
+void Character::setMoveLocation(int x, int y)
+{
+	if(moveLocation != NULL)
+	{
+		delete moveLocation;
+	}
+	moveLocation = new tPosition(x, y);
 }
