@@ -21,6 +21,7 @@ void CharacterController::tick(float dt)
 void CharacterController::issueMoveCommand(unsigned int x, unsigned int y)
 {
 	character->setMoveLocation(x, y);
+	machine->updateState("moveto");
 }
 
 unsigned int CharacterController::getID()

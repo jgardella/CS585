@@ -1,5 +1,5 @@
-#ifndef _PATROLSTATE_HH_
-#define _PATROLSTATE_HH_
+#ifndef _MOVETOSTATE_HH_
+#define _MOVETOSTATE_HH_
 
 #include "istate.hh"
 #include "scenemanager.hh"
@@ -9,11 +9,14 @@
 #include <ctime>
 #include <cstdlib>
 
-class PatrolState : public IState
+class MoveToState : public IState
 {
 	public:
-		PatrolState(IActor* actor) : IState(actor) { }
+		MoveToState(IActor* actor) : IState(actor) { }
 		void tick(float dt);
+		
+	private:
+		void moveToMoveLocation();
 
 };
 

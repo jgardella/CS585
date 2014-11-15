@@ -11,6 +11,7 @@
 #include "patrolstate.hh"
 #include "attackstate.hh"
 #include "levelmanager.hh"
+#include "movetostate.hh"
 
 class CharacterFactory
 {

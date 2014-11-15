@@ -29,16 +29,16 @@ class StateMachine : public ITickable
 		
 		// Returns a reference to the state machine's listener.
 		IListenerCallback* getListener();
-
-	private:
-		Trie<IState*>* stateMap;
-		Trie<double>* behavioralConfig;
-		IState* currentState;
 		
 		// Updates the current state to the state given by the state map for the specified state name.
 		// Parameters:
 		// std::string stateString - the name of the state to update to
 		void updateState(std::string stateString);
+
+	private:
+		Trie<IState*>* stateMap;
+		Trie<double>* behavioralConfig;
+		IState* currentState;
 
 		// Listener callback for state transitions	
 		class OnStateTransition : public IListenerCallback
