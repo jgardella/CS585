@@ -28,7 +28,7 @@ void InspectState::parseInput(int c, bool keyDown)
 			case 'm':
 				DEBUG_LOG("INSPECTSTATE", "Issuing move command to dwarf.");
 				actorUnderCursor = renderer->getLockedActor();
-				if(((Character*)actorUnderCursor)->getType().compare("dwarf") == 0)
+				if(actorUnderCursor != NULL && actorUnderCursor->getClass().compare("CHARACTER") == 0 && ((Character*)actorUnderCursor)->getType().compare("dwarf") == 0)
 				{
 					LevelManager::getInstance()->getControllerForCharacter(((Character*)actorUnderCursor)->getID())->issueMoveCommand(renderer->getCursorWorldX(), renderer->getCursorWorldY());
 				}

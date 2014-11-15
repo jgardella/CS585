@@ -1,5 +1,5 @@
-#ifndef _DWARF_HH_
-#define _DWARF_HH_
+#ifndef _CHARACTER_HH_
+#define _CHARACTER_HH_
 
 #include "scenenode.hh"
 #include "dispatcher.hh"
