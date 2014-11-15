@@ -4,12 +4,14 @@
 #include "levelinfo.hh"
 #include "fixedgrid.hh"
 #include "scenemanager.hh"
-#include "characterfactory.hh"
 #include "tilefactory.hh"
 #include "statemachine.hh"
 #include "building.hh"
 #include "buildingfactory.hh"
 #include "charactercontroller.hh"
+#include "ilistenercallback.hh"
+#include "ievent.hh"
+#include "deathevent.hh"
 
 class Level : public ITickable
 {
@@ -29,13 +31,43 @@ class Level : public ITickable
 		Building* getHome(unsigned int teamNum);
 		std::string getDefaultTile();
 		CharacterController* getControllerForCharacter(unsigned int id);
-		void addControllerForCharacter(unsigned int id, CharacterController* controller);
+		void removeControllerForCharacter(unsigned int id);
+		void addControllerForCharacter(CharacterController* controller);
+		IListenerCallback* getListener();
 	private:
 		int width;
 		int height;
 		std::string defaultTile;
 		DynamicArray<Building*>* teamHomes;
-		Trie<CharacterController*>* characterControllers;
+		DynamicArray<CharacterController*>* characterControllers;
+		
+		void processDeathEvent(DeathEvent* event);
+
+		// Listener callback for deaths
+		class OnDeathEvent : public IListenerCallback
+		{
+			public:
+				OnDeathEvent() { }
+				void setInstance(Level* machine)
+				{
+					this->level = level;
+				}
+				
+				// Transfers gold and removes the controller for the dead actor.		
+				virtual void execute(IEvent* event)
+				{
+					DEBUG_LOG("LEVEL", "Death event callback executed.");
+					if(event->getType().compare("death") == 0)
+					{
+						DeathEvent* deathEvent = (DeathEvent*) event;
+						level->processDeathEvent(deathEvent);
+					}
+				}
+				
+
+			private:
+				Level* level;
+		} onDeathEvent; 
 };
 
 #endif

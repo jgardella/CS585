@@ -10,16 +10,19 @@
 class CharacterController : public ITickable
 {
 	public:
-		CharacterController(Character* character, StateMachine* machine);
-	
+		CharacterController(Character* character, StateMachine* machine, unsigned int id);
+
 		void tick(float dt);
 		
 		void issueMoveCommand(unsigned int x, unsigned int y);
+		
+		unsigned int getID();
 
 	private:
 		Character* character;
 		StateMachine* machine;
 		float timeCounter;
+		unsigned int id;
 };
 
 #endif

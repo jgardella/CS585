@@ -97,11 +97,11 @@ void AttackState::attackTarget()
 	int rand = std::rand() % 2;
 	if(rand == 1)
 	{
-		((Character*)actor)->takeDamage(((Character*)actor)->getHealth());
+		((Character*)actor)->takeDamage(((Character*)actor)->getTarget(), ((Character*)actor)->getHealth());
 	}
 	else
 	{
-		((Character*)actor)->getTarget()->takeDamage(((Character*)actor)->getTarget()->getHealth());
+		((Character*)actor)->getTarget()->takeDamage((Character*)actor, ((Character*)actor)->getTarget()->getHealth());
 		((Character*)actor)->setTarget(NULL);
 	}
 }

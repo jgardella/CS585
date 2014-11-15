@@ -136,17 +136,24 @@ void ASCIIRenderer::setInspectOutput(bool newValue)
 
 void ASCIIRenderer::lockInspectOutput()
 {
-	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(renderX = cursorX, renderY + cursorY, false);
-	IActor* actor = (*nodes->get(0))->getActor();
 	unsigned int i;
-	for(i = 1; i < nodes->length(); i++)
+	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(renderX + cursorX, renderY + cursorY, false);
+	if(nodes->length() > 0)
 	{
-		if((*nodes->get(i))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
+		IActor* actor = (*nodes->get(0))->getActor();
+		for(i = 1; i < nodes->length(); i++)
 		{
-			actor = (*nodes->get(i))->getActor();
+			if((*nodes->get(i))->getActor()->getCollisionLayer() > actor->getCollisionLayer())
+			{
+				actor = (*nodes->get(i))->getActor();
+			}
 		}
+		inspectActor = actor;
 	}
-	inspectActor = actor;
+	else
+	{
+		inspectActor = NULL;
+	}
 }
 
 void ASCIIRenderer::unlockInspectOutput()

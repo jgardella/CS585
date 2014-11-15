@@ -51,7 +51,12 @@ CharacterController* LevelManager::getControllerForCharacter(unsigned int id)
 	return level.getControllerForCharacter(id);
 }
 
-void LevelManager::addControllerForCharacter(unsigned int id, CharacterController* controller)
+void LevelManager::addControllerForCharacter(CharacterController* controller)
 {
-	level.addControllerForCharacter(id, controller);
+	level.addControllerForCharacter(controller);
+}
+
+IListenerCallback* LevelManager::getLevelListener()
+{
+	return level.getListener();
 }

@@ -5,6 +5,9 @@
 #include "dispatcher.hh"
 #include "scenemanager.hh"
 #include "sposition.hh"
+#include "ilistenercallback.hh"
+#include "dispatcher.hh"
+#include "deathevent.hh"
 
 class Character : public IActor
 {
@@ -41,7 +44,7 @@ class Character : public IActor
 
 		std::string getType();
 		
-		void takeDamage(unsigned int damage);
+		void takeDamage(Character* attacker, unsigned int damage);
 		
 		void setTarget(Character* target);
 
@@ -51,8 +54,14 @@ class Character : public IActor
 
 		void setMoveLocation(int x, int y);
 		
+		void nullifyMoveLocation();
+		
+		tPosition* getMoveLocation();
+		
 		virtual std::string inspect();
 		
+		void addListener(std::string eventType, IListenerCallback* callback);
+
 	private:
 		unsigned int health;
 		unsigned int id;
@@ -64,6 +73,7 @@ class Character : public IActor
 		SceneNode *sceneNode;
 		Character* target;
 		tPosition* moveLocation;
+		Dispatcher* dispatcher;
 };
 
 #endif

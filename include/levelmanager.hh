@@ -6,6 +6,7 @@
 #include "irenderer.hh"
 #include "building.hh"
 #include "charactercontroller.hh"
+#include "ilistenercallback.hh"
 
 class LevelManager
 {
@@ -26,7 +27,8 @@ class LevelManager
 		std::string getDefaultTile();
 		Building* getHome(unsigned int teamNum);
 		CharacterController* getControllerForCharacter(unsigned int id);
-		void addControllerForCharacter(unsigned int id, CharacterController* controller);
+		void addControllerForCharacter(CharacterController* controller);
+		IListenerCallback* getLevelListener();
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);

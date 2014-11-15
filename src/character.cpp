@@ -12,6 +12,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->hydration = hydration;
 	this->energy = energy;
 	this->teamNum = teamNum;
+	dispatcher = new Dispatcher();
 }
 
 Character::~Character()
@@ -59,7 +60,7 @@ std::string Character::getType()
 	return type;
 }
 
-void Character::takeDamage(unsigned int damage)
+void Character::takeDamage(Character* attacker, unsigned int damage)
 {
 	DEBUG_LOG("CHARACTER", "Character #" + std::to_string(id) + " taking " + std::to_string(damage) + " damage.");
 	if(damage >= health)
@@ -73,6 +74,7 @@ void Character::takeDamage(unsigned int damage)
 	if(health == 0)
 	{
 		SceneManager::getInstance()->removeSceneNode(sceneNode);
+		dispatcher->dispatch(new DeathEvent(attacker, this));
 	}
 }
 
@@ -122,4 +124,19 @@ void Character::setMoveLocation(int x, int y)
 		delete moveLocation;
 	}
 	moveLocation = new tPosition(x, y);
+}
+
+tPosition* Character::getMoveLocation()
+{
+	return moveLocation;
+}
+
+void Character::nullifyMoveLocation()
+{
+	moveLocation = NULL;
+}
+
+void Character::addListener(std::string eventType, IListenerCallback* callback)
+{
+	dispatcher->addListener(eventType, callback);
 }

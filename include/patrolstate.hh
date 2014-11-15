@@ -14,6 +14,9 @@ class PatrolState : public IState
 	public:
 		PatrolState(IActor* actor) : IState(actor) { }
 		void tick(float dt);
+		
+	private:
+		void moveToMoveLocation();
 
 };
 

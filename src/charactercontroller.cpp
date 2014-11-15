@@ -1,9 +1,10 @@
 #include "charactercontroller.hh"
 
-CharacterController::CharacterController(Character* character, StateMachine* machine)
+CharacterController::CharacterController(Character* character, StateMachine* machine, unsigned int id)
 {
 	this->character = character;
 	this->machine = machine;
+	this->id = id;
 	timeCounter = 0;
 }
 
@@ -20,4 +21,9 @@ void CharacterController::tick(float dt)
 void CharacterController::issueMoveCommand(unsigned int x, unsigned int y)
 {
 	character->setMoveLocation(x, y);
+}
+
+unsigned int CharacterController::getID()
+{
+	return id;
 }

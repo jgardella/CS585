@@ -10,6 +10,7 @@
 #include "charactercontroller.hh"
 #include "patrolstate.hh"
 #include "attackstate.hh"
+#include "levelmanager.hh"
 
 class CharacterFactory
 {

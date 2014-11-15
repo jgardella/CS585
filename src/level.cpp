@@ -2,7 +2,6 @@
 
 Level::Level()
 {
-
 }
 
 Level::Level(tLevelInfo level)
@@ -10,6 +9,7 @@ Level::Level(tLevelInfo level)
 	unsigned int i, j;
 	DynamicArray<tPosition*>* positions;
 	DynamicArray<std::string>* keys = level.positionTrie->getKeys();
+	characterControllers = new DynamicArray<CharacterController*>();
 	std::string key;
 
 	width = level.width;
@@ -23,11 +23,7 @@ Level::Level(tLevelInfo level)
 		positions = *level.positionTrie->get(key);
 		for(j = 0; j < positions->length(); j++)
 		{
-			if(key.compare("orc") == 0 || key.compare("dwarf") == 0)
-			{
-				(void) CharacterFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
-			}
-			else if(key.compare("grandhall") == 0)
+			if(key.compare("grandhall") == 0)
 			{
 				(void) BuildingFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y, 0);
 			}
@@ -65,12 +61,44 @@ Building* Level::getHome(unsigned int teamNum)
 	return *teamHomes->get(teamNum);
 }
 
-void Level::addControllerForCharacter(unsigned int id, CharacterController* controller)
+void Level::addControllerForCharacter(CharacterController* controller)
 {
-	characterControllers->add(std::to_string(id), controller);
+	characterControllers->pushBack(controller);
 }
 
 CharacterController* Level::getControllerForCharacter(unsigned int id)
 {
-	return *characterControllers->get(std::to_string(id));
+	unsigned int i;
+	for(i = 0; i < characterControllers->length(); i++)
+	{
+		if((*characterControllers->get(i))->getID() == id)
+		{
+			return *characterControllers->get(i);
+		}
+	}
+	return NULL;
+}
+
+void Level::removeControllerForCharacter(unsigned int id)
+{
+	unsigned int i;
+	for(i = 0; i < characterControllers->length(); i++)
+	{
+		if((*characterControllers->get(i))->getID() == id)
+		{
+			characterControllers->remove(i);
+			return;
+		}
+	}
+}
+
+void Level::processDeathEvent(DeathEvent* event)
+{
+	event->getAttacker()->setGold(event->getVictim()->getGold() + event->getAttacker()->getGold());
+	removeControllerForCharacter(event->getAttacker()->getID());
+}
+
+IListenerCallback* Level::getListener()
+{
+	return &onDeathEvent;
 }

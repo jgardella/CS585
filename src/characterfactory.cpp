@@ -8,7 +8,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	unsigned int i;
 	DynamicArray<std::string>* keys;
 	Character* actor;
-	ITickable* controller;
+	CharacterController* controller;
 	StateMachine* machine;
 	IState* state;
 	tCharacterInfo* info = *characterInfos->get(type);
@@ -48,8 +48,10 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	}
 	
 	// create controller
-	controller = new CharacterController(actor, machine);
-	
+	controller = new CharacterController(actor, machine, actor->getID());
+	LevelManager::getInstance()->addControllerForCharacter((CharacterController*)controller);
+	actor->addListener("death", LevelManager::getInstance()->getLevelListener());
+
 	// register actor's scenenode and controller with scene manager
 	SceneManager::getInstance()->addSceneNode(actor->getSceneNode());
 	SceneManager::getInstance()->addTickable(controller);
