@@ -4,7 +4,7 @@ MenuManager* MenuManager::instance;
 
 MenuManager::MenuManager()
 {
-
+	menuMap = new Trie<MENU*>();
 }
 
 MenuManager* MenuManager::getInstance()
@@ -16,14 +16,14 @@ MenuManager* MenuManager::getInstance()
 	return instance;
 }
 
-void MenuManager::initializeMenu(std::string menuName, DynamicArray<std::string>* menuOptions)
+void MenuManager::initializeMenu(std::string menuName, DynamicArray<const char*>* menuOptions)
 {
 	unsigned int j;
 	ITEM** items;
 	items = new ITEM*[menuOptions->length() + 1];
 	for(j = 0; j < menuOptions->length(); j++)
 	{
-		items[j] = new_item((*menuOptions->get(j)).c_str(), (*menuOptions->get(j)).c_str());
+		items[j] = new_item((*menuOptions->get(j)), (*menuOptions->get(j)));
 	}
 	items[menuOptions->length()] = NULL;
 	menuMap->add(menuName, new_menu(items));

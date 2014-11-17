@@ -185,11 +185,11 @@ void RenderSim::parseMenuConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i;
 	std::string menuName = ((JSONPrimitive<std::string>*)*trie->get("name"))->getPrimitive();
-	DynamicArray<std::string>* menuOptions = new DynamicArray<std::string>();
+	DynamicArray<const char*>* menuOptions = new DynamicArray<const char*>();
 	DynamicArray<JSONItem*>* jsonOptions = ((JSONArray*)*trie->get("options"))->getDynamicArray();
 	for(i = 0; i < jsonOptions->length(); i++)
 	{
-		menuOptions->pushBack(((JSONPrimitive<std::string>*)*jsonOptions->get(i))->getPrimitive());
+		menuOptions->pushBack(((JSONPrimitive<std::string>*)*jsonOptions->get(i))->getPrimitive().c_str());
 	}
 	MenuManager::getInstance()->initializeMenu(menuName, menuOptions);
 }
