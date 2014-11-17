@@ -64,6 +64,10 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 		parseBuildingConfig(trie);
 	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("menu") == 0)
+	{
+		parseMenuConfig(trie);
+	}
 }
 
 void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
@@ -175,4 +179,17 @@ void RenderSim::parseBuildingConfig(Trie<JSONItem*>* trie)
 	buildingInfo->type = ((JSONPrimitive<std::string>*)*trie->get("type"))->getPrimitive();
 	buildingInfo->behavioralConfig = jsonObjectToBehavioralConfig((JSONObject*)*trie->get("config"));
 	BuildingFactory::addBuildingInfo(buildingInfo->type, buildingInfo);
+}
+
+void RenderSim::parseMenuConfig(Trie<JSONItem*>* trie)
+{
+	unsigned int i;
+	std::string menuName = ((JSONPrimitive<std::string>*)*trie->get("name"))->getPrimitive();
+	DynamicArray<std::string>* menuOptions = new DynamicArray<std::string>();
+	DynamicArray<JSONItem*>* jsonOptions = ((JSONArray*)*trie->get("options"))->getDynamicArray();
+	for(i = 0; i < jsonOptions->length(); i++)
+	{
+		menuOptions->pushBack(((JSONPrimitive<std::string>*)*jsonOptions->get(i))->getPrimitive());
+	}
+	MenuManager::getInstance()->initializeMenu(menuName, menuOptions);
 }

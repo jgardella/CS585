@@ -14,7 +14,7 @@ class MenuManager
 {
 	public:
 		static MenuManager* getInstance();
-		void initializeMenus(Trie<DynamicArray<std::string>*>* menuInfo);
+		void initializeMenu(std::string menuName, DynamicArray<std::string>* menuOptions);
 		void setMenu(std::string menuName);
 		std::string getSelectedItem();
 		

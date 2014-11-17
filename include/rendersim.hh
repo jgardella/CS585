@@ -21,6 +21,7 @@
 #include "worldcontroller.hh"
 #include "buildingfactory.hh"
 #include "buildinginfo.hh"
+#include "menumanager.hh"
 
 class RenderSim 
 {
@@ -54,6 +55,8 @@ class RenderSim
 		void parseRenderConfig(Trie<JSONItem*>* trie);
 		
 		void parseBuildingConfig(Trie<JSONItem*>* trie);
+
+		void parseMenuConfig(Trie<JSONItem*>* trie);
 };
 
 #endif
