@@ -1,5 +1,5 @@
 {
 	"key" : "menu",
 	"name" : "dwarf",
-	"options" : [ "Move To" ]
+	"options" : [ "m - Move To" ]
 }

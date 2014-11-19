@@ -32,3 +32,8 @@ DynamicArray<SceneNode*>* Building::getSceneNodes()
 {
 	return sceneNodes;
 }
+
+std::string Building::inspect()
+{
+	return type;
+}
