@@ -71,7 +71,7 @@ void ASCIIRenderer::render()
 			}
 		}
 	}
-	move(cursorY, cursorX);
+	drawMenu();
 	if(showInspectInfo)
 	{
 		if(inspectActor != NULL)
@@ -85,7 +85,7 @@ void ASCIIRenderer::render()
 			mvaddstr(maxY - 1, 0, actorUnderCursor->inspect().c_str());
 		}
 	}
-	drawMenu();
+	move(cursorY, cursorX);
 	refresh();
 }
 
