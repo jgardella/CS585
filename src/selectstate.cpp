@@ -21,6 +21,7 @@ void SelectState::parseInput(int c, bool keyDown)
 				active = false;
 				renderer->setInspectOutput(false);
 				renderer->lockInspectOutput();
+				MenuManager::getInstance()->setMenu(renderer->getLockedActor()->getType());
 				dispatcher->dispatch(new StateEvent("inspect"));
 				break;
 			case KEY_LEFT:

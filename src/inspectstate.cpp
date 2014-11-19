@@ -24,6 +24,7 @@ void InspectState::parseInput(int c, bool keyDown)
 				curs_set(FALSE);
 				renderer->lockInspectOutput();
 				dispatcher->dispatch(new StateEvent("camera"));
+				MenuManager::getInstance()->disableMenu();
 				break;
 			case 'm':
 				DEBUG_LOG("INSPECTSTATE", "Issuing move command to dwarf.");

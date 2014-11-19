@@ -24,7 +24,6 @@ class Tile : public IActor
 
 	private:
 		SceneNode* sceneNode;
-		std::string type;
 };
 
 #endif

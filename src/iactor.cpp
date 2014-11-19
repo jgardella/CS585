@@ -33,3 +33,13 @@ std::string IActor::inspect()
 {
 	return classType;
 }
+
+std::string IActor::getType()
+{
+	return type;
+}
+
+void IActor::setType(std::string type)
+{
+	this->type = type;
+}

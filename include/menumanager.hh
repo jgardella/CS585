@@ -14,10 +14,11 @@ class MenuManager
 {
 	public:
 		static MenuManager* getInstance();
-		void initializeMenu(std::string menuName, DynamicArray<const char*>* menuOptions);
+		void initializeMenu(std::string menuName, DynamicArray<char*>* menuOptions);
 		void setMenu(std::string menuName);
 		std::string getSelectedItem();
-		
+		char** getActiveMenu();	
+		void disableMenu();
 	private:
 		MenuManager();
 		MenuManager(MenuManager const&);
@@ -25,8 +26,8 @@ class MenuManager
 		~MenuManager();
 		
 		static MenuManager* instance;
-		Trie<MENU*>* menuMap;
-		MENU* activeMenu;
+		Trie<char**>* menuMap;
+		char** activeMenu;
 };
 
 #endif

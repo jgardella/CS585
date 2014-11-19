@@ -19,6 +19,8 @@ Building::Building(std::string type, unsigned int corner1X, unsigned int corner1
 		sceneNodes->pushBack(new SceneNode(corner1X, i, *this, NULL, NULL));
 		sceneNodes->pushBack(new SceneNode(corner1X + height, i, *this, NULL, NULL));
 	}
+
+	setType(type);
 }
 
 unsigned int Building::getTeamNumber()
@@ -29,9 +31,4 @@ unsigned int Building::getTeamNumber()
 DynamicArray<SceneNode*>* Building::getSceneNodes()
 {
 	return sceneNodes;
-}
-
-std::string Building::getType()
-{
-	return type;
 }

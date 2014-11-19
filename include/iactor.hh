@@ -13,7 +13,9 @@ class IActor
 		
 		// Returns a string representing the class of the derivative actor.
 		virtual std::string getClass();		
-	
+		
+		virtual std::string getType();
+
 		virtual std::string inspect();
 		
 		Trie<double>* getBehavioralConfig();
@@ -21,7 +23,10 @@ class IActor
 	protected:
 		int collisionLayer;
 		std::string classType;
+		std::string type;
 		Trie<double>* behavioralConfig;
+
+		void setType(std::string type);
 
 		// Constructs an IActor with the given collision layer and class.
 		// Parameters:

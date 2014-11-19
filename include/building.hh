@@ -12,10 +12,8 @@ class Building : public IActor
 	
 		unsigned int getTeamNumber();
 		DynamicArray<SceneNode*>* getSceneNodes();		
-		std::string getType();
 	private:
 		unsigned int teamNum;
-		std::string type;
 		DynamicArray<SceneNode*>* sceneNodes;
 };
 

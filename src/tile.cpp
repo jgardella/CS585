@@ -3,7 +3,7 @@
 Tile::Tile(int x, int y, unsigned int collisionLayer, std::string type) : IActor(collisionLayer, "TILE", NULL)
 {
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
-	this->type = type;
+	setType(type);
 }
 
 void Tile::setX(int x)

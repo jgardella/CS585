@@ -1,6 +1,7 @@
 #ifndef _ASCIIRENDERER_HH_
 #define _ASCIIRENDERER_HH_
 
+#include "menumanager.hh"
 #include "irenderer.hh"
 #include "levelmanager.hh"
 #include "scenemanager.hh"
@@ -33,6 +34,8 @@ class ASCIIRenderer : public IRenderer
 		int getCursorWorldX();
 
 		int getCursorWorldY();
+		
+		void drawMenu();
 
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);

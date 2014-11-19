@@ -5,7 +5,6 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->health = health;
 	this->gold = gold;
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
-	this->type = type;
 	this->id = id;
 	this->target = NULL;
 	this->moveLocation = NULL;
@@ -13,6 +12,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->energy = energy;
 	this->teamNum = teamNum;
 	dispatcher = new Dispatcher();
+	setType(type);
 }
 
 Character::~Character()

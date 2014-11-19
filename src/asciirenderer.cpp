@@ -26,9 +26,9 @@ void ASCIIRenderer::render()
 	tRenderInfo* renderInfo;
 	getmaxyx(stdscr, maxY, maxX);
 	clear();
-	for(i = renderX; i < renderX + maxX; i++)
+	for(i = renderX; i < renderX + maxX - 50; i++)
 	{
-		for(j = renderY; j < renderY + maxY; j++)
+		for(j = renderY; j < renderY + maxY - 2; j++)
 		{
 			if(i < (unsigned int)LevelManager::getInstance()->getWorldWidth() && j < (unsigned int)LevelManager::getInstance()->getWorldHeight())
 			{
@@ -77,14 +77,15 @@ void ASCIIRenderer::render()
 		if(inspectActor != NULL)
 		{
 			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for locked actor: " + inspectActor->inspect());
-			mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, inspectActor->inspect().c_str());
+			mvaddstr(maxY - 1, 0, inspectActor->inspect().c_str());
 		}
 		else if(actorUnderCursor != NULL)
 		{
 			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for actor under cursor: " + actorUnderCursor->inspect());
-			mvaddstr(0, LevelManager::getInstance()->getWorldWidth() + 10, actorUnderCursor->inspect().c_str());
+			mvaddstr(maxY - 1, 0, actorUnderCursor->inspect().c_str());
 		}
 	}
+	drawMenu();
 	refresh();
 }
 
@@ -174,4 +175,19 @@ int ASCIIRenderer::getCursorWorldX()
 int ASCIIRenderer::getCursorWorldY()
 {
 	return renderY + cursorY;
+}
+
+void ASCIIRenderer::drawMenu()
+{
+	int y = 2;
+	char** currentMenu = MenuManager::getInstance()->getActiveMenu();
+	if(currentMenu != NULL)
+	{
+		while(*currentMenu != NULL)
+		{
+			mvprintw(y, maxX - 48, *currentMenu);
+			currentMenu++;
+			y += 2;
+		}
+	}	
 }

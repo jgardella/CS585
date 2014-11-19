@@ -69,7 +69,6 @@ class Character : public IActor
 		unsigned int hydration;
 		unsigned int energy;
 		unsigned int teamNum;
-		std::string type;
 		SceneNode *sceneNode;
 		Character* target;
 		tPosition* moveLocation;
