@@ -19,7 +19,6 @@ void SelectState::parseInput(int c, bool keyDown)
 			case 32: // space
 				DEBUG_LOG("SELECTSTATE", "Unpausing and switching to inspection mode.");
 				active = false;
-				renderer->setInspectOutput(false);
 				renderer->lockInspectOutput();
 				MenuManager::getInstance()->setMenu(renderer->getLockedActor()->getType());
 				dispatcher->dispatch(new StateEvent("inspect"));
