@@ -22,7 +22,7 @@ void InspectState::parseInput(int c, bool keyDown)
 				SceneManager::getInstance()->unpause();
 				active = false;
 				curs_set(FALSE);
-				renderer->lockInspectOutput();
+				renderer->setInspectOutput(false);
 				dispatcher->dispatch(new StateEvent("camera"));
 				MenuManager::getInstance()->disableMenu();
 				break;

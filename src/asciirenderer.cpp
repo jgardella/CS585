@@ -185,7 +185,14 @@ void ASCIIRenderer::drawMenu()
 	{
 		while(*currentMenu != NULL)
 		{
-			mvprintw(y, maxX - 48, *currentMenu);
+			if(maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5)
+			{
+				mvprintw(y, maxX - 48, *currentMenu);
+			}
+			else
+			{
+				mvprintw(y, LevelManager::getInstance()->getWorldWidth() + 5, *currentMenu);
+			}
 			currentMenu++;
 			y += 2;
 		}
