@@ -13,6 +13,12 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 		case 'r':
 			CharacterFactory::get("dwarf", spawnX, spawnY);
 			return true;
+		case 'b':
+			BuildingFactory::get("blacksmith", cursorX, cursorY, 0);
+			return true;
+		case 'a':
+			BuildingFactory::get("apothecary", cursorX, cursorY, 0);
+			return true;
 	}
 	return false;
 }

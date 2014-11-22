@@ -1,0 +1,9 @@
+{
+	"key" : "building",
+	"type" : "blacksmith",
+	"config" :
+	{
+		"width" : 3.0,
+		"height" : 3.0
+	}
+}

@@ -1,5 +1,5 @@
 {
 	"key" : "menu",
 	"name" : "grandhall",
-	"options" : [ "r - Recruit Dwarf", "u - Upgrade Ale", "b - Build" ]
+	"options" : [ "r - Recruit Dwarf", "u - Upgrade Ale", "b - Build Blacksmith", "a - Build Apothecary" ]
 }

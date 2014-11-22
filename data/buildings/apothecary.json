@@ -1,0 +1,9 @@
+{
+	"key" : "building",
+	"type" : "apothecary",
+	"config" :
+	{
+		"width" : 2.0,
+		"height" : 2.0
+	}
+}
