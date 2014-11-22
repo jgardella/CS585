@@ -140,3 +140,16 @@ void Character::addListener(std::string eventType, IListenerCallback* callback)
 {
 	dispatcher->addListener(eventType, callback);
 }
+
+bool Character::sendKeyPress(int key, int cursorX, int cursorY)
+{
+	switch(key)
+	{
+		case 'm':
+			setMoveLocation(cursorX, cursorY);
+			dispatcher->dispatch(new StateEvent("moveto"));
+			dispatcher->tick(1);
+			return true;
+	}
+	return false;
+}

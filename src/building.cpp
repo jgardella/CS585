@@ -37,3 +37,8 @@ std::string Building::inspect()
 {
 	return type;
 }
+
+bool Building::sendKeyPress(int key, int cursorX, int cursorY)
+{
+	return true;
+}

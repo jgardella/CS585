@@ -60,3 +60,8 @@ std::string Actor::inspect()
 {
 	return "Name: " + name + "\n";
 }
+
+bool sendKeyPress(int key, int cursorX, int cursorY)
+{
+	return true;
+}

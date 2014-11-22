@@ -10,6 +10,18 @@ void InspectState::tick(float dt)
 	dispatcher->tick(dt);
 }
 
+void InspectState::transitionToCameraState()
+{
+	DEBUG_LOG("INSPECTSTATE", "Unpausing and switching to camera mode.");
+	SceneManager::getInstance()->unpause();
+	active = false;
+	curs_set(FALSE);
+	renderer->unlockInspectOutput();
+	renderer->setInspectOutput(false);
+	dispatcher->dispatch(new StateEvent("camera"));
+	MenuManager::getInstance()->disableMenu();
+}
+
 void InspectState::parseInput(int c, bool keyDown)
 {
 	IActor* actorUnderCursor;
@@ -18,22 +30,7 @@ void InspectState::parseInput(int c, bool keyDown)
 		switch(c)
 		{
 			case 32: // space
-				DEBUG_LOG("INSPECTSTATE", "Unpausing and switching to camera mode.");
-				SceneManager::getInstance()->unpause();
-				active = false;
-				curs_set(FALSE);
-				renderer->unlockInspectOutput();
-				renderer->setInspectOutput(false);
-				dispatcher->dispatch(new StateEvent("camera"));
-				MenuManager::getInstance()->disableMenu();
-				break;
-			case 'm':
-				DEBUG_LOG("INSPECTSTATE", "Issuing move command to dwarf.");
-				actorUnderCursor = renderer->getLockedActor();
-				if(actorUnderCursor != NULL && actorUnderCursor->getClass().compare("CHARACTER") == 0 && ((Character*)actorUnderCursor)->getType().compare("dwarf") == 0)
-				{
-					LevelManager::getInstance()->getControllerForCharacter(((Character*)actorUnderCursor)->getID())->issueMoveCommand(renderer->getCursorWorldX(), renderer->getCursorWorldY());
-				}
+				transitionToCameraState();
 				break;
 			case KEY_LEFT:
 				DEBUG_LOG("INSPECTSTATE", "Moving cursor left.");
@@ -50,6 +47,14 @@ void InspectState::parseInput(int c, bool keyDown)
 			case KEY_DOWN:
 				DEBUG_LOG("INSPECTSTATE", "Moving cursor down.");
 				renderer->moveCursorY(1);
+				break;
+			default:
+				DEBUG_LOG("INSPECTSTATE", "Issuing move command to dwarf.");
+				actorUnderCursor = renderer->getLockedActor();
+				if(actorUnderCursor->sendKeyPress(c, renderer->getCursorWorldX(), renderer->getCursorWorldY()))
+				{
+					transitionToCameraState();
+				}
 				break;
 		}
 	}

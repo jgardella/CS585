@@ -37,6 +37,8 @@ class Actor : public IActor
 		SceneNode* getSceneNode();
 		
 		virtual std::string inspect();
+		
+		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
 
 	private:
 		std::string name;

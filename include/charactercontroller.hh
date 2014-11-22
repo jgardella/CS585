@@ -6,6 +6,7 @@
 #include "trie.hh"
 #include "istate.hh"
 #include "statemachine.hh"
+#include "ilistenercallback.hh"
 
 class CharacterController : public ITickable
 {
@@ -14,11 +15,39 @@ class CharacterController : public ITickable
 
 		void tick(float dt);
 		
-		void issueMoveCommand(unsigned int x, unsigned int y);
-		
 		unsigned int getID();
 
+	protected:
+		void updateState(std::string state);
+
 	private:
+		// Listener callback for actor events	
+		class OnActorEvent : public IListenerCallback
+		{
+			public:
+				OnActorEvent() { }
+				void setInstance(CharacterController* controller)
+				{
+					this->controller = controller;
+				}
+				
+				// Updates the machine's state to the state contained in the StateEvent.		
+				virtual void execute(IEvent* event)
+				{
+					DEBUG_LOG("STATEMACHINE", "State transition callback executed.");
+					if(event->getType().compare("state") == 0)
+					{
+						StateEvent* stateEvent = (StateEvent*) event;
+						DEBUG_LOG("STATEMACHINE", "State transition callback changing state to " + stateEvent->getState());
+						controller->updateState(stateEvent->getState());
+					}
+				}
+				
+
+			private:
+				CharacterController* controller;
+		} onActorEvent; 
+		
 		Character* character;
 		StateMachine* machine;
 		float timeCounter;

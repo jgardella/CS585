@@ -40,3 +40,8 @@ std::string Tile::inspect()
 {
 	return "Tile Type: " + type + "\n";
 }
+
+bool Tile::sendKeyPress(int key, int cursorX, int cursorY)
+{
+	return true;
+}

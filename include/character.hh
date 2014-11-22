@@ -8,6 +8,7 @@
 #include "ilistenercallback.hh"
 #include "dispatcher.hh"
 #include "deathevent.hh"
+#include "stateevent.hh"
 
 class Character : public IActor
 {
@@ -60,6 +61,8 @@ class Character : public IActor
 		
 		virtual std::string inspect();
 		
+		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
+
 		void addListener(std::string eventType, IListenerCallback* callback);
 
 	private:

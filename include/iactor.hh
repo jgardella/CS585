@@ -16,6 +16,8 @@ class IActor
 		
 		virtual std::string getType();
 
+		virtual bool sendKeyPress(int key, int cursorX, int cursorY) = 0;
+
 		virtual std::string inspect();
 		
 		Trie<double>* getBehavioralConfig();

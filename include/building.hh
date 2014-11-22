@@ -13,6 +13,7 @@ class Building : public IActor
 		unsigned int getTeamNumber();
 		DynamicArray<SceneNode*>* getSceneNodes();		
 		virtual std::string inspect();
+		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
 	private:
 		unsigned int teamNum;
 		DynamicArray<SceneNode*>* sceneNodes;

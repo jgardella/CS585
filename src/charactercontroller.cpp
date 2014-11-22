@@ -2,7 +2,9 @@
 
 CharacterController::CharacterController(Character* character, StateMachine* machine, unsigned int id)
 {
+	onActorEvent.setInstance(this);
 	this->character = character;
+	character->addListener("state", &onActorEvent);
 	this->machine = machine;
 	this->id = id;
 	timeCounter = 0;
@@ -18,13 +20,12 @@ void CharacterController::tick(float dt)
 	}
 }
 
-void CharacterController::issueMoveCommand(unsigned int x, unsigned int y)
-{
-	character->setMoveLocation(x, y);
-	machine->updateState("moveto");
-}
-
 unsigned int CharacterController::getID()
 {
 	return id;
+}
+
+void CharacterController::updateState(std::string state)
+{
+	machine->updateState(state);
 }
