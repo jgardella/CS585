@@ -7,12 +7,12 @@ class BuildingFunction
 {
 	
 	public:
-		virtual void parseKeyPress(int key, int cursorX, int cursorY) = 0;
+		virtual bool parseKeyPress(int key, int cursorX, int cursorY) = 0;
 
 	protected:
-		BuildingFunction(std::string type) : type(type);
+		BuildingFunction(std::string type) : type(type) { };
 		std::string type;
 		
-}
+};
 
 #endif

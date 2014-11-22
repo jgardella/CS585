@@ -42,5 +42,5 @@ std::string Building::inspect()
 
 bool Building::sendKeyPress(int key, int cursorX, int cursorY)
 {
-	return true;
+	return function->parseKeyPress(key, cursorX, cursorY);
 }

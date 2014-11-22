@@ -7,6 +7,8 @@
 #include "trie.hh"
 #include "scenenode.hh"
 #include "scenemanager.hh"
+#include "buildingfunction.hh"
+#include "grandhallfunction.hh"
 
 class BuildingFactory
 {

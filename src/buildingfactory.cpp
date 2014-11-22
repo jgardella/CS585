@@ -7,7 +7,10 @@ Building* BuildingFactory::get(std::string type, unsigned int corner1X, unsigned
 {
 	unsigned int i;
 	tBuildingInfo* info = *buildingInfos->get(type);
-	Building* building = new Building(type, corner1X, corner1Y, teamNum, info->behavioralConfig);
+	BuildingFunction* function = NULL;
+	if(type.compare("grandhall") == 0)
+		function = new GrandHallFunction(corner1X + 2, corner1Y - 1);
+	Building* building = new Building(type, corner1X, corner1Y, teamNum, info->behavioralConfig, function);
 	DynamicArray<SceneNode*>* nodes = building->getSceneNodes();
 	for(i = 0; i < nodes->length(); i++)
 	{
