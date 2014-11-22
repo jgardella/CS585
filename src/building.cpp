@@ -1,6 +1,6 @@
 #include "building.hh"
 
-Building::Building(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig) : IActor(1, "BUILDING", behavioralConfig)
+Building::Building(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig, BuildingFunction* function) : IActor(1, "BUILDING", behavioralConfig)
 {
 	unsigned int i;
 	unsigned int width = *behavioralConfig->get("width");
@@ -19,6 +19,8 @@ Building::Building(std::string type, unsigned int corner1X, unsigned int corner1
 		sceneNodes->pushBack(new SceneNode(corner1X, i, *this, NULL, NULL));
 		sceneNodes->pushBack(new SceneNode(corner1X + height, i, *this, NULL, NULL));
 	}
+	
+	this->function = function;
 
 	setType(type);
 }

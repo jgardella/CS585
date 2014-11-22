@@ -4,11 +4,12 @@
 #include "scenenode.hh"
 #include "iactor.hh"
 #include "dynamicarray.hh"
+#include "buildingfunction.hh"
 
 class Building : public IActor
 {
 	public:
-		Building(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig);
+		Building(std::string type, unsigned int corner1X, unsigned int corner1Y, unsigned int teamNum, Trie<double>* behavioralConfig, BuildingFunction* function);
 	
 		unsigned int getTeamNumber();
 		DynamicArray<SceneNode*>* getSceneNodes();		
@@ -17,6 +18,7 @@ class Building : public IActor
 	private:
 		unsigned int teamNum;
 		DynamicArray<SceneNode*>* sceneNodes;
+		BuildingFunction* function;
 };
 
 #endif
