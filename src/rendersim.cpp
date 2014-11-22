@@ -29,8 +29,6 @@ void RenderSim::config(std::string gameConfigPath)
 	DynamicArray<JSONItem*>* configs = ((JSONArray*)*trie->get("configs"))->getDynamicArray();
 	DEBUG_LOG("RENDERSIM", "Creating orc spawner.");
 	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "orc"));
-	DEBUG_LOG("RENDERSIM", "Creating dwarf spawner.");
-	SceneManager::getInstance()->addTickable(new RandomLocationCharacterSpawner(0, 10, "dwarf"));
 	DEBUG_LOG("RENDERSIM", "Parsing sub configs.");
 	for(i = 0; i < configs->length(); i++)
 	{
