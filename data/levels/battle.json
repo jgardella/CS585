@@ -8,5 +8,4 @@
 	"dirt" : [ ],
 	"mountain" : [ ],
 	"grass" : [ ],
-	"grandhall" : [ { "x" : 50, "y" : 50 } ]
 }

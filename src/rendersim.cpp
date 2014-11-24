@@ -91,8 +91,8 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
 	levelInfo->setPositions("mountain", jsonArrayToPositionList(((JSONArray*)*trie->get("mountain"))));
 	levelInfo->setPositions("grass", jsonArrayToPositionList(((JSONArray*)*trie->get("grass"))));
-	levelInfo->setPositions("grandhall", jsonArrayToPositionList(((JSONArray*)*trie->get("grandhall"))));
 	LevelManager::getInstance()->loadLevel(*levelInfo);
+	BuildingFactory::get("grandhall", width/2, height/2, 0);
 }
 
 DynamicArray<tPosition*>* RenderSim::jsonArrayToPositionList(JSONArray* array)

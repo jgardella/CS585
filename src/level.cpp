@@ -23,15 +23,8 @@ Level::Level(tLevelInfo level)
 		positions = *level.positionTrie->get(key);
 		for(j = 0; j < positions->length(); j++)
 		{
-			if(key.compare("grandhall") == 0)
-			{
-				(void) BuildingFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y, 0);
-			}
-			else
-			{
-				DEBUG_LOG("LEVEL", "Getting tile at position (" + std::to_string((*positions->get(j))->x) + ", " + std::to_string((*positions->get(j))->y) + ").");
-				(void) TileFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
-			}
+			DEBUG_LOG("LEVEL", "Getting tile at position (" + std::to_string((*positions->get(j))->x) + ", " + std::to_string((*positions->get(j))->y) + ").");
+			(void) TileFactory::get(key, (*positions->get(j))->x, (*positions->get(j))->y);
 		}
 	}
 

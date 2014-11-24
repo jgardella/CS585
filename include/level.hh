@@ -7,7 +7,6 @@
 #include "tilefactory.hh"
 #include "statemachine.hh"
 #include "building.hh"
-#include "buildingfactory.hh"
 #include "charactercontroller.hh"
 #include "ilistenercallback.hh"
 #include "ievent.hh"

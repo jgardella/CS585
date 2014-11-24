@@ -3,6 +3,7 @@
 
 #include "buildingfunction.hh"
 #include "characterfactory.hh"
+#include "buildingfactory.hh"
 
 class GrandHallFunction : public BuildingFunction
 {
