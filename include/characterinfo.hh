@@ -10,8 +10,8 @@ typedef struct sCharacterInfo
 	unsigned int health;
 	unsigned int minGold;
 	unsigned int maxGold;
-	unsigned int hydration;
-	unsigned int energy;
+	double hydration;
+	double energy;
 	unsigned int teamNum;
 } tCharacterInfo;
 

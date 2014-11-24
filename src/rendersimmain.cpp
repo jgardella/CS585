@@ -15,6 +15,7 @@ void debugConfig()
 	Debug::getInstance()->addChannel("PATROLSTATE");
 	Debug::getInstance()->addChannel("ATTACKSTATE");
 	Debug::getInstance()->addChannel("CHARACTER");
+	Debug::getInstance()->addChannel("CHARACTERFACTORY");
 	//Debug::getInstance()->addChannel("CAMERASTATE");
 	//Debug::getInstance()->addChannel("WORLDSTATE");
 	//Debug::getInstance()->addChannel("SELECTSTATE");

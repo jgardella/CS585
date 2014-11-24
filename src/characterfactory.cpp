@@ -26,6 +26,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 
 	// create actor
 	actor = new Character(x, y, 1, id++, info->health, gold, info->hydration, info->energy, info->type, info->behavioralConfig, info->teamNum);
+	DEBUG_LOG("CHARACTERFACTORY", "Hydration: " + std::to_string(info->hydration) + ", Energy: " + std::to_string(info->energy));
 	PatrolState* patrolState = new PatrolState(actor);
 	AttackState* attackState = new AttackState(actor);
 	MoveToState* moveToState = new MoveToState(actor);

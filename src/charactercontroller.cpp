@@ -15,6 +15,10 @@ void CharacterController::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= 1)
 	{	
+		if(character->getTeam() == 0)
+		{
+			character->simulateNeeds();
+		}
 		machine->tick(dt);
 		timeCounter = 0;
 	}

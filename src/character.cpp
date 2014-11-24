@@ -1,6 +1,6 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, unsigned int hydration, unsigned int energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
 	this->gold = gold;
@@ -152,4 +152,23 @@ bool Character::sendKeyPress(int key, int cursorX, int cursorY)
 			return true;
 	}
 	return false;
+}
+
+void Character::simulateNeeds()
+{
+	float dEnergy = *behavioralConfig->get("denergy");
+	float dHydration = *behavioralConfig->get("dhydration");
+	energy = energy - dEnergy > 0 ? energy - dEnergy : 0;
+	hydration = hydration - dHydration > 0 ? hydration - dHydration : 0;
+	DEBUG_LOG("CHARACTER", "Energy: " + std::to_string(energy) + ", Hydration: " + std::to_string(hydration) + ".");
+	if(energy < *behavioralConfig->get("energythres"))
+	{
+		dispatcher->dispatch(new StateEvent("sleep"));
+		dispatcher->tick(1);
+	}
+	else if(hydration < *behavioralConfig->get("hydrationthres"))
+	{
+		dispatcher->dispatch(new StateEvent("drink"));
+		dispatcher->tick(1);
+	}
 }

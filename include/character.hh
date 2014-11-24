@@ -20,7 +20,7 @@ class Character : public IActor
 		// unsigned int collisionLayer - layer on which the character collides
 		// unsigned int health - initial health of the character
 		// std::string type - the type of the character
-		Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, unsigned int hydration, unsigned int energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum);
+		Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum);
 
 		// Deconstructs the character.
 		~Character();
@@ -64,13 +64,15 @@ class Character : public IActor
 		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
 
 		void addListener(std::string eventType, IListenerCallback* callback);
+		
+		void simulateNeeds();
 
 	private:
 		unsigned int health;
 		unsigned int id;
 		unsigned int gold;
-		unsigned int hydration;
-		unsigned int energy;
+		double hydration;
+		double energy;
 		unsigned int teamNum;
 		SceneNode *sceneNode;
 		Character* target;
