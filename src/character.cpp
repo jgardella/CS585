@@ -166,11 +166,11 @@ void Character::simulateNeeds()
 		dispatcher->dispatch(new StateEvent("sleep"));
 		dispatcher->tick(1);
 	}
-	/*else if(hydration < *behavioralConfig->get("hydrationthres"))
+	else if(hydration < *behavioralConfig->get("hydrationthres"))
 	{
 		dispatcher->dispatch(new StateEvent("drink"));
 		dispatcher->tick(1);
-	}*/
+	}
 }
 
 void Character::sleep()
@@ -182,4 +182,15 @@ void Character::sleep()
 bool Character::hasMaxEnergy()
 {
 	return energy == *behavioralConfig->get("maxenergy");
+}
+
+void Character::drink()
+{
+	double newHydration = hydration + *behavioralConfig->get("dhydration") + *behavioralConfig->get("hydrationregen");
+	hydration = newHydration < *behavioralConfig->get("maxhydration") ? newHydration : *behavioralConfig->get("maxhydration");
+}
+
+bool Character::hasMaxHydration()
+{
+	return hydration == *behavioralConfig->get("maxhydration");
 }

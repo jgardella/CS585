@@ -70,6 +70,10 @@ class Character : public IActor
 		void sleep();
 
 		bool hasMaxEnergy();
+		
+		void drink();
+
+		bool hasMaxHydration();
 
 	private:
 		unsigned int health;

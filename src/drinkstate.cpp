@@ -1,21 +1,21 @@
-#include "sleepstate.hh"
+#include "drinkstate.hh"
 
-SleepState::SleepState(IActor* actor) : IState(actor)
+DrinkState::DrinkState(IActor* actor) : IState(actor)
 {
 	home = LevelManager::getInstance()->getHome(((Character*)actor)->getTeam());
-	isSleeping = false;
+	isDrinking = false;
 }
 
-void SleepState::tick(float dt)
+void DrinkState::tick(float dt)
 {
 	tPosition* pos;
-	if(isSleeping)
+	if(isDrinking)
 	{
-		((Character*)actor)->sleep();
-		if(((Character*)actor)->hasMaxEnergy())
+		((Character*)actor)->drink();
+		if(((Character*)actor)->hasMaxHydration())
 		{
 			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), home->getEntranceX(), home->getEntranceY());
-			isSleeping = false;
+			isDrinking = false;
 			dispatcher->dispatch(new StateEvent("patrol"));
 		}
 	}
@@ -25,7 +25,7 @@ void SleepState::tick(float dt)
 		{
 			pos = home->getNextAvailablePosition();
 			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), pos->x, pos->y);
-			isSleeping = true;
+			isDrinking = true;
 		}
 		else
 		{
@@ -35,7 +35,7 @@ void SleepState::tick(float dt)
 	dispatcher->tick(dt);
 }
 
-void SleepState::moveToHome()
+void DrinkState::moveToHome()
 {
 	int xDist = ((Character*)actor)->getX() - home->getEntranceX();
 	int yDist = ((Character*)actor)->getY() - home->getEntranceY();

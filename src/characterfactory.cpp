@@ -31,12 +31,14 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	AttackState* attackState = new AttackState(actor);
 	MoveToState* moveToState = new MoveToState(actor);
 	SleepState* sleepState = new SleepState(actor);
+	DrinkState* drinkState = new DrinkState(actor);
 
 	Trie<IState*>* stateMap = new Trie<IState*>();
 	stateMap->add("patrol", patrolState);
 	stateMap->add("attack", attackState);
 	stateMap->add("moveto", moveToState);
 	stateMap->add("sleep", sleepState);
+	stateMap->add("drink", drinkState);
 
 	// create state machine
 	machine = new StateMachine(stateMap, info->behavioralConfig, info->startState);

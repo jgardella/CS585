@@ -1,5 +1,5 @@
-#ifndef _SLEEPSTATE_HH_
-#define _SLEEPSTATE_HH_
+#ifndef _DRINKSTATE_HH_
+#define _DRINKSTATE_HH_
 
 #include "istate.hh"
 #include "character.hh"
@@ -7,15 +7,15 @@
 #include "iactor.hh"
 #include "levelmanager.hh"
 
-class SleepState : public IState
+class DrinkState : public IState
 {
 	public:
-		SleepState(IActor* actor);
+		DrinkState(IActor* actor);
 		void tick(float dt);
 		void moveToHome();
 	private:
 		Building* home;
-		bool isSleeping;
+		bool isDrinking;
 };
 
 #endif

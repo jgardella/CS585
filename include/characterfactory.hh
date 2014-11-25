@@ -13,6 +13,7 @@
 #include "levelmanager.hh"
 #include "movetostate.hh"
 #include "sleepstate.hh"
+#include "drinkstate.hh"
 
 class CharacterFactory
 {
