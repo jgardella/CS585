@@ -12,7 +12,7 @@ typedef struct sLevelInfo
 		// int width - width of level
 		// int height - height of level
 		// std::string defaultTile - default tile for level
-		sLevelInfo(int width, int height, std::string defaultTile);
+		sLevelInfo(int width, int height, std::string defaultTile, unsigned int initialGold);
 		
 		// Adds the given dynamic array of positions to the level info with the specified name.
 		// Parameters:
@@ -23,6 +23,7 @@ typedef struct sLevelInfo
 		Trie<DynamicArray<tPosition*>*>* positionTrie;
 		int width, height;
 		std::string defaultTile;
+		unsigned int initialGold;
 } tLevelInfo;
 
 #endif

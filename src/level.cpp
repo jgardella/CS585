@@ -16,6 +16,7 @@ Level::Level(tLevelInfo level)
 	width = level.width;
 	height = level.height;
 	defaultTile = level.defaultTile;
+	playerGold = level.initialGold;
 	SceneManager::getInstance()->setGraph(new FixedGrid(width, height));
 
 	for(i = 0; i < keys->length(); i++)
@@ -100,4 +101,17 @@ void Level::processDeathEvent(DeathEvent* event)
 IListenerCallback* Level::getListener()
 {
 	return &onDeathEvent;
+}
+
+unsigned int Level::getPlayerGold()
+{
+	return playerGold;
+}
+
+void Level::removePlayerGold(unsigned int amount)
+{
+	if(amount <= playerGold)
+	{
+		playerGold -= amount;
+	}
 }

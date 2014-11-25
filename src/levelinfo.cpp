@@ -1,6 +1,6 @@
 #include "levelinfo.hh"
 
-sLevelInfo::sLevelInfo(int w, int h, std::string defaultT) : width(w), height(h), defaultTile(defaultT)
+sLevelInfo::sLevelInfo(int w, int h, std::string defaultT, unsigned int initialGold) : width(w), height(h), defaultTile(defaultT), initialGold(initialGold)
 {
 	positionTrie = new Trie<DynamicArray<tPosition*>*>();
 }

@@ -82,11 +82,13 @@ void RenderSim::parseLevelConfig(Trie<JSONItem*>* trie)
 	DEBUG_LOG("RENDERSIM", "Parsing level config.");
 	tLevelInfo* levelInfo;
 	int width, height;
+	unsigned int initialGold;
 	std::string defaultTile;
 	width = ((JSONPrimitive<int>*)*trie->get("width"))->getPrimitive();
 	height = ((JSONPrimitive<int>*)*trie->get("height"))->getPrimitive();
+	initialGold = ((JSONPrimitive<int>*)*trie->get("initialgold"))->getPrimitive();
 	defaultTile = ((JSONPrimitive<std::string>*)*trie->get("defaulttile"))->getPrimitive();
-	levelInfo = new tLevelInfo(width, height, defaultTile);
+	levelInfo = new tLevelInfo(width, height, defaultTile, initialGold);
 	levelInfo->setPositions("tree", jsonArrayToPositionList(((JSONArray*)*trie->get("tree"))));
 	levelInfo->setPositions("water", jsonArrayToPositionList(((JSONArray*)*trie->get("water"))));
 	levelInfo->setPositions("mountain", jsonArrayToPositionList(((JSONArray*)*trie->get("mountain"))));

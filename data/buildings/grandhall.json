@@ -4,6 +4,9 @@
 	"config" :
 	{
 		"width" : 5.0,
-		"height" : 5.0
+		"height" : 5.0,
+		"recruitcost" : 5.0,
+		"blacksmithcost" : 25.0,
+		"apothecarycost" : 15.0
 	}
 }

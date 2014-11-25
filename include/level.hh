@@ -34,9 +34,12 @@ class Level : public ITickable
 		void addControllerForCharacter(CharacterController* controller);
 		void addHome(Building* building);
 		IListenerCallback* getListener();
+		unsigned int getPlayerGold();
+		void removePlayerGold(unsigned int amount);
 	private:
 		int width;
 		int height;
+		unsigned int playerGold;
 		std::string defaultTile;
 		DynamicArray<Building*>* teamHomes;
 		DynamicArray<CharacterController*>* characterControllers;

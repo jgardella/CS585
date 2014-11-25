@@ -30,6 +30,8 @@ class LevelManager
 		void addControllerForCharacter(CharacterController* controller);
 		void addHome(Building* building);
 		IListenerCallback* getLevelListener();
+		unsigned int getPlayerGold();
+		void removePlayerGold(unsigned int amount);
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);
