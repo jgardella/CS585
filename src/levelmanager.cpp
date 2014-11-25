@@ -60,3 +60,8 @@ IListenerCallback* LevelManager::getLevelListener()
 {
 	return level.getListener();
 }
+
+void LevelManager::addHome(Building* building)
+{
+	level.addHome(building);
+}

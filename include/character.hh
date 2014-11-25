@@ -66,6 +66,10 @@ class Character : public IActor
 		void addListener(std::string eventType, IListenerCallback* callback);
 		
 		void simulateNeeds();
+		
+		void sleep();
+
+		bool hasMaxEnergy();
 
 	private:
 		unsigned int health;

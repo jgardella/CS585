@@ -32,6 +32,7 @@ class Level : public ITickable
 		CharacterController* getControllerForCharacter(unsigned int id);
 		void removeControllerForCharacter(unsigned int id);
 		void addControllerForCharacter(CharacterController* controller);
+		void addHome(Building* building);
 		IListenerCallback* getListener();
 	private:
 		int width;

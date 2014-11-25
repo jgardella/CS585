@@ -10,6 +10,7 @@ Level::Level(tLevelInfo level)
 	DynamicArray<tPosition*>* positions;
 	DynamicArray<std::string>* keys = level.positionTrie->getKeys();
 	characterControllers = new DynamicArray<CharacterController*>();
+	teamHomes = new DynamicArray<Building*>();
 	std::string key;
 
 	width = level.width;
@@ -52,6 +53,11 @@ std::string Level::getDefaultTile()
 Building* Level::getHome(unsigned int teamNum)
 {
 	return *teamHomes->get(teamNum);
+}
+
+void Level::addHome(Building* building)
+{
+	teamHomes->pushBack(building);
 }
 
 void Level::addControllerForCharacter(CharacterController* controller)

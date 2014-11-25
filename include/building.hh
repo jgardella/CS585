@@ -5,6 +5,8 @@
 #include "iactor.hh"
 #include "dynamicarray.hh"
 #include "buildingfunction.hh"
+#include "sposition.hh"
+#include "scenemanager.hh"
 
 class Building : public IActor
 {
@@ -13,9 +15,15 @@ class Building : public IActor
 	
 		unsigned int getTeamNumber();
 		DynamicArray<SceneNode*>* getSceneNodes();		
+		
+		int getEntranceX();
+		int getEntranceY();
+		tPosition* getNextAvailablePosition();
 		virtual std::string inspect();
 		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
 	private:
+		int entranceX, entranceY;
+		unsigned int corner1X, corner1Y;
 		unsigned int teamNum;
 		DynamicArray<SceneNode*>* sceneNodes;
 		BuildingFunction* function;

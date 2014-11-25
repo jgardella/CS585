@@ -8,6 +8,10 @@ Building::Building(std::string type, unsigned int corner1X, unsigned int corner1
 	this->teamNum = teamNum;
 	this->sceneNodes = new DynamicArray<SceneNode*>();
 	this->type = type;
+	this->corner1X = corner1X;
+	this->corner1Y = corner1Y;
+	this->entranceX = corner1X + width/2;
+	this->entranceY = corner1Y - 1;
 	for(i = corner1X; i <= width + corner1X; i++)
 	{
 		sceneNodes->pushBack(new SceneNode(i, corner1Y, *this, NULL, NULL));
@@ -43,4 +47,32 @@ std::string Building::inspect()
 bool Building::sendKeyPress(int key, int cursorX, int cursorY)
 {
 	return function->parseKeyPress(key, cursorX, cursorY);
+}
+
+int Building::getEntranceX()
+{
+	return entranceX;
+}
+
+int Building::getEntranceY()
+{
+	return entranceY;
+}
+
+tPosition* Building::getNextAvailablePosition()
+{
+	unsigned int i, j;
+	unsigned int width = *behavioralConfig->get("width");
+	unsigned int height = *behavioralConfig->get("height");
+	for(i = corner1X + 1; i < width + corner1X; i++)
+	{
+		for(j = corner1Y + 1; j < height + corner1Y; j++)
+		{
+			if(SceneManager::getInstance()->getColliders(i, j, true)->length() == 0)
+			{
+				return new tPosition(i, j);
+			}
+		}
+	}
+	return NULL;
 }

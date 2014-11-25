@@ -28,6 +28,7 @@ class LevelManager
 		Building* getHome(unsigned int teamNum);
 		CharacterController* getControllerForCharacter(unsigned int id);
 		void addControllerForCharacter(CharacterController* controller);
+		void addHome(Building* building);
 		IListenerCallback* getLevelListener();
 	private:
 		LevelManager();

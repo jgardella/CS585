@@ -9,9 +9,10 @@
 		"maxhydration" : 10.0,
 		"hydrationthres" : 2.0,
 		"dhydration" : 0.5,
-		"maxenegry" : 10.0,
-		"energythres" : 1.0,
-		"denergy" : 0.2
+		"maxenergy" : 10.0,
+		"energythres" : 7.0,
+		"denergy" : 0.2,
+		"energyregen" : 1.0
 	},
 	"start" : "patrol",
 	"health" : 35,

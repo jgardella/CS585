@@ -156,8 +156,8 @@ bool Character::sendKeyPress(int key, int cursorX, int cursorY)
 
 void Character::simulateNeeds()
 {
-	float dEnergy = *behavioralConfig->get("denergy");
-	float dHydration = *behavioralConfig->get("dhydration");
+	double dEnergy = *behavioralConfig->get("denergy");
+	double dHydration = *behavioralConfig->get("dhydration");
 	energy = energy - dEnergy > 0 ? energy - dEnergy : 0;
 	hydration = hydration - dHydration > 0 ? hydration - dHydration : 0;
 	DEBUG_LOG("CHARACTER", "Energy: " + std::to_string(energy) + ", Hydration: " + std::to_string(hydration) + ".");
@@ -166,9 +166,20 @@ void Character::simulateNeeds()
 		dispatcher->dispatch(new StateEvent("sleep"));
 		dispatcher->tick(1);
 	}
-	else if(hydration < *behavioralConfig->get("hydrationthres"))
+	/*else if(hydration < *behavioralConfig->get("hydrationthres"))
 	{
 		dispatcher->dispatch(new StateEvent("drink"));
 		dispatcher->tick(1);
-	}
+	}*/
+}
+
+void Character::sleep()
+{
+	double newEnergy = energy + *behavioralConfig->get("denergy") + *behavioralConfig->get("energyregen");
+	energy = newEnergy < *behavioralConfig->get("maxenergy") ? newEnergy : *behavioralConfig->get("maxenergy");
+}
+
+bool Character::hasMaxEnergy()
+{
+	return energy == *behavioralConfig->get("maxenergy");
 }

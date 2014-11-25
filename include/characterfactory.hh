@@ -12,6 +12,7 @@
 #include "attackstate.hh"
 #include "levelmanager.hh"
 #include "movetostate.hh"
+#include "sleepstate.hh"
 
 class CharacterFactory
 {
