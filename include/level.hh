@@ -35,7 +35,7 @@ class Level : public ITickable
 		void addHome(Building* building);
 		IListenerCallback* getListener();
 		unsigned int getPlayerGold();
-		void removePlayerGold(unsigned int amount);
+		void changePlayerGold(int amount);
 	private:
 		int width;
 		int height;

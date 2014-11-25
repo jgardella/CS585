@@ -71,7 +71,7 @@ unsigned int LevelManager::getPlayerGold()
 	return level.getPlayerGold();
 }
 
-void LevelManager::removePlayerGold(unsigned int amount)
+void LevelManager::changePlayerGold(int amount)
 {
-	level.removePlayerGold(amount);
+	level.changePlayerGold(amount);
 }

@@ -15,7 +15,7 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 			if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("recruitcost"))
 			{
 				CharacterFactory::get("dwarf", spawnX, spawnY);
-				LevelManager::getInstance()->removePlayerGold((unsigned int) *behavioralConfig->get("recruitcost"));
+				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("recruitcost"));
 				return true;
 			}
 			break;
@@ -23,7 +23,7 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 			if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("blacksmithcost"))
 			{
 				BuildingFactory::get("blacksmith", cursorX, cursorY, 0);
-				LevelManager::getInstance()->removePlayerGold((unsigned int) *behavioralConfig->get("blacksmithcost"));
+				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("blacksmithcost"));
 				return true;
 			}
 			break;
@@ -31,7 +31,7 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 			if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("apothecarycost"))
 			{
 				BuildingFactory::get("apothecary", cursorX, cursorY, 0);
-				LevelManager::getInstance()->removePlayerGold((unsigned int) *behavioralConfig->get("apothecarycost"));
+				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("apothecarycost"));
 				return true;
 			}
 			break;

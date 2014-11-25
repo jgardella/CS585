@@ -31,7 +31,7 @@ class LevelManager
 		void addHome(Building* building);
 		IListenerCallback* getLevelListener();
 		unsigned int getPlayerGold();
-		void removePlayerGold(unsigned int amount);
+		void changePlayerGold(int amount);
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);

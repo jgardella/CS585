@@ -108,10 +108,17 @@ unsigned int Level::getPlayerGold()
 	return playerGold;
 }
 
-void Level::removePlayerGold(unsigned int amount)
+void Level::changePlayerGold(int amount)
 {
-	if(amount <= playerGold)
+	if(amount < 0)
 	{
-		playerGold -= amount;
+		if(-amount <= (int)playerGold)
+		{
+			playerGold += amount;
+		}
+	}
+	else
+	{
+		playerGold += amount;
 	}
 }
