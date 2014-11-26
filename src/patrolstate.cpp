@@ -6,16 +6,22 @@ void PatrolState::tick(float dt)
 	unsigned int i;
 	Character* character;
 	int radius = (int) *actor->getBehavioralConfig()->get("radius");
+	DEBUG_LOG("PATROLSTATE", "Radius: " + std::to_string(radius));
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
+	DEBUG_LOG("PATROLSTATE", "Number of colliders: " + std::to_string(nodes->length()));
 	for(i = 0; i < nodes->length(); i++)
 	{
-		character = (Character*)(*nodes->get(i))->getActor();
-		DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " can attack Character #" + std::to_string(character->getID()) + ".");
-		if(((Character*)actor)->getType().compare(character->getType()) != 0)
+		if((*nodes->get(i))->getActor()->getClass().compare("CHARACTER") == 0)
 		{
-			DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
-			dispatcher->dispatch(new StateEvent("attack"));
-			return;
+			character = (Character*)(*nodes->get(i))->getActor();
+			DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " can attack Character #" + std::to_string(character->getID()) + ".");
+			if(((Character*)actor)->getTeam() != character->getTeam())
+			{
+				DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
+				dispatcher->dispatch(new StateEvent("attack"));
+				dispatcher->tick(dt);
+				return;
+			}
 		}
 	}
 	do
@@ -33,14 +39,12 @@ void PatrolState::tick(float dt)
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to sleep state.");
 			dispatcher->dispatch(new StateEvent("sleep"));
-			dispatcher->tick(1);
 		}
 		else if(((Character*)actor)->getHydration() < ((Character*)actor)->getProperty("hydrationthres")
 				&& ((Character*)actor)->getGold() >= LevelManager::getInstance()->getHome(((Character*)actor)->getTeam())->getProperty("drinkcost"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
 			dispatcher->dispatch(new StateEvent("drink"));
-			dispatcher->tick(1);
 		}
 		dispatcher->tick(dt);
 	}
