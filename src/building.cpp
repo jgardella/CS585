@@ -76,3 +76,8 @@ tPosition* Building::getNextAvailablePosition()
 	}
 	return NULL;
 }
+
+float Building::getProperty(std::string name)
+{
+	return *behavioralConfig->get(name);
+}

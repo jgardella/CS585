@@ -161,16 +161,6 @@ void Character::simulateNeeds()
 	energy = energy - dEnergy > 0 ? energy - dEnergy : 0;
 	hydration = hydration - dHydration > 0 ? hydration - dHydration : 0;
 	DEBUG_LOG("CHARACTER", "Energy: " + std::to_string(energy) + ", Hydration: " + std::to_string(hydration) + ".");
-	if(energy < *behavioralConfig->get("energythres"))
-	{
-		dispatcher->dispatch(new StateEvent("sleep"));
-		dispatcher->tick(1);
-	}
-	else if(hydration < *behavioralConfig->get("hydrationthres"))
-	{
-		dispatcher->dispatch(new StateEvent("drink"));
-		dispatcher->tick(1);
-	}
 }
 
 void Character::sleep()
@@ -193,4 +183,19 @@ void Character::drink()
 bool Character::hasMaxHydration()
 {
 	return hydration == *behavioralConfig->get("maxhydration");
+}
+
+float Character::getProperty(std::string name)
+{
+	return *behavioralConfig->get(name);
+}
+
+float Character::getEnergy()
+{
+	return energy;
+}
+
+float Character::getHydration()
+{
+	return hydration;
 }

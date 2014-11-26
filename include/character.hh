@@ -74,6 +74,12 @@ class Character : public IActor
 		void drink();
 
 		bool hasMaxHydration();
+		
+		float getEnergy();
+		
+		float getHydration();
+
+		float getProperty(std::string name);
 
 	private:
 		unsigned int health;

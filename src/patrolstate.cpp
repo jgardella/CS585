@@ -26,6 +26,22 @@ void PatrolState::tick(float dt)
 	while(SceneManager::getInstance()->getColliders(newX, newY, true)->length() != 0); // randomize position until it is unoccupied
 	DEBUG_LOG("GAMEPLAY", "Character # " + std::to_string(((Character*)actor)->getID()) + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
-	dispatcher->tick(dt);
+	// check energy and hydration levels
+	if(((Character*)actor)->getType().compare("dwarf") == 0)
+	{
+		if(((Character*)actor)->getEnergy() < ((Character*)actor)->getProperty("energythres"))
+		{
+			DEBUG_LOG("PATROLSTATE", "Character switching to sleep state.");
+			dispatcher->dispatch(new StateEvent("sleep"));
+			dispatcher->tick(1);
+		}
+		else if(((Character*)actor)->getHydration() < ((Character*)actor)->getProperty("hydrationthres")
+				&& ((Character*)actor)->getGold() >= LevelManager::getInstance()->getHome(((Character*)actor)->getTeam())->getProperty("drinkcost"))
+		{
+			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
+			dispatcher->dispatch(new StateEvent("drink"));
+			dispatcher->tick(1);
+		}
+		dispatcher->tick(dt);
+	}
 }
-

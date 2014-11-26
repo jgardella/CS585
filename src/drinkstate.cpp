@@ -25,6 +25,8 @@ void DrinkState::tick(float dt)
 		{
 			pos = home->getNextAvailablePosition();
 			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), pos->x, pos->y);
+			LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("drinkcost") * home->getProperty("taxrate")));
+			((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("drinkcost"));
 			isDrinking = true;
 		}
 		else

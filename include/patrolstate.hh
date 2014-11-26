@@ -3,6 +3,7 @@
 
 #include "istate.hh"
 #include "scenemanager.hh"
+#include "levelmanager.hh"
 #include "dynamicarray.hh"
 #include "character.hh"
 #include "stateevent.hh"

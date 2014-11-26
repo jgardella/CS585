@@ -7,6 +7,8 @@
 		"height" : 5.0,
 		"recruitcost" : 5.0,
 		"blacksmithcost" : 25.0,
-		"apothecarycost" : 15.0
+		"apothecarycost" : 15.0,
+		"taxrate" : 0.15,
+		"drinkcost" : 5.0
 	}
 }

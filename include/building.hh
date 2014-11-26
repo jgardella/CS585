@@ -21,6 +21,7 @@ class Building : public IActor
 		tPosition* getNextAvailablePosition();
 		virtual std::string inspect();
 		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
+		float getProperty(std::string name);
 	private:
 		int entranceX, entranceY;
 		unsigned int corner1X, corner1Y;
