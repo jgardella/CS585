@@ -13,6 +13,8 @@ class CharacterController : public ITickable
 	public:
 		CharacterController(Character* character, StateMachine* machine, unsigned int id);
 
+		virtual ~CharacterController();
+
 		void tick(float dt);
 		
 		unsigned int getID();

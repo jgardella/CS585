@@ -86,7 +86,7 @@ void Level::removeControllerForCharacter(unsigned int id)
 	{
 		if((*characterControllers->get(i))->getID() == id)
 		{
-			characterControllers->remove(i);
+			delete characterControllers->remove(i);
 			return;
 		}
 	}

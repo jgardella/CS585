@@ -10,6 +10,12 @@ CharacterController::CharacterController(Character* character, StateMachine* mac
 	timeCounter = 0;
 }
 
+CharacterController::~CharacterController()
+{
+	delete machine;
+	delete character;
+}
+
 void CharacterController::tick(float dt)
 {
 	timeCounter += dt;

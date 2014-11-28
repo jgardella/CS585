@@ -7,6 +7,12 @@ StateMachine::StateMachine(Trie<IState*>* map, Trie<double>* config, std::string
 	currentState->preStateStart();
 }
 
+StateMachine::~StateMachine()
+{
+	delete stateMap;
+	delete behavioralConfig;
+}
+
 void StateMachine::tick(float dt)
 {
 	currentState->tick(dt);

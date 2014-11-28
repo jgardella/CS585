@@ -22,6 +22,8 @@ class StateMachine : public ITickable
 		// std::string startState - the name of the state to start the machine in
 		StateMachine(Trie<IState*>* map, Trie<double>* config, std::string startState);
 		
+		virtual ~StateMachine();
+
 		// Ticks the state machine, executing the current state.
 		// Parameters:
 		// float dt - change in time since last tick
