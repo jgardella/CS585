@@ -11,6 +11,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->hydration = hydration;
 	this->energy = energy;
 	this->teamNum = teamNum;
+	this->dead= false;
 	dispatcher = new Dispatcher();
 	setType(type);
 }
@@ -40,7 +41,7 @@ int Character::getY()
 	return sceneNode->getY();
 }
 
-int Character::getID()
+unsigned int Character::getID()
 {
 	return id;
 }
@@ -75,6 +76,8 @@ void Character::takeDamage(Character* attacker, unsigned int damage)
 	{
 		SceneManager::getInstance()->removeSceneNode(sceneNode);
 		dispatcher->dispatch(new DeathEvent(attacker, this));
+		dispatcher->tick(1);
+		dead = true;
 	}
 }
 
@@ -198,4 +201,9 @@ float Character::getEnergy()
 float Character::getHydration()
 {
 	return hydration;
+}
+
+bool Character::isDead()
+{
+	return dead;
 }

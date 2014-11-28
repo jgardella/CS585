@@ -33,7 +33,7 @@ class Character : public IActor
 		
 		int getY();
 
-		int getID();
+		unsigned int getID();
 		
 		unsigned int getGold();
 
@@ -80,6 +80,8 @@ class Character : public IActor
 		float getHydration();
 
 		float getProperty(std::string name);
+		
+		bool isDead();
 
 	private:
 		unsigned int health;
@@ -87,6 +89,7 @@ class Character : public IActor
 		unsigned int gold;
 		double hydration;
 		double energy;
+		bool dead;
 		unsigned int teamNum;
 		SceneNode *sceneNode;
 		Character* target;

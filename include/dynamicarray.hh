@@ -218,7 +218,7 @@ class DynamicArray
 		// Returns the number of elements in the dynamic array.
 		unsigned int length()
 		{
-			DEBUG_LOG("DYNAMICARRAY", "Getting length of array: " + std::to_string(dynamicArrayLength) + ".");
+			//DEBUG_LOG("DYNAMICARRAY", "Getting length of array: " + std::to_string(dynamicArrayLength) + ".");
 			return dynamicArrayLength;
 		}
 

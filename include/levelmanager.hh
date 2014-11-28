@@ -39,7 +39,7 @@ class LevelManager
 		~LevelManager();
 
 		static LevelManager* instance;
-		Level level;
+		Level* level;
 };
 
 #endif

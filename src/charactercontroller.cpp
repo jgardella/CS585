@@ -21,11 +21,14 @@ void CharacterController::tick(float dt)
 	timeCounter += dt;
 	if(timeCounter >= 1)
 	{	
-		if(character->getTeam() == 0)
+		if(!character->isDead())
 		{
-			character->simulateNeeds();
+			if(character->getTeam() == 0)
+			{
+				character->simulateNeeds();
+			}
+			machine->tick(dt);
 		}
-		machine->tick(dt);
 		timeCounter = 0;
 	}
 }

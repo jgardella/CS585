@@ -3,7 +3,7 @@
 	"type" : "dwarf",
 	"config" : 
 	{
-		"radius" : 3.0,
+		"radius" : 5.0,
 		"maxattack" : 10.0,
 		"chance" : 0.8,
 		"maxhydration" : 10.0,

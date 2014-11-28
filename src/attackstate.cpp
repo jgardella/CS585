@@ -30,7 +30,7 @@ void AttackState::scanForTarget()
 	DEBUG_LOG("ATTACKSTATE", "Scanning for target.");
 	unsigned int i;
 	Character* character;
-	int radius = (int) *actor->getBehavioralConfig()->get("radius");
+	int radius = (int) *actor->getBehavioralConfig()->get("radius") + 2;
 	DEBUG_LOG("ATTACKSTATE", "Radius: " + std::to_string(radius));
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
 	for(i = 0; i < nodes->length(); i++)
@@ -38,7 +38,7 @@ void AttackState::scanForTarget()
 		if((*nodes->get(i))->getActor()->getClass().compare("CHARACTER") == 0)
 		{
 			character = (Character*)(*nodes->get(i))->getActor();
-			if(((Character*)actor)->getTeam() != (character->getTeam()))
+			if(((Character*)actor)->getTeam() != (character->getTeam()) && !((Character*)actor)->isDead())
 			{
 				DEBUG_LOG("ATTACKSTATE", "Found target."); 
 				((Character*)actor)->setTarget(character);

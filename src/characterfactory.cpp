@@ -54,7 +54,7 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	
 	// create controller
 	controller = new CharacterController(actor, machine, actor->getID());
-	LevelManager::getInstance()->addControllerForCharacter((CharacterController*)controller);
+	LevelManager::getInstance()->addControllerForCharacter(controller);
 	actor->addListener("death", LevelManager::getInstance()->getLevelListener());
 
 	// register actor's scenenode and controller with scene manager

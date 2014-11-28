@@ -15,7 +15,7 @@ void PatrolState::tick(float dt)
 		{
 			character = (Character*)(*nodes->get(i))->getActor();
 			DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " can attack Character #" + std::to_string(character->getID()) + ".");
-			if(((Character*)actor)->getTeam() != character->getTeam())
+			if(((Character*)actor)->getTeam() != character->getTeam() && !((Character*)actor)->isDead())
 			{
 				DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
 				dispatcher->dispatch(new StateEvent("attack"));

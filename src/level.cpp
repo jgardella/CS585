@@ -1,9 +1,5 @@
 #include "level.hh"
 
-Level::Level()
-{
-}
-
 Level::Level(tLevelInfo level)
 {
 	unsigned int i, j;
@@ -18,6 +14,8 @@ Level::Level(tLevelInfo level)
 	defaultTile = level.defaultTile;
 	playerGold = level.initialGold;
 	SceneManager::getInstance()->setGraph(new FixedGrid(width, height));
+	
+	onDeathEvent.setInstance(this);
 
 	for(i = 0; i < keys->length(); i++)
 	{
@@ -86,7 +84,7 @@ void Level::removeControllerForCharacter(unsigned int id)
 	{
 		if((*characterControllers->get(i))->getID() == id)
 		{
-			delete characterControllers->remove(i);
+			characterControllers->remove(i);
 			return;
 		}
 	}
