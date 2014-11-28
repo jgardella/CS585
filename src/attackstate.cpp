@@ -35,12 +35,15 @@ void AttackState::scanForTarget()
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
 	for(i = 0; i < nodes->length(); i++)
 	{
-		character = (Character*)(*nodes->get(i))->getActor();
-		if(((Character*)actor)->getTeam() != (character->getTeam()))
+		if((*nodes->get(i))->getActor()->getClass().compare("CHARACTER") == 0)
 		{
-			DEBUG_LOG("ATTACKSTATE", "Found target."); 
-			((Character*)actor)->setTarget(character);
-			return;
+			character = (Character*)(*nodes->get(i))->getActor();
+			if(((Character*)actor)->getTeam() != (character->getTeam()))
+			{
+				DEBUG_LOG("ATTACKSTATE", "Found target."); 
+				((Character*)actor)->setTarget(character);
+				return;
+			}
 		}
 	}
 }

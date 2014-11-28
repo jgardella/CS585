@@ -95,7 +95,8 @@ void Level::removeControllerForCharacter(unsigned int id)
 void Level::processDeathEvent(DeathEvent* event)
 {
 	event->getAttacker()->setGold(event->getVictim()->getGold() + event->getAttacker()->getGold());
-	removeControllerForCharacter(event->getAttacker()->getID());
+	event->getAttacker()->setTarget(NULL);
+	removeControllerForCharacter(event->getVictim()->getID());
 }
 
 IListenerCallback* Level::getListener()
