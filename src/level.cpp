@@ -121,3 +121,23 @@ void Level::changePlayerGold(int amount)
 		playerGold += amount;
 	}
 }
+
+bool Level::isApothecaryBuilt()
+{
+	return apothecaryBuilt;
+}
+
+bool Level::isBlacksmithBuilt()
+{
+	return blacksmithBuilt;
+}
+
+void Level::setApothecaryBuilt(bool val)
+{
+	apothecaryBuilt = val;
+}
+
+void Level::setBlacksmithBuilt(bool val)
+{
+	blacksmithBuilt = val;
+}

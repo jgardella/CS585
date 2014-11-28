@@ -34,9 +34,14 @@ class Level : public ITickable
 		IListenerCallback* getListener();
 		unsigned int getPlayerGold();
 		void changePlayerGold(int amount);
+		bool isApothecaryBuilt();
+		bool isBlacksmithBuilt();
+		void setApothecaryBuilt(bool val);
+		void setBlacksmithBuilt(bool val);
 	private:
 		int width;
 		int height;
+		bool apothecaryBuilt, blacksmithBuilt;
 		unsigned int playerGold;
 		std::string defaultTile;
 		DynamicArray<Building*>* teamHomes;

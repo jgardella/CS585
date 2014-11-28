@@ -75,3 +75,23 @@ void LevelManager::changePlayerGold(int amount)
 {
 	level->changePlayerGold(amount);
 }
+
+bool LevelManager::isApothecaryBuilt()
+{
+	return level->isApothecaryBuilt();
+}
+
+bool LevelManager::isBlacksmithBuilt()
+{
+	return level->isBlacksmithBuilt();
+}
+
+void LevelManager::setApothecaryBuilt(bool val)
+{
+	level->setApothecaryBuilt(val);
+}
+
+void LevelManager::setBlacksmithBuilt(bool val)
+{
+	level->setBlacksmithBuilt(val);
+}

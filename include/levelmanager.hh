@@ -32,6 +32,10 @@ class LevelManager
 		IListenerCallback* getLevelListener();
 		unsigned int getPlayerGold();
 		void changePlayerGold(int amount);
+		bool isApothecaryBuilt();
+		bool isBlacksmithBuilt();
+		void setApothecaryBuilt(bool val);
+		void setBlacksmithBuilt(bool val);
 	private:
 		LevelManager();
 		LevelManager(SceneManager const&);
