@@ -66,7 +66,7 @@ void ASCIIRenderer::render()
 						actorUnderCursor = actor;
 					}
 				}
-				attron(COLOR_PAIR(renderInfo->colorPair));
+				attron(COLOR_PAIR(renderInfo->color));
 				mvprintw(j - renderY, i - renderX, renderInfo->character.c_str());
 			}
 		}

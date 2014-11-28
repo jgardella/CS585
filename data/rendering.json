@@ -1,13 +1,13 @@
 {
 	"key": "render",
-	"dirt" : { "character" : "-", "r" : 150, "g" : 150, "b" : 0},
-	"grass" : { "character" : "*", "r" : 0, "g" : 175, "b" : 0},
-	"mountain" : { "character" : "^", "r" : 0, "g" : 25, "b": 10},
-	"water" : { "character" : "~", "r" : 0, "g": 0, "b" : 75},
-	"tree" : { "character" : "T", "r" : 0, "g": 75, "b" : 0},
-	"orc" : { "character" : "O", "r" : 0, "g": 200, "b": 0},
-	"dwarf" : { "character" : "D", "r": 200, "g" : 0, "b" : 0},
-	"grandhall" : { "character" : "G", "r": 150, "g" : 0, "b" : 0}
-	"blacksmith" : { "character" : "B", "r": 150, "g" : 0, "b" : 0}
-	"apothecary" : { "character" : "A", "r": 150, "g" : 0, "b" : 0}
+	"dirt" : { "character" : "-", "color" : 1 },
+	"grass" : { "character" : "*", "color" : 2 },
+	"mountain" : { "character" : "^", "color" : 3 },
+	"water" : { "character" : "~", "color" : 4 },
+	"tree" : { "character" : "T", "color" : 5 },
+	"orc" : { "character" : "O", "color" : 6 },
+	"dwarf" : { "character" : "D", "color" : 7 },
+	"grandhall" : { "character" : "G", "color" : 3 },
+	"blacksmith" : { "character" : "B", "color" : 3 },
+	"apothecary" : { "character" : "A", "color" : 3 }
 }

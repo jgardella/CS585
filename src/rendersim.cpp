@@ -147,12 +147,20 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 {
 	unsigned int i;
-	int colorPair = 1, colorVal = 1;
-	int r, g, b;
 	Trie<JSONItem*>* renderInfoTrie;
 	renderer = new ASCIIRenderer(0, 0, 60);
 	tRenderInfo* renderInfo;
 	DynamicArray<std::string>* keys = trie->getKeys();
+	
+	// set up color pairs
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(4, COLOR_BLUE, COLOR_BLACK);
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(6, COLOR_CYAN, COLOR_BLACK);
+	init_pair(7, COLOR_WHITE, COLOR_BLACK);
+
 	for(i = 0; i < keys->length(); i++)
 	{
 		renderInfo = new tRenderInfo();
@@ -160,12 +168,7 @@ void RenderSim::parseRenderConfig(Trie<JSONItem*>* trie)
 		{
 			renderInfoTrie = ((JSONObject*)*trie->get(*keys->get(i)))->getTrie();
 			renderInfo->character = ((JSONPrimitive<std::string>*)*renderInfoTrie->get("character"))->getPrimitive();
-			r = ((JSONPrimitive<int>*)*renderInfoTrie->get("r"))->getPrimitive();
-			g = ((JSONPrimitive<int>*)*renderInfoTrie->get("g"))->getPrimitive();
-			b = ((JSONPrimitive<int>*)*renderInfoTrie->get("b"))->getPrimitive();
-			init_color(colorVal, r, g, b);
-			init_pair(colorPair, colorVal++, COLOR_BLACK);
-			//renderInfo->colorPair = colorPair++;
+			renderInfo->color = ((JSONPrimitive<int>*)*renderInfoTrie->get("color"))->getPrimitive();
 			renderer->addRenderInfo(*keys->get(i), renderInfo);
 		}
 	}

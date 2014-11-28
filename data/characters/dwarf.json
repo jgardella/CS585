@@ -7,11 +7,11 @@
 		"maxattack" : 10.0,
 		"chance" : 0.8,
 		"maxhydration" : 10.0,
-		"hydrationthres" : 2.0,
+		"hydrationthres" : 9.0,
 		"dhydration" : 0.5,
 		"hydrationregen" : 1.0
 		"maxenergy" : 10.0,
-		"energythres" : 7.0,
+		"energythres" : 0.0,
 		"denergy" : 0.2,
 		"energyregen" : 1.0
 	},
