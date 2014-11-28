@@ -13,6 +13,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->teamNum = teamNum;
 	this->dead= false;
 	dispatcher = new Dispatcher();
+	SceneManager::getInstance()->addTickable(dispatcher);
 	setType(type);
 }
 
@@ -76,7 +77,6 @@ void Character::takeDamage(Character* attacker, unsigned int damage)
 	{
 		SceneManager::getInstance()->removeSceneNode(sceneNode);
 		dispatcher->dispatch(new DeathEvent(attacker, this));
-		dispatcher->tick(1);
 		dead = true;
 	}
 }
@@ -151,7 +151,6 @@ bool Character::sendKeyPress(int key, int cursorX, int cursorY)
 		case 'm':
 			setMoveLocation(cursorX, cursorY);
 			dispatcher->dispatch(new StateEvent("moveto"));
-			dispatcher->tick(1);
 			return true;
 	}
 	return false;
