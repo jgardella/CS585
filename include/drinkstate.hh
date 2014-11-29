@@ -2,6 +2,7 @@
 #define _DRINKSTATE_HH_
 
 #include "istate.hh"
+#include "debug.hh"
 #include "character.hh"
 #include "building.hh"
 #include "iactor.hh"

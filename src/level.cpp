@@ -109,6 +109,7 @@ unsigned int Level::getPlayerGold()
 
 void Level::changePlayerGold(int amount)
 {
+	DEBUG_LOG("LEVEL", "Changing player gold by amount: " + std::to_string(amount));
 	if(amount < 0)
 	{
 		if(-amount <= (int)playerGold)

@@ -12,6 +12,8 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->energy = energy;
 	this->teamNum = teamNum;
 	this->dead= false;
+	this->level = 1;
+	this->exp = 0;
 	dispatcher = new Dispatcher();
 	SceneManager::getInstance()->addTickable(dispatcher);
 	setType(type);

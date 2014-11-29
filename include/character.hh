@@ -87,6 +87,8 @@ class Character : public IActor
 		unsigned int health;
 		unsigned int id;
 		unsigned int gold;
+		unsigned int exp;
+		unsigned int level;
 		double hydration;
 		double energy;
 		bool dead;
