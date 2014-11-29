@@ -3,12 +3,14 @@
 
 #include "building.hh"
 #include "buildinginfo.hh"
+#include "buildingfactory.hh"
 #include "dynamicarray.hh"
 #include "trie.hh"
 #include "scenenode.hh"
 #include "scenemanager.hh"
 #include "buildingfunction.hh"
 #include "grandhallfunction.hh"
+#include "blacksmithfunction.hh"
 
 class BuildingFactory
 {
