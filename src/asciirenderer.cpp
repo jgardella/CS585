@@ -71,18 +71,22 @@ void ASCIIRenderer::render()
 			}
 		}
 	}
+	attron(COLOR_PAIR(3));
+	std::string playerGold = "Gold: " + std::to_string(LevelManager::getInstance()->getPlayerGold());
+	mvaddstr(maxY - 1, 0, playerGold.c_str());
+	attron(COLOR_PAIR(7));
 	drawMenu();
 	if(showInspectInfo)
 	{
 		if(inspectActor != NULL)
 		{
 			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for locked actor: " + inspectActor->inspect());
-			mvaddstr(maxY - 1, 0, inspectActor->inspect().c_str());
+			mvaddstr(maxY - 1, 10, inspectActor->inspect().c_str());
 		}
 		else if(actorUnderCursor != NULL)
 		{
 			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for actor under cursor: " + actorUnderCursor->inspect());
-			mvaddstr(maxY - 1, 0, actorUnderCursor->inspect().c_str());
+			mvaddstr(maxY - 1, 10, actorUnderCursor->inspect().c_str());
 		}
 	}
 	move(cursorY, cursorX);
