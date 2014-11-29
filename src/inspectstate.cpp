@@ -49,7 +49,7 @@ void InspectState::parseInput(int c, bool keyDown)
 				renderer->moveCursorY(1);
 				break;
 			default:
-				DEBUG_LOG("INSPECTSTATE", "Issuing move command to dwarf.");
+				DEBUG_LOG("INSPECTSTATE", "Sending keypress to actor.");
 				actorUnderCursor = renderer->getLockedActor();
 				if(actorUnderCursor->sendKeyPress(c, renderer->getCursorWorldX(), renderer->getCursorWorldY()))
 				{
