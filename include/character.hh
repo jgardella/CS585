@@ -13,6 +13,7 @@
 #include "weaponfactory.hh"
 #include "armor.hh"
 #include "armorfactory.hh"
+#include "healthpotion.hh"
 
 class Character : public IActor
 {
@@ -90,6 +91,9 @@ class Character : public IActor
 		void setWeapon(Weapon* weapon);
 
 		void setArmor(Armor* armor);
+
+		void setPotion(HealthPotion* potion);
+
 	private:
 		unsigned int health;
 		unsigned int id;
@@ -98,6 +102,7 @@ class Character : public IActor
 		unsigned int level;
 		Weapon* weapon;
 		Armor* armor;
+		HealthPotion* potion;
 		double hydration;
 		double energy;
 		bool dead;

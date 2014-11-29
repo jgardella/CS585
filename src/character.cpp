@@ -16,6 +16,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->exp = 0;
 	this->weapon = WeaponFactory::get("fists");
 	this->armor = ArmorFactory::get("clothing");
+	this->potion = NULL;
 	dispatcher = new Dispatcher();
 	SceneManager::getInstance()->addTickable(dispatcher);
 	setType(type);
@@ -221,4 +222,9 @@ void Character::setArmor(Armor* armor)
 {
 	delete this->armor;
 	this->armor = armor;
+}
+
+void Character::setPotion(HealthPotion* potion)
+{
+	this->potion = potion;
 }

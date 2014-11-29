@@ -26,6 +26,8 @@
 #include "weaponinfo.hh"
 #include "armorfactory.hh"
 #include "armorinfo.hh"
+#include "healthpotionfactory.hh"
+#include "healthpotioninfo.hh"
 
 class RenderSim 
 {
@@ -65,6 +67,8 @@ class RenderSim
 		void parseWeaponConfig(Trie<JSONItem*>* trie);
 		
 		void parseArmorConfig(Trie<JSONItem*>* trie);
+		
+		void parseHealthPotionConfig(Trie<JSONItem*>* trie);
 };
 
 #endif

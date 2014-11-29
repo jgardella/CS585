@@ -4,6 +4,10 @@
 	"config" :
 	{
 		"width" : 2.0,
-		"height" : 2.0
+		"height" : 2.0,
+		"taxrate" : 0.25,
+		"lessercost" : 5.0,
+		"moderatecost" : 7.0,
+		"severecost" : 15.0
 	}
 }
