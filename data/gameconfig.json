@@ -1,3 +1,3 @@
 {
-	"configs" : ["characters/orc", "characters/dwarf", "tiles/dirt", "tiles/mountain", "tiles/grass", "tiles/water", "tiles/tree", "buildings/grandhall", "buildings/blacksmith", "buildings/apothecary", "weapons/dagger", "weapons/fists", "levels/battle", "menus/dwarf", "menus/grandhall", "rendering"]
+	"configs" : ["characters/orc", "characters/dwarf", "tiles/dirt", "tiles/mountain", "tiles/grass", "tiles/water", "tiles/tree", "buildings/grandhall", "buildings/blacksmith", "buildings/apothecary", "weapons/dagger", "weapons/fists", "armor/clothing", "levels/battle", "menus/dwarf", "menus/grandhall", "rendering"]
 }

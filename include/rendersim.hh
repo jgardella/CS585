@@ -24,6 +24,8 @@
 #include "menumanager.hh"
 #include "weaponfactory.hh"
 #include "weaponinfo.hh"
+#include "armorfactory.hh"
+#include "armorinfo.hh"
 
 class RenderSim 
 {
@@ -61,6 +63,8 @@ class RenderSim
 		void parseMenuConfig(Trie<JSONItem*>* trie);
 		
 		void parseWeaponConfig(Trie<JSONItem*>* trie);
+		
+		void parseArmorConfig(Trie<JSONItem*>* trie);
 };
 
 #endif

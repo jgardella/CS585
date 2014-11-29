@@ -15,6 +15,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->level = 1;
 	this->exp = 0;
 	this->weapon = WeaponFactory::get("fists");
+	this->armor = ArmorFactory::get("clothing");
 	dispatcher = new Dispatcher();
 	SceneManager::getInstance()->addTickable(dispatcher);
 	setType(type);
@@ -214,4 +215,10 @@ void Character::setWeapon(Weapon* weapon)
 {
 	delete this->weapon;
 	this->weapon = weapon;
+}
+
+void Character::setArmor(Armor* armor)
+{
+	delete this->armor;
+	this->armor = armor;
 }

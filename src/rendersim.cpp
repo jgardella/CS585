@@ -70,6 +70,10 @@ void RenderSim::parseSubConfig(JSONObject* configObject)
 	{
 		parseWeaponConfig(trie);
 	}
+	else if(((JSONPrimitive<std::string>*)*trie->get("key"))->getPrimitive().compare("armor") == 0)
+	{
+		parseArmorConfig(trie);
+	}
 }
 
 void RenderSim::parseTileConfig(Trie<JSONItem*>* trie)
@@ -209,4 +213,13 @@ void RenderSim::parseWeaponConfig(Trie<JSONItem*>* trie)
 	weaponInfo->hitChance = ((JSONPrimitive<double>*)*trie->get("hitchance"))->getPrimitive();
 	weaponInfo->damage = ((JSONPrimitive<int>*)*trie->get("damage"))->getPrimitive();
 	WeaponFactory::addWeaponInfo(weaponInfo->name, weaponInfo);
+}
+
+void RenderSim::parseArmorConfig(Trie<JSONItem*>* trie)
+{
+	tArmorInfo* armorInfo = new tArmorInfo();
+	armorInfo->name = ((JSONPrimitive<std::string>*)*trie->get("name"))->getPrimitive();
+	armorInfo->quality = ((JSONPrimitive<int>*)*trie->get("quality"))->getPrimitive();
+	armorInfo->defence = ((JSONPrimitive<int>*)*trie->get("defence"))->getPrimitive();
+	ArmorFactory::addArmorInfo(armorInfo->name, armorInfo);
 }

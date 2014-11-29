@@ -11,6 +11,8 @@
 #include "stateevent.hh"
 #include "weapon.hh"
 #include "weaponfactory.hh"
+#include "armor.hh"
+#include "armorfactory.hh"
 
 class Character : public IActor
 {
@@ -87,6 +89,7 @@ class Character : public IActor
 		
 		void setWeapon(Weapon* weapon);
 
+		void setArmor(Armor* armor);
 	private:
 		unsigned int health;
 		unsigned int id;
@@ -94,6 +97,7 @@ class Character : public IActor
 		unsigned int exp;
 		unsigned int level;
 		Weapon* weapon;
+		Armor* armor;
 		double hydration;
 		double energy;
 		bool dead;

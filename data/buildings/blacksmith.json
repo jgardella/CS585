@@ -4,6 +4,9 @@
 	"config" :
 	{
 		"width" : 3.0,
-		"height" : 3.0
+		"height" : 3.0,
+		"daggercost" : 10.0,
+		"bronzecost" : 5.0,
+		"taxrate" : 0.5
 	}
 }
