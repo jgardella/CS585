@@ -84,6 +84,8 @@ class Character : public IActor
 		float getProperty(std::string name);
 		
 		bool isDead();
+		
+		void setWeapon(Weapon* weapon);
 
 	private:
 		unsigned int health;

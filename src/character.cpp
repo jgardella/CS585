@@ -209,3 +209,9 @@ bool Character::isDead()
 {
 	return dead;
 }
+
+void Character::setWeapon(Weapon* weapon)
+{
+	delete this->weapon;
+	this->weapon = weapon;
+}
