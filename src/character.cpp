@@ -14,6 +14,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->dead= false;
 	this->level = 1;
 	this->exp = 0;
+	this->weapon = WeaponFactory::get("fists");
 	dispatcher = new Dispatcher();
 	SceneManager::getInstance()->addTickable(dispatcher);
 	setType(type);
@@ -85,7 +86,7 @@ void Character::takeDamage(Character* attacker, unsigned int damage)
 
 std::string Character::inspect()
 {
-	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold) + " | Hydration: " + std::to_string(hydration) + " | Energy: " + std::to_string(energy);
+	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold) + " | Hydration: " + std::to_string(hydration) + " | Energy: " + std::to_string(energy) + " | Weapon: " + weapon->getName();
 	if(target != NULL)
 	{
 		str.append(" | Target: " + target->getType() + " #" + std::to_string(target->getID()));

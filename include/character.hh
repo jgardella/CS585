@@ -9,6 +9,8 @@
 #include "dispatcher.hh"
 #include "deathevent.hh"
 #include "stateevent.hh"
+#include "weapon.hh"
+#include "weaponfactory.hh"
 
 class Character : public IActor
 {
@@ -89,6 +91,7 @@ class Character : public IActor
 		unsigned int gold;
 		unsigned int exp;
 		unsigned int level;
+		Weapon* weapon;
 		double hydration;
 		double energy;
 		bool dead;
