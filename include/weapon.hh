@@ -2,29 +2,24 @@
 #define _WEAPON_HH_
 
 #include <string>
-
-// enum for quality of good
-typedef enum
-{
-	LESSER, NORMAL, MASTERWORK
-} Quality;
+#include "quality.hh"
 
 class Weapon
 {
 
 	public:
 		
-		Weapon(std::string name, Quality quality, float chanceToHit, int damage);
+		Weapon(std::string name, int quality, float chanceToHit, int damage);
 		
 		std::string getName();
-		Quality getQuality();
+		int getQuality();
 		float getHitChance();
 		int getDamage();
 
 
 	private:
 		std::string name;
-		Quality quality;
+		int quality;
 		float chanceToHit;
 		int damage;
 };

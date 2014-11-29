@@ -8,7 +8,7 @@
 		"recruitcost" : 5.0,
 		"blacksmithcost" : 25.0,
 		"apothecarycost" : 15.0,
-		"taxrate" : 0.15,
+		"taxrate" : 0.25,
 		"drinkcost" : 5.0
 	}
 }

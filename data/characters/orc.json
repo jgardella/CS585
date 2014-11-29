@@ -4,8 +4,6 @@
 	"config" : 
 	{
 		"radius" : 5.0,
-		"maxattack" : 5.0,
-		"chance" : 0.6
 	},
 	"start" : "patrol",
 	"health" : 50,
