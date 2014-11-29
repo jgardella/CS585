@@ -51,7 +51,15 @@ std::string Level::getDefaultTile()
 
 Building* Level::getHome(unsigned int teamNum)
 {
-	return *teamHomes->get(teamNum);
+	unsigned int i;
+	for(i = 0; i < teamHomes->length(); i++)
+	{
+		if((*teamHomes->get(i))->getTeamNumber() == teamNum)
+		{
+			return *teamHomes->get(i);
+		}
+	}
+	return NULL;
 }
 
 void Level::addHome(Building* building)
