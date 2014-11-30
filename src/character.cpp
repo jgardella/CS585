@@ -218,13 +218,28 @@ void Character::setWeapon(Weapon* weapon)
 	this->weapon = weapon;
 }
 
+Weapon* Character::getWeapon()
+{
+	return weapon;
+}
+
 void Character::setArmor(Armor* armor)
 {
 	delete this->armor;
 	this->armor = armor;
 }
 
+Armor* Character::getArmor()
+{
+	return armor;
+}
+
 void Character::setPotion(HealthPotion* potion)
 {
 	this->potion = potion;
+}
+
+HealthPotion* Character::getPotion()
+{
+	return potion;
 }

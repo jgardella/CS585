@@ -26,9 +26,13 @@ class LevelManager
 		int getWorldHeight();
 		std::string getDefaultTile();
 		Building* getHome(unsigned int teamNum);
+		Building* getBlacksmith(unsigned int teamNum);
+		Building* getApothecary(unsigned int teamNum);
 		CharacterController* getControllerForCharacter(unsigned int id);
 		void addControllerForCharacter(CharacterController* controller);
 		void addHome(Building* building);
+		void addBlacksmith(Building* building);
+		void addApothecary(Building* building);
 		IListenerCallback* getLevelListener();
 		unsigned int getPlayerGold();
 		void changePlayerGold(int amount);

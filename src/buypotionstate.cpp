@@ -4,7 +4,7 @@ BuyPotionState::BuyPotionState(Character* character) : IState(character)
 {
 	this->character = character;
 	isShopping = false;
-	// somehow get apothecary for character
+	apothecary = LevelManager::getInstance()->getApothecary(character->getTeam());
 }
 
 void BuyPotionState::tick(float dt)
@@ -13,6 +13,7 @@ void BuyPotionState::tick(float dt)
 	if(isShopping)
 	{
 		isShopping = false;
+		character->setPotion(HealthPotionFactory::get("lesser"));
 		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), apothecary->getEntranceX(), apothecary->getEntranceY());
 		dispatcher->dispatch(new StateEvent("patrol"));
 	}

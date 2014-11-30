@@ -26,11 +26,15 @@ class Level : public ITickable
 		int getWorldWidth();
 		int getWorldHeight();
 		Building* getHome(unsigned int teamNum);
+		Building* getBlacksmith(unsigned int teamNum);
+		Building* getApothecary(unsigned int teamNum);
 		std::string getDefaultTile();
 		CharacterController* getControllerForCharacter(unsigned int id);
 		void removeControllerForCharacter(unsigned int id);
 		void addControllerForCharacter(CharacterController* controller);
 		void addHome(Building* building);
+		void addBlacksmith(Building* building);
+		void addApothecary(Building* building);
 		IListenerCallback* getListener();
 		unsigned int getPlayerGold();
 		void changePlayerGold(int amount);
@@ -45,6 +49,8 @@ class Level : public ITickable
 		unsigned int playerGold;
 		std::string defaultTile;
 		DynamicArray<Building*>* teamHomes;
+		DynamicArray<Building*>* teamBlacksmiths;
+		DynamicArray<Building*>* teamApothecaries;
 		DynamicArray<CharacterController*>* characterControllers;
 		
 		void processDeathEvent(DeathEvent* event);

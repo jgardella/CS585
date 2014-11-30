@@ -4,7 +4,7 @@ BuyWeaponState::BuyWeaponState(Character* character) : IState(character)
 {
 	this->character = character;
 	isShopping = false;
-	// somehow get blacksmith for character
+	blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
 }
 
 void BuyWeaponState::tick(float dt)

@@ -1,23 +1,29 @@
 #include "patrolstate.hh"
 
+PatrolState::PatrolState(Character* character) : IState(character)
+{
+	this->character = character;
+	this->home = LevelManager::getInstance()->getHome(character->getTeam());
+}
+
 void PatrolState::tick(float dt)
 {
 	int newX, newY;
 	unsigned int i;
-	Character* character;
-	int radius = (int) *actor->getBehavioralConfig()->get("radius");
+	Character* otherCharacter;
+	int radius = (int) *character->getBehavioralConfig()->get("radius");
 	DEBUG_LOG("PATROLSTATE", "Radius: " + std::to_string(radius));
-	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
+	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(character->getX(), character->getY(), radius); 
 	DEBUG_LOG("PATROLSTATE", "Number of colliders: " + std::to_string(nodes->length()));
 	for(i = 0; i < nodes->length(); i++)
 	{
 		if((*nodes->get(i))->getActor()->getClass().compare("CHARACTER") == 0)
 		{
-			character = (Character*)(*nodes->get(i))->getActor();
+			otherCharacter = (Character*)(*nodes->get(i))->getActor();
 			DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " can attack Character #" + std::to_string(character->getID()) + ".");
-			if(((Character*)actor)->getTeam() != character->getTeam() && !((Character*)actor)->isDead())
+			if(character->getTeam() != otherCharacter->getTeam() && !character->isDead())
 			{
-				DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(((Character*)actor)->getID()) + " switching to attack state.");
+				DEBUG_LOG("PATROLSTATE", "Character #" + std::to_string(character->getID()) + " switching to attack state.");
 				dispatcher->dispatch(new StateEvent("attack"));
 				dispatcher->tick(dt);
 				return;
@@ -26,26 +32,41 @@ void PatrolState::tick(float dt)
 	}
 	do
 	{
-		newX = ((Character*)actor)->getX() + std::rand() % 3 - 1;
-		newY = ((Character*)actor)->getY() + std::rand() % 3 - 1;
+		newX = character->getX() + std::rand() % 3 - 1;
+		newY = character->getY() + std::rand() % 3 - 1;
 	}
 	while(SceneManager::getInstance()->getColliders(newX, newY, true)->length() != 0); // randomize position until it is unoccupied
-	DEBUG_LOG("GAMEPLAY", "Character # " + std::to_string(((Character*)actor)->getID()) + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
+	DEBUG_LOG("GAMEPLAY", "Character # " + std::to_string(character->getID()) + " moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
 	// check energy and hydration levels
-	if(((Character*)actor)->getType().compare("dwarf") == 0)
+	if(character->getType().compare("dwarf") == 0)
 	{
-		if(((Character*)actor)->getEnergy() < ((Character*)actor)->getProperty("energythres"))
+		if(character->getEnergy() < character->getProperty("energythres"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to sleep state.");
 			dispatcher->dispatch(new StateEvent("sleep"));
 		}
-		else if(((Character*)actor)->getHydration() < ((Character*)actor)->getProperty("hydrationthres")
-				&& ((Character*)actor)->getGold() >= LevelManager::getInstance()->getHome(((Character*)actor)->getTeam())->getProperty("drinkcost"))
+		else if(character->getHydration() < character->getProperty("hydrationthres")
+				&& character->getGold() >= home->getProperty("drinkcost"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
 			dispatcher->dispatch(new StateEvent("drink"));
 		}
-		dispatcher->tick(dt);
+		else if(LevelManager::getInstance()->isBlacksmithBuilt() && character->getGold() >= LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost"))
+		{
+			DEBUG_LOG("PATROLSTATE", "Character switching to buy weapon state.");
+			dispatcher->dispatch(new StateEvent("buyweapon"));
+		}
+		else if(LevelManager::getInstance()->isBlacksmithBuilt() && character->getGold() >= LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost"))
+		{
+			DEBUG_LOG("PATROLSTATE", "Character switching to buy armor state.");
+			dispatcher->dispatch(new StateEvent("buyarmor"));
+		}
+		else if(LevelManager::getInstance()->isApothecaryBuilt() && character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost") && character->getPotion() == NULL)
+		{
+			DEBUG_LOG("PATROLSTATE", "Character switching to buy potion state.");
+			dispatcher->dispatch(new StateEvent("buypotion"));
+		}
 	}
+	dispatcher->tick(dt);
 }

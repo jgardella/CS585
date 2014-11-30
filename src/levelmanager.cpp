@@ -95,3 +95,23 @@ void LevelManager::setBlacksmithBuilt(bool val)
 {
 	level->setBlacksmithBuilt(val);
 }
+
+void LevelManager::addBlacksmith(Building* building)
+{
+	level->addBlacksmith(building);
+}
+
+Building* LevelManager::getBlacksmith(unsigned int teamNum)
+{
+	return level->getBlacksmith(teamNum);
+}
+
+void LevelManager::addApothecary(Building* building)
+{
+	level->addApothecary(building);
+}
+
+Building* LevelManager::getApothecary(unsigned int teamNum)
+{
+	return level->getApothecary(teamNum);
+}

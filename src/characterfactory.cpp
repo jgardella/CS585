@@ -32,6 +32,9 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	MoveToState* moveToState = new MoveToState(actor);
 	SleepState* sleepState = new SleepState(actor);
 	DrinkState* drinkState = new DrinkState(actor);
+	BuyWeaponState* buyWeaponState = new BuyWeaponState(actor);
+	BuyArmorState* buyArmorState = new BuyArmorState(actor);
+	BuyPotionState* buyPotionState = new BuyPotionState(actor);
 
 	Trie<IState*>* stateMap = new Trie<IState*>();
 	stateMap->add("patrol", patrolState);
@@ -39,6 +42,9 @@ Character* CharacterFactory::get(std::string type, int x, int y)
 	stateMap->add("moveto", moveToState);
 	stateMap->add("sleep", sleepState);
 	stateMap->add("drink", drinkState);
+	stateMap->add("buyweapon", buyWeaponState);
+	stateMap->add("buyarmor", buyArmorState);
+	stateMap->add("buypotion", buyPotionState);
 
 	// create state machine
 	machine = new StateMachine(stateMap, info->behavioralConfig, info->startState);

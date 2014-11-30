@@ -14,6 +14,9 @@
 #include "movetostate.hh"
 #include "sleepstate.hh"
 #include "drinkstate.hh"
+#include "buyweaponstate.hh"
+#include "buyarmorstate.hh"
+#include "buypotionstate.hh"
 
 class CharacterFactory
 {

@@ -7,12 +7,16 @@ Level::Level(tLevelInfo level)
 	DynamicArray<std::string>* keys = level.positionTrie->getKeys();
 	characterControllers = new DynamicArray<CharacterController*>();
 	teamHomes = new DynamicArray<Building*>();
+	teamBlacksmiths = new DynamicArray<Building*>();
+	teamApothecaries = new DynamicArray<Building*>();
 	std::string key;
 
 	width = level.width;
 	height = level.height;
 	defaultTile = level.defaultTile;
 	playerGold = level.initialGold;
+	blacksmithBuilt = false;
+	apothecaryBuilt = false;
 	SceneManager::getInstance()->setGraph(new FixedGrid(width, height));
 	
 	onDeathEvent.setInstance(this);
@@ -149,4 +153,40 @@ void Level::setApothecaryBuilt(bool val)
 void Level::setBlacksmithBuilt(bool val)
 {
 	blacksmithBuilt = val;
+}
+
+Building* Level::getBlacksmith(unsigned int teamNum)
+{
+	unsigned int i;
+	for(i = 0; i < teamBlacksmiths->length(); i++)
+	{
+		if((*teamBlacksmiths->get(i))->getTeamNumber() == teamNum)
+		{
+			return *teamBlacksmiths->get(i);
+		}
+	}
+	return NULL;
+}
+
+void Level::addBlacksmith(Building* building)
+{
+	teamBlacksmiths->pushBack(building);
+}
+
+Building* Level::getApothecary(unsigned int teamNum)
+{
+	unsigned int i;
+	for(i = 0; i < teamApothecaries->length(); i++)
+	{
+		if((*teamApothecaries->get(i))->getTeamNumber() == teamNum)
+		{
+			return *teamApothecaries->get(i);
+		}
+	}
+	return NULL;
+}
+
+void Level::addApothecary(Building* building)
+{
+	teamApothecaries->pushBack(building);
 }

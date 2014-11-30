@@ -13,9 +13,12 @@
 class PatrolState : public IState
 {
 	public:
-		PatrolState(IActor* actor) : IState(actor) { }
+		PatrolState(Character* character);
 		void tick(float dt);
-
+	
+	private:
+		Character* character;
+		Building* home;
 };
 
 #endif

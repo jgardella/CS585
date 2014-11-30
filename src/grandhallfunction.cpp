@@ -22,7 +22,7 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 		case 'b':
 			if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("blacksmithcost") && !LevelManager::getInstance()->isBlacksmithBuilt())
 			{
-				BuildingFactory::get("blacksmith", cursorX, cursorY, 0);
+				LevelManager::getInstance()->addBlacksmith(BuildingFactory::get("blacksmith", cursorX, cursorY, 0));
 				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("blacksmithcost"));
 				LevelManager::getInstance()->setBlacksmithBuilt(true);
 				return true;
@@ -31,7 +31,7 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 		case 'a':
 			if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("apothecarycost") && !LevelManager::getInstance()->isApothecaryBuilt())
 			{
-				BuildingFactory::get("apothecary", cursorX, cursorY, 0);
+				LevelManager::getInstance()->addApothecary(BuildingFactory::get("apothecary", cursorX, cursorY, 0));
 				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("apothecarycost"));
 				LevelManager::getInstance()->setApothecaryBuilt(true);
 				return true;

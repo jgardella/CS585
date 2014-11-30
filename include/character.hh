@@ -88,6 +88,12 @@ class Character : public IActor
 		
 		bool isDead();
 		
+		Weapon* getWeapon();
+
+		Armor* getArmor();
+
+		HealthPotion* getPotion();
+		
 		void setWeapon(Weapon* weapon);
 
 		void setArmor(Armor* armor);
