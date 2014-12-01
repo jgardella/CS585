@@ -200,7 +200,7 @@ void ASCIIRenderer::drawMenu()
 void ASCIIRenderer::drawWorldState()
 {
 	attron(COLOR_PAIR(7));
-	int y = maxY < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY : LevelManager::getInstance()->getWorldHeight() + 1;
+	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 1;
 	mvprintw(y, 0, state.c_str());
 }
 
@@ -212,7 +212,7 @@ void ASCIIRenderer::setWorldState(std::string state)
 void ASCIIRenderer::drawPlayerGold()
 {
 	int x = maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5 ? maxX - 48 : LevelManager::getInstance()->getWorldWidth() + 5;
-	int y = maxY < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY : LevelManager::getInstance()->getWorldHeight() + 1;
+	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 1;
 	std::string playerGold = "Gold: " + std::to_string(LevelManager::getInstance()->getPlayerGold());
 	attron(COLOR_PAIR(3));
 	mvprintw(y, x, playerGold.c_str());

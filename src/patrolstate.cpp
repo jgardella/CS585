@@ -41,12 +41,12 @@ void PatrolState::tick(float dt)
 	// check energy and hydration levels
 	if(character->getType().compare("dwarf") == 0)
 	{
-		if(character->getEnergy() < character->getProperty("energythres"))
+		if(character->getEnergy() <= character->getProperty("energythres"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to sleep state.");
 			dispatcher->dispatch(new StateEvent("sleep"));
 		}
-		else if(character->getHydration() < character->getProperty("hydrationthres")
+		else if(character->getHydration() <= character->getProperty("hydrationthres")
 				&& character->getGold() >= home->getProperty("drinkcost"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
