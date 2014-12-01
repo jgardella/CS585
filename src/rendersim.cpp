@@ -153,6 +153,7 @@ void RenderSim::parseCharacterConfig(Trie<JSONItem*>* trie)
 	charInfo->hydration = ((JSONPrimitive<double>*)*trie->get("hydration"))->getPrimitive();
 	charInfo->energy = ((JSONPrimitive<double>*)*trie->get("energy"))->getPrimitive();
 	charInfo->teamNum = ((JSONPrimitive<unsigned int>*)*trie->get("team"))->getPrimitive();
+	charInfo->levels = jsonArrayToLevelList((JSONArray*)*trie->get("levels"));
 	CharacterFactory::addCharacterInfo(charInfo->type, charInfo);
 }
 
@@ -236,4 +237,16 @@ void RenderSim::parseHealthPotionConfig(Trie<JSONItem*>* trie)
 	healthPotionInfo->quality = ((JSONPrimitive<int>*)*trie->get("quality"))->getPrimitive();
 	healthPotionInfo->healValue = ((JSONPrimitive<int>*)*trie->get("healvalue"))->getPrimitive();
 	HealthPotionFactory::addHealthPotionInfo(healthPotionInfo->name, healthPotionInfo);
+}
+
+DynamicArray<int>* RenderSim::jsonArrayToLevelList(JSONArray* array)
+{
+	DynamicArray<JSONItem*>* dynamicArray = array->getDynamicArray();
+	DynamicArray<int>* levelList = new DynamicArray<int>(dynamicArray->length());
+	unsigned int i;
+	for(i = 0; i < dynamicArray->length(); i++)
+	{
+		levelList->pushBack(((JSONPrimitive<int>*)*dynamicArray->get(i))->getPrimitive());
+	}
+	return levelList;
 }

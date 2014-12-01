@@ -52,6 +52,8 @@ class RenderSim
 		
 		Trie<double>* jsonObjectToBehavioralConfig(JSONObject* object);
 
+		DynamicArray<int>* jsonArrayToLevelList(JSONArray* array);
+		
 		Trie<IState*>* getStateMap(std::string type);
 		
 		void parseCharacterConfig(Trie<JSONItem*>* trie);

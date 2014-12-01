@@ -13,6 +13,7 @@ typedef struct sCharacterInfo
 	double hydration;
 	double energy;
 	unsigned int teamNum;
+	DynamicArray<int>* levels;
 } tCharacterInfo;
 
 #endif

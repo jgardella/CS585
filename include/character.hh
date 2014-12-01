@@ -25,7 +25,7 @@ class Character : public IActor
 		// unsigned int collisionLayer - layer on which the character collides
 		// unsigned int health - initial health of the character
 		// std::string type - the type of the character
-		Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum);
+		Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum, DynamicArray<int>* levels);
 
 		// Deconstructs the character.
 		~Character();
@@ -108,6 +108,7 @@ class Character : public IActor
 		unsigned int gold;
 		unsigned int exp;
 		unsigned int level;
+		DynamicArray<int>* levels;
 		Weapon* weapon;
 		Armor* armor;
 		HealthPotion* potion;

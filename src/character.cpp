@@ -1,6 +1,6 @@
 #include "character.hh"
 
-Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
+Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum, DynamicArray<int>* levels) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
 	this->gold = gold;
@@ -13,6 +13,7 @@ Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id,
 	this->teamNum = teamNum;
 	this->dead= false;
 	this->level = 1;
+	this->levels = levels;
 	this->exp = 0;
 	this->weapon = WeaponFactory::get("fists");
 	this->armor = ArmorFactory::get("clothing");
