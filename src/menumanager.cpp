@@ -31,7 +31,11 @@ void MenuManager::initializeMenu(std::string menuName, DynamicArray<char*>* menu
 
 void MenuManager::setMenu(std::string menuName)
 {
-	activeMenu = *menuMap->get(menuName);
+	char*** menu = menuMap->get(menuName);
+	if(menu != NULL)
+	{
+		activeMenu = *menu;
+	}
 }
 
 char** MenuManager::getActiveMenu()

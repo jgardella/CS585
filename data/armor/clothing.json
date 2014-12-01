@@ -1,6 +1,7 @@
 {
 	"key" : "armor",
 	"name" : "clothing",
-	"quality" : -1,
+	"quality" : 0,
 	"defence" : 0
+	"blockchance" : 10
 }

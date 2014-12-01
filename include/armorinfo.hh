@@ -9,6 +9,7 @@ typedef struct sArmorInfo
 	std::string name;
 	int quality;
 	int defence;
+	int blockChance;
 } tArmorInfo;
 
 #endif

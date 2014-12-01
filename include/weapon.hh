@@ -9,18 +9,18 @@ class Weapon
 
 	public:
 		
-		Weapon(std::string name, int quality, double chanceToHit, int damage);
+		Weapon(std::string name, int quality, int chanceToHit, int damage);
 		
 		std::string getName();
 		int getQuality();
-		double getHitChance();
+		int getHitChance();
 		int getDamage();
 
 
 	private:
 		std::string name;
 		int quality;
-		double chanceToHit;
+		int chanceToHit;
 		int damage;
 };
 

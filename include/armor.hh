@@ -9,17 +9,18 @@ class Armor
 
 	public:
 		
-		Armor(std::string name, int quality, int defence);
+		Armor(std::string name, int quality, int defence, int blockChance);
 		
 		std::string getName();
 		int getQuality();
 		int getDefence();
-
+		int getBlockChance();
 
 	private:
 		std::string name;
 		int quality;
 		int defence;
+		int blockChance;
 };
 
 #endif

@@ -88,14 +88,22 @@ void Character::takeDamage(Character* attacker, unsigned int damage)
 
 std::string Character::inspect()
 {
-	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold) + " | Hydration: " + std::to_string(hydration) + " | Energy: " + std::to_string(energy) + " | Weapon: " + weapon->getName();
+	std::string str = "Health: " + std::to_string(health) + " | Type: " + type + " | ID: " + std::to_string(id) + " | Gold: " + std::to_string(gold) + " | Hydration: " + std::to_string(hydration) + " | Energy: " + std::to_string(energy) + " | Weapon: " + weapon->getName() + " | Armor: " + armor->getName();
+	if(potion != NULL)
+	{
+		str.append(" | Potion: " + potion->getName());
+	}
+	else
+	{
+		str.append(" | Potion: none");
+	}
 	if(target != NULL)
 	{
 		str.append(" | Target: " + target->getType() + " #" + std::to_string(target->getID()));
 	}
 	else
 	{
-		str.append(" | Target: NO TARGET");
+		str.append(" | Target: none");
 	}
 	return str;
 }
@@ -242,4 +250,9 @@ void Character::setPotion(HealthPotion* potion)
 HealthPotion* Character::getPotion()
 {
 	return potion;
+}
+
+unsigned int Character::getLevel()
+{
+	return level;
 }

@@ -1,7 +1,7 @@
 {
 	"key" : "weapon",
 	"name" : "dagger",
-	"quality" : 0,
-	"hitchance" : 0.65,
-	"damage" : 10
+	"quality" : 1,
+	"hitchance" : 40,
+	"damage" : 5
 }

@@ -15,6 +15,7 @@ ASCIIRenderer::ASCIIRenderer(int x, int y, int fps) : IRenderer(x, y, fps)
 	move(cursorY, cursorX);
 	showInspectInfo = false;
 	inspectActor = NULL;
+	state = "CAMERA";
 }
 
 void ASCIIRenderer::render()
@@ -71,11 +72,10 @@ void ASCIIRenderer::render()
 			}
 		}
 	}
-	attron(COLOR_PAIR(3));
-	std::string playerGold = "Gold: " + std::to_string(LevelManager::getInstance()->getPlayerGold());
-	mvaddstr(maxY - 1, 0, playerGold.c_str());
 	attron(COLOR_PAIR(7));
 	drawMenu();
+	drawPlayerGold();
+	drawWorldState();
 	if(showInspectInfo)
 	{
 		if(inspectActor != NULL)
@@ -185,20 +185,35 @@ void ASCIIRenderer::drawMenu()
 {
 	int y = 2;
 	char** currentMenu = MenuManager::getInstance()->getActiveMenu();
+	int x = maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5 ? maxX - 48 : LevelManager::getInstance()->getWorldWidth() + 5;
 	if(currentMenu != NULL)
 	{
 		while(*currentMenu != NULL)
 		{
-			if(maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5)
-			{
-				mvprintw(y, maxX - 48, *currentMenu);
-			}
-			else
-			{
-				mvprintw(y, LevelManager::getInstance()->getWorldWidth() + 5, *currentMenu);
-			}
+			mvprintw(y, x, *currentMenu);
 			currentMenu++;
 			y += 2;
 		}
 	}	
+}
+
+void ASCIIRenderer::drawWorldState()
+{
+	attron(COLOR_PAIR(7));
+	int y = maxY < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY : LevelManager::getInstance()->getWorldHeight() + 1;
+	mvprintw(y, 0, state.c_str());
+}
+
+void ASCIIRenderer::setWorldState(std::string state)
+{
+	this->state = state;
+}
+
+void ASCIIRenderer::drawPlayerGold()
+{
+	int x = maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5 ? maxX - 48 : LevelManager::getInstance()->getWorldWidth() + 5;
+	int y = maxY < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY : LevelManager::getInstance()->getWorldHeight() + 1;
+	std::string playerGold = "Gold: " + std::to_string(LevelManager::getInstance()->getPlayerGold());
+	attron(COLOR_PAIR(3));
+	mvprintw(y, x, playerGold.c_str());
 }

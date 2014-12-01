@@ -1,7 +1,7 @@
 {
 	"key" : "weapon",
 	"name" : "fists",
-	"quality" : -1,
-	"hitchance" : 0.5,
+	"quality" : 0,
+	"hitchance" : 25,
 	"damage" : 5
 }

@@ -8,7 +8,7 @@ typedef struct sWeaponInfo
 {
 	std::string name;
 	int quality;
-	double hitChance;
+	int hitChance;
 	int damage;
 } tWeaponInfo;
 

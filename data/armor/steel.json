@@ -1,0 +1,7 @@
+{
+	"key" : "armor",
+	"name" : "steel",
+	"quality" : 3,
+	"defence" : 10
+	"blockchance" : 50
+}

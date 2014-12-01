@@ -1,6 +1,6 @@
 #include "weapon.hh"
 
-Weapon::Weapon(std::string name, int quality, double chanceToHit, int damage)
+Weapon::Weapon(std::string name, int quality, int chanceToHit, int damage)
 {
 	this->name = name;
 	this->quality = quality;
@@ -18,7 +18,7 @@ int Weapon::getQuality()
 	return quality;
 }
 
-double Weapon::getHitChance()
+int Weapon::getHitChance()
 {
 	return chanceToHit;
 }

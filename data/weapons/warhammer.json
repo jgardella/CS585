@@ -1,0 +1,7 @@
+{
+	"key" : "weapon",
+	"name" : "warhammer",
+	"quality" : 2,
+	"hitchance" : 65,
+	"damage" : 15
+}

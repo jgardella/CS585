@@ -4,7 +4,7 @@
 // enum for quality of good
 typedef enum
 {
-	LESSER = 0, NORMAL = 1, MASTERWORK = 2
+	LESSER = 1, NORMAL = 2, MASTERWORK = 3
 } Quality;
 
 #endif

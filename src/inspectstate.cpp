@@ -18,6 +18,7 @@ void InspectState::transitionToCameraState()
 	curs_set(FALSE);
 	renderer->unlockInspectOutput();
 	renderer->setInspectOutput(false);
+	renderer->setWorldState("CAMERA");
 	dispatcher->dispatch(new StateEvent("camera"));
 	MenuManager::getInstance()->disableMenu();
 }

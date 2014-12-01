@@ -120,7 +120,21 @@ class Trie
 		// string key - the key to search for, must be a valid key which was previously added to the array
 		T* get(std::string key)
 		{
-			return root->get(key);
+			unsigned int i;
+			bool keyExists = false;
+			for(i = 0; i < keys->length(); i++)
+			{
+				if((*keys->get(i)).compare(key) == 0)
+				{
+					keyExists = true;
+					break;
+				}
+			}
+			if(keyExists)
+			{
+				return root->get(key);
+			}
+			return NULL;
 		}
 
 		DynamicArray<std::string>* getKeys()

@@ -23,6 +23,7 @@ void CameraState::parseInput(int c, bool keyDown)
 				renderer->setInspectOutput(true);
 				active = false;
 				curs_set(TRUE);
+				renderer->setWorldState("SELECT");
 				dispatcher->dispatch(new StateEvent("select"));
 				break;
 			case KEY_LEFT:

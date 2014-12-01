@@ -18,10 +18,18 @@ void SelectState::parseInput(int c, bool keyDown)
 		{
 			case 32: // space
 				DEBUG_LOG("SELECTSTATE", "Unpausing and switching to inspection mode.");
-				active = false;
 				renderer->lockInspectOutput();
-				MenuManager::getInstance()->setMenu(renderer->getLockedActor()->getType());
-				dispatcher->dispatch(new StateEvent("inspect"));
+				if(renderer->getLockedActor() != NULL)
+				{	
+					MenuManager::getInstance()->setMenu(renderer->getLockedActor()->getType());
+					active = false;
+					renderer->setWorldState("INSPECT");
+					dispatcher->dispatch(new StateEvent("inspect"));
+				}
+				else
+				{
+					renderer->unlockInspectOutput();
+				}
 				break;
 			case KEY_LEFT:
 				DEBUG_LOG("SELECTSTATE", "Moving cursor left.");

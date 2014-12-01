@@ -1,0 +1,7 @@
+{
+	"key" : "weapon",
+	"name" : "sword",
+	"quality" : 2,
+	"hitchance" : 50,
+	"damage" : 10
+}

@@ -39,12 +39,18 @@ class ASCIIRenderer : public IRenderer
 
 		void render();
 		void addRenderInfo(std::string type, tRenderInfo* info);
+		
+		void drawPlayerGold();	
+		void drawWorldState();
+		void setWorldState(std::string state);
+
 	private:
 		Trie<tRenderInfo*>* renderInfos;
 		unsigned int maxX, maxY;
 		unsigned int cursorX, cursorY;
 		bool showInspectInfo;
 		IActor* inspectActor;
+		std::string state;
 };
 
 #endif

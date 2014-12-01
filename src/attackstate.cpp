@@ -1,12 +1,17 @@
 #include "attackstate.hh"
 
+AttackState::AttackState(Character* character) : IState(character)
+{
+	this->character = character;
+}
+
 void AttackState::tick(float dt)
 {
-	if(((Character*)actor)->getTarget() == NULL) // scan for ((Character*)actor)->getTarget()
+	if(character->getTarget() == NULL) // scan for ((Character*)actor)->getTarget()
 	{
 		scanForTarget();
 	}
-	if(((Character*)actor)->getTarget() == NULL) // ((Character*)actor)->getTarget() not found, return to patrol
+	if(character->getTarget() == NULL) // ((Character*)actor)->getTarget() not found, return to patrol
 	{
 		DEBUG_LOG("ATTACKSTATE", "Target not found, transitioning to patrol state.");
 		dispatcher->dispatch(new StateEvent("patrol"));
@@ -29,7 +34,7 @@ void AttackState::scanForTarget()
 {
 	DEBUG_LOG("ATTACKSTATE", "Scanning for target.");
 	unsigned int i;
-	Character* character;
+	Character* otherCharacter;
 	int radius = (int) *actor->getBehavioralConfig()->get("radius") + 2;
 	DEBUG_LOG("ATTACKSTATE", "Radius: " + std::to_string(radius));
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(((Character*)actor)->getX(), ((Character*)actor)->getY(), radius); 
@@ -37,11 +42,11 @@ void AttackState::scanForTarget()
 	{
 		if((*nodes->get(i))->getActor()->getClass().compare("CHARACTER") == 0)
 		{
-			character = (Character*)(*nodes->get(i))->getActor();
-			if(((Character*)actor)->getTeam() != (character->getTeam()) && !((Character*)actor)->isDead())
+			otherCharacter = (Character*)(*nodes->get(i))->getActor();
+			if(character->getTeam() != (otherCharacter->getTeam()) && !character->isDead())
 			{
 				DEBUG_LOG("ATTACKSTATE", "Found target."); 
-				((Character*)actor)->setTarget(character);
+				character->setTarget(otherCharacter);
 				return;
 			}
 		}
@@ -51,10 +56,10 @@ void AttackState::scanForTarget()
 void AttackState::moveTowardTarget()
 {
 	DEBUG_LOG("ATTACKSTATE", "Moving toward target."); 
-	int xDist = ((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX();
-	int yDist = ((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY();
-	int newX = ((Character*)actor)->getX();
-	int newY = ((Character*)actor)->getY();
+	int xDist = character->getX() - character->getTarget()->getX();
+	int yDist = character->getY() - character->getTarget()->getY();
+	int newX = character->getX();
+	int newY = character->getY();
 	if(yDist < 0)
 	{
 		newY += 1;
@@ -72,41 +77,24 @@ void AttackState::moveTowardTarget()
 		newX -= 1;
 	}
 	DEBUG_LOG("ATTACKSTATE", "Moving to (" + std::to_string(newX) + ", " + std::to_string(newY) + ").");
-	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+	SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), newX, newY);
 }
 
 bool AttackState::targetInRange()
 {
-	bool inRange = std::abs(((Character*)actor)->getX() - ((Character*)actor)->getTarget()->getX()) <= 1 && std::abs(((Character*)actor)->getY() - ((Character*)actor)->getTarget()->getY()) <= 1;
-	DEBUG_LOG("ATTACKSTATE", "Character #" + std::to_string(((Character*)actor)->getTarget()->getID()) + " is in range of Character #" + std::to_string(((Character*)actor)->getID()) + ": " + std::to_string(inRange) + ".");
+	bool inRange = std::abs(character->getX() - character->getTarget()->getX()) <= 1 && std::abs(character->getY() - character->getTarget()->getY()) <= 1;
+	DEBUG_LOG("ATTACKSTATE", "Character #" + std::to_string(character->getTarget()->getID()) + " is in range of Character #" + std::to_string(character->getID()) + ": " + std::to_string(inRange) + ".");
 	return inRange;
 }
 
 void AttackState::attackTarget()
 {
 	DEBUG_LOG("ATTACKSTATE", "Attempting to attack ((Character*)actor)->getTarget().");
-	/*int damage; // reimplement later
-	float rand = std::rand() / ((float) RAND_MAX);
-	if(rand < *actor->getBehavioralConfig()->get("chance"))
+	int rand = std::rand() % 100 + 1;
+	int hitChance = character->getWeapon()->getHitChance() + (character->getLevel() - character->getTarget()->getLevel()) * 10 - character->getTarget()->getArmor()->getBlockChance();
+	if(rand <= hitChance)
 	{
-		damage = getAttackDamage();
-		DEBUG_LOG("ATTACKSTATE", "Attacking ((Character*)actor)->getTarget() with damage " + std::to_string(damage) + ".");
-		DEBUG_LOG("GAMEPLAY", "Attacking ((Character*)actor)->getTarget() with damage " + std::to_string(damage) + ".");	
-		((Character*)actor)->getTarget()->takeDamage(getAttackDamage());
-		if(((Character*)actor)->getTarget()->getHealth() == 0)
-		{
-			((Character*)actor)->getTarget() = NULL;
-		}
-	}*/
-	int rand = std::rand() % 2;
-	if(rand == 1)
-	{
-		((Character*)actor)->takeDamage(((Character*)actor)->getTarget(), ((Character*)actor)->getHealth());
-	}
-	else
-	{
-		((Character*)actor)->getTarget()->takeDamage((Character*)actor, ((Character*)actor)->getTarget()->getHealth());
-		((Character*)actor)->setTarget(NULL);
+		character->getTarget()->takeDamage(character, character->getWeapon()->getDamage() - character->getArmor()->getDefence());
 	}
 }
 

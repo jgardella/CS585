@@ -1,6 +1,7 @@
 {
 	"key" : "armor",
 	"name" : "bronze",
-	"quality" : 0,
+	"quality" : 1,
 	"defence" : 2
+	"blockchance" : 30
 }
