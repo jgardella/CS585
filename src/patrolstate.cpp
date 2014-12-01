@@ -47,7 +47,7 @@ void PatrolState::tick(float dt)
 			dispatcher->dispatch(new StateEvent("sleep"));
 		}
 		else if(character->getHydration() <= character->getProperty("hydrationthres")
-				&& character->getGold() >= home->getProperty("drinkcost"))
+				&& character->getGold() >= home->getProperty("lessercost"))
 		{
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
 			dispatcher->dispatch(new StateEvent("drink"));

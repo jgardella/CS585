@@ -6,6 +6,9 @@
 #include "dynamicarray.hh"
 #include "character.hh"
 #include "stateevent.hh"
+#include "ilistenercallback.hh"
+#include "deathevent.hh"
+#include "ievent.hh"
 #include <ctime>
 #include <cstdlib>
 
@@ -24,7 +27,33 @@ class AttackState : public IState
 		void attackTarget();
 		unsigned int getAttackDamage();
 		bool targetInRange();
+		void nullifyTarget();
 
+
+		// Listener callback for deaths
+		class OnDeathEvent : public IListenerCallback
+		{
+			public:
+				OnDeathEvent() { }
+				void setInstance(AttackState* state)
+				{
+					this->state = state;
+				}
+				
+				// Transfers gold and removes the controller for the dead actor.		
+				virtual void execute(IEvent* event)
+				{
+					DEBUG_LOG("LEVEL", "Death event callback executed.");
+					if(event->getType().compare("death") == 0)
+					{
+						state->nullifyTarget();
+					}
+				}
+				
+
+			private:
+				AttackState* state;
+		} onDeathEvent; 
 };
 
 #endif

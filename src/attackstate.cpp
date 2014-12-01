@@ -3,13 +3,18 @@
 AttackState::AttackState(Character* character) : IState(character)
 {
 	this->character = character;
+	onDeathEvent.setInstance(this);
 }
 
 void AttackState::tick(float dt)
 {
-	if(character->getTarget() == NULL) // scan for ((Character*)actor)->getTarget()
+	if(character->getTarget() == NULL)// scan for ((Character*)actor)->getTarget()
 	{
 		scanForTarget();
+		if(character->getTarget() != NULL)
+		{
+			character->getTarget()->addListener("death", &onDeathEvent);
+		}
 	}
 	if(character->getTarget() == NULL) // ((Character*)actor)->getTarget() not found, return to patrol
 	{
@@ -101,4 +106,9 @@ void AttackState::attackTarget()
 unsigned int AttackState::getAttackDamage()
 {
 	return std::rand() % (unsigned int)*actor->getBehavioralConfig()->get("maxattack") + 1;
+}
+
+void AttackState::nullifyTarget()
+{
+	character->setTarget(NULL);
 }

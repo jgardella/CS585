@@ -70,6 +70,7 @@ std::string Character::getType()
 
 void Character::takeDamage(Character* attacker, unsigned int damage)
 {
+	int exp;
 	DEBUG_LOG("CHARACTER", "Character #" + std::to_string(id) + " taking " + std::to_string(damage) + " damage.");
 	if(damage >= health)
 	{
@@ -83,6 +84,8 @@ void Character::takeDamage(Character* attacker, unsigned int damage)
 	{
 		SceneManager::getInstance()->removeSceneNode(sceneNode);
 		dispatcher->dispatch(new DeathEvent(attacker, this));
+		exp = level - attacker->getLevel() >= 0 ? 10 * (level - attacker->getLevel() + 1) : 10 / (attacker->getLevel() - level + 1);
+		attacker->addExperience(exp);
 		dead = true;
 	}
 }
@@ -256,4 +259,13 @@ HealthPotion* Character::getPotion()
 unsigned int Character::getLevel()
 {
 	return level;
+}
+
+void Character::addExperience(unsigned int expChange)
+{
+	exp += expChange;
+	if(level < levels->length() + 1 && exp >= (unsigned int)*levels->get(level - 1))
+	{
+		level++;
+	}
 }

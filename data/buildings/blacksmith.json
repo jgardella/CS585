@@ -5,8 +5,12 @@
 	{
 		"width" : 3.0,
 		"height" : 3.0,
-		"daggercost" : 10.0,
+		"daggercost" : 5.0,
+		"swordcost" : 10.0,
+		"warhammercost" : 20.0,
 		"bronzecost" : 5.0,
+		"silvercost" : 10.0,
+		"steelcost" : 15.0,
 		"taxrate" : 0.5
 	}
 }

@@ -9,6 +9,8 @@
 		"blacksmithcost" : 25.0,
 		"apothecarycost" : 15.0,
 		"taxrate" : 0.25,
-		"drinkcost" : 5.0
+		"lessercost" : 5.0,
+		"averagecost" : 10.0,
+		"mastercost" : 15.0
 	}
 }

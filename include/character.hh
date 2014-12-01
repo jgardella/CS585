@@ -101,6 +101,8 @@ class Character : public IActor
 		void setPotion(HealthPotion* potion);
 
 		unsigned int getLevel();
+		
+		void addExperience(unsigned int expChange);
 
 	private:
 		unsigned int health;
