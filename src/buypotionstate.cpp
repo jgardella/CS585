@@ -21,15 +21,19 @@ void BuyPotionState::tick(float dt)
 		if(character->getX() == apothecary->getEntranceX() && character->getY() == apothecary->getEntranceY())
 		{
 			pos = apothecary->getNextAvailablePosition();
-			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
-			buyPotion();
-			isShopping = true;
+			if(pos != NULL)
+			{
+				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
+				buyPotion();
+				isShopping = true;
+			}
 		}
 		else
 		{
 			moveToApothecary();
 		}
 	}
+	dispatcher->tick(dt);
 }
 
 void BuyPotionState::moveToApothecary()

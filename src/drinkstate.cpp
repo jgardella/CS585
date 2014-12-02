@@ -25,8 +25,11 @@ void DrinkState::tick(float dt)
 		if(home->getEntranceX() == character->getX() && home->getEntranceY() == character->getY())
 		{
 			pos = home->getNextAvailablePosition();
-			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
-			isDrinking = true;
+			if(pos != NULL)
+			{
+				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
+				isDrinking = true;
+			}
 		}
 		else
 		{

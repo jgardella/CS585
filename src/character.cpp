@@ -3,6 +3,7 @@
 Character::Character(int x, int y, unsigned int collisionLayer, unsigned int id, unsigned int health, unsigned int gold, double hydration, double energy, std::string type, Trie<double>* behavioralConfig, unsigned int teamNum, DynamicArray<int>* levels) : IActor(collisionLayer, "CHARACTER", behavioralConfig)
 {
 	this->health = health;
+	this->maxHealth = health;
 	this->gold = gold;
 	sceneNode = new SceneNode(x, y, *this, NULL, NULL);
 	this->id = id;
@@ -268,4 +269,16 @@ void Character::addExperience(unsigned int expChange)
 	{
 		level++;
 	}
+}
+
+unsigned int Character::getMaxHealth()
+{
+	return maxHealth;
+}
+
+void Character::usePotion()
+{
+	health = potion->getHealValue() + health >= maxHealth ? maxHealth : potion->getHealValue() + health;
+	delete potion;
+	potion = NULL;
 }

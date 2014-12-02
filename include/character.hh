@@ -103,8 +103,13 @@ class Character : public IActor
 		unsigned int getLevel();
 		
 		void addExperience(unsigned int expChange);
+		
+		unsigned int getMaxHealth();
+		
+		void usePotion();
 
 	private:
+		unsigned int maxHealth;
 		unsigned int health;
 		unsigned int id;
 		unsigned int gold;

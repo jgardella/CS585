@@ -21,15 +21,19 @@ void BuyWeaponState::tick(float dt)
 		if(character->getX() == blacksmith->getEntranceX() && character->getY() == blacksmith->getEntranceY())
 		{
 			pos = blacksmith->getNextAvailablePosition();
-			buyWeapon();
-			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
-			isShopping = true;
+			if(pos != NULL)
+			{
+				buyWeapon();
+				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
+				isShopping = true;
+			}
 		}
 		else
 		{
 			moveToBlacksmith();
 		}
 	}
+	dispatcher->tick(dt);
 }
 
 void BuyWeaponState::moveToBlacksmith()

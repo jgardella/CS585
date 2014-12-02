@@ -12,6 +12,12 @@ void PatrolState::tick(float dt)
 	unsigned int i;
 	Character* otherCharacter;
 	int radius = (int) *character->getBehavioralConfig()->get("radius");
+	
+	if(character->getPotion() != NULL && character->getMaxHealth() - character->getHealth() >= (unsigned int)character->getPotion()->getHealValue())
+	{
+		character->usePotion();
+	}
+
 	DEBUG_LOG("PATROLSTATE", "Radius: " + std::to_string(radius));
 	DynamicArray<SceneNode*>* nodes = SceneManager::getInstance()->getColliders(character->getX(), character->getY(), radius); 
 	DEBUG_LOG("PATROLSTATE", "Number of colliders: " + std::to_string(nodes->length()));
@@ -52,21 +58,15 @@ void PatrolState::tick(float dt)
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
 			dispatcher->dispatch(new StateEvent("drink"));
 		}
-		else if(LevelManager::getInstance()->isBlacksmithBuilt())
+		else if(LevelManager::getInstance()->isBlacksmithBuilt() && hasEnoughGoldForNextWeapon())
 		{
-			if(hasEnoughGoldForNextWeapon())
-			{
-				DEBUG_LOG("PATROLSTATE", "Character switching to buy weapon state.");
-				dispatcher->dispatch(new StateEvent("buyweapon"));
-			}
+			DEBUG_LOG("PATROLSTATE", "Character switching to buy weapon state.");
+			dispatcher->dispatch(new StateEvent("buyweapon"));
 		}
-		else if(LevelManager::getInstance()->isBlacksmithBuilt())
+		else if(LevelManager::getInstance()->isBlacksmithBuilt() && hasEnoughGoldForNextArmor())
 		{
-			if(hasEnoughGoldForNextArmor())
-			{
-				DEBUG_LOG("PATROLSTATE", "Character switching to buy armor state.");
-				dispatcher->dispatch(new StateEvent("buyarmor"));
-			}
+			DEBUG_LOG("PATROLSTATE", "Character switching to buy armor state.");
+			dispatcher->dispatch(new StateEvent("buyarmor"));
 		}
 		else if(LevelManager::getInstance()->isApothecaryBuilt() && character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost") && character->getPotion() == NULL)
 		{

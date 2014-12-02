@@ -24,8 +24,11 @@ void SleepState::tick(float dt)
 		if(home->getEntranceX() == ((Character*)actor)->getX() && home->getEntranceY() == ((Character*)actor)->getY())
 		{
 			pos = home->getNextAvailablePosition();
-			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), pos->x, pos->y);
-			isSleeping = true;
+			if(pos != NULL)
+			{
+				SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), pos->x, pos->y);
+				isSleeping = true;
+			}
 		}
 		else
 		{
