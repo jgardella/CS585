@@ -47,3 +47,13 @@ void MenuManager::disableMenu()
 {
 	activeMenu = NULL;
 }
+
+std::string MenuManager::getAlertString()
+{
+	return alertString;
+}
+
+void MenuManager::setAlertString(std::string string)
+{
+	this->alertString = string;
+}

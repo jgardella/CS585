@@ -19,6 +19,8 @@ class MenuManager
 		std::string getSelectedItem();
 		char** getActiveMenu();	
 		void disableMenu();
+		std::string getAlertString();
+		void setAlertString(std::string string);
 	private:
 		MenuManager();
 		MenuManager(MenuManager const&);
@@ -28,6 +30,7 @@ class MenuManager
 		static MenuManager* instance;
 		Trie<char**>* menuMap;
 		char** activeMenu;
+		std::string alertString;
 };
 
 #endif

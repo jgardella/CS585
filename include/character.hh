@@ -14,6 +14,7 @@
 #include "armor.hh"
 #include "armorfactory.hh"
 #include "healthpotion.hh"
+#include "menumanager.hh"
 
 class Character : public IActor
 {

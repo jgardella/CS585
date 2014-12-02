@@ -4,6 +4,7 @@
 #include "buildingfunction.hh"
 #include "levelmanager.hh"
 #include "trie.hh"
+#include "menumanager.hh"
 
 class BlacksmithFunction : public BuildingFunction
 {

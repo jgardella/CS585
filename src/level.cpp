@@ -106,6 +106,7 @@ void Level::processDeathEvent(DeathEvent* event)
 {
 	event->getAttacker()->setGold(event->getVictim()->getGold() + event->getAttacker()->getGold());
 	removeControllerForCharacter(event->getVictim()->getID());
+	MenuManager::getInstance()->setAlertString(event->getVictim()->getType() + " #" + std::to_string(event->getVictim()->getID()) + " is slain by " + event->getAttacker()->getType() + " #" + std::to_string(event->getAttacker()->getID()) + ".");
 }
 
 IListenerCallback* Level::getListener()

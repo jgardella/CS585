@@ -9,6 +9,7 @@
 #include "ilistenercallback.hh"
 #include "deathevent.hh"
 #include "ievent.hh"
+#include "menumanager.hh"
 #include <ctime>
 #include <cstdlib>
 

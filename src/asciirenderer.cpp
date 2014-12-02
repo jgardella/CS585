@@ -76,19 +76,8 @@ void ASCIIRenderer::render()
 	drawMenu();
 	drawPlayerGold();
 	drawWorldState();
-	if(showInspectInfo)
-	{
-		if(inspectActor != NULL)
-		{
-			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for locked actor: " + inspectActor->inspect());
-			mvaddstr(maxY - 1, 10, inspectActor->inspect().c_str());
-		}
-		else if(actorUnderCursor != NULL)
-		{
-			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for actor under cursor: " + actorUnderCursor->inspect());
-			mvaddstr(maxY - 1, 10, actorUnderCursor->inspect().c_str());
-		}
-	}
+	drawInspectInfo(actorUnderCursor);
+	drawAlert();
 	move(cursorY, cursorX);
 	refresh();
 }
@@ -200,7 +189,7 @@ void ASCIIRenderer::drawMenu()
 void ASCIIRenderer::drawWorldState()
 {
 	attron(COLOR_PAIR(7));
-	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 1;
+	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 2 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 2;
 	mvprintw(y, 0, state.c_str());
 }
 
@@ -212,8 +201,32 @@ void ASCIIRenderer::setWorldState(std::string state)
 void ASCIIRenderer::drawPlayerGold()
 {
 	int x = maxX - 48 < (unsigned int)LevelManager::getInstance()->getWorldWidth() + 5 ? maxX - 48 : LevelManager::getInstance()->getWorldWidth() + 5;
-	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 1;
+	int y = maxY - 1 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 2 ? maxY - 1 : LevelManager::getInstance()->getWorldHeight() + 2;
 	std::string playerGold = "Gold: " + std::to_string(LevelManager::getInstance()->getPlayerGold());
 	attron(COLOR_PAIR(3));
 	mvprintw(y, x, playerGold.c_str());
+}
+
+void ASCIIRenderer::drawAlert()
+{
+	int y = maxY - 3 < (unsigned int)LevelManager::getInstance()->getWorldHeight() ? maxY - 3 : LevelManager::getInstance()->getWorldHeight();
+	mvaddstr(y, 0, MenuManager::getInstance()->getAlertString().c_str());
+}
+
+void ASCIIRenderer::drawInspectInfo(IActor* actorUnderCursor)
+{
+	int y = maxY - 2 < (unsigned int)LevelManager::getInstance()->getWorldHeight() + 1 ? maxY - 2 : LevelManager::getInstance()->getWorldHeight() + 1;
+	if(showInspectInfo)
+	{
+		if(inspectActor != NULL)
+		{
+			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for locked actor: " + inspectActor->inspect());
+			mvaddstr(y, 0, inspectActor->inspect().c_str());
+		}
+		else if(actorUnderCursor != NULL)
+		{
+			DEBUG_LOG("ASCIIRENDERER", "Printing inspect info for actor under cursor: " + actorUnderCursor->inspect());
+			mvaddstr(y, 0, actorUnderCursor->inspect().c_str());
+		}
+	}
 }

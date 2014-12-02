@@ -42,6 +42,8 @@ class ASCIIRenderer : public IRenderer
 		
 		void drawPlayerGold();	
 		void drawWorldState();
+		void drawAlert();
+		void drawInspectInfo(IActor* actorUnderCursor);
 		void setWorldState(std::string state);
 
 	private:

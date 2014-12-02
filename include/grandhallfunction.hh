@@ -4,6 +4,7 @@
 #include "buildingfunction.hh"
 #include "characterfactory.hh"
 #include "buildingfactory.hh"
+#include "menumanager.hh"
 
 class GrandHallFunction : public BuildingFunction
 {

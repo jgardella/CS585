@@ -11,6 +11,7 @@
 #include "ilistenercallback.hh"
 #include "ievent.hh"
 #include "deathevent.hh"
+#include "menumanager.hh"
 
 class Level : public ITickable
 {

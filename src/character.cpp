@@ -268,6 +268,7 @@ void Character::addExperience(unsigned int expChange)
 	if(level < levels->length() + 1 && exp >= (unsigned int)*levels->get(level - 1))
 	{
 		level++;
+		MenuManager::getInstance()->setAlertString(getType() + " #" + std::to_string(getID()) + " leveled up to level " + std::to_string(level) + ".");
 	}
 }
 

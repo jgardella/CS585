@@ -95,11 +95,14 @@ bool AttackState::targetInRange()
 void AttackState::attackTarget()
 {
 	DEBUG_LOG("ATTACKSTATE", "Attempting to attack ((Character*)actor)->getTarget().");
+	int damage;
 	int rand = std::rand() % 100 + 1;
 	int hitChance = character->getWeapon()->getHitChance() + (character->getLevel() - character->getTarget()->getLevel()) * 10 - character->getTarget()->getArmor()->getBlockChance();
 	if(rand <= hitChance)
 	{
-		character->getTarget()->takeDamage(character, character->getWeapon()->getDamage() - character->getArmor()->getDefence());
+		damage = character->getWeapon()->getDamage() - character->getArmor()->getDefence();
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " hits " + character->getTarget()->getType() + " #" + std::to_string(character->getTarget()->getID()) + " with " + character->getWeapon()->getName() + ", dealing " + std::to_string(damage) + " damage.");
+		character->getTarget()->takeDamage(character, damage);
 	}
 }
 

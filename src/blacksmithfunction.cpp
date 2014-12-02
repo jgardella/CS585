@@ -18,8 +18,10 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 				{
 					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("weaponupgradeonecost"));
 					behavioralConfig->add("weaponlevel",  weaponLevel + 1);
+					MenuManager::getInstance()->setAlertString("Upgraded weaponsmith to level 2.");
 					return true;
 				}
+				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("weaponupgradeonecost")) + " g)");
 			}
 			else if(weaponLevel == 2)
 			{
@@ -27,8 +29,10 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 				{
 					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("weaponupgradetwocost"));
 					behavioralConfig->add("weaponlevel",  weaponLevel + 1);
+					MenuManager::getInstance()->setAlertString("Upgraded weaponsmith to level 3.");
 					return true;
 				}
+				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("weaponupgradetwocost")) + " g)");
 			}
 			break;
 		case 'a':
@@ -39,8 +43,10 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 				{
 					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("armorupgradeonecost"));
 					behavioralConfig->add("armorlevel",  armorLevel + 1);
+					MenuManager::getInstance()->setAlertString("Upgraded armorer to level 2.");
 					return true;
 				}
+				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("armorupgradeonecost")) + " g)");
 			}
 			else if(armorLevel == 2)
 			{
@@ -48,8 +54,10 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 				{
 					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("armorupgradetwocost"));
 					behavioralConfig->add("armorlevel",  armorLevel + 1);
+					MenuManager::getInstance()->setAlertString("Upgraded armorer to level 3.");
 					return true;
 				}
+				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("armorupgradetwocost")) + " g)");
 			}
 			break;
 	}
