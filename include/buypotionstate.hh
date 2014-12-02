@@ -16,7 +16,6 @@ class BuyPotionState : public IState
 	private:
 		bool isShopping;
 		Character* character;
-		Building* apothecary;
 
 		void buyPotion();
 };

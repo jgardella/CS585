@@ -4,7 +4,6 @@ BuyWeaponState::BuyWeaponState(Character* character) : IState(character)
 {
 	this->character = character;
 	isShopping = false;
-	blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
 }
 
 void BuyWeaponState::tick(float dt)
@@ -13,14 +12,14 @@ void BuyWeaponState::tick(float dt)
 	if(isShopping)
 	{
 		isShopping = false;
-		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), blacksmith->getEntranceX(), blacksmith->getEntranceY());
+		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX(), LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY());
 		dispatcher->dispatch(new StateEvent("patrol"));
 	}
 	else
 	{
-		if(character->getX() == blacksmith->getEntranceX() && character->getY() == blacksmith->getEntranceY())
+		if(character->getX() == LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX() && character->getY() == LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY())
 		{
-			pos = blacksmith->getNextAvailablePosition();
+			pos = LevelManager::getInstance()->getBlacksmith(character->getTeam())->getNextAvailablePosition();
 			if(pos != NULL)
 			{
 				buyWeapon();
@@ -38,10 +37,10 @@ void BuyWeaponState::tick(float dt)
 
 void BuyWeaponState::moveToBlacksmith()
 {
-	int xDist = ((Character*)actor)->getX() - blacksmith->getEntranceX();
-	int yDist = ((Character*)actor)->getY() - blacksmith->getEntranceY();
-	int newX = ((Character*)actor)->getX();
-	int newY = ((Character*)actor)->getY();
+	int xDist = character->getX() - LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX();
+	int yDist = character->getY() - LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY();
+	int newX = character->getX();
+	int newY = character->getY();
 	if(yDist < 0)
 	{
 		newY += 1;
@@ -58,7 +57,7 @@ void BuyWeaponState::moveToBlacksmith()
 	{
 		newX -= 1;
 	}
-	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+	SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), newX, newY);
 }
 
 void BuyWeaponState::buyWeapon()
@@ -66,20 +65,20 @@ void BuyWeaponState::buyWeapon()
 	int weapQuality = character->getWeapon()->getQuality();
 	if(weapQuality == 0)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("daggercost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("dagger"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("daggercost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost"));
 	}
-	if(weapQuality == 1 && blacksmith->getProperty("weaponlevel") >= 2)
+	if(weapQuality == 1 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("weaponlevel") >= 2)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("swordcost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("swordcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("sword"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("swordcost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("swordcost"));
 	}
-	if(weapQuality == 2 && blacksmith->getProperty("weaponlevel") >= 3)
+	if(weapQuality == 2 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("weaponlevel") >= 3)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("warhammercost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("warhammercost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("warhammer"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("warhammercost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("warhammercost"));
 	}
 }

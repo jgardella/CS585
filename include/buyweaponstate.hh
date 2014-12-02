@@ -16,7 +16,6 @@ class BuyWeaponState : public IState
 	private:
 		bool isShopping;
 		Character* character;
-		Building* blacksmith;
 
 		void buyWeapon();
 };

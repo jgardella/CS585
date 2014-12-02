@@ -4,7 +4,6 @@ BuyArmorState::BuyArmorState(Character* character) : IState(character)
 {
 	this->character = character;
 	isShopping = false;
-	blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
 }
 
 void BuyArmorState::tick(float dt)
@@ -13,14 +12,14 @@ void BuyArmorState::tick(float dt)
 	if(isShopping)
 	{
 		isShopping = false;
-		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), blacksmith->getEntranceX(), blacksmith->getEntranceY());
+		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX(), LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY());
 		dispatcher->dispatch(new StateEvent("patrol"));
 	}
 	else
 	{
-		if(character->getX() == blacksmith->getEntranceX() && character->getY() == blacksmith->getEntranceY())
+		if(character->getX() == LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX() && character->getY() == LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY())
 		{
-			pos = blacksmith->getNextAvailablePosition();
+			pos = LevelManager::getInstance()->getBlacksmith(character->getTeam())->getNextAvailablePosition();
 			if(pos != NULL)
 			{
 				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
@@ -38,8 +37,8 @@ void BuyArmorState::tick(float dt)
 
 void BuyArmorState::moveToBlacksmith()
 {
-	int xDist = ((Character*)actor)->getX() - blacksmith->getEntranceX();
-	int yDist = ((Character*)actor)->getY() - blacksmith->getEntranceY();
+	int xDist = ((Character*)actor)->getX() - LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceX();
+	int yDist = ((Character*)actor)->getY() - LevelManager::getInstance()->getBlacksmith(character->getTeam())->getEntranceY();
 	int newX = ((Character*)actor)->getX();
 	int newY = ((Character*)actor)->getY();
 	if(yDist < 0)
@@ -63,24 +62,23 @@ void BuyArmorState::moveToBlacksmith()
 
 void BuyArmorState::buyArmor()
 {
-	Building* blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
 	int armQuality = character->getArmor()->getQuality();
 	if(armQuality == 0)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("bronzecost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("bronze"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("bronzecost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost"));
 	}
-	if(armQuality == 1 && blacksmith->getProperty("armorlevel") >= 2)
+	if(armQuality == 1 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("armorlevel") >= 2)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("ironcost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("ironcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("iron"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("ironcost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("ironcost"));
 	}
-	if(armQuality == 2 && blacksmith->getProperty("armorlevel") >= 3)
+	if(armQuality == 2 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("armorlevel") >= 3)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("steelcost") * blacksmith->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("steelcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("steel"));
-		character->setGold(character->getGold() - (int)blacksmith->getProperty("steelcost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("steelcost"));
 	}
 }

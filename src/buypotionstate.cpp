@@ -4,7 +4,6 @@ BuyPotionState::BuyPotionState(Character* character) : IState(character)
 {
 	this->character = character;
 	isShopping = false;
-	apothecary = LevelManager::getInstance()->getApothecary(character->getTeam());
 }
 
 void BuyPotionState::tick(float dt)
@@ -13,14 +12,14 @@ void BuyPotionState::tick(float dt)
 	if(isShopping)
 	{
 		isShopping = false;
-		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), apothecary->getEntranceX(), apothecary->getEntranceY());
+		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceX(), LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceY());
 		dispatcher->dispatch(new StateEvent("patrol"));
 	}
 	else
 	{
-		if(character->getX() == apothecary->getEntranceX() && character->getY() == apothecary->getEntranceY())
+		if(character->getX() == LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceX() && character->getY() == LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceY())
 		{
-			pos = apothecary->getNextAvailablePosition();
+			pos = LevelManager::getInstance()->getApothecary(character->getTeam())->getNextAvailablePosition();
 			if(pos != NULL)
 			{
 				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
@@ -38,8 +37,8 @@ void BuyPotionState::tick(float dt)
 
 void BuyPotionState::moveToApothecary()
 {
-	int xDist = ((Character*)actor)->getX() - apothecary->getEntranceX();
-	int yDist = ((Character*)actor)->getY() - apothecary->getEntranceY();
+	int xDist = ((Character*)actor)->getX() - LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceX();
+	int yDist = ((Character*)actor)->getY() - LevelManager::getInstance()->getApothecary(character->getTeam())->getEntranceY();
 	int newX = ((Character*)actor)->getX();
 	int newY = ((Character*)actor)->getY();
 	if(yDist < 0)
@@ -63,22 +62,22 @@ void BuyPotionState::moveToApothecary()
 
 void BuyPotionState::buyPotion()
 {
-	if(character->getGold() >= apothecary->getProperty("lessercost"))
+	if(character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost"))
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("lessercost") * apothecary->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("lesser"));
-		character->setGold(character->getGold() - (int)apothecary->getProperty("lessercost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost"));
 	}
-	if(character->getGold() >= apothecary->getProperty("moderatecost") && apothecary->getProperty("level") == 2)
+	if(character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost") && LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("level") == 2)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("moderatecost") * apothecary->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("moderate"));
-		character->setGold(character->getGold() - (int)apothecary->getProperty("moderatecost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost"));
 	}
-	if(character->getGold() >= apothecary->getProperty("severecost") && apothecary->getProperty("level") == 3)
+	if(character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost") && LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("level") == 3)
 	{
-		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("severecost") * apothecary->getProperty("taxrate")));
+		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("severe"));
-		character->setGold(character->getGold() - (int)apothecary->getProperty("severecost"));
+		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost"));
 	}
 }
