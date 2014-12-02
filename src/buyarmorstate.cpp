@@ -67,18 +67,21 @@ void BuyArmorState::buyArmor()
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("bronze"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought bronze armor.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost"));
 	}
 	if(armQuality == 1 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("armorlevel") >= 2)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("ironcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("iron"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought iron armor.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("ironcost"));
 	}
 	if(armQuality == 2 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("armorlevel") >= 3)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("steelcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setArmor(ArmorFactory::get("steel"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought steel armor.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("steelcost"));
 	}
 }

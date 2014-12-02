@@ -28,6 +28,7 @@ void DrinkState::tick(float dt)
 			if(pos != NULL)
 			{
 				SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
+				buyDrink();
 				isDrinking = true;
 			}
 		}
@@ -66,22 +67,26 @@ void DrinkState::moveToHome()
 
 void DrinkState::buyDrink()
 {
-	if(character->getGold() >= home->getProperty("lessercost"))
-	{
-		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("lessercost") * home->getProperty("taxrate"))));
-		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("lessercost") * home->getProperty("taxrate")));
-		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("lessercost"));
-	}
-	if(character->getGold() >= home->getProperty("averagecost") && home->getProperty("level") >= 2)
-	{
-		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("averagecost") * home->getProperty("taxrate"))));
-		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("averagecost") * home->getProperty("taxrate")));
-		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("averagecost"));
-	}
+	DEBUG_LOG("DRINKSTATE", "Dwarf buying a drink.");
 	if(character->getGold() >= home->getProperty("mastercost") && home->getProperty("level") >= 3)
 	{
 		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("mastercost") * home->getProperty("taxrate"))));
 		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("mastercost") * home->getProperty("taxrate")));
+		MenuManager::getInstance()->setAlertString(((Character*)actor)->getType() + " #" + std::to_string(((Character*)actor)->getID()) + " bought a pint of masterbrew.");
 		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("mastercost"));
+	}
+	else if(character->getGold() >= home->getProperty("averagecost") && home->getProperty("level") >= 2)
+	{
+		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("averagecost") * home->getProperty("taxrate"))));
+		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("averagecost") * home->getProperty("taxrate")));
+		MenuManager::getInstance()->setAlertString(((Character*)actor)->getType() + " #" + std::to_string(((Character*)actor)->getID()) + " bought a pint of average brew.");
+		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("averagecost"));
+	}
+	else if(character->getGold() >= home->getProperty("lessercost"))
+	{
+		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("lessercost") * home->getProperty("taxrate"))));
+		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("lessercost") * home->getProperty("taxrate")));
+		MenuManager::getInstance()->setAlertString(((Character*)actor)->getType() + " #" + std::to_string(((Character*)actor)->getID()) + " bought a pint of lesser brew.");
+		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("lessercost"));
 	}
 }

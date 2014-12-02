@@ -6,6 +6,7 @@
 #include "building.hh"
 #include "levelmanager.hh"
 #include "armorfactory.hh"
+#include "buyarmorstate.hh"
 
 class BuyArmorState : public IState
 {

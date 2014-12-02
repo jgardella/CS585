@@ -7,6 +7,7 @@
 #include "building.hh"
 #include "iactor.hh"
 #include "levelmanager.hh"
+#include "menumanager.hh"
 
 class DrinkState : public IState
 {

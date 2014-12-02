@@ -67,18 +67,21 @@ void BuyWeaponState::buyWeapon()
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("dagger"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a dagger.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost"));
 	}
 	if(weapQuality == 1 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("weaponlevel") >= 2)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("swordcost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("sword"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a sword.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("swordcost"));
 	}
 	if(weapQuality == 2 && LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("weaponlevel") >= 3)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("warhammercost") * LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("taxrate")));
 		character->setWeapon(WeaponFactory::get("warhammer"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a warhammer.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("warhammercost"));
 	}
 }

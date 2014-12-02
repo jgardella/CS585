@@ -280,6 +280,7 @@ unsigned int Character::getMaxHealth()
 void Character::usePotion()
 {
 	health = potion->getHealValue() + health >= maxHealth ? maxHealth : potion->getHealValue() + health;
+	MenuManager::getInstance()->setAlertString(getType() + " #" + std::to_string(getID()) + " used a " + potion->getName() + " health potion, healing " + std::to_string(potion->getHealValue()) + " HP.");
 	delete potion;
 	potion = NULL;
 }

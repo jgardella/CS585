@@ -66,18 +66,21 @@ void BuyPotionState::buyPotion()
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("lesser"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a lesser health potion.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost"));
 	}
 	if(character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost") && LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("level") == 2)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("moderate"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a moderate health potion.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("moderatecost"));
 	}
 	if(character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost") && LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("level") == 3)
 	{
 		LevelManager::getInstance()->changePlayerGold((int)(LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost") * LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("taxrate")));
 		character->setPotion(HealthPotionFactory::get("severe"));
+		MenuManager::getInstance()->setAlertString(character->getType() + " #" + std::to_string(character->getID()) + " bought a severe health potion.");
 		character->setGold(character->getGold() - (int)LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("severecost"));
 	}
 }

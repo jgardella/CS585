@@ -6,6 +6,7 @@
 #include "building.hh"
 #include "levelmanager.hh"
 #include "healthpotionfactory.hh"
+#include "menumanager.hh"
 
 class BuyPotionState : public IState
 {
