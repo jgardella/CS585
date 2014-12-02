@@ -22,12 +22,9 @@ class Building : public IActor
 		virtual std::string inspect();
 		virtual bool sendKeyPress(int key, int cursorX, int cursorY);
 		float getProperty(std::string name);
-		unsigned int getLevel();
-		void setLevel(unsigned int level);
 
 	private:
 		int entranceX, entranceY;
-		unsigned int level;
 		unsigned int corner1X, corner1Y;
 		unsigned int teamNum;
 		DynamicArray<SceneNode*>* sceneNodes;
