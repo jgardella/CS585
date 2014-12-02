@@ -19,6 +19,9 @@ class PatrolState : public IState
 	private:
 		Character* character;
 		Building* home;
+
+		bool hasEnoughGoldForNextWeapon();
+		bool hasEnoughGoldForNextArmor();
 };
 
 #endif

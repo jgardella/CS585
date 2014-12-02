@@ -11,6 +11,12 @@
 		"bronzecost" : 5.0,
 		"silvercost" : 10.0,
 		"steelcost" : 15.0,
-		"taxrate" : 0.5
+		"taxrate" : 0.5,
+		"weaponlevel" : 1.0,
+		"weaponupgradeonecost" : 10.0,
+		"weaponupgradetwocost" : 20.0,
+		"armorlevel" : 1.0,
+		"armorupgradeonecost" : 10.0,
+		"armorupgradetwocost" : 20.0
 	}
 }

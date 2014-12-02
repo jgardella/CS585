@@ -52,15 +52,21 @@ void PatrolState::tick(float dt)
 			DEBUG_LOG("PATROLSTATE", "Character switching to drink state.");
 			dispatcher->dispatch(new StateEvent("drink"));
 		}
-		else if(LevelManager::getInstance()->isBlacksmithBuilt() && character->getGold() >= LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("daggercost"))
+		else if(LevelManager::getInstance()->isBlacksmithBuilt())
 		{
-			DEBUG_LOG("PATROLSTATE", "Character switching to buy weapon state.");
-			dispatcher->dispatch(new StateEvent("buyweapon"));
+			if(hasEnoughGoldForNextWeapon())
+			{
+				DEBUG_LOG("PATROLSTATE", "Character switching to buy weapon state.");
+				dispatcher->dispatch(new StateEvent("buyweapon"));
+			}
 		}
-		else if(LevelManager::getInstance()->isBlacksmithBuilt() && character->getGold() >= LevelManager::getInstance()->getBlacksmith(character->getTeam())->getProperty("bronzecost"))
+		else if(LevelManager::getInstance()->isBlacksmithBuilt())
 		{
-			DEBUG_LOG("PATROLSTATE", "Character switching to buy armor state.");
-			dispatcher->dispatch(new StateEvent("buyarmor"));
+			if(hasEnoughGoldForNextArmor())
+			{
+				DEBUG_LOG("PATROLSTATE", "Character switching to buy armor state.");
+				dispatcher->dispatch(new StateEvent("buyarmor"));
+			}
 		}
 		else if(LevelManager::getInstance()->isApothecaryBuilt() && character->getGold() >= LevelManager::getInstance()->getApothecary(character->getTeam())->getProperty("lessercost") && character->getPotion() == NULL)
 		{
@@ -69,4 +75,42 @@ void PatrolState::tick(float dt)
 		}
 	}
 	dispatcher->tick(dt);
+}
+
+bool PatrolState::hasEnoughGoldForNextWeapon()
+{
+	Building* blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
+	int weapQuality = character->getWeapon()->getQuality();
+	if(weapQuality == 0)
+	{
+		return character->getGold() >= blacksmith->getProperty("daggercost");
+	}
+	if(weapQuality == 1)
+	{
+		return character->getGold() >= blacksmith->getProperty("swordcost");
+	}
+	if(weapQuality == 2)
+	{
+		return character->getGold() >= blacksmith->getProperty("warhammercost");
+	}
+	return false;
+}
+
+bool PatrolState::hasEnoughGoldForNextArmor()
+{
+	Building* blacksmith = LevelManager::getInstance()->getBlacksmith(character->getTeam());
+	int armQuality = character->getArmor()->getQuality();
+	if(armQuality == 0)
+	{
+		return character->getGold() >= blacksmith->getProperty("bronzecost");
+	}
+	if(armQuality == 1)
+	{
+		return character->getGold() >= blacksmith->getProperty("ironcost");
+	}
+	if(armQuality == 2)
+	{
+		return character->getGold() >= blacksmith->getProperty("steelcost");
+	}
+	return false;
 }

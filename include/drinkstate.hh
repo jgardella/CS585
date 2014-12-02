@@ -11,12 +11,15 @@
 class DrinkState : public IState
 {
 	public:
-		DrinkState(IActor* actor);
+		DrinkState(Character* character);
 		void tick(float dt);
 		void moveToHome();
 	private:
 		Building* home;
+		Character* character;
 		bool isDrinking;
+
+		void buyDrink();
 };
 
 #endif

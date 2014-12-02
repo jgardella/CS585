@@ -12,6 +12,7 @@ Building::Building(std::string type, unsigned int corner1X, unsigned int corner1
 	this->corner1Y = corner1Y;
 	this->entranceX = corner1X + width/2;
 	this->entranceY = corner1Y - 1;
+	this->level = 1;
 	for(i = corner1X; i <= width + corner1X; i++)
 	{
 		sceneNodes->pushBack(new SceneNode(i, corner1Y, *this, NULL, NULL));
@@ -80,4 +81,14 @@ tPosition* Building::getNextAvailablePosition()
 float Building::getProperty(std::string name)
 {
 	return *behavioralConfig->get(name);
+}
+
+unsigned int Building::getLevel()
+{
+	return level;
+}
+
+void Building::setLevel(unsigned int level)
+{
+	this->level = level;
 }

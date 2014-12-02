@@ -1,8 +1,9 @@
 #include "drinkstate.hh"
 
-DrinkState::DrinkState(IActor* actor) : IState(actor)
+DrinkState::DrinkState(Character* character) : IState(character)
 {
-	home = LevelManager::getInstance()->getHome(((Character*)actor)->getTeam());
+	this->character = character;
+	home = LevelManager::getInstance()->getHome(character->getTeam());
 	isDrinking = false;
 }
 
@@ -11,23 +12,20 @@ void DrinkState::tick(float dt)
 	tPosition* pos;
 	if(isDrinking)
 	{
-		((Character*)actor)->drink();
-		if(((Character*)actor)->hasMaxHydration())
+		character->drink();
+		if(character->hasMaxHydration())
 		{
-			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), home->getEntranceX(), home->getEntranceY());
+			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), home->getEntranceX(), home->getEntranceY());
 			isDrinking = false;
 			dispatcher->dispatch(new StateEvent("patrol"));
 		}
 	}
 	else
 	{
-		if(home->getEntranceX() == ((Character*)actor)->getX() && home->getEntranceY() == ((Character*)actor)->getY())
+		if(home->getEntranceX() == character->getX() && home->getEntranceY() == character->getY())
 		{
 			pos = home->getNextAvailablePosition();
-			SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), pos->x, pos->y);
-			DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("drinkcost") * home->getProperty("taxrate"))));
-			LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("drinkcost") * home->getProperty("taxrate")));
-			((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("drinkcost"));
+			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
 			isDrinking = true;
 		}
 		else
@@ -40,10 +38,10 @@ void DrinkState::tick(float dt)
 
 void DrinkState::moveToHome()
 {
-	int xDist = ((Character*)actor)->getX() - home->getEntranceX();
-	int yDist = ((Character*)actor)->getY() - home->getEntranceY();
-	int newX = ((Character*)actor)->getX();
-	int newY = ((Character*)actor)->getY();
+	int xDist = character->getX() - home->getEntranceX();
+	int yDist = character->getY() - home->getEntranceY();
+	int newX = character->getX();
+	int newY = character->getY();
 	if(yDist < 0)
 	{
 		newY += 1;
@@ -60,5 +58,27 @@ void DrinkState::moveToHome()
 	{
 		newX -= 1;
 	}
-	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+	SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), newX, newY);
+}
+
+void DrinkState::buyDrink()
+{
+	if(character->getGold() >= home->getProperty("lessercost"))
+	{
+		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("lessercost") * home->getProperty("taxrate"))));
+		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("lessercost") * home->getProperty("taxrate")));
+		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("lessercost"));
+	}
+	if(character->getGold() >= home->getProperty("averagecost") && home->getProperty("level") >= 2)
+	{
+		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("averagecost") * home->getProperty("taxrate"))));
+		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("averagecost") * home->getProperty("taxrate")));
+		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("averagecost"));
+	}
+	if(character->getGold() >= home->getProperty("mastercost") && home->getProperty("level") >= 3)
+	{
+		DEBUG_LOG("DRINKSTATE", "Changing player gold by amount: " + std::to_string((int)(home->getProperty("mastercost") * home->getProperty("taxrate"))));
+		LevelManager::getInstance()->changePlayerGold((int)(home->getProperty("mastercost") * home->getProperty("taxrate")));
+		((Character*)actor)->setGold(((Character*)actor)->getGold() - (int)home->getProperty("mastercost"));
+	}
 }

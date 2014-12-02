@@ -17,6 +17,8 @@ class BuyPotionState : public IState
 		bool isShopping;
 		Character* character;
 		Building* apothecary;
+
+		void buyPotion();
 };
 
 #endif

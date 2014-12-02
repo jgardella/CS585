@@ -21,10 +21,8 @@ void BuyWeaponState::tick(float dt)
 		if(character->getX() == blacksmith->getEntranceX() && character->getY() == blacksmith->getEntranceY())
 		{
 			pos = blacksmith->getNextAvailablePosition();
+			buyWeapon();
 			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
-			LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("daggercost") * blacksmith->getProperty("taxrate")));
-			character->setWeapon(WeaponFactory::get("dagger"));
-			character->setGold(character->getGold() - (int)blacksmith->getProperty("daggercost"));
 			isShopping = true;
 		}
 		else
@@ -57,4 +55,27 @@ void BuyWeaponState::moveToBlacksmith()
 		newX -= 1;
 	}
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+}
+
+void BuyWeaponState::buyWeapon()
+{
+	int weapQuality = character->getWeapon()->getQuality();
+	if(weapQuality == 0)
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("daggercost") * blacksmith->getProperty("taxrate")));
+		character->setWeapon(WeaponFactory::get("dagger"));
+		character->setGold(character->getGold() - (int)blacksmith->getProperty("daggercost"));
+	}
+	if(weapQuality == 1 && blacksmith->getProperty("weaponlevel") >= 2)
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("swordcost") * blacksmith->getProperty("taxrate")));
+		character->setWeapon(WeaponFactory::get("sword"));
+		character->setGold(character->getGold() - (int)blacksmith->getProperty("swordcost"));
+	}
+	if(weapQuality == 2 && blacksmith->getProperty("weaponlevel") >= 3)
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(blacksmith->getProperty("warhammercost") * blacksmith->getProperty("taxrate")));
+		character->setWeapon(WeaponFactory::get("warhammer"));
+		character->setGold(character->getGold() - (int)blacksmith->getProperty("warhammercost"));
+	}
 }

@@ -12,6 +12,8 @@ Building* BuildingFactory::get(std::string type, unsigned int corner1X, unsigned
 		function = new GrandHallFunction(corner1X + 2, corner1Y - 1, info->behavioralConfig);
 	else if(type.compare("blacksmith") == 0)
 		function = new BlacksmithFunction(info->behavioralConfig);
+	else if(type.compare("apothecary") == 0)
+		function = new ApothecaryFunction(info->behavioralConfig);
 	Building* building = new Building(type, corner1X, corner1Y, teamNum, info->behavioralConfig, function);
 	DynamicArray<SceneNode*>* nodes = building->getSceneNodes();
 	for(i = 0; i < nodes->length(); i++)

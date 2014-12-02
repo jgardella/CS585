@@ -9,6 +9,7 @@ GrandHallFunction::GrandHallFunction(int spawnX, int spawnY, Trie<double>* behav
 
 bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 {
+	int level;
 	switch(key)
 	{
 		case 'r':
@@ -35,6 +36,27 @@ bool GrandHallFunction::parseKeyPress(int key, int cursorX, int cursorY)
 				LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("apothecarycost"));
 				LevelManager::getInstance()->setApothecaryBuilt(true);
 				return true;
+			}
+			break;
+		case 'u':
+			level = *behavioralConfig->get("level");
+			if(level == 1)
+			{
+				if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("upgradeonecost"))
+				{
+					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("upgradeonecost"));
+					behavioralConfig->add("level",  level + 1);
+					return true;
+				}
+			}
+			else if(level == 2)
+			{
+				if(LevelManager::getInstance()->getPlayerGold() >= *behavioralConfig->get("upgradetwocost"))
+				{
+					LevelManager::getInstance()->changePlayerGold((int)-*behavioralConfig->get("upgradetwocost"));
+					behavioralConfig->add("level",  level + 1);
+					return true;
+				}
 			}
 			break;
 	}

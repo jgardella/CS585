@@ -1,0 +1,5 @@
+{
+	"key" : "menu",
+	"name" : "blacksmith",
+	"options" : [ "w - Upgrade Weaponsmith", "a - Upgrade Armorer" ]
+}

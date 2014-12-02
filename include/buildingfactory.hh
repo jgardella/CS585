@@ -11,6 +11,7 @@
 #include "buildingfunction.hh"
 #include "grandhallfunction.hh"
 #include "blacksmithfunction.hh"
+#include "apothecaryfunction.hh"
 
 class BuildingFactory
 {

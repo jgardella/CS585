@@ -13,7 +13,6 @@ void BuyPotionState::tick(float dt)
 	if(isShopping)
 	{
 		isShopping = false;
-		character->setPotion(HealthPotionFactory::get("lesser"));
 		SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), apothecary->getEntranceX(), apothecary->getEntranceY());
 		dispatcher->dispatch(new StateEvent("patrol"));
 	}
@@ -23,9 +22,7 @@ void BuyPotionState::tick(float dt)
 		{
 			pos = apothecary->getNextAvailablePosition();
 			SceneManager::getInstance()->updateSceneNode(character->getSceneNode(), pos->x, pos->y);
-			LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("lessercost") * apothecary->getProperty("taxrate")));
-			character->setPotion(HealthPotionFactory::get("lesser"));
-			character->setGold(character->getGold() - (int)apothecary->getProperty("lessercost"));
+			buyPotion();
 			isShopping = true;
 		}
 		else
@@ -58,4 +55,26 @@ void BuyPotionState::moveToApothecary()
 		newX -= 1;
 	}
 	SceneManager::getInstance()->updateSceneNode(((Character*)actor)->getSceneNode(), newX, newY);
+}
+
+void BuyPotionState::buyPotion()
+{
+	if(character->getGold() >= apothecary->getProperty("lessercost"))
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("lessercost") * apothecary->getProperty("taxrate")));
+		character->setPotion(HealthPotionFactory::get("lesser"));
+		character->setGold(character->getGold() - (int)apothecary->getProperty("lessercost"));
+	}
+	if(character->getGold() >= apothecary->getProperty("moderatecost") && apothecary->getProperty("level") == 2)
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("moderatecost") * apothecary->getProperty("taxrate")));
+		character->setPotion(HealthPotionFactory::get("moderate"));
+		character->setGold(character->getGold() - (int)apothecary->getProperty("moderatecost"));
+	}
+	if(character->getGold() >= apothecary->getProperty("severecost") && apothecary->getProperty("level") == 3)
+	{
+		LevelManager::getInstance()->changePlayerGold((int)(apothecary->getProperty("severecost") * apothecary->getProperty("taxrate")));
+		character->setPotion(HealthPotionFactory::get("severe"));
+		character->setGold(character->getGold() - (int)apothecary->getProperty("severecost"));
+	}
 }
