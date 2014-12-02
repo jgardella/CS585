@@ -22,6 +22,7 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("weaponupgradeonecost")) + " g)");
+				return false;
 			}
 			else if(weaponLevel == 2)
 			{
@@ -33,7 +34,9 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("weaponupgradetwocost")) + " g)");
+				return false;
 			}
+			MenuManager::getInstance()->setAlertString("Weaponsmith fully upgraded.");
 			break;
 		case 'a':
 			armorLevel = *behavioralConfig->get("armorlevel");
@@ -47,6 +50,7 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("armorupgradeonecost")) + " g)");
+				return false;
 			}
 			else if(armorLevel == 2)
 			{
@@ -58,7 +62,9 @@ bool BlacksmithFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("armorupgradetwocost")) + " g)");
+				return false;
 			}
+			MenuManager::getInstance()->setAlertString("Armorer fully upgraded.");
 			break;
 	}
 	return false;

@@ -22,6 +22,7 @@ bool ApothecaryFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("upgradeonecost")) + " g)");
+				return false;
 			}
 			else if(level == 2)
 			{
@@ -33,11 +34,9 @@ bool ApothecaryFunction::parseKeyPress(int key, int cursorX, int cursorY)
 					return true;
 				}
 				MenuManager::getInstance()->setAlertString("You don't have enough gold! (need " + std::to_string(*behavioralConfig->get("upgradetwocost")) + " g)");
+				return false;
 			}
-			else
-			{
-				MenuManager::getInstance()->setAlertString("Apothecary is fully upgraded.");
-			}
+			MenuManager::getInstance()->setAlertString("Apothecary is fully upgraded.");
 			break;
 	}
 	return false;

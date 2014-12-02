@@ -2,7 +2,7 @@
 	"key" : "level",
 	"width" : 20,
 	"height" : 20,
-	"initialgold" : 100,
+	"initialgold" : 50,
 	"defaulttile" : "dirt",
 	"tree" : [ ],
 	"water" : [ ],
